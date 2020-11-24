@@ -1,0 +1,102 @@
+plugins {
+    id 'org.springframework.boot' version '2.3.3.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.10.RELEASE'
+    id 'java'
+    //querydsl 추가
+    id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
+
+    // spring rest docs를 사용하기 위한 asciidoctor 플러그인 설정
+    id "org.asciidoctor.convert" version "1.5.9.2"
+}
+
+group = 'org.doif'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+// gradle build 시 test --> asciidoctor 순으로 수행
+asciidoctor {
+    dependsOn test
+}
+
+// gradle build 시 asciidoctor --> bootJar 순으로 수행
+bootJar {
+    dependsOn asciidoctor
+    // gradle build 시 ./build/asciidoc/html5/ 에 html 파일 생성 --> 이 파일을 jar 안에 /static/docs/ 폴더에 복사
+    from ("${asciidoctor.outputDir}/html5") {
+        into 'static/docs'
+    }
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-cache'
+
+
+    //querydsl 추가
+    implementation 'com.querydsl:querydsl-jpa'
+
+    // query spy
+    implementation("com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.6.2")
+
+    // json web token
+    implementation 'io.jsonwebtoken:jjwt:0.9.1'
+
+    compile group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.6.2'
+    compile group: 'com.github.ulisesbocchio', name: 'jasypt-spring-boot-starter', version: '3.0.3'
+    compile group: 'org.tmatesoft.svnkit', name: 'svnkit', version: '1.10.1'
+
+    // ehcache
+    compile group: 'org.ehcache', name: 'ehcache', version: '3.8.1'
+    compile group: 'javax.cache', name: 'cache-api', version: '1.1.1'
+
+    // maven model
+    compile group: 'org.apache.maven', name: 'maven-model', version: '3.6.3'
+
+    // jdom
+    compile group: 'org.jdom', name: 'jdom', version: '2.0.2'
+
+    compileOnly 'org.projectlombok:lombok'
+    runtimeOnly 'com.h2database:h2'
+    runtimeOnly 'mysql:mysql-connector-java'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+    testImplementation 'org.springframework.security:spring-security-test'
+
+    // mockmvc를 restdocs에 사용할 수 있게 하는 라이브러리
+    testImplementation('org.springframework.restdocs:spring-restdocs-mockmvc')
+}
+
+test {
+    useJUnitPlatform()
+}
+
+//querydsl 추가 시작
+def querydslDir = "$buildDir/generated/querydsl"
+querydsl {
+    jpa = true
+    querydslSourcesDir = querydslDir
+}
+sourceSets {
+    main.java.srcDir querydslDir
+}
+configurations {
+    querydsl.extendsFrom compileClasspath
+}
+compileQuerydsl {
+    options.annotationProcessorPath = configurations.querydsl
+}
+//querydsl 추가 끝

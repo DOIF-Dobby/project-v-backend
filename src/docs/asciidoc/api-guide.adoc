@@ -1,0 +1,171 @@
+ifndef::snippets[]
+:snippets: ../../../build/generated-snippets
+endif::[]
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 2
+:sectlinks:
+:docinfo: shared-head
+:operation-http-request-title: Example Request
+:operation-http-response-title: Example Response
+
+[[api-guide]]
+= API Guide
+
+== 추가, 수정, 삭제시 공통 응답
+
+[[common-response]]
+include::{snippets}/common/common-response/code-response-fields.adoc[]
+include::{snippets}/common/code-response/code-response-fields-responseCode.adoc[]
+
+[[resources-project]]
+== 프로젝트
+
+[[resources-project-select]]
+=== 프로젝트 조회
+==== 요청
+include::{snippets}/project/select/http-request.adoc[]
+==== 응답
+include::{snippets}/project/select/http-response.adoc[]
+include::{snippets}/project/select/response-fields-beneath-content.adoc[]
+
+[[resources-project-insert]]
+=== 프로젝트 추가
+==== 요청
+include::{snippets}/project/insert/http-request.adoc[]
+include::{snippets}/project/insert/request-fields.adoc[]
+==== 응답
+include::{snippets}/project/insert/http-response.adoc[]
+
+[[resources-project-update]]
+=== 프로젝트 변경
+==== 요청
+include::{snippets}/project/update/http-request.adoc[]
+include::{snippets}/project/update/path-parameters.adoc[]
+include::{snippets}/project/update/request-fields.adoc[]
+==== 응답
+include::{snippets}/project/update/http-response.adoc[]
+
+[[resources-project-delete]]
+=== 프로젝트 삭제
+==== 요청
+include::{snippets}/project/delete/http-request.adoc[]
+include::{snippets}/project/delete/path-parameters.adoc[]
+==== 응답
+include::{snippets}/project/delete/http-response.adoc[]
+
+[[resources-module]]
+== 모듈
+
+[[resources-module-select]]
+=== 모듈 조회
+==== 요청
+include::{snippets}/module/select/http-request.adoc[]
+include::{snippets}/module/select/request-fields.adoc[]
+==== 응답
+include::{snippets}/module/select/http-response.adoc[]
+include::{snippets}/module/select/response-fields-content.adoc[]
+
+[[resources-module-insert]]
+=== 모듈 추가
+==== 요청
+include::{snippets}/module/insert/http-request.adoc[]
+include::{snippets}/module/insert/request-fields.adoc[]
+==== 응답
+include::{snippets}/module/insert/http-response.adoc[]
+
+[[resources-module-update]]
+=== 모듈 수정
+==== 요청
+include::{snippets}/module/update/http-request.adoc[]
+include::{snippets}/module/update/path-parameters.adoc[]
+include::{snippets}/module/update/request-fields.adoc[]
+==== 응답
+include::{snippets}/module/update/http-response.adoc[]
+
+[[resources-module-delete]]
+=== 모듈 삭제
+==== 요청
+include::{snippets}/module/delete/http-request.adoc[]
+include::{snippets}/module/delete/path-parameters.adoc[]
+==== 응답
+include::{snippets}/module/delete/http-response.adoc[]
+
+
+[[resources-issue]]
+== 이슈
+
+[[resources-issue-select]]
+=== 이슈 조회
+==== 요청
+include::{snippets}/issue/select/http-request.adoc[]
+include::{snippets}/issue/select/request-fields.adoc[]
+==== 응답
+include::{snippets}/issue/select/http-response.adoc[]
+include::{snippets}/issue/select/response-fields.adoc[]
+include::{snippets}/issue/select/response-fields-pageInfo.content.adoc[]
+
+[[resources-issue-insert]]
+=== 이슈 추가
+==== 요청
+include::{snippets}/issue/insert/http-request.adoc[]
+include::{snippets}/issue/insert/request-fields.adoc[]
+==== 응답
+include::{snippets}/issue/insert/http-response.adoc[]
+
+[[resources-issue-update]]
+=== 이슈 수정
+==== 요청
+include::{snippets}/issue/update/http-request.adoc[]
+include::{snippets}/issue/update/path-parameters.adoc[]
+include::{snippets}/issue/update/request-fields.adoc[]
+==== 응답
+include::{snippets}/issue/update/http-response.adoc[]
+
+[[resources-issue-delete]]
+=== 이슈 삭제
+==== 요청
+include::{snippets}/issue/delete/http-request.adoc[]
+include::{snippets}/issue/delete/path-parameters.adoc[]
+==== 응답
+include::{snippets}/issue/delete/http-response.adoc[]
+
+[[resources-task]]
+== 작업
+
+[[resources-task-select]]
+=== 작업 조회
+==== 요청
+include::{snippets}/task/select/http-request.adoc[]
+include::{snippets}/task/select/request-fields.adoc[]
+==== 응답
+include::{snippets}/task/select/http-response.adoc[]
+include::{snippets}/task/select/response-fields.adoc[]
+include::{snippets}/task/select/response-fields-pageInfo.content.adoc[]
+
+[[resources-task-insert]]
+=== 작업 추가
+==== 요청
+include::{snippets}/task/insert/http-request.adoc[]
+include::{snippets}/task/insert/request-fields.adoc[]
+==== 응답
+include::{snippets}/task/insert/http-response.adoc[]
+
+[[resources-task-update]]
+=== 작업 수정
+==== 요청
+include::{snippets}/task/update/http-request.adoc[]
+include::{snippets}/task/update/path-parameters.adoc[]
+include::{snippets}/task/update/request-fields.adoc[]
+==== 응답
+include::{snippets}/task/update/http-response.adoc[]
+
+[[resources-task-delete]]
+=== 작업 삭제
+==== 요청
+include::{snippets}/task/delete/http-request.adoc[]
+include::{snippets}/task/delete/path-parameters.adoc[]
+==== 응답
+include::{snippets}/task/delete/http-response.adoc[]

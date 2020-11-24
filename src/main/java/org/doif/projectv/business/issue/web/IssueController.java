@@ -1,0 +1,43 @@
+package org.doif.projectv.business.issue.web;
+
+import lombok.RequiredArgsConstructor;
+import org.doif.projectv.business.issue.dto.IssueDto;
+import org.doif.projectv.business.issue.service.IssueService;
+import org.doif.projectv.common.response.CommonResponse;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/api/issue")
+@RequiredArgsConstructor
+public class IssueController {
+
+    private final IssueService issueService;
+
+    @GetMapping
+    public ResponseEntity<IssueDto.Response> searchByProjectId(@RequestBody IssueDto.Search search, Pageable pageable) {
+        Page<IssueDto.Result> content = issueService.searchByCondition(search, pageable);
+        IssueDto.Response response = new IssueDto.Response(content);
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping
+    public ResponseEntity<CommonResponse> insert(@RequestBody IssueDto.Insert dto) {
+        CommonResponse response = issueService.insert(dto);
+        return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<CommonResponse> update(@PathVariable Long id, @RequestBody IssueDto.Update dto) {
+        CommonResponse response = issueService.update(id, dto);
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<CommonResponse> delete(@PathVariable Long id) {
+        CommonResponse response = issueService.delete(id);
+        return ResponseEntity.ok(response);
+    }
+}
