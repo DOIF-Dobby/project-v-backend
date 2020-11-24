@@ -1,6 +1,14 @@
 spring:
   profiles:
     active: test
+
+###############
+## Local 환경 #
+###############
+---
+spring:
+  profiles: test
+
   datasource:
     url: jdbc:h2:tcp://localhost/~/dev/h2/database/projectv
     username: sa
@@ -22,3 +30,6 @@ logging.level:
 #jasypt:
 #  encryptor:
 #    bean: jasyptStringEncrptor
+
+svn:
+  tempDir: C:\Users\MJ\dev\temp

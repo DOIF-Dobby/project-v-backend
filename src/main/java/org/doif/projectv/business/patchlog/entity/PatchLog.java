@@ -48,13 +48,24 @@ public class PatchLog extends BaseEntity {
     @Column(name = "remark")
     private String remark;
 
-
-    public PatchLog(Version version, PatchTarget target, PatchStatus status, LocalDate patchScheduleDate, LocalDate patchDate) {
+    public PatchLog(Version version, PatchTarget target, PatchStatus status, LocalDate patchScheduleDate, String worker, String remark) {
         this.version = version;
         this.target = target;
         this.status = status;
         this.patchScheduleDate = patchScheduleDate;
+        this.worker = worker;
+        this.remark = remark;
+
+        version.getPatchLogs().add(this);
+    }
+
+    public void changePatchLog(PatchTarget target, PatchStatus status, LocalDate patchScheduleDate, LocalDate patchDate, String worker, String remark) {
+        this.target = target;
+        this.status = status;
+        this.patchScheduleDate = patchScheduleDate;
         this.patchDate = patchDate;
+        this.worker = worker;
+        this.remark = remark;
 
         version.getPatchLogs().add(this);
     }

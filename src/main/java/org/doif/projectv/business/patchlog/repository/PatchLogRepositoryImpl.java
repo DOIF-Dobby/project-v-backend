@@ -4,7 +4,7 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import org.doif.projectv.business.patchlog.constant.PatchStatus;
 import org.doif.projectv.business.patchlog.constant.PatchTarget;
 import org.doif.projectv.business.patchlog.dto.PatchLogDto;
-import org.doif.projectv.business.patchlog.dto.PatchLogSearchCondition;
+import org.doif.projectv.business.patchlog.dto.QPatchLogDto_Result;
 import org.doif.projectv.business.patchlog.entity.PatchLog;
 import org.doif.projectv.common.jpa.support.Querydsl4RepositorySupport;
 import org.springframework.data.domain.Page;
@@ -14,6 +14,7 @@ import java.time.LocalDate;
 
 import static org.doif.projectv.business.module.entity.QModule.module;
 import static org.doif.projectv.business.patchlog.entity.QPatchLog.patchLog;
+import static org.doif.projectv.business.version.entity.QVersion.version;
 import static org.springframework.util.StringUtils.isEmpty;
 
 public class PatchLogRepositoryImpl extends Querydsl4RepositorySupport implements PatchLogQueryRepository{
@@ -23,38 +24,43 @@ public class PatchLogRepositoryImpl extends Querydsl4RepositorySupport implement
     }
 
     @Override
-    public Page<PatchLogDto> searchByCondition(PatchLogSearchCondition condition, Pageable pageable) {
-//        return applyPagination(pageable, contentQuery -> contentQuery
-//                .select(new QPatchLogDto(
-//                        patchLog.id,
-//                        module.moduleName,
-//                        patchLog.target,
-//                        patchLog.status,
-//                        patchLog.patchScheduleDate,
-//                        patchLog.patchDate,
-//                        patchLog.worker,
-//                        patchLog.version,
-//                        patchLog.remark
-//                ))
-//                .from(patchLog)
-//                .join(patchLog.module, module)
-//                .where(
-//                        moduleIdEq(condition.getModuleId()),
-//                        targetEq(condition.getTarget()),
-//                        statusEq(condition.getStatus()),
-//                        patchScheduleDateGoe(condition.getPatchScheduleDateGoe()),
-//                        patchScheduleDateLt(condition.getPatchScheduleDateLt()),
-//                        patchDateGoe(condition.getPatchDateGoe()),
-//                        patchDateLt(condition.getPatchDateLt()),
-//                        workerEq(condition.getWorker())
-//                )
-//                .orderBy(patchLog.id.asc())
-//        );
-        return null;
+    public Page<PatchLogDto.Result> searchByCondition(PatchLogDto.Search search, Pageable pageable) {
+        return applyPagination(pageable, contentQuery -> contentQuery
+                .select(new QPatchLogDto_Result(
+                        patchLog.id,
+                        module.moduleName,
+                        version.name,
+                        patchLog.target,
+                        patchLog.status,
+                        patchLog.patchScheduleDate,
+                        patchLog.patchDate,
+                        patchLog.worker,
+                        patchLog.remark
+                ))
+                .from(patchLog)
+                .join(patchLog.version, version)
+                .join(version.module, module)
+                .where(
+                        moduleIdEq(search.getModuleId()),
+                        versionIdEq(search.getVersionId()),
+                        targetEq(search.getTarget()),
+                        statusEq(search.getStatus()),
+                        patchScheduleDateGoe(search.getPatchScheduleDateGoe()),
+                        patchScheduleDateLt(search.getPatchScheduleDateLt()),
+                        patchDateGoe(search.getPatchDateGoe()),
+                        patchDateLt(search.getPatchDateLt()),
+                        workerEq(search.getWorker())
+                )
+                .orderBy(patchLog.id.asc())
+        );
     }
 
     private BooleanExpression moduleIdEq(Long moduleId) {
         return isEmpty(moduleId) ? null : module.id.eq(moduleId);
+    }
+
+    private BooleanExpression versionIdEq(Long versionId) {
+        return isEmpty(versionId) ? null : version.id.eq(versionId);
     }
 
     private BooleanExpression targetEq(PatchTarget target) {

@@ -7,5 +7,5 @@ import org.springframework.data.domain.Pageable;
 
 public interface PatchLogQueryRepository {
 
-    Page<PatchLogDto> searchByCondition(PatchLogSearchCondition condition, Pageable pageable);
+    Page<PatchLogDto.Result> searchByCondition(PatchLogDto.Search search, Pageable pageable);
 }
