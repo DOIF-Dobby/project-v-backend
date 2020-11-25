@@ -1,16 +1,23 @@
 package org.doif.projectv.business.issue.service;
 
 import org.doif.projectv.business.issue.dto.VersionIssueDto;
-import org.doif.projectv.business.issue.dto.VersionIssueOverviewDto;
+import org.doif.projectv.common.response.CommonResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
 public interface VersionIssueService {
-    List<VersionIssueDto.Result> searchByIssueId(VersionIssueDto.Search search);
+    List<VersionIssueDto.Result> searchByIssueId(Long issueId);
 
-    Page<VersionIssueOverviewDto> searchOverview(VersionIssueDto.Search search, Pageable pageable);
+    List<VersionIssueDto.Result> searchByVersionId(Long versionId);
 
-    Page<VersionIssueDto.Result> searchNonePatchModuleIssue(VersionIssueDto.Search search, Pageable pageable);
+    CommonResponse insert(VersionIssueDto.Insert dto);
+
+    CommonResponse update(Long id, VersionIssueDto.Update dto);
+
+    CommonResponse delete(Long id);
+
+    Page<VersionIssueDto.ResultOverview> searchOverview(VersionIssueDto.Search search, Pageable pageable);
+
 }

@@ -66,10 +66,10 @@ public class initData {
 
             Version version1 = new Version("v1.0.1", "버전 1.0.1 입니다.", module);
 
-            VersionIssue versionIssue1 = new VersionIssue(version1, issue1, "202001", VersionIssueProgress.COMPLETE);
-            VersionIssue versionIssue2 = new VersionIssue(version1, issue1, "202002", VersionIssueProgress.COMPLETE);
-            VersionIssue versionIssue3 = new VersionIssue(version1, issue2, "202003", VersionIssueProgress.COMPLETE);
-            VersionIssue versionIssue4 = new VersionIssue(version1, issue2, "202004", VersionIssueProgress.COMPLETE);
+            VersionIssue versionIssue1 = new VersionIssue(version1, issue1, "202001", VersionIssueProgress.COMPLETE, "kjpmj", "");
+            VersionIssue versionIssue2 = new VersionIssue(version1, issue1, "202002", VersionIssueProgress.COMPLETE, "kjpmj", "");
+            VersionIssue versionIssue3 = new VersionIssue(version1, issue2, "202003", VersionIssueProgress.COMPLETE, "kjpmj", "");
+            VersionIssue versionIssue4 = new VersionIssue(version1, issue2, "202004", VersionIssueProgress.COMPLETE, "kjpmj", "");
 
             Task task1 = new Task(versionIssue1, LocalDate.of(2020, 10, 10), LocalDate.of(2020, 10, 12), "이슈1 해결함", TaskType.DEVELOP, 0.5, "kjpmj", "remark1");
             Task task2 = new Task(versionIssue1, LocalDate.of(2020, 10, 11), LocalDate.of(2020, 10, 13), "이슈1 추가 수정", TaskType.DEVELOP, 1.0, "kjpmj", "remark1");

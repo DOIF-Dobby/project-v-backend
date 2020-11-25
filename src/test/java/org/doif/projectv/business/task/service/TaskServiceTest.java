@@ -49,7 +49,7 @@ class TaskServiceTest {
         Module module = new Module("금융결제원 PG WEB/ADMIN", project);
         Version version = new Version("v1.0.1", "버전 1.0.1 입니다.", module);
         Issue issue = new Issue("임진성은 왜 늦는가", "진성씨는 그냥 늦는 것이다. 딱히 이유는 없다.", IssueStatus.OPEN, IssueCategory.ERROR_MODIFY);
-        VersionIssue versionIssue = new VersionIssue(version, issue, "202011", VersionIssueProgress.PROGRESSING);
+        VersionIssue versionIssue = new VersionIssue(version, issue, "202011", VersionIssueProgress.PROGRESSING, "kjpmj", "");
 
         Task task = new Task(
                 versionIssue,

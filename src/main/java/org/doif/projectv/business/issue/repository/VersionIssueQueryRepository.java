@@ -1,7 +1,6 @@
 package org.doif.projectv.business.issue.repository;
 
 import org.doif.projectv.business.issue.dto.VersionIssueDto;
-import org.doif.projectv.business.issue.dto.VersionIssueOverviewDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -10,11 +9,18 @@ import java.util.List;
 public interface VersionIssueQueryRepository {
 
     /**
-     * <b>[ issueId로 Module-Issue 조회 ]</b>
+     * <b>[ issueId로 Version-Issue 조회 ]</b>
      * @param issueId
      * @return
      */
     List<VersionIssueDto.Result> searchByIssueId(Long issueId);
+
+    /**
+     * <b>[ versionId로 Version-Issue 조회 ]</b>
+     * @param versionId
+     * @return
+     */
+    List<VersionIssueDto.Result> searchByVersionId(Long versionId);
 
     /**
      * <b>[ 이슈 현황 조회 ]</b>
@@ -26,16 +32,6 @@ public interface VersionIssueQueryRepository {
      * @param pageable
      * @return
      */
-    Page<VersionIssueOverviewDto> searchOverview(VersionIssueDto.Search search, Pageable pageable);
-
-    /**
-     * <b>[ 패치로그에 맵핑 되어 있지 않은 모듈-이슈 조회 ]</b>
-     * <p></p>
-     * 진행상황이 COMPLETE이고, 파라미터로 넘어온 모듈이 같고, 패치 타겟이 반대인 모듈-이슈
-     * @param search
-     * @param pageable
-     * @return
-     */
-    Page<VersionIssueDto.Result> searchNonePatchModuleIssue(VersionIssueDto.Search search, Pageable pageable);
+    Page<VersionIssueDto.ResultOverview> searchOverview(VersionIssueDto.Search search, Pageable pageable);
 
 }

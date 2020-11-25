@@ -46,13 +46,21 @@ public class VersionIssue extends BaseEntity {
     @OneToMany(mappedBy = "versionIssue")
     private List<Task> tasks = new ArrayList<>();
 
-    public VersionIssue(Version version, Issue issue, String issueYm, VersionIssueProgress progress) {
+    public VersionIssue(Version version, Issue issue, String issueYm, VersionIssueProgress progress, String assignee, String remark) {
         this.version = version;
         this.issue = issue;
         this.issueYm = issueYm;
         this.progress = progress;
+        this.assignee = assignee;
+        this.remark = remark;
 
         version.getVersionIssues().add(this);
     }
 
+    public void changeVersionIssue(String issueYm, VersionIssueProgress progress, String assignee, String remark) {
+        this.issueYm = issueYm;
+        this.progress = progress;
+        this.assignee = assignee;
+        this.remark = remark;
+    }
 }
