@@ -21,8 +21,8 @@ import java.util.List;
 import static org.doif.projectv.common.api.ApiDocumentUtils.getDocumentRequest;
 import static org.doif.projectv.common.api.ApiDocumentUtils.getDocumentResponse;
 import static org.doif.projectv.common.api.DocumentFormatGenerator.getDateTimeFormat;
-import static org.doif.projectv.common.api.DocumentLinkGenerator.generateLinkCode;
-import static org.doif.projectv.common.api.DocumentLinkGenerator.generateLinkPageInfo;
+import static org.doif.projectv.common.api.DocumentLinkGenerator.*;
+import static org.doif.projectv.common.api.DocumentLinkGenerator.generateText;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.any;
 import static org.mockito.BDDMockito.given;
@@ -49,9 +49,11 @@ class IssueControllerTest extends ApiDocumentTest {
         IssueDto.Result content = new IssueDto.Result();
         content.setIssueId(1L);
         content.setCategory(IssueCategory.NEW_DEVELOP);
+        content.setCategoryName(IssueCategory.NEW_DEVELOP.getMessage());
         content.setContents("임진성은 왜 늦는가");
         content.setIssueName("임진성 바보");
         content.setStatus(IssueStatus.OPEN);
+        content.setStatusName(IssueStatus.OPEN.getMessage());
         content.setCreatedDate(LocalDateTime.now());
         content.setCreatedBy("kjpmj");
         content.setLastModifiedDate(LocalDateTime.now());
@@ -93,7 +95,9 @@ class IssueControllerTest extends ApiDocumentTest {
                                 fieldWithPath("issueId").type(NUMBER).description("이슈 ID"),
                                 fieldWithPath("issueName").type(STRING).description("이슈명"),
                                 fieldWithPath("category").type(STRING).description(generateLinkCode(CodeEnum.ISSUE_CATEGORY)),
+                                fieldWithPath("categoryName").type(STRING).description(generateText(CodeEnum.ISSUE_CATEGORY)),
                                 fieldWithPath("status").type(STRING).description(generateLinkCode(CodeEnum.ISSUE_STATUS)),
+                                fieldWithPath("statusName").type(STRING).description(generateText(CodeEnum.ISSUE_STATUS)),
                                 fieldWithPath("contents").type(STRING).description("이슈 내용"),
                                 fieldWithPath("createdDate").type(STRING).attributes(getDateTimeFormat()).description("생성일"),
                                 fieldWithPath("lastModifiedDate").type(STRING).attributes(getDateTimeFormat()).description("수정일"),

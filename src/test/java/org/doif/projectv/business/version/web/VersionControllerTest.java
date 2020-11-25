@@ -28,6 +28,7 @@ import java.util.List;
 
 import static org.doif.projectv.common.api.ApiDocumentUtils.*;
 import static org.doif.projectv.common.api.DocumentLinkGenerator.*;
+import static org.doif.projectv.common.api.DocumentLinkGenerator.generateText;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.*;
@@ -90,7 +91,7 @@ class VersionControllerTest extends ApiDocumentTest {
                                 fieldWithPath("description").type(JsonFieldType.STRING).description("버전 설명"),
                                 fieldWithPath("moduleId").type(JsonFieldType.NUMBER).description("모듈 ID"),
                                 fieldWithPath("versionStatus").type(JsonFieldType.STRING).description(generateLinkCode(CodeEnum.VERSION_STATUS)),
-                                fieldWithPath("versionStatusName").type(JsonFieldType.STRING).description("버전 상태 코드명"),
+                                fieldWithPath("versionStatusName").type(JsonFieldType.STRING).description(generateText(CodeEnum.VERSION_STATUS)),
                                 fieldWithPath("revision").type(JsonFieldType.NUMBER).description("리비전"),
                                 fieldWithPath("tag").type(JsonFieldType.STRING).description("태그 경로")
                         )

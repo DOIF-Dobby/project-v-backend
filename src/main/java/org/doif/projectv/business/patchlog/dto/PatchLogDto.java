@@ -19,7 +19,9 @@ public class PatchLogDto {
         private String moduleName;
         private String versionName;
         private PatchTarget target;
+        private String targetName;
         private PatchStatus status;
+        private String statusName;
         private LocalDate patchScheduleDate;
         private LocalDate patchDate;
         private String worker;
@@ -31,7 +33,9 @@ public class PatchLogDto {
             this.moduleName = moduleName;
             this.versionName = versionName;
             this.target = target;
+            this.targetName = target.getMessage();
             this.status = status;
+            this.statusName = status.getMessage();
             this.patchScheduleDate = patchScheduleDate;
             this.patchDate = patchDate;
             this.worker = worker;

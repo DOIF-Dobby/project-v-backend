@@ -26,9 +26,11 @@ public class VersionIssueDto {
         private String versionName;
         private String issueName;
         private IssueStatus issueStatus;
+        private String issueStatusName;
         private String issueContents;
         private String issueYm;
         private VersionIssueProgress progress;
+        private String progressName;
         private String assignee;
         private String remark;
 
@@ -39,9 +41,11 @@ public class VersionIssueDto {
             this.versionName = versionName;
             this.issueName = issueName;
             this.issueStatus = issueStatus;
+            this.issueStatusName = issueStatus.getMessage();
             this.issueContents = issueContents;
             this.issueYm = issueYm;
             this.progress = progress;
+            this.progressName = progress.getMessage();
             this.assignee = assignee;
             this.remark = remark;
         }

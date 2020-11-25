@@ -23,7 +23,6 @@ import static org.doif.projectv.common.api.ApiDocumentUtils.getDocumentRequest;
 import static org.doif.projectv.common.api.ApiDocumentUtils.getDocumentResponse;
 import static org.doif.projectv.common.api.DocumentFormatGenerator.getDateFormat;
 import static org.doif.projectv.common.api.DocumentLinkGenerator.*;
-import static org.doif.projectv.common.api.DocumentLinkGenerator.generateLinkCode;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
@@ -110,7 +109,9 @@ class PatchLogControllerTest extends ApiDocumentTest {
                                 fieldWithPath("moduleName").type(JsonFieldType.STRING).description("모듈명"),
                                 fieldWithPath("versionName").type(JsonFieldType.STRING).description("버전명"),
                                 fieldWithPath("target").type(JsonFieldType.STRING).description(generateLinkCode(CodeEnum.PATCH_TARGET)),
+                                fieldWithPath("targetName").type(JsonFieldType.STRING).description(generateText(CodeEnum.PATCH_TARGET)),
                                 fieldWithPath("status").type(JsonFieldType.STRING).description(generateLinkCode(CodeEnum.PATCH_STATUS)),
+                                fieldWithPath("statusName").type(JsonFieldType.STRING).description(generateText(CodeEnum.PATCH_STATUS)),
                                 fieldWithPath("patchScheduleDate").type(JsonFieldType.STRING).attributes(getDateFormat()).description("패치 예정일"),
                                 fieldWithPath("patchDate").type(JsonFieldType.STRING).attributes(getDateFormat()).description("패치일"),
                                 fieldWithPath("worker").type(JsonFieldType.STRING).description("작업자"),

@@ -87,6 +87,7 @@ class IssueServiceTest {
         update.setIssueName("태용씨는 왜 부대찌개에 미쳐있는가");
         update.setContents("막상 먹으러가면 많이 안 먹는 것 같다....");
         update.setStatus(IssueStatus.CLOSE);
+        update.setCategory(IssueCategory.ERROR_MODIFY);
 
         // when
         CommonResponse response = issueService.update(issueId, update);

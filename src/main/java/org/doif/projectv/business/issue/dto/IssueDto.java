@@ -21,7 +21,9 @@ public class IssueDto {
         private String issueName;
         private String contents;
         private IssueStatus status;
+        private String statusName;
         private IssueCategory category;
+        private String categoryName;
 
         @QueryProjection
         public Result(Long issueId, String issueName, String contents, IssueStatus status, IssueCategory category) {
@@ -29,7 +31,9 @@ public class IssueDto {
             this.issueName = issueName;
             this.contents = contents;
             this.status = status;
+            this.statusName = status.getMessage();
             this.category = category;
+            this.categoryName = category.getMessage();
         }
     }
 

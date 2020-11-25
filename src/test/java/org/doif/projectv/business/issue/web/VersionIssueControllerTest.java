@@ -25,7 +25,7 @@ import static org.doif.projectv.common.api.ApiDocumentUtils.getDocumentRequest;
 import static org.doif.projectv.common.api.ApiDocumentUtils.getDocumentResponse;
 import static org.doif.projectv.common.api.DocumentFormatGenerator.getDateFormat;
 import static org.doif.projectv.common.api.DocumentLinkGenerator.*;
-import static org.doif.projectv.common.api.DocumentLinkGenerator.generateLinkCode;
+import static org.doif.projectv.common.api.DocumentLinkGenerator.generateText;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
@@ -51,9 +51,11 @@ class VersionIssueControllerTest extends ApiDocumentTest {
         versionIssueResult.setVersionName("1.0.1");
         versionIssueResult.setIssueName("임진성씨는 왜 국밥성애자가 됬는가");
         versionIssueResult.setIssueStatus(IssueStatus.OPEN);
+        versionIssueResult.setIssueStatusName(IssueStatus.OPEN.getMessage());
         versionIssueResult.setIssueContents("임진성씨는 뚝배기에 들어가 있는 음식이면 다 좋아하는 것인가 아닌가");
         versionIssueResult.setIssueYm("202011");
         versionIssueResult.setProgress(VersionIssueProgress.PROGRESSING);
+        versionIssueResult.setProgressName(VersionIssueProgress.PROGRESSING.getMessage());
         versionIssueResult.setAssignee("kjpmj");
         versionIssueResult.setRemark("비고 입니다.");
 
@@ -88,9 +90,11 @@ class VersionIssueControllerTest extends ApiDocumentTest {
                                 fieldWithPath("versionName").type(JsonFieldType.STRING).description("버전명"),
                                 fieldWithPath("issueName").type(JsonFieldType.STRING).description("이슈명"),
                                 fieldWithPath("issueStatus").type(JsonFieldType.STRING).description(generateLinkCode(CodeEnum.ISSUE_STATUS)),
+                                fieldWithPath("issueStatusName").type(JsonFieldType.STRING).description(generateText(CodeEnum.ISSUE_STATUS)),
                                 fieldWithPath("issueContents").type(JsonFieldType.STRING).description("이슈 내용"),
                                 fieldWithPath("issueYm").type(JsonFieldType.STRING).description("이슈 년월"),
                                 fieldWithPath("progress").type(JsonFieldType.STRING).description(generateLinkCode(CodeEnum.VERSION_ISSUE_PROGRESS)),
+                                fieldWithPath("progressName").type(JsonFieldType.STRING).description(generateText(CodeEnum.VERSION_ISSUE_PROGRESS)),
                                 fieldWithPath("assignee").type(JsonFieldType.STRING).description("작업 예정자"),
                                 fieldWithPath("remark").type(JsonFieldType.STRING).description("비고")
                         )
@@ -108,9 +112,11 @@ class VersionIssueControllerTest extends ApiDocumentTest {
         versionIssueResult.setVersionName("1.0.1");
         versionIssueResult.setIssueName("오늘의 저녁은 뭘 먹어야 하나");
         versionIssueResult.setIssueStatus(IssueStatus.OPEN);
+        versionIssueResult.setIssueStatusName(IssueStatus.OPEN.getMessage());
         versionIssueResult.setIssueContents("뭘 먹어야 잘 먹었다고 소문이 날까");
         versionIssueResult.setIssueYm("202011");
         versionIssueResult.setProgress(VersionIssueProgress.PROGRESSING);
+        versionIssueResult.setProgressName(VersionIssueProgress.PROGRESSING.getMessage());
         versionIssueResult.setAssignee("kjpmj");
         versionIssueResult.setRemark("비고 입니다.");
 
@@ -145,9 +151,11 @@ class VersionIssueControllerTest extends ApiDocumentTest {
                                 fieldWithPath("versionName").type(JsonFieldType.STRING).description("버전명"),
                                 fieldWithPath("issueName").type(JsonFieldType.STRING).description("이슈명"),
                                 fieldWithPath("issueStatus").type(JsonFieldType.STRING).description(generateLinkCode(CodeEnum.ISSUE_STATUS)),
+                                fieldWithPath("issueStatusName").type(JsonFieldType.STRING).description(generateText(CodeEnum.ISSUE_STATUS)),
                                 fieldWithPath("issueContents").type(JsonFieldType.STRING).description("이슈 내용"),
                                 fieldWithPath("issueYm").type(JsonFieldType.STRING).description("이슈 년월"),
                                 fieldWithPath("progress").type(JsonFieldType.STRING).description(generateLinkCode(CodeEnum.VERSION_ISSUE_PROGRESS)),
+                                fieldWithPath("progressName").type(JsonFieldType.STRING).description(generateText(CodeEnum.VERSION_ISSUE_PROGRESS)),
                                 fieldWithPath("assignee").type(JsonFieldType.STRING).description("작업 예정자"),
                                 fieldWithPath("remark").type(JsonFieldType.STRING).description("비고")
                         )
@@ -336,11 +344,11 @@ class VersionIssueControllerTest extends ApiDocumentTest {
                                 fieldWithPath("versionName").type(JsonFieldType.STRING).description("버전명"),
                                 fieldWithPath("issueName").type(JsonFieldType.STRING).description("이슈명"),
                                 fieldWithPath("status").type(JsonFieldType.STRING).description(generateLinkCode(CodeEnum.ISSUE_STATUS)),
-                                fieldWithPath("statusName").type(JsonFieldType.STRING).description("이슈 상태 코드명"),
+                                fieldWithPath("statusName").type(JsonFieldType.STRING).description(generateText(CodeEnum.ISSUE_STATUS)),
                                 fieldWithPath("category").type(JsonFieldType.STRING).description(generateLinkCode(CodeEnum.ISSUE_CATEGORY)),
-                                fieldWithPath("categoryName").type(JsonFieldType.STRING).description("이슈 분류 코드명"),
+                                fieldWithPath("categoryName").type(JsonFieldType.STRING).description(generateText(CodeEnum.ISSUE_CATEGORY)),
                                 fieldWithPath("progress").type(JsonFieldType.STRING).description(generateLinkCode(CodeEnum.VERSION_ISSUE_PROGRESS)),
-                                fieldWithPath("progressName").type(JsonFieldType.STRING).description("이슈 진행 상황 코드명"),
+                                fieldWithPath("progressName").type(JsonFieldType.STRING).description(generateText(CodeEnum.VERSION_ISSUE_PROGRESS)),
                                 fieldWithPath("issueYm").type(JsonFieldType.STRING).description("이슈 년월"),
                                 fieldWithPath("assignee").type(JsonFieldType.STRING).description("작업 예정자"),
                                 fieldWithPath("startDate").type(JsonFieldType.STRING).attributes(getDateFormat()).description("작업 시작일"),
