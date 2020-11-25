@@ -170,6 +170,7 @@ include::{snippets}/issue/delete/path-parameters.adoc[]
 ==== 응답
 include::{snippets}/issue/delete/http-response.adoc[]
 
+
 [[resources-task]]
 == 작업
 
@@ -207,3 +208,42 @@ include::{snippets}/task/delete/http-request.adoc[]
 include::{snippets}/task/delete/path-parameters.adoc[]
 ==== 응답
 include::{snippets}/task/delete/http-response.adoc[]
+
+
+[[resources-patch-log]]
+== 패치로그
+
+[[resources-patch-log-select]]
+=== 패치로그 조회
+==== 요청
+include::{snippets}/patch-log/select/http-request.adoc[]
+include::{snippets}/patch-log/select/request-fields.adoc[]
+==== 응답
+include::{snippets}/patch-log/select/http-response.adoc[]
+include::{snippets}/patch-log/select/response-fields.adoc[]
+include::{snippets}/patch-log/select/response-fields-pageInfo.content.adoc[]
+
+[[resources-patch-log-insert]]
+=== 패치로그 추가
+==== 요청
+include::{snippets}/patch-log/insert/http-request.adoc[]
+include::{snippets}/patch-log/insert/request-fields.adoc[]
+==== 응답
+include::{snippets}/patch-log/insert/http-response.adoc[]
+
+[[resources-patch-log-update]]
+=== 패치로그 수정
+==== 요청
+include::{snippets}/patch-log/update/http-request.adoc[]
+include::{snippets}/patch-log/update/path-parameters.adoc[]
+include::{snippets}/patch-log/update/request-fields.adoc[]
+==== 응답
+include::{snippets}/task/update/http-response.adoc[]
+
+[[resources-patch-log-delete]]
+=== 패치로그 삭제
+==== 요청
+include::{snippets}/patch-log/delete/http-request.adoc[]
+include::{snippets}/patch-log/delete/path-parameters.adoc[]
+==== 응답
+include::{snippets}/patch-log/delete/http-response.adoc[]

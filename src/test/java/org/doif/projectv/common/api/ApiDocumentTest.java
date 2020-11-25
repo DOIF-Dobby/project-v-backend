@@ -6,6 +6,8 @@ import org.doif.projectv.business.issue.service.VersionIssueService;
 import org.doif.projectv.business.issue.web.IssueController;
 import org.doif.projectv.business.module.service.ModuleService;
 import org.doif.projectv.business.module.web.ModuleController;
+import org.doif.projectv.business.patchlog.service.PatchLogService;
+import org.doif.projectv.business.patchlog.web.PatchLogController;
 import org.doif.projectv.business.project.service.ProjectService;
 import org.doif.projectv.business.project.web.ProjectController;
 import org.doif.projectv.business.task.service.TaskService;
@@ -29,7 +31,8 @@ import org.springframework.test.web.servlet.MockMvc;
         ModuleController.class,
         IssueController.class,
         TaskController.class,
-        VersionController.class
+        VersionController.class,
+        PatchLogController.class
 },
         useDefaultFilters = false
 )
@@ -42,6 +45,7 @@ import org.springframework.test.web.servlet.MockMvc;
 @ComponentScan(basePackages = "org.doif.projectv.business.issue.web")
 @ComponentScan(basePackages = "org.doif.projectv.business.task.web")
 @ComponentScan(basePackages = "org.doif.projectv.business.version.web")
+@ComponentScan(basePackages = "org.doif.projectv.business.patchlog.web")
 public abstract class ApiDocumentTest {
 
     @Autowired
@@ -70,4 +74,7 @@ public abstract class ApiDocumentTest {
 
     @MockBean
     protected VersionService versionService;
+
+    @MockBean
+    protected PatchLogService patchLogService;
 }
