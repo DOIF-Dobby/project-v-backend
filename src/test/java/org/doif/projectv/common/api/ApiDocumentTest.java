@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.doif.projectv.business.issue.service.IssueService;
 import org.doif.projectv.business.issue.service.VersionIssueService;
 import org.doif.projectv.business.issue.web.IssueController;
+import org.doif.projectv.business.issue.web.VersionIssueController;
 import org.doif.projectv.business.module.service.ModuleService;
 import org.doif.projectv.business.module.web.ModuleController;
 import org.doif.projectv.business.patchlog.service.PatchLogService;
@@ -32,7 +33,8 @@ import org.springframework.test.web.servlet.MockMvc;
         IssueController.class,
         TaskController.class,
         VersionController.class,
-        PatchLogController.class
+        PatchLogController.class,
+        VersionIssueController.class
 },
         useDefaultFilters = false
 )

@@ -62,10 +62,10 @@ public class VersionIssueDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class Search {
-        private Long issueId;
         private Long projectId;
         private Long moduleId;
         private Long versionId;
+        private Long issueId;
         private IssueStatus status;
         private IssueCategory category;
         private String issueYm;
@@ -148,14 +148,5 @@ public class VersionIssueDto {
     @AllArgsConstructor
     public static class ResponseOverview {
         private Page<ResultOverview> pageInfo;
-    }
-
-    @Getter
-    @Setter
-    @ToString
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class ResponseNonePatch {
-        private Page<Result> pageInfo;
     }
 }

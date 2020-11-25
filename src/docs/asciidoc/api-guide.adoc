@@ -171,6 +171,62 @@ include::{snippets}/issue/delete/path-parameters.adoc[]
 include::{snippets}/issue/delete/http-response.adoc[]
 
 
+[[resources-version-issue]]
+== 버전-이슈
+
+[[resources-version-issue-select-by-issue-id]]
+=== 버전-이슈 조회 (이슈 ID로)
+==== 요청
+include::{snippets}/version-issue/select-by-issue-id/http-request.adoc[]
+include::{snippets}/version-issue/select-by-issue-id/path-parameters.adoc[]
+==== 응답
+include::{snippets}/version-issue/select-by-issue-id/http-response.adoc[]
+include::{snippets}/version-issue/select-by-issue-id/response-fields-content.adoc[]
+
+[[resources-version-issue-select-by-version-id]]
+=== 버전-이슈 조회 (버전 ID로)
+==== 요청
+include::{snippets}/version-issue/select-by-version-id/http-request.adoc[]
+include::{snippets}/version-issue/select-by-version-id/path-parameters.adoc[]
+==== 응답
+include::{snippets}/version-issue/select-by-version-id/http-response.adoc[]
+include::{snippets}/version-issue/select-by-version-id/response-fields-content.adoc[]
+
+[[resources-version-issue-insert]]
+=== 버전-이슈 추가
+==== 요청
+include::{snippets}/version-issue/insert/http-request.adoc[]
+include::{snippets}/version-issue/insert/request-fields.adoc[]
+==== 응답
+include::{snippets}/version-issue/insert/http-response.adoc[]
+
+[[resources-version-issue-update]]
+=== 버전-이슈 수정
+==== 요청
+include::{snippets}/version-issue/update/http-request.adoc[]
+include::{snippets}/version-issue/update/path-parameters.adoc[]
+include::{snippets}/version-issue/update/request-fields.adoc[]
+==== 응답
+include::{snippets}/version-issue/update/http-response.adoc[]
+
+[[resources-version-issue-delete]]
+=== 버전-이슈 삭제
+==== 요청
+include::{snippets}/version-issue/delete/http-request.adoc[]
+include::{snippets}/version-issue/delete/path-parameters.adoc[]
+==== 응답
+include::{snippets}/version-issue/delete/http-response.adoc[]
+
+[[resources-version-issue-overview]]
+=== 버전-이슈 현황 조회
+==== 요청
+include::{snippets}/version-issue/overview/http-request.adoc[]
+include::{snippets}/version-issue/overview/request-fields.adoc[]
+==== 응답
+include::{snippets}/version-issue/overview/http-response.adoc[]
+include::{snippets}/version-issue/overview/response-fields.adoc[]
+include::{snippets}/version-issue/overview/response-fields-pageInfo.content.adoc[]
+
 [[resources-task]]
 == 작업
 

@@ -16,7 +16,7 @@ public enum CodeEnum {
     TASK_TYPE("taskType", "작업 유형", TaskType.class),
     ISSUE_CATEGORY("issueCategory", "이슈 유형", IssueCategory.class),
     ISSUE_STATUS("issueStatus", "이슈 상태", IssueStatus.class),
-    VERSION_ISSUE_PROGRESS("versionIssueProgress", "모듈별 이슈 진행상태", VersionIssueProgress.class),
+    VERSION_ISSUE_PROGRESS("versionIssueProgress", "버전별 이슈 진행상황", VersionIssueProgress.class),
     PATCH_STATUS("patchStatus", "패치 상태", PatchStatus.class),
     PATCH_TARGET("patchTarget", "패치 대상", PatchTarget.class),
     VERSION_STATUS("versionStatus", "버전 상태", VersionStatus.class);
