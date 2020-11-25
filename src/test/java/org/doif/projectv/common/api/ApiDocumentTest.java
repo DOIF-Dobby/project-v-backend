@@ -10,6 +10,8 @@ import org.doif.projectv.business.project.service.ProjectService;
 import org.doif.projectv.business.project.web.ProjectController;
 import org.doif.projectv.business.task.service.TaskService;
 import org.doif.projectv.business.task.web.TaskController;
+import org.doif.projectv.business.version.service.VersionService;
+import org.doif.projectv.business.version.web.VersionController;
 import org.doif.projectv.common.api.web.ApiCommonController;
 import org.doif.projectv.common.enumeration.EnumMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +28,8 @@ import org.springframework.test.web.servlet.MockMvc;
         ProjectController.class,
         ModuleController.class,
         IssueController.class,
-        TaskController.class
+        TaskController.class,
+        VersionController.class
 },
         useDefaultFilters = false
 )
@@ -38,6 +41,7 @@ import org.springframework.test.web.servlet.MockMvc;
 @ComponentScan(basePackages = "org.doif.projectv.business.module.web")
 @ComponentScan(basePackages = "org.doif.projectv.business.issue.web")
 @ComponentScan(basePackages = "org.doif.projectv.business.task.web")
+@ComponentScan(basePackages = "org.doif.projectv.business.version.web")
 public abstract class ApiDocumentTest {
 
     @Autowired
@@ -63,4 +67,7 @@ public abstract class ApiDocumentTest {
 
     @MockBean
     protected TaskService taskService;
+
+    @MockBean
+    protected VersionService versionService;
 }

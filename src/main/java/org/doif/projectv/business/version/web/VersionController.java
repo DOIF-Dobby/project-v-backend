@@ -42,7 +42,7 @@ public class VersionController {
     }
 
     @PutMapping("/release/{id}")
-    public ResponseEntity<CommonResponse> tag(@PathVariable Long id) {
+    public ResponseEntity<CommonResponse> release(@PathVariable Long id) {
         CommonResponse response = versionService.release(id);
         return ResponseEntity.ok(response);
     }

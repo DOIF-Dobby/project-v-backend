@@ -93,6 +93,44 @@ include::{snippets}/module/delete/path-parameters.adoc[]
 ==== 응답
 include::{snippets}/module/delete/http-response.adoc[]
 
+[[resources-version]]
+== 버전
+
+[[resources-version-select]]
+=== 버전 조회
+==== 요청
+include::{snippets}/version/select/http-request.adoc[]
+include::{snippets}/version/select/request-fields.adoc[]
+==== 응답
+include::{snippets}/version/select/http-response.adoc[]
+include::{snippets}/version/select/response-fields.adoc[]
+include::{snippets}/version/select/response-fields-pageInfo.content.adoc[]
+
+[[resources-version-insert]]
+=== 버전 추가
+==== 요청
+include::{snippets}/version/insert/http-request.adoc[]
+include::{snippets}/version/insert/request-fields.adoc[]
+==== 응답
+include::{snippets}/version/insert/http-response.adoc[]
+
+[[resources-version-update]]
+=== 버전 수정
+==== 요청
+include::{snippets}/version/update/http-request.adoc[]
+include::{snippets}/version/update/path-parameters.adoc[]
+include::{snippets}/version/update/request-fields.adoc[]
+==== 응답
+include::{snippets}/version/update/http-response.adoc[]
+
+[[resources-version-delete]]
+=== 버전 삭제
+==== 요청
+include::{snippets}/version/delete/http-request.adoc[]
+include::{snippets}/version/delete/path-parameters.adoc[]
+==== 응답
+include::{snippets}/version/delete/http-response.adoc[]
+
 
 [[resources-issue]]
 == 이슈
