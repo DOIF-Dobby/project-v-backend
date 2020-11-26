@@ -3,6 +3,8 @@ package org.doif.projectv.common.resource.entity;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.doif.projectv.common.resource.constant.ResourceStatus;
+import org.springframework.http.HttpMethod;
 
 import javax.persistence.*;
 
@@ -13,9 +15,20 @@ import javax.persistence.*;
 @Table(name = "RESOURCE_LABEL")
 public class Label extends Resource {
 
-    private String label;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "page_id")
     private Page page;
+
+    @Column(name = "label", length = 50, nullable = false)
+    private String label;
+
+    public Label(String name, String description, ResourceStatus status, Page page, String label) {
+        this.name = name;
+        this.description = description;
+        this.status = status;
+        this.page = page;
+        this.label = label;
+
+        page.getLabels().add(this);
+    }
 }

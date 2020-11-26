@@ -29,7 +29,9 @@ public class Page extends ResourceAuthority {
     @OneToMany(mappedBy = "page")
     List<Label> labels = new ArrayList<>();
 
-    public Page(ResourceStatus status, String url, HttpMethod httpMethod) {
+    public Page(String name, String description, ResourceStatus status, String url, HttpMethod httpMethod) {
+        this.name = name;
+        this.description = description;
         this.status = status;
         this.url = url;
         this.httpMethod = httpMethod;

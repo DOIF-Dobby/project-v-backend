@@ -3,7 +3,6 @@ package org.doif.projectv.common.user.entity;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.doif.projectv.common.user.constant.LanguageType;
 import org.doif.projectv.common.jpa.entity.BaseEntity;
 import org.doif.projectv.common.user.constant.UserStatus;
 import org.springframework.data.domain.Persistable;
@@ -37,10 +36,6 @@ public class User extends BaseEntity implements Persistable<String> {
     @Column(name = "svn_password")
     private String svnPassword;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "language_type", nullable = false)
-    private LanguageType languageType;
-
     @OneToMany(mappedBy = "user")
     private List<UserRole> userRoles = new ArrayList<>();
 
@@ -48,14 +43,13 @@ public class User extends BaseEntity implements Persistable<String> {
         this.id = id;
     }
 
-    public User(String id, String password, String name, UserStatus status, String svnId, String svnPassword, LanguageType languageType) {
+    public User(String id, String password, String name, UserStatus status, String svnId, String svnPassword) {
         this.id = id;
         this.password = password;
         this.name = name;
         this.status = status;
         this.svnId = svnId;
         this.svnPassword = svnPassword;
-        this.languageType = languageType;
     }
 
     @Override

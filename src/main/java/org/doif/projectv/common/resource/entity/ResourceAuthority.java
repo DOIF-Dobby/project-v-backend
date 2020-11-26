@@ -5,10 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.http.HttpMethod;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.*;
 
 @Entity
 @DiscriminatorValue("Authority")
@@ -16,8 +13,10 @@ import javax.persistence.Enumerated;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class ResourceAuthority extends Resource {
 
+    @Column(name = "url", nullable = false)
     protected String url;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "http_method", length = 10, nullable = false)
     protected HttpMethod httpMethod;
 }

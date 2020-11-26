@@ -19,15 +19,20 @@ public class Menu extends ResourceAuthority {
     @JoinColumn(name = "menu_category_id")
     private MenuCategory menuCategory;
 
+    @Column(name = "sort", length = 5, nullable = false)
     private int sort;
 
+    @Column(name = "icon", length = 50)
     private String icon;
 
-    public Menu(ResourceStatus status, String url, HttpMethod httpMethod, MenuCategory menuCategory, int sort) {
+    public Menu(String name, String description, ResourceStatus status, String url, HttpMethod httpMethod, MenuCategory menuCategory, int sort, String icon) {
+        this.name = name;
+        this.description = description;
         this.status = status;
         this.url = url;
         this.httpMethod = httpMethod;
         this.menuCategory = menuCategory;
         this.sort = sort;
+        this.icon = icon;
     }
 }

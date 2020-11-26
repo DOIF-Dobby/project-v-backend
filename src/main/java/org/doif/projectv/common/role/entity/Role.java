@@ -20,13 +20,19 @@ public class Role extends BaseEntity {
     @Column(name = "role_id", length = 10, nullable = false)
     private Long id;
 
+    @Column(name = "name", length = 50, nullable = false)
     private String name;
 
+    @Column(name = "description")
+    private String description;
+
     @Enumerated(EnumType.STRING)
+    @Column(name = "status", length = 20, nullable = false)
     private RoleStatus status;
 
-    public Role(String name, RoleStatus status) {
+    public Role(String name, String description, RoleStatus status) {
         this.name = name;
+        this.description = description;
         this.status = status;
     }
 

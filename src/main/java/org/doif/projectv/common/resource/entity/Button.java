@@ -19,12 +19,18 @@ public class Button extends ResourceAuthority {
     @JoinColumn(name = "page_id")
     private Page page;
 
+    @Column(name = "icon", length = 50)
     private String icon;
 
-    public Button(ResourceStatus status, Page page, String url, HttpMethod httpMethod) {
+    public Button(String name, String description, ResourceStatus status, String url, HttpMethod httpMethod, Page page, String icon) {
+        this.name = name;
+        this.description = description;
         this.status = status;
         this.page = page;
         this.url = url;
         this.httpMethod = httpMethod;
+        this.icon = icon;
+
+        page.getButtons().add(this);
     }
 }

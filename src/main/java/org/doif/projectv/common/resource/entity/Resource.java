@@ -24,7 +24,14 @@ public abstract class Resource extends BaseEntity {
     private Long id;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "status", length = 20, nullable = false)
     protected ResourceStatus status;
+
+    @Column(name = "name", length = 50, nullable = false)
+    protected String name;
+
+    @Column(name = "description")
+    protected String description;
 
     @OneToMany(mappedBy = "resource")
     protected List<RoleResource> roleResources = new ArrayList<>();
