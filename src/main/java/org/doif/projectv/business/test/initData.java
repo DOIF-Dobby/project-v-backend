@@ -80,7 +80,8 @@ public class initData {
             Role role = new Role("관리자 ROLE", "관리자 ROLE입니다.", RoleStatus.ENABLE);
             UserRole userRole = new UserRole(user, role);
             MenuCategory menuCategory = new MenuCategory("메뉴카테고리1", "메뉴카테고리1 입니다.", ResourceStatus.ENABLE,1, "heart");
-            Menu menu = new Menu("메뉴1", "메뉴1입니다.", ResourceStatus.ENABLE, "/project", GET, menuCategory, 1, "");
+            Menu menu1 = new Menu("메뉴1", "메뉴1입니다.", ResourceStatus.ENABLE, menuCategory, 1, "/project", "");
+            Menu menu2 = new Menu("메뉴2", "메뉴2입니다.", ResourceStatus.ENABLE, menuCategory, 2, "/module", "");
             Page page = new Page("페이지1", "페이지1 입니다.", ResourceStatus.ENABLE, "/api/pages/project", GET);
             Button button1 = new Button("버튼1", "", ResourceStatus.ENABLE, "/api/project", GET, page, "");
             Button button2 = new Button("버튼2", "", ResourceStatus.ENABLE, "/api/user", POST, page, "");
@@ -92,7 +93,8 @@ public class initData {
             Button button8 = new Button("버튼8", "", ResourceStatus.ENABLE, "/api/version", GET, page, "");
 
             RoleResource roleResource1 = new RoleResource(role, menuCategory);
-            RoleResource roleResource2 = new RoleResource(role, menu);
+            RoleResource roleResource2 = new RoleResource(role, menu1);
+            RoleResource roleResource2_1 = new RoleResource(role, menu2);
             RoleResource roleResource3 = new RoleResource(role, page);
             RoleResource roleResource4 = new RoleResource(role, button1);
             RoleResource roleResource5 = new RoleResource(role, button2);
@@ -122,7 +124,8 @@ public class initData {
             em.persist(role);
             em.persist(userRole);
             em.persist(menuCategory);
-            em.persist(menu);
+            em.persist(menu1);
+            em.persist(menu2);
             em.persist(page);
             em.persist(button1);
             em.persist(button2);
@@ -135,6 +138,7 @@ public class initData {
 
             em.persist(roleResource1);
             em.persist(roleResource2);
+            em.persist(roleResource2_1);
             em.persist(roleResource3);
             em.persist(roleResource4);
             em.persist(roleResource5);

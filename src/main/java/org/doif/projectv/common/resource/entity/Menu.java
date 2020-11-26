@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "RESOURCE_MENU")
-public class Menu extends ResourceAuthority {
+public class Menu extends Resource {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "menu_category_id")
@@ -22,17 +22,19 @@ public class Menu extends ResourceAuthority {
     @Column(name = "sort", length = 5, nullable = false)
     private int sort;
 
+    @Column(name = "url", nullable = false)
+    private String url;
+
     @Column(name = "icon", length = 50)
     private String icon;
 
-    public Menu(String name, String description, ResourceStatus status, String url, HttpMethod httpMethod, MenuCategory menuCategory, int sort, String icon) {
+    public Menu(String name, String description, ResourceStatus status, MenuCategory menuCategory, int sort, String url, String icon) {
         this.name = name;
         this.description = description;
         this.status = status;
-        this.url = url;
-        this.httpMethod = httpMethod;
         this.menuCategory = menuCategory;
         this.sort = sort;
+        this.url = url;
         this.icon = icon;
     }
 }
