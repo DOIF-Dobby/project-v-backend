@@ -1,10 +1,10 @@
 package org.doif.projectv.common.resource.repository;
 
-import org.doif.projectv.common.resource.dto.AuthorityResourceDto;
+import org.doif.projectv.common.resource.dto.ResourceAuthorityDto;
 
 import java.util.List;
 
 public interface ResourceQueryRepository {
 
-    List<AuthorityResourceDto> searchAuthorityResource(String userId);
+    List<ResourceAuthorityDto.Result> searchAuthorityResource(String userId);
 }

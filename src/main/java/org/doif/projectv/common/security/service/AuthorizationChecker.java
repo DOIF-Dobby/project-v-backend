@@ -2,28 +2,15 @@ package org.doif.projectv.common.security.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.doif.projectv.common.resource.dto.AuthorityResourceDto;
-import org.doif.projectv.common.resource.repository.ResourceRepository;
+import org.doif.projectv.common.resource.dto.ResourceAuthorityDto;
 import org.doif.projectv.common.resource.service.ResourceService;
-import org.doif.projectv.common.security.vo.UserDetailsInfo;
 import org.doif.projectv.common.user.entity.User;
-import org.doif.projectv.common.user.entity.UserRole;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
-import org.springframework.util.PathMatcher;
-import org.springframework.util.StringUtils;
-import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * <pre>
@@ -57,9 +44,9 @@ public class AuthorizationChecker {
 
         User user = (User) principal;
 
-        List<AuthorityResourceDto> authorityResourceDtos = resourceService.searchAuthorityResource(user.getId());
+        List<ResourceAuthorityDto.Result> resourceAuthorityDtos = resourceService.searchAuthorityResource(user.getId());
 
-        for (AuthorityResourceDto dto: authorityResourceDtos) {
+        for (ResourceAuthorityDto.Result dto: resourceAuthorityDtos) {
             if(httpMethod.equals(dto.getHttpMethod().name()) && antPathMatcher.match(dto.getUrl(), requestURI)) {
                 log.info("[:: AuthorizationChecker > check allow [ Authority: {} User: {} ] ::]", httpMethod + " " + requestURI, user.getId());
                 return true;

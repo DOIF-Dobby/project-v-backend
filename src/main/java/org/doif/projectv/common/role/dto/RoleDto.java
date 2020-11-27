@@ -1,9 +1,7 @@
 package org.doif.projectv.common.role.dto;
 
 import lombok.*;
-import org.doif.projectv.business.task.dto.TaskDto;
 import org.doif.projectv.common.status.EnableStatus;
-import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -33,7 +31,7 @@ public class RoleDto {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Response {
-        List<Result> pageInfo;
+        List<Result> content;
     }
 
     @Getter

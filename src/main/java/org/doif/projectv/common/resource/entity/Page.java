@@ -30,10 +30,10 @@ public class Page extends ResourceAuthority {
     List<Label> labels = new ArrayList<>();
 
     public Page(String name, String description, EnableStatus status, String url, HttpMethod httpMethod) {
-        this.name = name;
-        this.description = description;
-        this.status = status;
-        this.url = url;
-        this.httpMethod = httpMethod;
+        super(name, description, status, url, httpMethod);
+    }
+
+    public void changePage(String name, String description, EnableStatus status, String url, HttpMethod httpMethod) {
+        changeResourceAuthority(name, description, status, url, httpMethod);
     }
 }
