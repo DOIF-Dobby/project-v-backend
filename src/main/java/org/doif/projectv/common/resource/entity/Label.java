@@ -3,8 +3,7 @@ package org.doif.projectv.common.resource.entity;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.doif.projectv.common.resource.constant.ResourceStatus;
-import org.springframework.http.HttpMethod;
+import org.doif.projectv.common.status.EnableStatus;
 
 import javax.persistence.*;
 
@@ -22,7 +21,7 @@ public class Label extends Resource {
     @Column(name = "label", length = 50, nullable = false)
     private String label;
 
-    public Label(String name, String description, ResourceStatus status, Page page, String label) {
+    public Label(String name, String description, EnableStatus status, Page page, String label) {
         this.name = name;
         this.description = description;
         this.status = status;

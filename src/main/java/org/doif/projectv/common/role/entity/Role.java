@@ -4,9 +4,10 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.doif.projectv.common.jpa.entity.BaseEntity;
-import org.doif.projectv.common.role.constant.RoleStatus;
+import org.doif.projectv.common.status.EnableStatus;
 import org.doif.projectv.common.user.entity.UserRole;
 
+import javax.management.relation.RoleStatus;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,9 +29,9 @@ public class Role extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", length = 20, nullable = false)
-    private RoleStatus status;
+    private EnableStatus status;
 
-    public Role(String name, String description, RoleStatus status) {
+    public Role(String name, String description, EnableStatus status) {
         this.name = name;
         this.description = description;
         this.status = status;
@@ -38,4 +39,10 @@ public class Role extends BaseEntity {
 
     @OneToMany(mappedBy = "role")
     private List<UserRole> userRoles = new ArrayList<>();
+
+    public void changeRole(String name, String description, EnableStatus status) {
+        this.name = name;
+        this.description = description;
+        this.status = status;
+    }
 }

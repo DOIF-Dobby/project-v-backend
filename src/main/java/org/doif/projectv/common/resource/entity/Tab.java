@@ -3,7 +3,7 @@ package org.doif.projectv.common.resource.entity;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.doif.projectv.common.resource.constant.ResourceStatus;
+import org.doif.projectv.common.status.EnableStatus;
 import org.springframework.http.HttpMethod;
 
 import javax.persistence.*;
@@ -25,7 +25,7 @@ public class Tab extends ResourceAuthority {
     @Column(name = "sort", length = 5, nullable = false)
     private int sort;
 
-    public Tab(String name, String description, ResourceStatus status, String url, HttpMethod httpMethod, Page page, String tabGroup, int sort) {
+    public Tab(String name, String description, EnableStatus status, String url, HttpMethod httpMethod, Page page, String tabGroup, int sort) {
         this.name = name;
         this.description = description;
         this.status = status;

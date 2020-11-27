@@ -3,7 +3,7 @@ package org.doif.projectv.common.resource.entity;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.doif.projectv.common.resource.constant.ResourceStatus;
+import org.doif.projectv.common.status.EnableStatus;
 import org.springframework.http.HttpMethod;
 
 import javax.persistence.*;
@@ -22,7 +22,7 @@ public class Button extends ResourceAuthority {
     @Column(name = "icon", length = 50)
     private String icon;
 
-    public Button(String name, String description, ResourceStatus status, String url, HttpMethod httpMethod, Page page, String icon) {
+    public Button(String name, String description, EnableStatus status, String url, HttpMethod httpMethod, Page page, String icon) {
         this.name = name;
         this.description = description;
         this.status = status;

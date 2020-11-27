@@ -3,7 +3,7 @@ package org.doif.projectv.common.resource.entity;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.doif.projectv.common.resource.constant.ResourceStatus;
+import org.doif.projectv.common.status.EnableStatus;
 import org.springframework.http.HttpMethod;
 
 import javax.persistence.DiscriminatorValue;
@@ -29,7 +29,7 @@ public class Page extends ResourceAuthority {
     @OneToMany(mappedBy = "page")
     List<Label> labels = new ArrayList<>();
 
-    public Page(String name, String description, ResourceStatus status, String url, HttpMethod httpMethod) {
+    public Page(String name, String description, EnableStatus status, String url, HttpMethod httpMethod) {
         this.name = name;
         this.description = description;
         this.status = status;

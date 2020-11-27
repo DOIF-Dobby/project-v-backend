@@ -2,14 +2,13 @@ package org.doif.projectv.common.resource.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
-import org.doif.projectv.common.resource.constant.ResourceStatus;
 import org.doif.projectv.common.resource.dto.AuthorityResourceDto;
 import org.doif.projectv.common.resource.dto.QAuthorityResourceDto;
-import org.doif.projectv.common.resource.entity.QResourceAuthority;
-import org.doif.projectv.common.role.constant.RoleStatus;
+import org.doif.projectv.common.status.EnableStatus;
 import org.doif.projectv.common.user.constant.UserStatus;
 import org.springframework.stereotype.Repository;
 
+import javax.management.relation.RoleStatus;
 import java.util.List;
 
 import static org.doif.projectv.common.resource.entity.QResourceAuthority.*;
@@ -37,8 +36,8 @@ public class ResourceRepositoryImpl implements ResourceQueryRepository {
                 .join(role.userRoles, userRole)
                 .join(userRole.user, user)
                 .where(
-                        resourceAuthority.status.eq(ResourceStatus.ENABLE),
-                        role.status.eq(RoleStatus.ENABLE),
+                        resourceAuthority.status.eq(EnableStatus.ENABLE),
+                        role.status.eq(EnableStatus.ENABLE),
                         user.status.eq(UserStatus.VALID),
                         user.id.eq(userId)
                 )

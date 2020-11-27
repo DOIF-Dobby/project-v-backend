@@ -3,8 +3,7 @@ package org.doif.projectv.common.resource.entity;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.doif.projectv.common.resource.constant.ResourceStatus;
-import org.springframework.http.HttpMethod;
+import org.doif.projectv.common.status.EnableStatus;
 
 import javax.persistence.*;
 
@@ -28,7 +27,7 @@ public class Menu extends Resource {
     @Column(name = "icon", length = 50)
     private String icon;
 
-    public Menu(String name, String description, ResourceStatus status, MenuCategory menuCategory, int sort, String url, String icon) {
+    public Menu(String name, String description, EnableStatus status, MenuCategory menuCategory, int sort, String url, String icon) {
         this.name = name;
         this.description = description;
         this.status = status;

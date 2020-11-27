@@ -3,7 +3,7 @@ package org.doif.projectv.common.resource.entity;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.doif.projectv.common.resource.constant.ResourceStatus;
+import org.doif.projectv.common.status.EnableStatus;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -34,7 +34,7 @@ public class MenuCategory extends Resource {
         child.parent = this;
     }
 
-    public MenuCategory(String name, String description, ResourceStatus status, int sort, String icon) {
+    public MenuCategory(String name, String description, EnableStatus status, int sort, String icon) {
         this.name = name;
         this.description = description;
         this.status = status;

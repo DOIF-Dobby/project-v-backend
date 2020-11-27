@@ -4,8 +4,8 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.doif.projectv.common.jpa.entity.BaseEntity;
-import org.doif.projectv.common.resource.constant.ResourceStatus;
 import org.doif.projectv.common.role.entity.RoleResource;
+import org.doif.projectv.common.status.EnableStatus;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ public abstract class Resource extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", length = 20, nullable = false)
-    protected ResourceStatus status;
+    protected EnableStatus status;
 
     @Column(name = "name", length = 50, nullable = false)
     protected String name;
