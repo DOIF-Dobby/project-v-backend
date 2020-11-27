@@ -19,6 +19,8 @@ import org.doif.projectv.common.resource.entity.*;
 import org.doif.projectv.common.role.constant.RoleStatus;
 import org.doif.projectv.common.role.entity.Role;
 import org.doif.projectv.common.role.entity.RoleResource;
+import org.doif.projectv.common.system.constant.PropertyGroupType;
+import org.doif.projectv.common.system.entity.SystemProperty;
 import org.doif.projectv.common.user.constant.UserStatus;
 import org.doif.projectv.common.user.entity.User;
 import org.doif.projectv.common.user.entity.UserRole;
@@ -105,6 +107,8 @@ public class initData {
             RoleResource roleResource10 = new RoleResource(role, button7);
             RoleResource roleResource11 = new RoleResource(role, button8);
 
+            SystemProperty systemProperty = new SystemProperty(PropertyGroupType.COMMON, "TEST", "테스트", "테스트 속성", true);
+
             em.persist(project);
             em.persist(module);
             em.persist(version1);
@@ -148,6 +152,8 @@ public class initData {
             em.persist(roleResource9);
             em.persist(roleResource10);
             em.persist(roleResource11);
+
+            em.persist(systemProperty);
         }
     }
 }

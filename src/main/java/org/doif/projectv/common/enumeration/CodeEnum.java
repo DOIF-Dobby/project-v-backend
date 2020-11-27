@@ -9,10 +9,15 @@ import org.doif.projectv.business.patchlog.constant.PatchTarget;
 import org.doif.projectv.business.task.constant.TaskType;
 import org.doif.projectv.business.version.constant.VersionStatus;
 import org.doif.projectv.common.response.ResponseCode;
+import org.doif.projectv.common.system.constant.PropertyGroupType;
 
 @Getter
 public enum CodeEnum {
+    // common 패키지 하위
     RESPONSE_CODE("responseCode", "응답 코드", ResponseCode.class),
+    PROPERTY_GROUP_TYPE("propertyGroupType", "시스템 속성 그룹 유형", PropertyGroupType.class),
+
+    // business 패키지 하위
     TASK_TYPE("taskType", "작업 유형", TaskType.class),
     ISSUE_CATEGORY("issueCategory", "이슈 유형", IssueCategory.class),
     ISSUE_STATUS("issueStatus", "이슈 상태", IssueStatus.class),
