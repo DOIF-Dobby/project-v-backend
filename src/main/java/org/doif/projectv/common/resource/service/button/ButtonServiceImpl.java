@@ -27,7 +27,7 @@ public class ButtonServiceImpl implements ButtonService {
     public List<ButtonDto.Result> selectByPage(Long pageId) {
         Optional<Page> optionalPage = pageRepository.findById(pageId);
         Page page = optionalPage.orElseThrow(() -> new IllegalArgumentException("페이지를 찾을 수 없음"));
-        return buttonRepository.findByPage(page)
+        return buttonRepository.findAllByPage(page)
                 .stream()
                 .map(button -> new ButtonDto.Result(
                         button.getId(),
@@ -35,8 +35,8 @@ public class ButtonServiceImpl implements ButtonService {
                         button.getStatus(), button.getUrl(),
                         button.getHttpMethod(),
                         button.getPage().getId(),
-                        button.getIcon())
-                )
+                        button.getIcon()
+                ))
                 .collect(Collectors.toList());
     }
 

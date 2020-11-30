@@ -150,7 +150,6 @@ class ButtonServiceTest {
     public void Button_수정시_URL_체크_테스트() throws Exception {
         // given
         Long buttonId = buttonRepository.findAll().get(0).getId();
-        Long pageId = pageRepository.findAll().get(0).getId();
 
         ButtonDto.Update update = new ButtonDto.Update();
         update.setName("이슈 조회");

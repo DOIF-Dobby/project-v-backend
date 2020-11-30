@@ -23,18 +23,20 @@ public class Tab extends ResourceAuthority {
     private String tabGroup;
 
     @Column(name = "sort", length = 5, nullable = false)
-    private int sort;
+    private Integer sort;
 
-    public Tab(String name, String description, EnableStatus status, String url, HttpMethod httpMethod, Page page, String tabGroup, int sort) {
-        this.name = name;
-        this.description = description;
-        this.status = status;
-        this.url = url;
-        this.httpMethod = httpMethod;
+    public Tab(String name, String description, EnableStatus status, String url, HttpMethod httpMethod, Page page, String tabGroup, Integer sort) {
+        super(name, description, status, url, httpMethod);
         this.page = page;
         this.tabGroup = tabGroup;
         this.sort = sort;
 
         page.getTabs().add(this);
+    }
+
+    public void changeTab(String name, String description, EnableStatus status, String url, HttpMethod httpMethod, String tabGroup, Integer sort) {
+        changeResourceAuthority(name, description, status, url, httpMethod);
+        this.tabGroup = tabGroup;
+        this.sort = sort;
     }
 }

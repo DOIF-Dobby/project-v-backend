@@ -24,6 +24,7 @@ public class Button extends ResourceAuthority {
 
     public Button(String name, String description, EnableStatus status, String url, HttpMethod httpMethod, Page page, String icon) {
         super(name, description, status, url, httpMethod);
+        this.page = page;
         this.icon = icon;
 
         page.getButtons().add(this);
