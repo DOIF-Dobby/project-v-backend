@@ -23,14 +23,14 @@ public class Button extends ResourceAuthority {
     private String icon;
 
     public Button(String name, String description, EnableStatus status, String url, HttpMethod httpMethod, Page page, String icon) {
-        this.name = name;
-        this.description = description;
-        this.status = status;
-        this.page = page;
-        this.url = url;
-        this.httpMethod = httpMethod;
+        super(name, description, status, url, httpMethod);
         this.icon = icon;
 
         page.getButtons().add(this);
+    }
+
+    public void changeButton(String name, String description, EnableStatus status, String url, HttpMethod httpMethod, String icon) {
+        changeResourceAuthority(name, description, status, url, httpMethod);
+        this.icon = icon;
     }
 }

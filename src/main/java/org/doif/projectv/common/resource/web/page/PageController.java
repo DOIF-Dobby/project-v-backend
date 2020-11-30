@@ -17,7 +17,7 @@ public class PageController {
     private final PageService pageService;
 
     @GetMapping
-    public ResponseEntity<PageDto.Response> searchByCondition() {
+    public ResponseEntity<PageDto.Response> select() {
         List<PageDto.Result> result = pageService.select();
         PageDto.Response response = new PageDto.Response(result);
         return ResponseEntity.ok(response);

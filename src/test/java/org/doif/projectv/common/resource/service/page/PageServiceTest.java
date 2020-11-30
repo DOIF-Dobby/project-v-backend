@@ -105,4 +105,41 @@ class PageServiceTest {
         assertThat(results).isEmpty();
     }
 
+    @Test
+    public void Page_추가시_URL_체크_테스트() throws Exception {
+        // given
+        PageDto.Insert insert = new PageDto.Insert();
+        insert.setName("작업 관리 페이지");
+        insert.setDescription("작업 관리 페이지 입니다.");
+        insert.setStatus(EnableStatus.ENABLE);
+        insert.setUrl("/pages/task");
+        insert.setHttpMethod(HttpMethod.GET);
+
+        // when
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> pageService.insert(insert));
+
+        // then
+        assertThat(e.getMessage()).isEqualTo("권한 리소스의 url은 /api/ 로 시작해야 합니다.");
+    }
+
+    @Test
+    public void Page_수정시_URL_체크_테스트() throws Exception {
+        // given
+        PageDto.Update update = new PageDto.Update();
+        update.setName("작업 관리 페이지");
+        update.setDescription("작업 관리 페이지 입니다.");
+        update.setStatus(EnableStatus.DISABLE);
+        update.setUrl("/pages/task");
+        update.setHttpMethod(HttpMethod.GET);
+
+        Long resourceId = pageService.select().get(0).getResourceId();
+
+        // when
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> pageService.update(resourceId, update));
+
+        // then
+        assertThat(e.getMessage()).isEqualTo("권한 리소스의 url은 /api/ 로 시작해야 합니다.");
+
+    }
+
 }
