@@ -8,6 +8,7 @@ import org.doif.projectv.business.patchlog.constant.PatchStatus;
 import org.doif.projectv.business.patchlog.constant.PatchTarget;
 import org.doif.projectv.business.task.constant.TaskType;
 import org.doif.projectv.business.version.constant.VersionStatus;
+import org.doif.projectv.common.resource.constant.MessageType;
 import org.doif.projectv.common.response.ResponseCode;
 import org.doif.projectv.common.system.constant.PropertyGroupType;
 
@@ -16,6 +17,7 @@ public enum CodeEnum {
     // common 패키지 하위
     RESPONSE_CODE("responseCode", "응답 코드", ResponseCode.class),
     PROPERTY_GROUP_TYPE("propertyGroupType", "시스템 속성 그룹 유형", PropertyGroupType.class),
+    MESSAGE_TYPE("messageType", "메세지 유형", MessageType.class),
 
     // business 패키지 하위
     TASK_TYPE("taskType", "작업 유형", TaskType.class),
