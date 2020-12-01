@@ -23,6 +23,7 @@ public class ButtonServiceImpl implements ButtonService {
     private final ButtonRepository buttonRepository;
     private final PageRepository pageRepository;
 
+    @Transactional(readOnly = true)
     @Override
     public List<ButtonDto.Result> selectByPage(Long pageId) {
         Optional<Page> optionalPage = pageRepository.findById(pageId);

@@ -23,7 +23,7 @@ public class TabServiceImpl implements TabService {
     private final TabRepository tabRepository;
     private final PageRepository pageRepository;
 
-
+    @Transactional(readOnly = true)
     @Override
     public List<TabDto.Result> selectByPage(Long pageId) {
         Optional<Page> optionalPage = pageRepository.findById(pageId);

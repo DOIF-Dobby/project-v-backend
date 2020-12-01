@@ -20,6 +20,7 @@ public class PageServiceImpl implements PageService {
 
     private final PageRepository pageRepository;
 
+    @Transactional(readOnly = true)
     @Override
     public List<PageDto.Result> select() {
         return pageRepository.findAll()

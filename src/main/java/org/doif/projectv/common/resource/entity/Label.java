@@ -22,12 +22,14 @@ public class Label extends Resource {
     private String label;
 
     public Label(String name, String description, EnableStatus status, Page page, String label) {
-        this.name = name;
-        this.description = description;
-        this.status = status;
+        super(name, description, status);
         this.page = page;
         this.label = label;
 
         page.getLabels().add(this);
+    }
+
+    public void changeLabel(String name, String description, EnableStatus status) {
+        changeResource(name, description, status);
     }
 }

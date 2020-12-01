@@ -21,7 +21,7 @@ public class ResourceDto {
     @Getter
     @Setter
     @ToString
-    public static class Inert {
+    public static class Insert {
         protected String name;
         protected String description;
         protected EnableStatus status;

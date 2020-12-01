@@ -4,8 +4,6 @@ import com.querydsl.core.annotations.QueryProjection;
 import lombok.*;
 import org.springframework.http.HttpMethod;
 
-import java.io.Serializable;
-
 public class ResourceAuthorityDto {
 
     @Getter
@@ -26,7 +24,7 @@ public class ResourceAuthorityDto {
     @Getter
     @Setter
     @ToString
-    public static class Insert extends ResourceDto.Inert {
+    public static class Insert extends ResourceDto.Insert {
         protected String url;
         protected HttpMethod httpMethod;
     }
