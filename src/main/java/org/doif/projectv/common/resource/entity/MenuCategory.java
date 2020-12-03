@@ -24,20 +24,28 @@ public class MenuCategory extends Resource {
     private List<MenuCategory> children = new ArrayList<>();
 
     @Column(name = "sort", length = 5, nullable = false)
-    private int sort;
+    private Integer sort;
 
     @Column(name = "icon", length = 50)
     private String icon;
 
     public void addChildMenuCategory(MenuCategory child) {
         this.children.add(child);
-        child.parent = this;
     }
 
-    public MenuCategory(String name, String description, EnableStatus status, int sort, String icon) {
-        this.name = name;
-        this.description = description;
-        this.status = status;
+    public MenuCategory(String name, String description, EnableStatus status, Integer sort, String icon, MenuCategory parent) {
+        super(name, description, status);
+        this.sort = sort;
+        this.icon = icon;
+        this.parent = parent;
+
+        if(parent != null) {
+            parent.addChildMenuCategory(this);
+        }
+    }
+
+    public void changeMenuCategory(String name, String description, EnableStatus status, Integer sort, String icon) {
+        changeResource(name, description, status);
         this.sort = sort;
         this.icon = icon;
     }

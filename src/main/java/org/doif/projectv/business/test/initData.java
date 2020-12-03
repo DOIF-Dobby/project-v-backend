@@ -80,7 +80,7 @@ public class initData {
             User user = new User("kjpmj", bCryptPasswordEncoder.encode("1234"), "김명진씨", UserStatus.VALID, "", "");
             Role role = new Role("관리자 ROLE", "관리자 ROLE입니다.", EnableStatus.ENABLE);
             UserRole userRole = new UserRole(user, role);
-            MenuCategory menuCategory = new MenuCategory("메뉴카테고리1", "메뉴카테고리1 입니다.", EnableStatus.ENABLE,1, "heart");
+            MenuCategory menuCategory = new MenuCategory("메뉴카테고리1", "메뉴카테고리1 입니다.", EnableStatus.ENABLE,1, "heart", null);
             Menu menu1 = new Menu("메뉴1", "메뉴1입니다.", EnableStatus.ENABLE, menuCategory, 1, "/project", "");
             Menu menu2 = new Menu("메뉴2", "메뉴2입니다.", EnableStatus.ENABLE, menuCategory, 2, "/module", "");
             Page page = new Page("페이지1", "페이지1 입니다.", EnableStatus.ENABLE, "/api/pages/project", GET);
