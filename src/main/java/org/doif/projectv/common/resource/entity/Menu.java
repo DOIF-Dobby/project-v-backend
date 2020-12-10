@@ -19,7 +19,7 @@ public class Menu extends Resource {
     private MenuCategory menuCategory;
 
     @Column(name = "sort", length = 5, nullable = false)
-    private int sort;
+    private Integer sort;
 
     @Column(name = "url", nullable = false)
     private String url;
@@ -27,11 +27,20 @@ public class Menu extends Resource {
     @Column(name = "icon", length = 50)
     private String icon;
 
-    public Menu(String name, String description, EnableStatus status, MenuCategory menuCategory, int sort, String url, String icon) {
+    public Menu(String name, String description, EnableStatus status, MenuCategory menuCategory, Integer sort, String url, String icon) {
         this.name = name;
         this.description = description;
         this.status = status;
         this.menuCategory = menuCategory;
+        this.sort = sort;
+        this.url = url;
+        this.icon = icon;
+
+        menuCategory.getMenus().add(this);
+    }
+
+    public void changeMenu(String name, String description, EnableStatus status, Integer sort, String url, String icon) {
+        changeResource(name, description, status);
         this.sort = sort;
         this.url = url;
         this.icon = icon;

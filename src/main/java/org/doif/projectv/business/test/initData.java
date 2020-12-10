@@ -80,9 +80,35 @@ public class initData {
             User user = new User("kjpmj", bCryptPasswordEncoder.encode("1234"), "김명진씨", UserStatus.VALID, "", "");
             Role role = new Role("관리자 ROLE", "관리자 ROLE입니다.", EnableStatus.ENABLE);
             UserRole userRole = new UserRole(user, role);
-            MenuCategory menuCategory = new MenuCategory("메뉴카테고리1", "메뉴카테고리1 입니다.", EnableStatus.ENABLE,1, "heart", null);
-            Menu menu1 = new Menu("메뉴1", "메뉴1입니다.", EnableStatus.ENABLE, menuCategory, 1, "/project", "");
-            Menu menu2 = new Menu("메뉴2", "메뉴2입니다.", EnableStatus.ENABLE, menuCategory, 2, "/module", "");
+
+            MenuCategory menuCategory1 = new MenuCategory("메뉴-카테고리 1", "메뉴-카테고리 1", EnableStatus.ENABLE, 1, "", null);
+            MenuCategory menuCategory1_1 = new MenuCategory("메뉴-카테고리 1-1", "메뉴-카테고리 1-1", EnableStatus.ENABLE, 1, "", menuCategory1);
+            MenuCategory menuCategory1_1_1 = new MenuCategory("메뉴-카테고리 1-1-1", "메뉴-카테고리 1-1-1", EnableStatus.ENABLE, 1, "", menuCategory1_1);
+            MenuCategory menuCategory1_1_2 = new MenuCategory("메뉴-카테고리 1-1-2", "메뉴-카테고리 1-1-2", EnableStatus.ENABLE, 2, "", menuCategory1_1);
+            MenuCategory menuCategory1_1_3 = new MenuCategory("메뉴-카테고리 1-1-3", "메뉴-카테고리 1-1-3", EnableStatus.ENABLE, 3, "", menuCategory1_1);
+
+            MenuCategory menuCategory2 = new MenuCategory("메뉴-카테고리 2", "메뉴-카테고리 2", EnableStatus.ENABLE, 2, "", null);
+            MenuCategory menuCategory2_1 = new MenuCategory("메뉴-카테고리 2-1", "메뉴-카테고리 2-1", EnableStatus.ENABLE, 1, "", menuCategory2);
+            MenuCategory menuCategory2_1_1 = new MenuCategory("메뉴-카테고리 2-1-1", "메뉴-카테고리 2-1-1", EnableStatus.ENABLE, 1, "edit", menuCategory2_1);
+            MenuCategory menuCategory2_1_2 = new MenuCategory("메뉴-카테고리 2-1-2", "메뉴-카테고리 2-1-2", EnableStatus.ENABLE, 2, "", menuCategory2_1);
+
+            MenuCategory menuCategory2_2 = new MenuCategory("메뉴-카테고리 2-2", "메뉴-카테고리 2-2", EnableStatus.ENABLE, 2, "", menuCategory2);
+            MenuCategory menuCategory2_2_1 = new MenuCategory("메뉴-카테고리 2-2-1", "메뉴-카테고리 2-2-1", EnableStatus.ENABLE, 1, "", menuCategory2_2);
+            MenuCategory menuCategory2_2_2 = new MenuCategory("메뉴-카테고리 2-2-2", "메뉴-카테고리 2-2-2", EnableStatus.ENABLE, 2, "", menuCategory2_2);
+
+            MenuCategory menuCategory3 = new MenuCategory("메뉴-카테고리 3", "메뉴-카테고리 3", EnableStatus.ENABLE, 3, "heart", null);
+            MenuCategory menuCategory3_1 = new MenuCategory("메뉴-카테고리 3-1", "메뉴-카테고리 3-1", EnableStatus.ENABLE, 1, "iconconc", menuCategory3);
+            MenuCategory menuCategory3_1_1 = new MenuCategory("메뉴-카테고리 3-1-1", "메뉴-카테고리 3-1-1", EnableStatus.ENABLE, 1, "exit", menuCategory3_1);
+
+            Menu menu1 = new Menu("메뉴 1", "메뉴 1", EnableStatus.ENABLE, menuCategory1_1_1, 1, "", "");
+            Menu menu2 = new Menu("메뉴 2", "메뉴 2", EnableStatus.ENABLE, menuCategory1_1_1, 2, "/menus/2", "right-arrow");
+            Menu menu3 = new Menu("메뉴 3", "메뉴 3", EnableStatus.ENABLE, menuCategory2_1_1, 1, "", "");
+            Menu menu4 = new Menu("메뉴 4", "메뉴 4", EnableStatus.ENABLE, menuCategory2_1_1, 2, "", "");
+            Menu menu5 = new Menu("메뉴 5", "메뉴 5", EnableStatus.ENABLE, menuCategory2_1_2, 1, "", "");
+            Menu menu6 = new Menu("메뉴 6", "메뉴 6", EnableStatus.ENABLE, menuCategory2_2_1, 1, "", "");
+            Menu menu7 = new Menu("메뉴 7", "메뉴 7", EnableStatus.ENABLE, menuCategory2_2_2, 1, "", "");
+            Menu menu8 = new Menu("메뉴 8", "메뉴 8", EnableStatus.ENABLE, menuCategory2_1, 3, "", "");
+
             Page page = new Page("페이지1", "페이지1 입니다.", EnableStatus.ENABLE, "/api/pages/project", GET);
             Button button1 = new Button("버튼1", "", EnableStatus.ENABLE, "/api/project", GET, page, "");
             Button button2 = new Button("버튼2", "", EnableStatus.ENABLE, "/api/user", POST, page, "");
@@ -93,7 +119,6 @@ public class initData {
             Button button7 = new Button("버튼7", "", EnableStatus.ENABLE, "/api/version", POST, page, "");
             Button button8 = new Button("버튼8", "", EnableStatus.ENABLE, "/api/version", GET, page, "");
 
-            RoleResource roleResource1 = new RoleResource(role, menuCategory);
             RoleResource roleResource2 = new RoleResource(role, menu1);
             RoleResource roleResource2_1 = new RoleResource(role, menu2);
             RoleResource roleResource3 = new RoleResource(role, page);
@@ -126,9 +151,8 @@ public class initData {
             em.persist(user);
             em.persist(role);
             em.persist(userRole);
-            em.persist(menuCategory);
-            em.persist(menu1);
-            em.persist(menu2);
+//            em.persist(menu1);
+//            em.persist(menu2);
             em.persist(page);
             em.persist(button1);
             em.persist(button2);
@@ -139,9 +163,8 @@ public class initData {
             em.persist(button7);
             em.persist(button8);
 
-            em.persist(roleResource1);
-            em.persist(roleResource2);
-            em.persist(roleResource2_1);
+//            em.persist(roleResource2);
+//            em.persist(roleResource2_1);
             em.persist(roleResource3);
             em.persist(roleResource4);
             em.persist(roleResource5);
@@ -153,6 +176,35 @@ public class initData {
             em.persist(roleResource11);
 
             em.persist(systemProperty);
+
+            // 메뉴 테스트
+            em.persist(menuCategory3);
+            em.persist(menuCategory3_1);
+            em.persist(menuCategory3_1_1);
+
+            em.persist(menuCategory1);
+            em.persist(menuCategory1_1);
+            em.persist(menuCategory1_1_3);
+            em.persist(menuCategory1_1_1);
+            em.persist(menuCategory1_1_2);
+
+            em.persist(menuCategory2);
+            em.persist(menuCategory2_1);
+            em.persist(menuCategory2_1_1);
+            em.persist(menuCategory2_1_2);
+
+            em.persist(menuCategory2_2);
+            em.persist(menuCategory2_2_1);
+            em.persist(menuCategory2_2_2);
+
+            em.persist(menu8);
+            em.persist(menu1);
+            em.persist(menu2);
+            em.persist(menu3);
+            em.persist(menu4);
+            em.persist(menu5);
+            em.persist(menu6);
+            em.persist(menu7);
         }
     }
 }

@@ -23,15 +23,14 @@ public class MenuCategory extends Resource {
     @OneToMany(mappedBy = "parent")
     private List<MenuCategory> children = new ArrayList<>();
 
+    @OneToMany(mappedBy = "menuCategory")
+    private List<Menu> menus = new ArrayList<>();
+
     @Column(name = "sort", length = 5, nullable = false)
     private Integer sort;
 
     @Column(name = "icon", length = 50)
     private String icon;
-
-    public void addChildMenuCategory(MenuCategory child) {
-        this.children.add(child);
-    }
 
     public MenuCategory(String name, String description, EnableStatus status, Integer sort, String icon, MenuCategory parent) {
         super(name, description, status);
@@ -40,7 +39,7 @@ public class MenuCategory extends Resource {
         this.parent = parent;
 
         if(parent != null) {
-            parent.addChildMenuCategory(this);
+            this.children.add(this);
         }
     }
 
@@ -48,5 +47,17 @@ public class MenuCategory extends Resource {
         changeResource(name, description, status);
         this.sort = sort;
         this.icon = icon;
+    }
+
+    public Integer getLevel() {
+        return getLevel(1);
+    }
+
+    private Integer getLevel(Integer level) {
+        if(parent != null) {
+            return parent.getLevel(level + 1);
+        }
+
+        return level;
     }
 }
