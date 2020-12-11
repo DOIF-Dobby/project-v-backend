@@ -25,6 +25,7 @@ public class MenuServiceImpl implements MenuService {
     private final MenuRepository menuRepository;
     private final MenuCategoryRepository menuCategoryRepository;
 
+    @Transactional(readOnly = true)
     @Override
     public List<MenuDto.Result> select() {
         List<MenuCategory> menuCategories = menuCategoryRepository.findAll();
