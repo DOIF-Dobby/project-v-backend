@@ -1,6 +1,7 @@
 package org.doif.projectv.common.resource.service.menu;
 
 import org.assertj.core.api.Assertions;
+import org.doif.projectv.common.resource.constant.MenuType;
 import org.doif.projectv.common.resource.dto.MenuDto;
 import org.doif.projectv.common.resource.entity.Menu;
 import org.doif.projectv.common.resource.entity.MenuCategory;
@@ -134,7 +135,7 @@ class MenuServiceTest {
         // given
         List<MenuDto.Result> menuCategories = menuService.select();
         MenuDto.Result menu = menuCategories.stream()
-                .filter(result -> result.getType().equals("MENU"))
+                .filter(result -> result.getType() == MenuType.MENU)
                 .findFirst()
                 .get();
 
@@ -166,12 +167,7 @@ class MenuServiceTest {
 
         // then
         assertThat(response.getCode()).isEqualTo(ResponseCode.OK.getCode());
-        assertThat(results.size()).isEqualTo(21);
-    }
-    
-    @Test
-    void test() {
-        menuService.select();
+        assertThat(results.size()).isEqualTo(20);
     }
 
 }
