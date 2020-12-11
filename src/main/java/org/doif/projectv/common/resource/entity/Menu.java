@@ -45,4 +45,28 @@ public class Menu extends Resource {
         this.url = url;
         this.icon = icon;
     }
+
+    public Integer getDepth() {
+        return getDepth(1);
+    }
+
+    private Integer getDepth(Integer depth) {
+        if(menuCategory != null) {
+            return menuCategory.getDepth(depth + 1);
+        }
+
+        return depth;
+    }
+
+    public String getPath() {
+        return getPath(String.valueOf(this.sort));
+    }
+
+    private String getPath(String path) {
+        if(menuCategory != null) {
+            return menuCategory.getPath(menuCategory.getSort() + "-" + path);
+        }
+
+        return path;
+    }
 }

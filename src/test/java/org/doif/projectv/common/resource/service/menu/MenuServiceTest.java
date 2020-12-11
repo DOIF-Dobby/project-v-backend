@@ -168,5 +168,10 @@ class MenuServiceTest {
         assertThat(response.getCode()).isEqualTo(ResponseCode.OK.getCode());
         assertThat(results.size()).isEqualTo(21);
     }
+    
+    @Test
+    void test() {
+        menuService.select();
+    }
 
 }

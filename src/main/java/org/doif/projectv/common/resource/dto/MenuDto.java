@@ -1,6 +1,10 @@
 package org.doif.projectv.common.resource.dto;
 
 import lombok.*;
+import org.codehaus.plexus.util.StringUtils;
+import org.doif.projectv.common.resource.constant.MenuType;
+import org.doif.projectv.common.resource.entity.Menu;
+import org.doif.projectv.common.resource.entity.MenuCategory;
 import org.doif.projectv.common.status.EnableStatus;
 
 import java.util.List;
@@ -16,9 +20,25 @@ public class MenuDto {
         private Integer sort;
         private Integer depth;
         private String path;
-        private String type;
+        private MenuType type;
         private String icon;
         private String url;
+
+        public void setDepthAndPath(MenuCategory menuCategory) {
+            this.setParentId(menuCategory.getParent() != null ? menuCategory.getParent().getId() : null);
+            this.depth = menuCategory.getDepth();
+            this.path = menuCategory.getPath();
+        }
+
+        public void setDepthAndPath(Menu menu) {
+            this.setParentId(menu.getMenuCategory() != null ? menu.getMenuCategory().getId() : null);
+            this.depth = menu.getDepth();
+            this.path = menu.getPath();
+        }
+
+        public void setPaddingName(String name) {
+            this.paddingName = StringUtils.leftPad(name, name.length() + this.depth, " ");
+        }
 
     }
 

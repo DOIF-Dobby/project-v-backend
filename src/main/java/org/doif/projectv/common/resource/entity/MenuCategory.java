@@ -49,15 +49,27 @@ public class MenuCategory extends Resource {
         this.icon = icon;
     }
 
-    public Integer getLevel() {
-        return getLevel(1);
+    public Integer getDepth() {
+        return getDepth(1);
     }
 
-    private Integer getLevel(Integer level) {
+    public Integer getDepth(Integer depth) {
         if(parent != null) {
-            return parent.getLevel(level + 1);
+            return parent.getDepth(depth + 1);
         }
 
-        return level;
+        return depth;
+    }
+
+    public String getPath() {
+        return getPath(String.valueOf(this.sort));
+    }
+
+    public String getPath(String path) {
+        if(parent != null) {
+            return parent.getPath(parent.sort + "-" + path);
+        }
+
+        return path;
     }
 }
