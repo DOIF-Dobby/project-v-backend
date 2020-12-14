@@ -63,10 +63,10 @@ public class RoleResourceServiceImpl implements RoleResourceService {
     @Transactional
     @Override
     public CommonResponse allocate(RoleResourceDto.Allocate dto) {
-        roleResourceRepository.deleteAll();
-
         Optional<Role> optionalRole = roleRepository.findById(dto.getRoleId());
         Role role = optionalRole.orElseThrow(() -> new IllegalArgumentException("Role를 찾을 수 없음"));
+
+        roleResourceRepository.deleteByRoleId(role.getId());
 
         // TODO: roleResource를 한 방에 지우고 다시 Insert 하는 것이 맞는가? 맞다면 아래처럼 findById로 찾는 것이 아니라, insert into select로 찾아야 하는 것이 아닐까?
         // 일단 쓰다가 성능상 이슈가 발생하면 한 번 고민해보자
