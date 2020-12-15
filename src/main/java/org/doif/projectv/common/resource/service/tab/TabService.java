@@ -6,7 +6,7 @@ import org.doif.projectv.common.response.CommonResponse;
 import java.util.List;
 
 public interface TabService {
-    List<TabDto.Result> selectByPage(Long pageId);
+    List<TabDto.Result> selectByPage(TabDto.Search search);
 
     CommonResponse insert(TabDto.Insert dto);
 

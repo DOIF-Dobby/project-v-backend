@@ -16,9 +16,9 @@ public class UserRoleController {
 
     private final UserRoleService userRoleService;
 
-    @GetMapping("/role/{userId}")
-    public ResponseEntity<UserRoleDto.Response> selectRole(@PathVariable String userId) {
-        List<UserRoleDto.ResultRole> result = userRoleService.selectRole(userId);
+    @GetMapping
+    public ResponseEntity<UserRoleDto.Response> selectRole(@RequestBody UserRoleDto.Search search) {
+        List<UserRoleDto.ResultRole> result = userRoleService.selectRole(search);
         UserRoleDto.Response response = new UserRoleDto.Response(result);
         return ResponseEntity.ok(response);
     }

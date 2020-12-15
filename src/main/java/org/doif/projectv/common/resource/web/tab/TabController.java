@@ -16,9 +16,9 @@ public class TabController {
 
     private final TabService tabService;
 
-    @GetMapping("/page/{pageId}")
-    public ResponseEntity<TabDto.Response> selectByPage(@PathVariable Long pageId) {
-        List<TabDto.Result> result = tabService.selectByPage(pageId);
+    @GetMapping
+    public ResponseEntity<TabDto.Response> selectByPage(@RequestBody TabDto.Search search) {
+        List<TabDto.Result> result = tabService.selectByPage(search);
         TabDto.Response response = new TabDto.Response(result);
         return ResponseEntity.ok(response);
     }

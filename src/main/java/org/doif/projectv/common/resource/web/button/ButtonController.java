@@ -16,9 +16,9 @@ public class ButtonController {
 
     private final ButtonService buttonService;
 
-    @GetMapping("/page/{pageId}")
-    public ResponseEntity<ButtonDto.Response> selectByPage(@PathVariable Long pageId) {
-        List<ButtonDto.Result> result = buttonService.selectByPage(pageId);
+    @GetMapping
+    public ResponseEntity<ButtonDto.Response> selectByPage(@RequestBody ButtonDto.Search search) {
+        List<ButtonDto.Result> result = buttonService.selectByPage(search);
         ButtonDto.Response response = new ButtonDto.Response(result);
         return ResponseEntity.ok(response);
     }

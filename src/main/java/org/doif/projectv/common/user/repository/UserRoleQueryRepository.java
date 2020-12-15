@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface UserRoleQueryRepository {
 
-    List<UserRoleDto.ResultRole> selectRole(String userId);
+    List<UserRoleDto.ResultRole> selectRole(UserRoleDto.Search search);
 }

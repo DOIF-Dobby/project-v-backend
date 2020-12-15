@@ -26,10 +26,11 @@ public class UserRoleServiceImpl implements UserRoleService {
     private final RoleRepository roleRepository;
 
     @Override
-    public List<UserRoleDto.ResultRole> selectRole(String userId) {
-        return userRoleRepository.selectRole(userId);
+    public List<UserRoleDto.ResultRole> selectRole(UserRoleDto.Search search) {
+        return userRoleRepository.selectRole(search);
     }
 
+    @Transactional
     @Override
     public CommonResponse allocate(UserRoleDto.Allocate dto) {
         Optional<User> optionalUser = userRepository.findById(dto.getUserId());

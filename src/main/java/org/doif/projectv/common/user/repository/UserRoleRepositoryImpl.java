@@ -19,7 +19,7 @@ public class UserRoleRepositoryImpl implements UserRoleQueryRepository {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public List<UserRoleDto.ResultRole> selectRole(String userId) {
+    public List<UserRoleDto.ResultRole> selectRole(UserRoleDto.Search search) {
         return queryFactory
                 .select(new QUserRoleDto_ResultRole(
                         role.id,
@@ -30,7 +30,7 @@ public class UserRoleRepositoryImpl implements UserRoleQueryRepository {
                             .select(userRole.id.isNotNull())
                             .from(userRole)
                             .where(
-                                    userRole.user.id.eq(userId),
+                                    userRole.user.id.eq(search.getUserId()),
                                     userRole.role.id.eq(role.id)
                             )
                 ))

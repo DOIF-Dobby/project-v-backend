@@ -16,9 +16,9 @@ public class LabelController {
 
     private final LabelService labelService;
 
-    @GetMapping("/page/{pageId}")
-    public ResponseEntity<LabelDto.Response> selectByPage(@PathVariable Long pageId) {
-        List<LabelDto.Result> result = labelService.selectByPage(pageId);
+    @GetMapping
+    public ResponseEntity<LabelDto.Response> selectByPage(@RequestBody LabelDto.Search search) {
+        List<LabelDto.Result> result = labelService.selectByPage(search);
         LabelDto.Response response = new LabelDto.Response(result);
         return ResponseEntity.ok(response);
     }

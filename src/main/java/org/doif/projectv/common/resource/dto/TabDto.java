@@ -39,6 +39,12 @@ public class TabDto {
 
     @Getter
     @Setter
+    public static class Search {
+        private Long pageId;
+    }
+
+    @Getter
+    @Setter
     @ToString
     public static class Insert extends ResourceAuthorityDto.Insert {
         private Long pageId;
