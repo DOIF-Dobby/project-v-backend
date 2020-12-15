@@ -98,7 +98,6 @@ class RoleResourceServiceTest {
     }
 
     @Test
-    @Commit
     public void ROLE_RESOURCE_폐이지_조회_서비스_테스트() throws Exception {
         // given
         Role devRole = roleRepository.findAll()
