@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.doif.projectv.common.jpa.entity.BaseEntity;
 import org.doif.projectv.common.resource.entity.Resource;
+import org.doif.projectv.common.resource.entity.ResourceAuthority;
 
 import javax.persistence.*;
 
@@ -23,9 +24,9 @@ public class RoleResource extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "resource_id", nullable = false)
-    private Resource resource;
+    private ResourceAuthority resource;
 
-    public RoleResource(Role role, Resource resource) {
+    public RoleResource(Role role, ResourceAuthority resource) {
         this.role = role;
         this.resource = resource;
     }

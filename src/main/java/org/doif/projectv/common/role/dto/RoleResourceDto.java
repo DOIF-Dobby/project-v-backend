@@ -1,6 +1,7 @@
 package org.doif.projectv.common.role.dto;
 
 
+import com.querydsl.core.annotations.QueryProjection;
 import lombok.*;
 import org.doif.projectv.common.status.EnableStatus;
 
@@ -17,12 +18,15 @@ public class RoleResourceDto {
         private String name;
         private EnableStatus status;
         private String statusName;
+        private boolean checked;
 
-        public ResultPage(Long pageId, String name, EnableStatus status) {
+        @QueryProjection
+        public ResultPage(Long pageId, String name, EnableStatus status, boolean checked) {
             this.pageId = pageId;
             this.name = name;
             this.status = status;
             this.statusName = status.getMessage();
+            this.checked = checked;
         }
     }
 
@@ -37,14 +41,17 @@ public class RoleResourceDto {
         private String description;
         private EnableStatus status;
         private String statusName;
+        private boolean checked;
 
-        public ResultButton(Long buttonId, Long pageId, String name, String description, EnableStatus status) {
+        @QueryProjection
+        public ResultButton(Long buttonId, Long pageId, String name, String description, EnableStatus status, boolean checked) {
             this.buttonId = buttonId;
             this.pageId = pageId;
             this.name = name;
             this.description = description;
             this.status = status;
             this.statusName = status.getMessage();
+            this.checked = checked;
         }
     }
 
@@ -59,14 +66,17 @@ public class RoleResourceDto {
         private String description;
         private EnableStatus status;
         private String statusName;
+        private boolean checked;
 
-        public ResultTab(Long tabId, Long pageId, String name, String description, EnableStatus status) {
+        @QueryProjection
+        public ResultTab(Long tabId, Long pageId, String name, String description, EnableStatus status, boolean checked) {
             this.tabId = tabId;
             this.pageId = pageId;
             this.name = name;
             this.description = description;
             this.status = status;
             this.statusName = status.getMessage();
+            this.checked = checked;
         }
     }
 
@@ -81,11 +91,24 @@ public class RoleResourceDto {
 
     @Getter
     @Setter
+    public static class SearchPage {
+        private Long roleId;
+    }
+
+    @Getter
+    @Setter
+    public static class Search {
+        private Long roleId;
+        private Long pageId;
+    }
+
+    @Getter
+    @Setter
     @ToString
     public static class Allocate {
         private Long roleId;
-        private List<ResultPage> pages;
-        private List<ResultButton> buttons;
-        private List<ResultTab> tabs;
+        private List<Long> pages;
+        private List<Long> buttons;
+        private List<Long> tabs;
     }
 }

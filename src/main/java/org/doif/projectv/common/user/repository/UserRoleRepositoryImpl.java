@@ -1,5 +1,6 @@
 package org.doif.projectv.common.user.repository;
 
+import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.doif.projectv.common.user.dto.QUserRoleDto_ResultRole;
@@ -25,16 +26,15 @@ public class UserRoleRepositoryImpl implements UserRoleQueryRepository {
                         role.name,
                         role.description,
                         role.status,
-                        userRole.user.id
-                        .when(userId).then("Y")
-                        .otherwise("N")
+                        JPAExpressions
+                            .select(userRole.id.isNotNull())
+                            .from(userRole)
+                            .where(
+                                    userRole.user.id.eq(userId),
+                                    userRole.role.id.eq(role.id)
+                            )
                 ))
                 .from(role)
-                .leftJoin(role.userRoles, userRole)
-                .where(
-                        userRole.user.id.eq(userId)
-                        .or(userRole.user.id.isNull())
-                )
                 .orderBy(role.id.asc())
                 .fetch();
     }

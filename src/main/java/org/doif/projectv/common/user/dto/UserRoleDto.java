@@ -18,10 +18,10 @@ public class UserRoleDto {
         private String description;
         private EnableStatus status;
         private String statusName;
-        private String checked;
+        private boolean checked;
 
         @QueryProjection
-        public ResultRole(Long roleId, String name, String description, EnableStatus status, String checked) {
+        public ResultRole(Long roleId, String name, String description, EnableStatus status, boolean checked) {
             this.roleId = roleId;
             this.name = name;
             this.description = description;

@@ -2,7 +2,7 @@ package org.doif.projectv.common.role.web;
 
 import lombok.RequiredArgsConstructor;
 import org.doif.projectv.common.response.CommonResponse;
-import org.doif.projectv.common.role.dto.RoleResourceDto;
+import org.doif.projectv.common.role.dto.RoleResourceDto.*;
 import org.doif.projectv.common.role.service.RoleResourceService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,28 +17,28 @@ public class RoleResourceController {
     private final RoleResourceService roleResourceService;
 
     @GetMapping("/page")
-    public ResponseEntity<RoleResourceDto.Response<RoleResourceDto.ResultPage>> selectPage() {
-        List<RoleResourceDto.ResultPage> result = roleResourceService.selectPage();
-        RoleResourceDto.Response<RoleResourceDto.ResultPage> response = new RoleResourceDto.Response<>(result);
+    public ResponseEntity<Response<ResultPage>> selectPage(@RequestBody SearchPage search) {
+        List<ResultPage> result = roleResourceService.selectPage(search);
+        Response<ResultPage> response = new Response<>(result);
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/button/{pageId}")
-    public ResponseEntity<RoleResourceDto.Response<RoleResourceDto.ResultButton>> selectButtonByPageId(@PathVariable Long pageId) {
-        List<RoleResourceDto.ResultButton> result = roleResourceService.selectButtonByPageId(pageId);
-        RoleResourceDto.Response<RoleResourceDto.ResultButton> response = new RoleResourceDto.Response<>(result);
+    @GetMapping("/button")
+    public ResponseEntity<Response<ResultButton>> selectButton(@RequestBody Search search) {
+        List<ResultButton> result = roleResourceService.selectButton(search);
+        Response<ResultButton> response = new Response<>(result);
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/tab/{pageId}")
-    public ResponseEntity<RoleResourceDto.Response<RoleResourceDto.ResultTab>> selectTabByPageId(@PathVariable Long pageId) {
-        List<RoleResourceDto.ResultTab> result = roleResourceService.selectTabByPageId(pageId);
-        RoleResourceDto.Response<RoleResourceDto.ResultTab> response = new RoleResourceDto.Response<>(result);
+    @GetMapping("/tab")
+    public ResponseEntity<Response<ResultTab>> selectTab(@RequestBody Search search) {
+        List<ResultTab> result = roleResourceService.selectTab(search);
+        Response<ResultTab> response = new Response<>(result);
         return ResponseEntity.ok(response);
     }
 
     @PostMapping
-    public ResponseEntity<CommonResponse> allocate(@RequestBody RoleResourceDto.Allocate dto) {
+    public ResponseEntity<CommonResponse> allocate(@RequestBody Allocate dto) {
         CommonResponse response = roleResourceService.allocate(dto);
         return ResponseEntity.ok(response);
     }

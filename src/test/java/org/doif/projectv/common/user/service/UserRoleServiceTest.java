@@ -13,7 +13,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
@@ -66,11 +65,10 @@ class UserRoleServiceTest {
 
         // then
         assertThat(results.size()).isEqualTo(3);
-        assertThat(results.get(0).getChecked()).isEqualTo("Y");
+        assertThat(results.get(0).isChecked()).isEqualTo(true);
     }
 
     @Test
-    @Commit
     public void USER_ROLE_할당_서비스_테스트() throws Exception {
         // given
         List<Role> roles = roleRepository.findAll();
@@ -92,6 +90,6 @@ class UserRoleServiceTest {
         // then
         assertThat(response.getCode()).isEqualTo(ResponseCode.OK.getCode());
         assertThat(results.size()).isEqualTo(3);
-        assertThat(results).extracting("checked").containsExactly("Y", "Y", "N");
+        assertThat(results).extracting("checked").containsExactly(true, true, false);
     }
 }

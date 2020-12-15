@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-public interface RoleResourceRepository extends JpaRepository<RoleResource, Long> {
+public interface RoleResourceRepository extends JpaRepository<RoleResource, Long>, RoleResourceQueryRepository {
 
     @Modifying(clearAutomatically = true)
     @Query("delete from RoleResource rr where rr.role.id = :roleId")

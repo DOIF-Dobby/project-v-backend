@@ -119,8 +119,6 @@ public class initData {
             Button button7 = new Button("버튼7", "", EnableStatus.ENABLE, "/api/version", POST, page, "");
             Button button8 = new Button("버튼8", "", EnableStatus.ENABLE, "/api/version", GET, page, "");
 
-            RoleResource roleResource2 = new RoleResource(role, menu1);
-            RoleResource roleResource2_1 = new RoleResource(role, menu2);
             RoleResource roleResource3 = new RoleResource(role, page);
             RoleResource roleResource4 = new RoleResource(role, button1);
             RoleResource roleResource5 = new RoleResource(role, button2);
