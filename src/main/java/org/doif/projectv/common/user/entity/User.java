@@ -30,7 +30,7 @@ public class User extends BaseEntity implements Persistable<String> {
     @Enumerated(EnumType.STRING)
     private UserStatus status;
 
-    @Column(name = "svn_id", length = 50)
+    @Column(name = "svn_id")
     private String svnId;
 
     @Column(name = "svn_password")
@@ -55,5 +55,12 @@ public class User extends BaseEntity implements Persistable<String> {
     @Override
     public boolean isNew() {
         return getCreatedDate() == null;
+    }
+
+    public void changeUser(String name, UserStatus status, String svnId, String svnPassword) {
+        this.name = name;
+        this.status = status;
+        this.svnId = svnId;
+        this.svnPassword = svnPassword;
     }
 }

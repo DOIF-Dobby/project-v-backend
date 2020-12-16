@@ -12,9 +12,6 @@ import java.util.Base64;
 
 public class AesBytesEncryptorTest {
 
-    @Autowired
-    BytesEncryptor bytesEncryptor;
-
     @Test
     public void 테스트() throws Exception {
         // given
@@ -38,6 +35,5 @@ public class AesBytesEncryptorTest {
         // then
         Assertions.assertThat(new String(decrypt)).isEqualTo(plainText);
     }
-
 
 }

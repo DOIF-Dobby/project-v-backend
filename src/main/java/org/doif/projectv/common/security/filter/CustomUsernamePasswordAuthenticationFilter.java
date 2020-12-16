@@ -57,7 +57,7 @@ public class CustomUsernamePasswordAuthenticationFilter extends UsernamePassword
 
         // jackson ObjectMapper로 request body로 넘어온 데이터를 UserDto 객체로 변환
         try{
-            UserDto userDto = new ObjectMapper().readValue(request.getInputStream(), UserDto.class);
+            UserDto.Auth userDto = new ObjectMapper().readValue(request.getInputStream(), UserDto.Auth.class);
             authRequest = new UsernamePasswordAuthenticationToken(userDto.getId(), userDto.getPassword());
         } catch (IOException exception){
             throw new AuthenticationServiceException("Invalid Request");

@@ -12,6 +12,7 @@ import org.doif.projectv.common.resource.constant.MenuType;
 import org.doif.projectv.common.resource.constant.MessageType;
 import org.doif.projectv.common.response.ResponseCode;
 import org.doif.projectv.common.system.constant.PropertyGroupType;
+import org.doif.projectv.common.user.constant.UserStatus;
 
 @Getter
 public enum CodeEnum {
@@ -20,6 +21,7 @@ public enum CodeEnum {
     PROPERTY_GROUP_TYPE("propertyGroupType", "시스템 속성 그룹 유형", PropertyGroupType.class),
     MESSAGE_TYPE("messageType", "메세지 유형", MessageType.class),
     MENU_TYPE("menuType", "메뉴 유형", MenuType.class),
+    USER_STATUS("userStatus", "유저 상태", UserStatus.class),
 
     // business 패키지 하위
     TASK_TYPE("taskType", "작업 유형", TaskType.class),
