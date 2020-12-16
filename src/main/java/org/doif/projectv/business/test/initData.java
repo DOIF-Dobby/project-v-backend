@@ -14,7 +14,10 @@ import org.doif.projectv.business.project.entity.Project;
 import org.doif.projectv.business.task.constant.TaskType;
 import org.doif.projectv.business.task.entity.Task;
 import org.doif.projectv.business.version.entity.Version;
-import org.doif.projectv.common.resource.entity.*;
+import org.doif.projectv.common.resource.entity.Button;
+import org.doif.projectv.common.resource.entity.Menu;
+import org.doif.projectv.common.resource.entity.MenuCategory;
+import org.doif.projectv.common.resource.entity.Page;
 import org.doif.projectv.common.role.entity.Role;
 import org.doif.projectv.common.role.entity.RoleResource;
 import org.doif.projectv.common.status.EnableStatus;
@@ -25,7 +28,7 @@ import org.doif.projectv.common.user.entity.User;
 import org.doif.projectv.common.user.entity.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -54,7 +57,7 @@ public class initData {
         private EntityManager em;
 
         @Autowired
-        BCryptPasswordEncoder bCryptPasswordEncoder;
+        PasswordEncoder passwordEncoder;
 
         @Transactional
         public void init() {
@@ -77,7 +80,7 @@ public class initData {
             PatchLog patchLog1 = new PatchLog(version1, PatchTarget.DEV, PatchStatus.COMPLETE, LocalDate.of(2020,10,19), "kjpmj", "");
             PatchLog patchLog2 = new PatchLog(version1, PatchTarget.PROD, PatchStatus.COMPLETE, LocalDate.of(2020,10,20), "kjpmj", "");
 
-            User user = new User("kjpmj", bCryptPasswordEncoder.encode("1234"), "김명진씨", UserStatus.VALID, "", "");
+            User user = new User("kjpmj", passwordEncoder.encode("1234"), "김명진씨", UserStatus.VALID, "", "");
             Role role = new Role("관리자 ROLE", "관리자 ROLE입니다.", EnableStatus.ENABLE);
             UserRole userRole = new UserRole(user, role);
 

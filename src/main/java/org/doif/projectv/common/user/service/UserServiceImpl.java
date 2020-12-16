@@ -5,7 +5,7 @@ import org.doif.projectv.common.response.CommonResponse;
 import org.doif.projectv.common.response.ResponseUtil;
 import org.doif.projectv.common.user.dto.UserDto;
 import org.doif.projectv.common.user.repository.UserRepository;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService{
 
     private final UserRepository userRepository;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public UserDto findById(String id) {
