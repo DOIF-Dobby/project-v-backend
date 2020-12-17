@@ -7,7 +7,10 @@ import org.springframework.security.crypto.encrypt.AesBytesEncryptor;
 import org.springframework.security.crypto.encrypt.BytesEncryptor;
 import org.springframework.security.crypto.keygen.BytesKeyGenerator;
 import org.springframework.security.crypto.keygen.KeyGenerators;
+import org.springframework.util.FileCopyUtils;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.Base64;
 
 public class AesBytesEncryptorTest {
@@ -34,6 +37,25 @@ public class AesBytesEncryptorTest {
 
         // then
         Assertions.assertThat(new String(decrypt)).isEqualTo(plainText);
+    }
+
+    @Test
+    public void 테스트2() throws Exception {
+        // given
+//        GroovyTest.main(new String[]{});
+
+        // when
+//        File file = new File("C:\\Users\\MJ\\dev\\my-project\\java-project\\project-v", "build.gradle");
+//        byte[] bytes = FileCopyUtils.copyToByteArray(file);
+//
+//        String s = new String(bytes);
+//
+//        String replace = s.replace("version = '0.0.1-SNAPSHOT'", "version = '0.0.2'");
+//
+//        FileCopyUtils.copy(replace.getBytes(), file);
+
+
+        // then
     }
 
 }
