@@ -46,7 +46,7 @@ public class VersionServiceImpl implements VersionService {
         versionRepository.save(version);
 
         // svn checkout -> pom.xml 버전 변경 -> svn commit
-        File svnTempDirectory = svnService.checkout(module.getSvnUrl());
+        File svnTempDirectory = svnService.checkout("");
         File pomFile = new File(svnTempDirectory.getAbsolutePath(), "pom.xml");
 
         mavenService.updateVersion(pomFile, dto.getVersionName());
@@ -82,7 +82,7 @@ public class VersionServiceImpl implements VersionService {
         Version version = optionalVersion.orElseThrow(() -> new IllegalArgumentException("버전을 찾을 수 없음"));
 
         // tags 폴더에 복사
-        Optional<SvnTagDto> optionalSvnTagDto = svnService.tag(version.getModule().getSvnUrl(), version.getName());
+        Optional<SvnTagDto> optionalSvnTagDto = svnService.tag("", version.getName());
         SvnTagDto svnTagDto = optionalSvnTagDto.orElseThrow(() -> new IllegalArgumentException("Svn 태깅 실패"));
 
         // 배포상태로 변경

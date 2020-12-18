@@ -28,30 +28,19 @@ public class Module extends BaseEntity {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "svn_url")
-    private String svnUrl;
-
     public Module(String moduleName, Project project) {
         this.moduleName = moduleName;
         this.project = project;
     }
 
-    public Module(String moduleName, Project project, String svnUrl) {
-        this.moduleName = moduleName;
-        this.project = project;
-        this.svnUrl = svnUrl;
-    }
-
-    public Module(String moduleName, Project project, String description, String svnUrl) {
+    public Module(String moduleName, Project project, String description) {
         this.moduleName = moduleName;
         this.project = project;
         this.description = description;
-        this.svnUrl = svnUrl;
     }
 
-    public void changeModule(String moduleName, String description, String svnUrl) {
+    public void changeModule(String moduleName, String description) {
         this.moduleName = moduleName;
         this.description = description;
-        this.svnUrl = svnUrl;
     }
 }

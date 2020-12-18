@@ -40,11 +40,8 @@ class UserServiceTest {
     @BeforeEach
     public void init() {
         String limPassword = passwordEncoder.encode("limPassword");
-        byte[] limSvnId = bytesEncryptor.encrypt("limSvnId".getBytes());
-        byte[] limSvnPassword = bytesEncryptor.encrypt("limSvnPassword".getBytes());
 
-
-        User user = new User("lim", limPassword, "임진성", UserStatus.VALID, new String(limSvnId), new String(limSvnPassword));
+        User user = new User("lim", limPassword, "임진성", UserStatus.VALID);
         em.persist(user);
     }
 
@@ -64,7 +61,6 @@ class UserServiceTest {
         }
         assertThat(content.size()).isEqualTo(1);
         assertThat(content.get(0).getName()).isEqualTo("임진성");
-        assertThat(content.get(0).getSvnPassword()).isEqualTo("limSvnPassword");
     }
 
     @Test
@@ -75,8 +71,6 @@ class UserServiceTest {
         insert.setName("태용팍");
         insert.setStatus(UserStatus.VALID);
         insert.setPassword("1234");
-        insert.setSvnId("typSvnId");
-        insert.setSvnPassword("typSvnPassword");
 
         UserDto.Search search = new UserDto.Search();
         search.setName("태용");
@@ -90,7 +84,6 @@ class UserServiceTest {
         // then
         assertThat(response.getCode()).isEqualTo(ResponseCode.OK.getCode());
         assertThat(content.size()).isEqualTo(1);
-        assertThat(content).extracting("svnId").containsExactly("typSvnId");
     }
 
     @Test

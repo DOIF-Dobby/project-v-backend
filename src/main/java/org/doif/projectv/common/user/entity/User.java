@@ -30,12 +30,6 @@ public class User extends BaseEntity implements Persistable<String> {
     @Enumerated(EnumType.STRING)
     private UserStatus status;
 
-    @Column(name = "svn_id")
-    private String svnId;
-
-    @Column(name = "svn_password")
-    private String svnPassword;
-
     @OneToMany(mappedBy = "user")
     private List<UserRole> userRoles = new ArrayList<>();
 
@@ -43,13 +37,11 @@ public class User extends BaseEntity implements Persistable<String> {
         this.id = id;
     }
 
-    public User(String id, String password, String name, UserStatus status, String svnId, String svnPassword) {
+    public User(String id, String password, String name, UserStatus status) {
         this.id = id;
         this.password = password;
         this.name = name;
         this.status = status;
-        this.svnId = svnId;
-        this.svnPassword = svnPassword;
     }
 
     @Override
@@ -57,10 +49,8 @@ public class User extends BaseEntity implements Persistable<String> {
         return getCreatedDate() == null;
     }
 
-    public void changeUser(String name, UserStatus status, String svnId, String svnPassword) {
+    public void changeUser(String name, UserStatus status) {
         this.name = name;
         this.status = status;
-        this.svnId = svnId;
-        this.svnPassword = svnPassword;
     }
 }

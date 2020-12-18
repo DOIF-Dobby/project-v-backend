@@ -40,7 +40,6 @@ class ModuleControllerTest extends ApiDocumentTest {
         content.setModuleId(1L);
         content.setModuleName("금결원 PG 어드민 WEB");
         content.setDescription("금윰결제원 PG 관리자 WEB 모듈입니다.");
-        content.setSvnUrl("");
         content.setCreatedDate(LocalDateTime.now());
         content.setCreatedBy("kjpmj");
         content.setLastModifiedDate(LocalDateTime.now());
@@ -76,7 +75,6 @@ class ModuleControllerTest extends ApiDocumentTest {
                                 fieldWithPath("moduleId").type(NUMBER).description("모듈 ID"),
                                 fieldWithPath("moduleName").type(STRING).description("모듈명"),
                                 fieldWithPath("description").type(STRING).description("모듈 설명"),
-                                fieldWithPath("svnUrl").type(STRING).description("SVN 주소"),
                                 fieldWithPath("createdDate").type(STRING).attributes(getDateTimeFormat()).description("생성일"),
                                 fieldWithPath("lastModifiedDate").type(STRING).attributes(getDateTimeFormat()).description("수정일"),
                                 fieldWithPath("createdBy").type(STRING).description("생성자"),
@@ -91,7 +89,6 @@ class ModuleControllerTest extends ApiDocumentTest {
         ModuleDto.Insert insert = new ModuleDto.Insert();
         insert.setModuleName("금결원 PG 어드민 WEB");
         insert.setDescription("금윰결제원 PG 관리자 WEB 모듈입니다.");
-        insert.setSvnUrl("");
         insert.setProjectId(1L);
 
         given(moduleService.insert(any(ModuleDto.Insert.class)))
@@ -114,8 +111,7 @@ class ModuleControllerTest extends ApiDocumentTest {
                         requestFields(
                                 fieldWithPath("moduleName").type(STRING).description("모듈명"),
                                 fieldWithPath("projectId").type(NUMBER).description("프로젝트 ID"),
-                                fieldWithPath("description").type(STRING).optional().description("모듈 설명"),
-                                fieldWithPath("svnUrl").type(STRING).optional().description("SVN 주소")
+                                fieldWithPath("description").type(STRING).optional().description("모듈 설명")
                         )
                 ));
     }
@@ -126,7 +122,6 @@ class ModuleControllerTest extends ApiDocumentTest {
         ModuleDto.Update update = new ModuleDto.Update();
         update.setModuleName("금결원 PG 어드민 WEB");
         update.setDescription("금윰결제원 PG 관리자 WEB 모듈입니다.");
-        update.setSvnUrl("");
 
         given(moduleService.update(eq(1L), any(ModuleDto.Update.class)))
                 .willReturn(ResponseUtil.ok());
@@ -150,8 +145,7 @@ class ModuleControllerTest extends ApiDocumentTest {
                         ),
                         requestFields(
                                 fieldWithPath("moduleName").type(STRING).description("모듈명"),
-                                fieldWithPath("description").type(STRING).optional().description("모듈 설명"),
-                                fieldWithPath("svnUrl").type(STRING).optional().description("SVN 주소")
+                                fieldWithPath("description").type(STRING).optional().description("모듈 설명")
                         )
                 ));
     }

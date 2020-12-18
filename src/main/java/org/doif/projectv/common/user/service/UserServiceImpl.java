@@ -26,10 +26,10 @@ public class UserServiceImpl implements UserService {
     public Page<UserDto.Result> selectByCondition(UserDto.Search search, Pageable pageable) {
         return userRepository.selectByCondition(search, pageable)
                 .map(user -> {
-                    String decryptSvnId = new String( bytesEncryptor.decrypt(user.getSvnId().getBytes()) );
-                    String decryptSvnPassword = new String( bytesEncryptor.decrypt(user.getSvnPassword().getBytes()) );
+//                    String decryptSvnId = new String( bytesEncryptor.decrypt(user.getSvnId().getBytes()) );
+//                    String decryptSvnPassword = new String( bytesEncryptor.decrypt(user.getSvnPassword().getBytes()) );
 
-                    return new UserDto.Result(user.getId(), user.getName(), user.getStatus(), decryptSvnId, decryptSvnPassword);
+                    return new UserDto.Result(user.getId(), user.getName(), user.getStatus());
                 });
     }
 
@@ -42,10 +42,8 @@ public class UserServiceImpl implements UserService {
         }
 
         String encryptPassword = passwordEncoder.encode(dto.getPassword());
-        String encryptSvnId = new String(bytesEncryptor.encrypt(dto.getSvnId().getBytes()));
-        String encryptSvnPassword = new String(bytesEncryptor.encrypt(dto.getSvnPassword().getBytes()));
 
-        User user = new User(dto.getId(), encryptPassword, dto.getName(), dto.getStatus(), encryptSvnId, encryptSvnPassword);
+        User user = new User(dto.getId(), encryptPassword, dto.getName(), dto.getStatus());
         userRepository.save(user);
 
         return ResponseUtil.ok();
@@ -55,11 +53,7 @@ public class UserServiceImpl implements UserService {
     public CommonResponse update(String id, UserDto.Update dto) {
         Optional<User> optionalUser = userRepository.findById(id);
         User user = optionalUser.orElseThrow(() -> new IllegalArgumentException("유저를 찾을 수 없음"));
-
-        String encryptSvnId = new String(bytesEncryptor.encrypt(dto.getSvnId().getBytes()));
-        String encryptSvnPassword = new String(bytesEncryptor.encrypt(dto.getSvnPassword().getBytes()));
-
-        user.changeUser(dto.getName(), dto.getStatus(), encryptSvnId, encryptSvnPassword);
+        user.changeUser(dto.getName(), dto.getStatus());
 
         return ResponseUtil.ok();
     }

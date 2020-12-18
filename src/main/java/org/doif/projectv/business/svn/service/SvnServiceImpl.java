@@ -48,7 +48,7 @@ public class SvnServiceImpl implements SvnService{
             // SvnRepository 객체 얻음
             Optional<Module> optionalModule = moduleRepository.findById(condition.getModuleId());
             Module module = optionalModule.orElseThrow(() -> new IllegalArgumentException("모듈을 찾을 수 없음"));
-            repository = getAuthenticatedSvnRepository(module.getSvnUrl());
+            repository = getAuthenticatedSvnRepository("");
 
             // 여기도 null 체크
             Date startDate = Date.from(condition.getStartDate().atStartOfDay(ZoneId.systemDefault()).toInstant());
@@ -209,8 +209,8 @@ public class SvnServiceImpl implements SvnService{
 
         User user = userRepository.findById(requestUserId).orElseThrow(() -> new IllegalArgumentException("유저를 찾을 수 없음"));
 
-        String svnId = user.getSvnId();
-        String svnPassword = user.getSvnPassword();
+        String svnId = "";
+        String svnPassword = "";
 
         SVNURL url = SVNURL.parseURIEncoded(svnUrl);
         SVNRepository repository = SVNRepositoryFactory.create(url);

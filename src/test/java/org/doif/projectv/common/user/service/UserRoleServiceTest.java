@@ -36,8 +36,8 @@ class UserRoleServiceTest {
 
     @BeforeEach
     public void init() {
-        User user1 = new User("kjpmj", "1234", "김명진", UserStatus.VALID, "", "");
-        User user2 = new User("kim", "1234", "김명진", UserStatus.VALID, "", "");
+        User user1 = new User("kjpmj", "1234", "김명진", UserStatus.VALID);
+        User user2 = new User("kim", "1234", "김명진", UserStatus.VALID);
         Role role1 = new Role("개발자 Role", "개발자 롤입니다.", EnableStatus.ENABLE);
         Role role2 = new Role("관리자 Role", "관리자 롤입니다.", EnableStatus.ENABLE);
         Role role3 = new Role("사용자 Role", "사용자 롤입니다.", EnableStatus.ENABLE);

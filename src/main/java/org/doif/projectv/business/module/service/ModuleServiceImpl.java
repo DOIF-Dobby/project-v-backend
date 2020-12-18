@@ -32,7 +32,7 @@ public class ModuleServiceImpl implements ModuleService {
     public CommonResponse insert(ModuleDto.Insert dto) {
         Optional<Project> optionalProject = projectRepository.findById(dto.getProjectId());
         Project project = optionalProject.orElseThrow(() -> new IllegalArgumentException("프로젝트를 찾을 수 없음"));
-        Module module = new Module(dto.getModuleName(), project, dto.getDescription(), dto.getSvnUrl());
+        Module module = new Module(dto.getModuleName(), project, dto.getDescription());
         moduleRepository.save(module);
         return ResponseUtil.ok();
     }
@@ -41,7 +41,7 @@ public class ModuleServiceImpl implements ModuleService {
     public CommonResponse update(Long id, ModuleDto.Update dto) {
         Optional<Module> optionalModule = moduleRepository.findById(id);
         Module module = optionalModule.orElseThrow(() -> new IllegalArgumentException("모듈을 찾을 수 없음"));
-        module.changeModule(dto.getModuleName(), dto.getDescription(), dto.getSvnUrl());
+        module.changeModule(dto.getModuleName(), dto.getDescription());
 
         return ResponseUtil.ok();
     }

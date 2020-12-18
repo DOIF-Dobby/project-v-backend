@@ -65,7 +65,6 @@ class ModuleServiceTest {
         insert.setProjectId(projectId);
         insert.setModuleName("금융결제원 PG WEB/PAY");
         insert.setDescription("금결원 PG Web Pay 모듈");
-        insert.setSvnUrl("");
 
         // when
         CommonResponse response = moduleService.insert(insert);
@@ -85,7 +84,6 @@ class ModuleServiceTest {
         ModuleDto.Update update = new ModuleDto.Update();
         update.setModuleName("금융결제원 PG WEB/ADMIN");
         update.setDescription("금결원 굳");
-        update.setSvnUrl("");
 
         // when
         CommonResponse response = moduleService.update(id, update);

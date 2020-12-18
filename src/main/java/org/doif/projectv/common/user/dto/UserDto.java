@@ -19,16 +19,12 @@ public class UserDto {
         private String name;
         private UserStatus status;
         private String statusName;
-        private String svnId;
-        private String svnPassword;
 
         @QueryProjection
-        public Result(String id, String name, UserStatus status, String svnId, String svnPassword) {
+        public Result(String id, String name, UserStatus status) {
             this.id = id;
             this.name = name;
             this.status = status;
-            this.svnId = svnId;
-            this.svnPassword = svnPassword;
         }
     }
 
@@ -64,16 +60,6 @@ public class UserDto {
         private String name;
         private String password;
         private UserStatus status;
-        private String svnId;
-        private String svnPassword;
-
-        public String getSvnId() {
-            return isEmpty(svnId) ? "" : svnId;
-        }
-
-        public String getSvnPassword() {
-            return isEmpty(svnPassword) ? "" : svnPassword;
-        }
     }
 
     @Getter
@@ -83,15 +69,5 @@ public class UserDto {
     public static class Update {
         private String name;
         private UserStatus status;
-        private String svnId;
-        private String svnPassword;
-
-        public String getSvnId() {
-            return isEmpty(svnId) ? "" : svnId;
-        }
-
-        public String getSvnPassword() {
-            return isEmpty(svnPassword) ? "" : svnPassword;
-        }
     }
 }

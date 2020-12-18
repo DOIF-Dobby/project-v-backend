@@ -80,7 +80,7 @@ public class initData {
             PatchLog patchLog1 = new PatchLog(version1, PatchTarget.DEV, PatchStatus.COMPLETE, LocalDate.of(2020,10,19), "kjpmj", "");
             PatchLog patchLog2 = new PatchLog(version1, PatchTarget.PROD, PatchStatus.COMPLETE, LocalDate.of(2020,10,20), "kjpmj", "");
 
-            User user = new User("kjpmj", passwordEncoder.encode("1234"), "김명진씨", UserStatus.VALID, "", "");
+            User user = new User("kjpmj", passwordEncoder.encode("1234"), "김명진씨", UserStatus.VALID);
             Role role = new Role("관리자 ROLE", "관리자 ROLE입니다.", EnableStatus.ENABLE);
             UserRole userRole = new UserRole(user, role);
 

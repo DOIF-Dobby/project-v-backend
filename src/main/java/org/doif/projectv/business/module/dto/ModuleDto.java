@@ -16,14 +16,12 @@ public class ModuleDto {
         private Long moduleId;
         private String moduleName;
         private String description;
-        private String svnUrl;
 
         @QueryProjection
-        public Result(Long moduleId, String moduleName, String description, String svnUrl) {
+        public Result(Long moduleId, String moduleName, String description) {
             this.moduleId = moduleId;
             this.moduleName = moduleName;
             this.description = description;
-            this.svnUrl = svnUrl;
         }
     }
 
@@ -51,7 +49,6 @@ public class ModuleDto {
         private String moduleName;
         private String description;
         private Long projectId;
-        private String svnUrl;
     }
 
     @Getter
@@ -61,6 +58,5 @@ public class ModuleDto {
     public static class Update {
         private String moduleName;
         private String description;
-        private String svnUrl;
     }
 }
