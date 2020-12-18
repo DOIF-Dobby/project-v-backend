@@ -1,22 +1,18 @@
 package org.doif.projectv.common.user.repository;
 
-import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import org.doif.projectv.common.jpa.support.Querydsl4RepositorySupport;
 import org.doif.projectv.common.user.constant.UserStatus;
-import org.doif.projectv.common.user.dto.QUserDto_Result;
 import org.doif.projectv.common.user.dto.UserDto;
-import org.doif.projectv.common.user.entity.QUser;
 import org.doif.projectv.common.user.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.util.StringUtils;
 
 import java.util.Optional;
 
 import static org.doif.projectv.common.user.entity.QUser.user;
 import static org.doif.projectv.common.user.entity.QUserRole.userRole;
-import static org.springframework.util.StringUtils.*;
+import static org.springframework.util.StringUtils.isEmpty;
 
 public class UserRepositoryImpl extends Querydsl4RepositorySupport implements UserQueryRepository {
 

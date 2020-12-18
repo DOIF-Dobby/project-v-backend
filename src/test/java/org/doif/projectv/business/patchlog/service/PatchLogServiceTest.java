@@ -1,6 +1,7 @@
 package org.doif.projectv.business.patchlog.service;
 
 import org.assertj.core.api.Assertions;
+import org.doif.projectv.business.buildtool.constant.BuildTool;
 import org.doif.projectv.business.issue.constant.IssueCategory;
 import org.doif.projectv.business.issue.constant.IssueStatus;
 import org.doif.projectv.business.issue.constant.VersionIssueProgress;
@@ -14,6 +15,7 @@ import org.doif.projectv.business.patchlog.entity.PatchLog;
 import org.doif.projectv.business.project.entity.Project;
 import org.doif.projectv.business.task.constant.TaskType;
 import org.doif.projectv.business.task.entity.Task;
+import org.doif.projectv.business.vcs.constant.VcsType;
 import org.doif.projectv.business.version.entity.Version;
 import org.doif.projectv.business.version.repository.VersionRepository;
 import org.doif.projectv.common.response.CommonResponse;
@@ -50,7 +52,7 @@ class PatchLogServiceTest {
     @BeforeEach
     public void init() {
         Project project = new Project("금융결제원 PG");
-        Module module = new Module("금융결제원 PG WEB/ADMIN", project);
+        Module module = new Module("금융결제원 PG WEB/ADMIN", project, "", VcsType.SVN, "repo", BuildTool.MAVEN);
         Version version = new Version("v1.0.1", "버전 1.0.1 입니다.", module);
         PatchLog patchLog = new PatchLog(version, PatchTarget.DEV, PatchStatus.SCHEDULE, LocalDate.of(2020, 11, 24), "kjpmj", "");
 

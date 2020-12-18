@@ -34,9 +34,6 @@ class UserServiceTest {
     @Autowired
     PasswordEncoder passwordEncoder;
 
-    @Autowired
-    BytesEncryptor bytesEncryptor;
-
     @BeforeEach
     public void init() {
         String limPassword = passwordEncoder.encode("limPassword");

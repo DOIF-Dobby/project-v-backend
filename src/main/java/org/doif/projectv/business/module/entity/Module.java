@@ -3,7 +3,9 @@ package org.doif.projectv.business.module.entity;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.doif.projectv.business.buildtool.constant.BuildTool;
 import org.doif.projectv.business.project.entity.Project;
+import org.doif.projectv.business.vcs.constant.VcsType;
 import org.doif.projectv.common.jpa.entity.BaseEntity;
 
 import javax.persistence.*;
@@ -28,19 +30,32 @@ public class Module extends BaseEntity {
     @Column(name = "description")
     private String description;
 
-    public Module(String moduleName, Project project) {
-        this.moduleName = moduleName;
-        this.project = project;
-    }
+    @Enumerated(EnumType.STRING)
+    @Column(name = "vcs_type", length = 20, nullable = false)
+    private VcsType vcsType;
 
-    public Module(String moduleName, Project project, String description) {
+    @Column(name = "vcs_repository")
+    private String vcsRepository;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "build_tool", length = 20)
+    private BuildTool buildTool;
+
+    public Module(String moduleName, Project project, String description, VcsType vcsType, String vcsRepository, BuildTool buildTool) {
         this.moduleName = moduleName;
         this.project = project;
         this.description = description;
+        this.vcsType = vcsType;
+        this.vcsRepository = vcsRepository;
+        this.buildTool = buildTool;
     }
 
-    public void changeModule(String moduleName, String description) {
+    public void changeModule(String moduleName, String description, VcsType vcsType, String vcsRepository, BuildTool buildTool) {
         this.moduleName = moduleName;
         this.description = description;
+        this.vcsType = vcsType;
+        this.vcsRepository = vcsRepository;
+        this.buildTool = buildTool;
     }
+
 }

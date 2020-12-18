@@ -20,7 +20,6 @@ public class UserDto {
         private UserStatus status;
         private String statusName;
 
-        @QueryProjection
         public Result(String id, String name, UserStatus status) {
             this.id = id;
             this.name = name;

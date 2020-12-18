@@ -7,6 +7,7 @@ import org.doif.projectv.business.issue.entity.VersionIssue;
 import org.doif.projectv.business.module.entity.Module;
 import org.doif.projectv.business.patchlog.entity.PatchLog;
 import org.doif.projectv.business.version.constant.VersionStatus;
+import org.doif.projectv.common.jpa.entity.BaseEntity;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Version {
+public class Version extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

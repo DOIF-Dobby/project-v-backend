@@ -1,12 +1,14 @@
 package org.doif.projectv.common.enumeration;
 
 import lombok.Getter;
+import org.doif.projectv.business.buildtool.constant.BuildTool;
 import org.doif.projectv.business.issue.constant.IssueCategory;
 import org.doif.projectv.business.issue.constant.IssueStatus;
 import org.doif.projectv.business.issue.constant.VersionIssueProgress;
 import org.doif.projectv.business.patchlog.constant.PatchStatus;
 import org.doif.projectv.business.patchlog.constant.PatchTarget;
 import org.doif.projectv.business.task.constant.TaskType;
+import org.doif.projectv.business.vcs.constant.VcsType;
 import org.doif.projectv.business.version.constant.VersionStatus;
 import org.doif.projectv.common.resource.constant.MenuType;
 import org.doif.projectv.common.resource.constant.MessageType;
@@ -30,7 +32,9 @@ public enum CodeEnum {
     VERSION_ISSUE_PROGRESS("versionIssueProgress", "버전별 이슈 진행상황", VersionIssueProgress.class),
     PATCH_STATUS("patchStatus", "패치 상태", PatchStatus.class),
     PATCH_TARGET("patchTarget", "패치 대상", PatchTarget.class),
-    VERSION_STATUS("versionStatus", "버전 상태", VersionStatus.class);
+    VERSION_STATUS("versionStatus", "버전 상태", VersionStatus.class),
+    VCS_TYPE("vcsType", "버전관리 유형", VcsType.class),
+    BUILD_TOOL("buildTool", "빌드 도구", BuildTool.class);
 
     private final String key;
     private final String value;

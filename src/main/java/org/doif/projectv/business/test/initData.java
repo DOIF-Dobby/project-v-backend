@@ -1,6 +1,7 @@
 package org.doif.projectv.business.test;
 
 import lombok.RequiredArgsConstructor;
+import org.doif.projectv.business.buildtool.constant.BuildTool;
 import org.doif.projectv.business.issue.constant.IssueCategory;
 import org.doif.projectv.business.issue.constant.IssueStatus;
 import org.doif.projectv.business.issue.constant.VersionIssueProgress;
@@ -13,6 +14,7 @@ import org.doif.projectv.business.patchlog.entity.PatchLog;
 import org.doif.projectv.business.project.entity.Project;
 import org.doif.projectv.business.task.constant.TaskType;
 import org.doif.projectv.business.task.entity.Task;
+import org.doif.projectv.business.vcs.constant.VcsType;
 import org.doif.projectv.business.version.entity.Version;
 import org.doif.projectv.common.resource.entity.Button;
 import org.doif.projectv.common.resource.entity.Menu;
@@ -62,7 +64,7 @@ public class initData {
         @Transactional
         public void init() {
             Project project = new Project("금융결제원 PG");
-            Module module = new Module("금융결제원 PG WEB/ADMIN", project);
+            Module module = new Module("금융결제원 PG WEB/ADMIN", project, "", VcsType.SVN, "", BuildTool.MAVEN);
             Issue issue1 = new Issue("이슈1", "이슈1 입니다.", IssueStatus.OPEN, IssueCategory.NEW_DEVELOP);
             Issue issue2 = new Issue("이슈2", "이슈2 입니다.", IssueStatus.OPEN, IssueCategory.NEW_DEVELOP);
 

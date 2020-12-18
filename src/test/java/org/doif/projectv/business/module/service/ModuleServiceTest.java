@@ -1,11 +1,13 @@
 package org.doif.projectv.business.module.service;
 
 import org.assertj.core.api.Assertions;
+import org.doif.projectv.business.buildtool.constant.BuildTool;
 import org.doif.projectv.business.module.dto.ModuleDto;
 import org.doif.projectv.business.module.entity.Module;
 import org.doif.projectv.business.project.dto.ProjectDto;
 import org.doif.projectv.business.project.entity.Project;
 import org.doif.projectv.business.project.service.ProjectService;
+import org.doif.projectv.business.vcs.constant.VcsType;
 import org.doif.projectv.common.response.CommonResponse;
 import org.doif.projectv.common.response.ResponseCode;
 import org.junit.jupiter.api.BeforeEach;
@@ -37,7 +39,7 @@ class ModuleServiceTest {
     @BeforeEach
     public void init() {
         Project project = new Project("금융결제원 PG");
-        Module module = new Module("금융결제원 PG WEB/ADMIN", project);
+        Module module = new Module("금융결제원 PG WEB/ADMIN", project, "", VcsType.SVN, "repository", BuildTool.MAVEN);
 
         em.persist(project);
         em.persist(module);
@@ -65,6 +67,9 @@ class ModuleServiceTest {
         insert.setProjectId(projectId);
         insert.setModuleName("금융결제원 PG WEB/PAY");
         insert.setDescription("금결원 PG Web Pay 모듈");
+        insert.setVcsType(VcsType.SVN);
+        insert.setVcsRepository("repo");
+        insert.setBuildTool(BuildTool.MAVEN);
 
         // when
         CommonResponse response = moduleService.insert(insert);
@@ -84,6 +89,9 @@ class ModuleServiceTest {
         ModuleDto.Update update = new ModuleDto.Update();
         update.setModuleName("금융결제원 PG WEB/ADMIN");
         update.setDescription("금결원 굳");
+        update.setVcsType(VcsType.SVN);
+        update.setVcsRepository("repo");
+        update.setBuildTool(BuildTool.MAVEN);
 
         // when
         CommonResponse response = moduleService.update(id, update);

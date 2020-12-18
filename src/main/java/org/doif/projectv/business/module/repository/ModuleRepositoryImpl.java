@@ -23,7 +23,10 @@ public class ModuleRepositoryImpl implements ModuleQueryRepository {
                 .select(new QModuleDto_Result(
                         module.id,
                         module.moduleName,
-                        module.description
+                        module.description,
+                        module.vcsType,
+                        module.vcsRepository,
+                        module.buildTool
                 ))
                 .from(module)
                 .where(

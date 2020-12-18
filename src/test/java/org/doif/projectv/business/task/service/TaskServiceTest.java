@@ -1,5 +1,6 @@
 package org.doif.projectv.business.task.service;
 
+import org.doif.projectv.business.buildtool.constant.BuildTool;
 import org.doif.projectv.business.issue.constant.IssueCategory;
 import org.doif.projectv.business.issue.constant.IssueStatus;
 import org.doif.projectv.business.issue.constant.VersionIssueProgress;
@@ -11,6 +12,7 @@ import org.doif.projectv.business.project.entity.Project;
 import org.doif.projectv.business.task.constant.TaskType;
 import org.doif.projectv.business.task.dto.TaskDto;
 import org.doif.projectv.business.task.entity.Task;
+import org.doif.projectv.business.vcs.constant.VcsType;
 import org.doif.projectv.business.version.constant.VersionStatus;
 import org.doif.projectv.business.version.entity.Version;
 import org.doif.projectv.common.response.CommonResponse;
@@ -46,7 +48,7 @@ class TaskServiceTest {
     @BeforeEach
     public void init() {
         Project project = new Project("금융결제원 PG");
-        Module module = new Module("금융결제원 PG WEB/ADMIN", project);
+        Module module = new Module("금융결제원 PG WEB/ADMIN", project, "", VcsType.SVN, "repo", BuildTool.MAVEN);
         Version version = new Version("v1.0.1", "버전 1.0.1 입니다.", module);
         Issue issue = new Issue("임진성은 왜 늦는가", "진성씨는 그냥 늦는 것이다. 딱히 이유는 없다.", IssueStatus.OPEN, IssueCategory.ERROR_MODIFY);
         VersionIssue versionIssue = new VersionIssue(version, issue, "202011", VersionIssueProgress.PROGRESSING, "kjpmj", "");

@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.doif.projectv.common.jpa.converter.BooleanToYNConverter;
+import org.doif.projectv.common.jpa.entity.BaseEntity;
 import org.doif.projectv.common.system.constant.PropertyGroupType;
 
 import javax.persistence.*;
@@ -11,7 +12,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class SystemProperty {
+public class SystemProperty extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
