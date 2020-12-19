@@ -38,7 +38,7 @@ public class Version extends BaseEntity {
     private VersionStatus status;
 
     @Column(name = "revision", length = 10)
-    private Long revision;
+    private String revision;
 
     @Column(name = "tag")
     private String tag;
@@ -67,7 +67,7 @@ public class Version extends BaseEntity {
     /**
      * 버전을 배포상태로 변경
      */
-    public void release(Long revision, String tag) {
+    public void release(String revision, String tag) {
         this.status = VersionStatus.RELEASE;
         this.revision = revision;
         this.tag = tag;

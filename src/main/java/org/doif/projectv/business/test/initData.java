@@ -119,10 +119,15 @@ public class initData {
             Button button2 = new Button("버튼2", "", EnableStatus.ENABLE, "/api/user", POST, page, "");
             Button button3 = new Button("버튼3", "", EnableStatus.ENABLE, "/api/project/{id}", PUT, page, "");
             Button button4 = new Button("버튼4", "", EnableStatus.ENABLE, "/api/task", GET, page, "");
-            Button button5 = new Button("버튼5", "", EnableStatus.ENABLE, "/api/svn", GET, page, "");
+            Button button5 = new Button("버튼5", "", EnableStatus.ENABLE, "/api/module/{id}", PUT, page, "");
             Button button6 = new Button("버튼6", "", EnableStatus.ENABLE, "/api/version/release/{id}", PUT, page, "");
             Button button7 = new Button("버튼7", "", EnableStatus.ENABLE, "/api/version", POST, page, "");
             Button button8 = new Button("버튼8", "", EnableStatus.ENABLE, "/api/version", GET, page, "");
+            Button button9 = new Button("버튼9", "", EnableStatus.ENABLE, "/api/version", GET, page, "");
+            Button button10 = new Button("버튼10", "", EnableStatus.ENABLE, "/api/vcs-auth-info", GET, page, "");
+            Button button11 = new Button("버튼10", "", EnableStatus.ENABLE, "/api/vcs-auth-info", POST, page, "");
+            Button button12 = new Button("버튼10", "", EnableStatus.ENABLE, "/api/vcs-auth-info/{id}", PUT, page, "");
+            Button button13 = new Button("버튼10", "", EnableStatus.ENABLE, "/api/vcs-auth-info/{id}", DELETE, page, "");
 
             RoleResource roleResource3 = new RoleResource(role, page);
             RoleResource roleResource4 = new RoleResource(role, button1);
@@ -133,6 +138,11 @@ public class initData {
             RoleResource roleResource9 = new RoleResource(role, button6);
             RoleResource roleResource10 = new RoleResource(role, button7);
             RoleResource roleResource11 = new RoleResource(role, button8);
+            RoleResource roleResource12 = new RoleResource(role, button9);
+            RoleResource roleResource13 = new RoleResource(role, button10);
+            RoleResource roleResource14 = new RoleResource(role, button11);
+            RoleResource roleResource15 = new RoleResource(role, button12);
+            RoleResource roleResource16 = new RoleResource(role, button13);
 
             SystemProperty systemProperty = new SystemProperty(PropertyGroupType.COMMON, "TEST", "테스트", "테스트 속성", true);
 
@@ -165,6 +175,11 @@ public class initData {
             em.persist(button6);
             em.persist(button7);
             em.persist(button8);
+            em.persist(button9);
+            em.persist(button10);
+            em.persist(button11);
+            em.persist(button12);
+            em.persist(button13);
 
 //            em.persist(roleResource2);
 //            em.persist(roleResource2_1);
@@ -177,6 +192,11 @@ public class initData {
             em.persist(roleResource9);
             em.persist(roleResource10);
             em.persist(roleResource11);
+            em.persist(roleResource12);
+            em.persist(roleResource13);
+            em.persist(roleResource14);
+            em.persist(roleResource15);
+            em.persist(roleResource16);
 
             em.persist(systemProperty);
 

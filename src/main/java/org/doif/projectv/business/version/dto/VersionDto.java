@@ -18,11 +18,11 @@ public class VersionDto {
         private Long moduleId;
         private VersionStatus versionStatus;
         private String versionStatusName;
-        private Long revision;
+        private String revision;
         private String tag;
 
         @QueryProjection
-        public Result(Long versionId, String versionName, String description, Long moduleId, VersionStatus versionStatus, Long revision, String tag) {
+        public Result(Long versionId, String versionName, String description, Long moduleId, VersionStatus versionStatus, String revision, String tag) {
             this.versionId = versionId;
             this.versionName = versionName;
             this.description = description;

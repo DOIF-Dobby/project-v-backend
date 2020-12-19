@@ -31,5 +31,5 @@ logging.level:
 #  encryptor:
 #    bean: jasyptStringEncrptor
 
-svn:
+vcs:
   tempDir: C:\Users\MJ\dev\temp

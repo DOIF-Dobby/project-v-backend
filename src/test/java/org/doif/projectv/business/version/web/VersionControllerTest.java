@@ -44,7 +44,7 @@ class VersionControllerTest extends ApiDocumentTest {
     public void 버전_조회_API_테스트() throws Exception {
         // given
         List<VersionDto.Result> versionResults = new ArrayList<>();
-        VersionDto.Result versionResult = new VersionDto.Result(1L, "1.0.1", "버전 설명", 1L, VersionStatus.DEVELOP, 1400L, "svn 복사된 태그 정보");
+        VersionDto.Result versionResult = new VersionDto.Result(1L, "1.0.1", "버전 설명", 1L, VersionStatus.DEVELOP, "14000", "svn 복사된 태그 정보");
 
         versionResults.add(versionResult);
 
@@ -92,7 +92,7 @@ class VersionControllerTest extends ApiDocumentTest {
                                 fieldWithPath("moduleId").type(JsonFieldType.NUMBER).description("모듈 ID"),
                                 fieldWithPath("versionStatus").type(JsonFieldType.STRING).description(generateLinkCode(CodeEnum.VERSION_STATUS)),
                                 fieldWithPath("versionStatusName").type(JsonFieldType.STRING).description(generateText(CodeEnum.VERSION_STATUS)),
-                                fieldWithPath("revision").type(JsonFieldType.NUMBER).description("리비전"),
+                                fieldWithPath("revision").type(JsonFieldType.STRING).description("리비전"),
                                 fieldWithPath("tag").type(JsonFieldType.STRING).description("태그 경로")
                         )
                 ));

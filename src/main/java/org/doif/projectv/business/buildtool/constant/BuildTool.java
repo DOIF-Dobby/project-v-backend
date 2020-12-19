@@ -8,10 +8,12 @@ import org.doif.projectv.common.enumeration.EnumModel;
 @RequiredArgsConstructor
 public enum BuildTool implements EnumModel {
 
-    MAVEN("Maven"),
-    GRADLE("Gradle");
+    MAVEN("Maven", "mavenOperator", "pom.xml"),
+    GRADLE("Gradle","gradleOperator", "build.gradle");
 
     private final String message;
+    private final String operatorBeanName;
+    private final String buildToolFileName;
 
     @Override
     public String getCode() {

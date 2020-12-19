@@ -1,16 +1,13 @@
-package org.doif.projectv.business.svn.service;
+package org.doif.projectv.business.vcs.operator;
 
 import lombok.RequiredArgsConstructor;
-import org.doif.projectv.business.module.entity.Module;
-import org.doif.projectv.business.module.repository.ModuleRepository;
-import org.doif.projectv.business.svn.dto.SvnDto;
-import org.doif.projectv.business.svn.dto.SvnSearchCondition;
-import org.doif.projectv.business.svn.dto.SvnTagDto;
+import org.doif.projectv.business.vcs.constant.VcsType;
+import org.doif.projectv.business.vcs.dto.VcsDto;
+import org.doif.projectv.business.vcs.entity.VcsAuthInfo;
+import org.doif.projectv.business.vcs.repository.VcsAuthInfoRepository;
 import org.doif.projectv.common.security.util.SecurityUtil;
 import org.doif.projectv.common.user.entity.User;
-import org.doif.projectv.common.user.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.tmatesoft.svn.core.SVNDepth;
 import org.tmatesoft.svn.core.SVNException;
 import org.tmatesoft.svn.core.SVNLogEntry;
@@ -22,6 +19,7 @@ import org.tmatesoft.svn.core.wc.SVNRevision;
 import org.tmatesoft.svn.core.wc2.*;
 
 import java.io.File;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Collection;
@@ -30,33 +28,27 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@Service
+@Component
 @RequiredArgsConstructor
-public class SvnServiceImpl implements SvnService{
+public class SvnOperator implements VcsOperator {
 
-    private final ModuleRepository moduleRepository;
-    private final UserRepository userRepository;
-
-    @Value("${svn.tempDir}")        // svn 임시 저장 경로
-    private String tempDir;
+    private final VcsAuthInfoRepository vcsAuthInfoRepository;
 
     @Override
-    public List<SvnDto> search(SvnSearchCondition condition) {
+    public List<VcsDto.Log> getLogs(String repositoryInfo, LocalDate startDate, LocalDate endDate) {
         SVNRepository repository = null;
 
         try {
             // SvnRepository 객체 얻음
-            Optional<Module> optionalModule = moduleRepository.findById(condition.getModuleId());
-            Module module = optionalModule.orElseThrow(() -> new IllegalArgumentException("모듈을 찾을 수 없음"));
-            repository = getAuthenticatedSvnRepository("");
+            repository = getAuthenticatedSvnRepository(repositoryInfo);
 
             // 여기도 null 체크
-            Date startDate = Date.from(condition.getStartDate().atStartOfDay(ZoneId.systemDefault()).toInstant());
-            Date endDate = Date.from(condition.getEndDate().plusDays(1).atStartOfDay(ZoneId.systemDefault()).toInstant());
+            Date startDt = Date.from(startDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+            Date endDt = Date.from(endDate.plusDays(1).atStartOfDay(ZoneId.systemDefault()).toInstant());
 
             // 날짜로 해당 리비전 번호를 얻음
-            long startRevision = repository.getDatedRevision(startDate);
-            long endRevision = repository.getDatedRevision(endDate);
+            long startRevision = repository.getDatedRevision(startDt);
+            long endRevision = repository.getDatedRevision(endDt);
 
             // 로그 엔트리를 얻음
             Collection<SVNLogEntry> logEntries = repository.log(new String[]{""}, null, startRevision, endRevision, false, true);
@@ -68,7 +60,7 @@ public class SvnServiceImpl implements SvnService{
                         String message = svnLogEntry.getMessage();
                         LocalDateTime date = svnLogEntry.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
 
-                        return new SvnDto(revision, date, author, message);
+                        return new VcsDto.Log(String.valueOf(revision), date, author, message);
                     })
                     .collect(Collectors.toList());
 
@@ -76,7 +68,7 @@ public class SvnServiceImpl implements SvnService{
             e.printStackTrace();
         } finally {
             if(repository != null) {
-                repository.closeSession();;
+                repository.closeSession();
             }
         }
 
@@ -84,12 +76,12 @@ public class SvnServiceImpl implements SvnService{
     }
 
     @Override
-    public Optional<SvnTagDto> tag(String svnUrl, String versionName) {
+    public Optional<VcsDto.Tag> tag(String repositoryInfo, String versionName) {
         SVNRepository repository = null;
 
         try {
             // SvnRepository 객체 얻음
-            repository = getAuthenticatedSvnRepository(svnUrl);
+            repository = getAuthenticatedSvnRepository(repositoryInfo);
 
             // Svn 명령을 할 수 있는 factory를 생성
             SvnOperationFactory factory = new SvnOperationFactory();
@@ -119,10 +111,10 @@ public class SvnServiceImpl implements SvnService{
             // trunk 혹은 branches 경로를 tags로 변경
             // 사실 trunk에 있는 것만 버전을 달아주는 게 버전 관리 관점에 맞지만, Tnc PG 제품들은 "PG" 폴더 안에 몽땅 들어가 있어서 branches 폴더도 고려해야함...
             String path = location.toDecodedString();
-            String tagsPath = path.contains("trunk") 
+            String tagsPath = path.contains("trunk")
                     ? path.replace("/trunk/", "/tags/")
                     : path.replace("/branches/", "/tags/");
-            
+
             String targetPath = tagsPath + "/" + versionName;
 
             SVNURL destinationUrl = SVNURL.parseURIEncoded(targetPath);
@@ -139,8 +131,8 @@ public class SvnServiceImpl implements SvnService{
             // 복사
             remoteCopy.run();
 
-            SvnTagDto svnTagDto = new SvnTagDto();
-            svnTagDto.setRevision(latestRevision);
+            VcsDto.Tag svnTagDto = new VcsDto.Tag();
+            svnTagDto.setRevision(String.valueOf(latestRevision));
             svnTagDto.setTag(targetPath);
             return Optional.of(svnTagDto);
 
@@ -148,7 +140,7 @@ public class SvnServiceImpl implements SvnService{
             e.printStackTrace();
         } finally {
             if(repository != null) {
-                repository.closeSession();;
+                repository.closeSession();
             }
         }
 
@@ -156,38 +148,37 @@ public class SvnServiceImpl implements SvnService{
     }
 
     @Override
-    public File checkout(String svnUrl) {
+    public File checkout(String repositoryInfo, String path) {
         SvnOperationFactory factory = new SvnOperationFactory();
         SvnCheckout checkout = factory.createCheckout();
-        String moduleName = svnUrl.substring(svnUrl.lastIndexOf("/") + 1);
+        String moduleName = repositoryInfo.substring(repositoryInfo.lastIndexOf("/") + 1);
 
-        // checkout 받은 svn 폴더를 임시저장할 곳은 property로 뺀다.
-        File svnTempDirectory = new File(tempDir, moduleName);
+        File svnCheckoutDirectory = new File(path, moduleName);
 
         try {
-            SVNURL svnurl = SVNURL.parseURIEncoded(svnUrl);
+            SVNURL svnurl = SVNURL.parseURIEncoded(repositoryInfo);
             SvnTarget svnSource = SvnTarget.fromURL(svnurl);
 
             // 파일만 가져오면 그나마 빠름
             checkout.setDepth(SVNDepth.FILES);
             checkout.setSource(svnSource);
-            checkout.addTarget(SvnTarget.fromFile(svnTempDirectory));
+            checkout.addTarget(SvnTarget.fromFile(svnCheckoutDirectory));
 
             checkout.run();
         } catch (SVNException e) {
             e.printStackTrace();
         }
 
-        return svnTempDirectory;
+        return svnCheckoutDirectory;
     }
 
     @Override
-    public void commit(File pomFile, String commitMessage) {
+    public void commit(File vcsFile, String commitMessage) {
         SvnOperationFactory factory = new SvnOperationFactory();
         SvnCommit commit = factory.createCommit();
 
         try {
-            commit.addTarget(SvnTarget.fromFile(pomFile));
+            commit.addTarget(SvnTarget.fromFile(vcsFile));
             commit.setCommitMessage(commitMessage);
 
             commit.run();
@@ -196,28 +187,22 @@ public class SvnServiceImpl implements SvnService{
         }
     }
 
-    /**
-     * 요청한 유저의 Svn 접속정보와 parameter로 넘어온 moduleId로 모듈을 조회 후 해당 모듈의 svn주소로 인증된 SnvRepository 객체를 반환
-     * @param svnUrl
-     * @return
-     * @throws SVNException
-     */
-    private SVNRepository getAuthenticatedSvnRepository(String svnUrl) throws SVNException{
+    private SVNRepository getAuthenticatedSvnRepository(String repositoryInfo) throws SVNException {
         Optional<User> optionalUser = SecurityUtil.getUserByContext();
         User requestUser = optionalUser.orElseThrow(() -> new IllegalArgumentException("인증 오류"));
         String requestUserId = requestUser.getId();
 
-        User user = userRepository.findById(requestUserId).orElseThrow(() -> new IllegalArgumentException("유저를 찾을 수 없음"));
+        Optional<VcsAuthInfo> optionalVcsAuthInfo = vcsAuthInfoRepository.findByUserIdAndVcsType(requestUserId, VcsType.SVN);
+        VcsAuthInfo vcsAuthInfo = optionalVcsAuthInfo.orElseThrow(() -> new IllegalArgumentException("버전관리 인증정보를 찾을 수 없음"));
 
-        String svnId = "";
-        String svnPassword = "";
+        String authId = vcsAuthInfo.getVcsAuthId();
+        String authPassword = vcsAuthInfo.getVcsAuthPassword();
 
-        SVNURL url = SVNURL.parseURIEncoded(svnUrl);
+        SVNURL url = SVNURL.parseURIEncoded(repositoryInfo);
         SVNRepository repository = SVNRepositoryFactory.create(url);
-        BasicAuthenticationManager authManager = BasicAuthenticationManager.newInstance(svnId, svnPassword.toCharArray());
+        BasicAuthenticationManager authManager = BasicAuthenticationManager.newInstance(authId, authPassword.toCharArray());
         repository.setAuthenticationManager(authManager);
 
         return repository;
     }
-    
 }
