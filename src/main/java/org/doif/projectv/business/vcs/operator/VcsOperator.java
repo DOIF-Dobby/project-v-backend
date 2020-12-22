@@ -13,7 +13,7 @@ public interface VcsOperator {
 
     Optional<VcsDto.Tag> tag(String repositoryInfo, String versionName);
 
-    File checkout(String repositoryInfo, String path);
+    File checkout(String repositoryInfo);
 
     void commit(File vcsFile, String commitMessage);
 }

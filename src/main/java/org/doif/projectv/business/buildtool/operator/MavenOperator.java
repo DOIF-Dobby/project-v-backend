@@ -18,7 +18,7 @@ import java.util.List;
 public class MavenOperator implements BuildToolOperator {
 
     @Override
-    public void updateVersion(File buildToolFile, String versionName) {
+    public void updateVersionName(File buildToolFile, String versionName) {
         try {
             SAXBuilder saxBuilder = new SAXBuilder();
             Document document = null;

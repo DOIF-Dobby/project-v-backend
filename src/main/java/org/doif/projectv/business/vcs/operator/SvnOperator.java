@@ -19,6 +19,8 @@ import org.tmatesoft.svn.core.wc.SVNRevision;
 import org.tmatesoft.svn.core.wc2.*;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -148,16 +150,17 @@ public class SvnOperator implements VcsOperator {
     }
 
     @Override
-    public File checkout(String repositoryInfo, String path) {
+    public File checkout(String repositoryInfo) {
         SvnOperationFactory factory = new SvnOperationFactory();
         SvnCheckout checkout = factory.createCheckout();
-        String moduleName = repositoryInfo.substring(repositoryInfo.lastIndexOf("/") + 1);
 
-        File svnCheckoutDirectory = new File(path, moduleName);
+        File svnCheckoutDirectory = null;
 
         try {
             SVNURL svnurl = SVNURL.parseURIEncoded(repositoryInfo);
             SvnTarget svnSource = SvnTarget.fromURL(svnurl);
+
+            svnCheckoutDirectory = Files.createTempDirectory("svnTempDir").toFile();
 
             // 파일만 가져오면 그나마 빠름
             checkout.setDepth(SVNDepth.FILES);
@@ -165,7 +168,7 @@ public class SvnOperator implements VcsOperator {
             checkout.addTarget(SvnTarget.fromFile(svnCheckoutDirectory));
 
             checkout.run();
-        } catch (SVNException e) {
+        } catch (SVNException | IOException e) {
             e.printStackTrace();
         }
 

@@ -32,9 +32,6 @@ public class VersionServiceImpl implements VersionService {
     private final Map<String, VcsOperator> vcsOperatorMap;
     private final Map<String, BuildToolOperator> buildToolOperatorMap;
 
-    @Value("${vcs.tempDir}")
-    private String tempDir;
-
     @Transactional(readOnly = true)
     @Override
     public Page<VersionDto.Result> searchByCondition(VersionDto.Search search, Pageable pageable) {
@@ -56,10 +53,11 @@ public class VersionServiceImpl implements VersionService {
         versionRepository.save(version);
 
         // checkout -> pom.xml 또는 build.gradle 버전 변경 -> commit
-        File checkoutDirectory = vcsOperator.checkout(module.getVcsRepository(), tempDir);
+        File checkoutDirectory = vcsOperator.checkout(module.getVcsRepository());
         File buildToolFile = new File(checkoutDirectory.getAbsolutePath(), module.getBuildTool().getBuildToolFileName());
 
-        buildToolOperator.updateVersion(buildToolFile, dto.getVersionName());
+        // 버전명 변경
+        buildToolOperator.updateVersionName(buildToolFile, dto.getVersionName());
         vcsOperator.commit(buildToolFile, "버전 변경: " + dto.getVersionName() + " by ProjectV");
 
         // 체크아웃 받은 임시폴더 삭제

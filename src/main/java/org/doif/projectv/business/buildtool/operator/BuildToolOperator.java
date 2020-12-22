@@ -4,5 +4,5 @@ import java.io.File;
 
 public interface BuildToolOperator {
 
-    void updateVersion(File buildToolFile, String versionName);
+    void updateVersionName(File buildToolFile, String versionName);
 }
