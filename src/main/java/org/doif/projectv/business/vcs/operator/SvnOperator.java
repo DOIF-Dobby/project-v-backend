@@ -2,12 +2,15 @@ package org.doif.projectv.business.vcs.operator;
 
 import lombok.RequiredArgsConstructor;
 import org.doif.projectv.business.vcs.constant.VcsType;
+import org.doif.projectv.business.vcs.dto.VcsAuthInfoDto;
 import org.doif.projectv.business.vcs.dto.VcsDto;
 import org.doif.projectv.business.vcs.entity.VcsAuthInfo;
 import org.doif.projectv.business.vcs.repository.VcsAuthInfoRepository;
+import org.doif.projectv.business.vcs.service.VcsAuthInfoService;
 import org.doif.projectv.common.security.util.SecurityUtil;
 import org.doif.projectv.common.user.entity.User;
 import org.springframework.stereotype.Component;
+import org.springframework.util.FileSystemUtils;
 import org.tmatesoft.svn.core.SVNDepth;
 import org.tmatesoft.svn.core.SVNException;
 import org.tmatesoft.svn.core.SVNLogEntry;
@@ -34,7 +37,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class SvnOperator implements VcsOperator {
 
-    private final VcsAuthInfoRepository vcsAuthInfoRepository;
+    private final VcsAuthInfoService vcsAuthInfoService;
 
     @Override
     public List<VcsDto.Log> getLogs(String repositoryInfo, LocalDate startDate, LocalDate endDate) {
@@ -78,7 +81,7 @@ public class SvnOperator implements VcsOperator {
     }
 
     @Override
-    public Optional<VcsDto.Tag> tag(String repositoryInfo, String versionName) {
+    public VcsDto.Tag tag(String repositoryInfo, String versionName) {
         SVNRepository repository = null;
 
         try {
@@ -136,7 +139,8 @@ public class SvnOperator implements VcsOperator {
             VcsDto.Tag svnTagDto = new VcsDto.Tag();
             svnTagDto.setRevision(String.valueOf(latestRevision));
             svnTagDto.setTag(targetPath);
-            return Optional.of(svnTagDto);
+
+            return svnTagDto;
 
         } catch (SVNException e) {
             e.printStackTrace();
@@ -146,7 +150,8 @@ public class SvnOperator implements VcsOperator {
             }
         }
 
-        return Optional.empty();
+        // TODO: NULL를 Return 하는게 맞냐?
+        return null;
     }
 
     @Override
@@ -190,13 +195,17 @@ public class SvnOperator implements VcsOperator {
         }
     }
 
+    @Override
+    public boolean deleteDirectory(File directory) {
+        return FileSystemUtils.deleteRecursively(directory);
+    }
+
     private SVNRepository getAuthenticatedSvnRepository(String repositoryInfo) throws SVNException {
         Optional<User> optionalUser = SecurityUtil.getUserByContext();
         User requestUser = optionalUser.orElseThrow(() -> new IllegalArgumentException("인증 오류"));
         String requestUserId = requestUser.getId();
 
-        Optional<VcsAuthInfo> optionalVcsAuthInfo = vcsAuthInfoRepository.findByUserIdAndVcsType(requestUserId, VcsType.SVN);
-        VcsAuthInfo vcsAuthInfo = optionalVcsAuthInfo.orElseThrow(() -> new IllegalArgumentException("버전관리 인증정보를 찾을 수 없음"));
+        VcsAuthInfoDto.Result vcsAuthInfo = vcsAuthInfoService.searchByUserIdAndVcsType(requestUserId, VcsType.SVN);
 
         String authId = vcsAuthInfo.getVcsAuthId();
         String authPassword = vcsAuthInfo.getVcsAuthPassword();

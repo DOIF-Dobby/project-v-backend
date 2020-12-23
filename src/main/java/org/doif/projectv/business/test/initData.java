@@ -15,6 +15,7 @@ import org.doif.projectv.business.project.entity.Project;
 import org.doif.projectv.business.task.constant.TaskType;
 import org.doif.projectv.business.task.entity.Task;
 import org.doif.projectv.business.vcs.constant.VcsType;
+import org.doif.projectv.business.vcs.entity.VcsAuthInfo;
 import org.doif.projectv.business.version.entity.Version;
 import org.doif.projectv.common.resource.entity.Button;
 import org.doif.projectv.common.resource.entity.Menu;
@@ -29,7 +30,10 @@ import org.doif.projectv.common.user.constant.UserStatus;
 import org.doif.projectv.common.user.entity.User;
 import org.doif.projectv.common.user.entity.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.security.crypto.encrypt.BytesEncryptor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -54,21 +58,42 @@ public class initData {
     }
 
     @Component
+    @PropertySource("classpath:encrypt.properties")
     static class InitDataService {
         @PersistenceContext
         private EntityManager em;
 
+        @Value("${svn.repo}")
+        private String svnRepo;
+        @Value("${svn.id}")
+        private String svnId;
+        @Value("${svn.password}")
+        private String svnPassword;
+
+        @Value("${git.repo}")
+        private String gitRepo;
+        @Value("${git.id}")
+        private String gitId;
+        @Value("${git.password}")
+        private String gitPassword;
+
+
         @Autowired
         PasswordEncoder passwordEncoder;
+
+        @Autowired
+        BytesEncryptor bytesEncryptor;
 
         @Transactional
         public void init() {
             Project project = new Project("금융결제원 PG");
-            Module module = new Module("금융결제원 PG WEB/ADMIN", project, "", VcsType.SVN, "", BuildTool.MAVEN);
+            Module module = new Module("금융결제원 PG WEB/ADMIN", project, "", VcsType.SVN, svnRepo, BuildTool.MAVEN);
+            Module gitGradleModule = new Module("금융결제원 PG WEB/MSELF", project, "", VcsType.GIT, gitRepo, BuildTool.GRADLE);
             Issue issue1 = new Issue("이슈1", "이슈1 입니다.", IssueStatus.OPEN, IssueCategory.NEW_DEVELOP);
             Issue issue2 = new Issue("이슈2", "이슈2 입니다.", IssueStatus.OPEN, IssueCategory.NEW_DEVELOP);
 
             Version version1 = new Version("v1.0.1", "버전 1.0.1 입니다.", module);
+            Version version2 = new Version("0.0.5", "버전 0.0.5 입니다.", gitGradleModule);
 
             VersionIssue versionIssue1 = new VersionIssue(version1, issue1, "202001", VersionIssueProgress.COMPLETE, "kjpmj", "");
             VersionIssue versionIssue2 = new VersionIssue(version1, issue1, "202002", VersionIssueProgress.COMPLETE, "kjpmj", "");
@@ -120,6 +145,7 @@ public class initData {
             Button button3 = new Button("버튼3", "", EnableStatus.ENABLE, "/api/project/{id}", PUT, page, "");
             Button button4 = new Button("버튼4", "", EnableStatus.ENABLE, "/api/task", GET, page, "");
             Button button5 = new Button("버튼5", "", EnableStatus.ENABLE, "/api/module/{id}", PUT, page, "");
+            Button button5_1 = new Button("버튼5_1", "", EnableStatus.ENABLE, "/api/module", POST, page, "");
             Button button6 = new Button("버튼6", "", EnableStatus.ENABLE, "/api/version/release/{id}", PUT, page, "");
             Button button7 = new Button("버튼7", "", EnableStatus.ENABLE, "/api/version", POST, page, "");
             Button button8 = new Button("버튼8", "", EnableStatus.ENABLE, "/api/version", GET, page, "");
@@ -143,12 +169,21 @@ public class initData {
             RoleResource roleResource14 = new RoleResource(role, button11);
             RoleResource roleResource15 = new RoleResource(role, button12);
             RoleResource roleResource16 = new RoleResource(role, button13);
+            RoleResource roleResource17 = new RoleResource(role, button5_1);
 
             SystemProperty systemProperty = new SystemProperty(PropertyGroupType.COMMON, "TEST", "테스트", "테스트 속성", true);
 
+            VcsAuthInfo svnAuthInfo = new VcsAuthInfo("kjpmj", VcsType.SVN, new String(bytesEncryptor.encrypt(svnId.getBytes())), new String(bytesEncryptor.encrypt(svnPassword.getBytes())), EnableStatus.ENABLE);
+            VcsAuthInfo gitAuthInfo = new VcsAuthInfo("kjpmj", VcsType.GIT, new String(bytesEncryptor.encrypt(gitId.getBytes())), new String(bytesEncryptor.encrypt(gitPassword.getBytes())), EnableStatus.ENABLE);
+
+            em.persist(svnAuthInfo);
+            em.persist(gitAuthInfo);
+
             em.persist(project);
             em.persist(module);
+            em.persist(gitGradleModule);
             em.persist(version1);
+            em.persist(version2);
             em.persist(issue1);
             em.persist(issue2);
             em.persist(versionIssue1);
@@ -180,6 +215,7 @@ public class initData {
             em.persist(button11);
             em.persist(button12);
             em.persist(button13);
+            em.persist(button5_1);
 
 //            em.persist(roleResource2);
 //            em.persist(roleResource2_1);
@@ -197,6 +233,7 @@ public class initData {
             em.persist(roleResource14);
             em.persist(roleResource15);
             em.persist(roleResource16);
+            em.persist(roleResource17);
 
             em.persist(systemProperty);
 

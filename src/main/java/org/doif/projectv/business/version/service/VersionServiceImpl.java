@@ -52,16 +52,16 @@ public class VersionServiceImpl implements VersionService {
         Version version = new Version(dto.getVersionName(), dto.getDescription(), module);
         versionRepository.save(version);
 
-        // checkout -> pom.xml 또는 build.gradle 버전 변경 -> commit
+        // SVN은 Checkout, Git은 Clone으로 저장소를 로컬 임시 디렉토리에 복사
         File checkoutDirectory = vcsOperator.checkout(module.getVcsRepository());
         File buildToolFile = new File(checkoutDirectory.getAbsolutePath(), module.getBuildTool().getBuildToolFileName());
 
-        // 버전명 변경
+        // 버전명 변경하고 커밋 Maven은 pom.xml, Gradle은 build.gradle
         buildToolOperator.updateVersionName(buildToolFile, dto.getVersionName());
         vcsOperator.commit(buildToolFile, "버전 변경: " + dto.getVersionName() + " by ProjectV");
 
         // 체크아웃 받은 임시폴더 삭제
-        FileSystemUtils.deleteRecursively(checkoutDirectory);
+        vcsOperator.deleteDirectory(checkoutDirectory);
 
         return ResponseUtil.ok();
     }
@@ -94,11 +94,14 @@ public class VersionServiceImpl implements VersionService {
         VcsOperator vcsOperator = vcsOperatorMap.get(module.getVcsType().getOperatorBeanName());
 
         // SVN은 tags 폴더에 복사, Git은 커밋 번호에 Tagging
-        Optional<VcsDto.Tag> optionalTagDto = vcsOperator.tag(module.getVcsRepository(), version.getName());
-        VcsDto.Tag tagDto = optionalTagDto.orElseThrow(() -> new IllegalArgumentException("버전관리 태그 실패"));
+        VcsDto.Tag tag = vcsOperator.tag(module.getVcsRepository(), version.getName());
+
+        if(tag == null) {
+            throw new IllegalArgumentException("버전관리 태그 실패");
+        }
 
         // 배포상태로 변경
-        version.release(tagDto.getRevision(), tagDto.getTag());
+        version.release(tag.getRevision(), tag.getTag());
 
         return ResponseUtil.ok();
     }

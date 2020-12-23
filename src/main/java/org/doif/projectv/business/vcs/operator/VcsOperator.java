@@ -11,9 +11,11 @@ public interface VcsOperator {
 
     List<VcsDto.Log> getLogs(String repositoryInfo, LocalDate startDate, LocalDate endDate);
 
-    Optional<VcsDto.Tag> tag(String repositoryInfo, String versionName);
+    VcsDto.Tag tag(String repositoryInfo, String versionName);
 
     File checkout(String repositoryInfo);
 
     void commit(File vcsFile, String commitMessage);
+
+    boolean deleteDirectory(File directory);
 }

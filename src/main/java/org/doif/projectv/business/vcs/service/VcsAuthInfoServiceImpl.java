@@ -1,6 +1,7 @@
 package org.doif.projectv.business.vcs.service;
 
 import lombok.RequiredArgsConstructor;
+import org.doif.projectv.business.vcs.constant.VcsType;
 import org.doif.projectv.business.vcs.dto.VcsAuthInfoDto;
 import org.doif.projectv.business.vcs.entity.VcsAuthInfo;
 import org.doif.projectv.business.vcs.repository.VcsAuthInfoRepository;
@@ -74,5 +75,23 @@ public class VcsAuthInfoServiceImpl implements VcsAuthInfoService {
         vcsAuthInfoRepository.delete(vcsAuthInfo);
 
         return ResponseUtil.ok();
+    }
+
+    @Override
+    public VcsAuthInfoDto.Result searchByUserIdAndVcsType(String userId, VcsType vcsType) {
+        Optional<VcsAuthInfo> optionalVcsAuthInfo = vcsAuthInfoRepository.findByUserIdAndVcsType(userId, vcsType);
+        VcsAuthInfo vcsAuthInfo = optionalVcsAuthInfo.orElseThrow(() -> new IllegalArgumentException("버전관리 인증정보를 찾을 수 없음"));
+
+        String decryptAuthId = new String(bytesEncryptor.decrypt(vcsAuthInfo.getVcsAuthId().getBytes()));
+        String decryptAuthPassword = new String(bytesEncryptor.decrypt(vcsAuthInfo.getVcsAuthPassword().getBytes()));
+
+        return new VcsAuthInfoDto.Result(
+                vcsAuthInfo.getId(),
+                vcsAuthInfo.getUserId(),
+                vcsAuthInfo.getVcsType(),
+                decryptAuthId,
+                decryptAuthPassword,
+                vcsAuthInfo.getStatus()
+        );
     }
 }

@@ -37,7 +37,7 @@ public class Version extends BaseEntity {
     @Column(name = "status", length = 20, nullable = false)
     private VersionStatus status;
 
-    @Column(name = "revision", length = 10)
+    @Column(name = "revision")
     private String revision;
 
     @Column(name = "tag")

@@ -4,10 +4,12 @@ import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.Repository;
+import org.eclipse.jgit.lib.RepositoryBuilder;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevWalk;
 import org.eclipse.jgit.revwalk.filter.CommitTimeRevFilter;
 import org.eclipse.jgit.revwalk.filter.RevFilter;
+import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 import org.junit.jupiter.api.Test;
 import org.springframework.util.FileCopyUtils;
@@ -22,7 +24,6 @@ import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 
@@ -31,6 +32,22 @@ public class GitOperatorTest {
     private static final String REMOTE_URL = "https://github.com/DOIF-Dobby/Jgit-test.git";
 
     private static final String TEMP_DIR = "C:\\Users\\MJ\\dev\\temp";
+
+//    @Test
+    void gitLocalRepositoryTest() throws IOException, GitAPIException {
+        File file = new File("C:\\Users\\MJ\\AppData\\Local\\Temp\\jgit3502953127406534895", ".git");
+
+        Repository repository = FileRepositoryBuilder.create(file);
+        Git git = new Git(repository);
+
+        Iterable<RevCommit> commits = git.log()
+                .call();
+
+        for (RevCommit commit : commits) {
+            System.out.println("commit = " + commit);
+        }
+
+    }
 
 //    @Test
     public void gitCloneTest() throws GitAPIException {
@@ -171,6 +188,25 @@ public class GitOperatorTest {
 
         Files.walkFileTree(directory.toPath(), new ChangeAuthorizationFileVisitor());
         FileSystemUtils.deleteRecursively(git.getRepository().getDirectory().getParentFile());
+    }
+
+//    @Test
+    void delete() throws IOException {
+        File file = new File("C:\\Users\\MJ\\AppData\\Local\\Temp\\gitTempDir3352074858374502917");
+        Files.walkFileTree(file.toPath(), new ChangeAuthorizationFileVisitor());
+    }
+
+    @Test
+    void localRepoTest() throws IOException {
+        File gitFile = new File("C:\\Users\\MJ\\AppData\\Local\\Temp\\jgit3502953127406534895", ".git");
+
+        Repository repository = FileRepositoryBuilder.create(gitFile);
+        Git git = new Git(repository);
+
+        git.close();
+        Files.walkFileTree(gitFile.toPath(), new ChangeAuthorizationFileVisitor());
+        FileSystemUtils.deleteRecursively(git.getRepository().getDirectory().getParentFile());
+
     }
 
     public static class ChangeAuthorizationFileVisitor extends SimpleFileVisitor<Path> {
