@@ -196,7 +196,7 @@ public class GitOperatorTest {
         Files.walkFileTree(file.toPath(), new ChangeAuthorizationFileVisitor());
     }
 
-    @Test
+//    @Test
     void localRepoTest() throws IOException {
         File gitFile = new File("C:\\Users\\MJ\\AppData\\Local\\Temp\\jgit3502953127406534895", ".git");
 

@@ -43,4 +43,10 @@ public class SystemProperty extends BaseEntity {
         this.description = description;
         this.updatable = updatable;
     }
+
+    public void changeSystemProperty(String value, String description, Boolean updatable) {
+        this.value = value;
+        this.description = description;
+        this.updatable = updatable;
+    }
 }

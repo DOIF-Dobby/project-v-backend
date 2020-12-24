@@ -78,6 +78,7 @@ public class VcsAuthInfoServiceImpl implements VcsAuthInfoService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public VcsAuthInfoDto.Result searchByUserIdAndVcsType(String userId, VcsType vcsType) {
         Optional<VcsAuthInfo> optionalVcsAuthInfo = vcsAuthInfoRepository.findByUserIdAndVcsType(userId, vcsType);
         VcsAuthInfo vcsAuthInfo = optionalVcsAuthInfo.orElseThrow(() -> new IllegalArgumentException("버전관리 인증정보를 찾을 수 없음"));
