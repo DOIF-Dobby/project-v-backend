@@ -154,6 +154,7 @@ public class initData {
             Button button11 = new Button("버튼10", "", EnableStatus.ENABLE, "/api/vcs-auth-info", POST, page, "");
             Button button12 = new Button("버튼10", "", EnableStatus.ENABLE, "/api/vcs-auth-info/{id}", PUT, page, "");
             Button button13 = new Button("버튼10", "", EnableStatus.ENABLE, "/api/vcs-auth-info/{id}", DELETE, page, "");
+            Button button14 = new Button("버튼10", "", EnableStatus.ENABLE, "/api/vcs/logs", GET, page, "");
 
             RoleResource roleResource3 = new RoleResource(role, page);
             RoleResource roleResource4 = new RoleResource(role, button1);
@@ -170,6 +171,7 @@ public class initData {
             RoleResource roleResource15 = new RoleResource(role, button12);
             RoleResource roleResource16 = new RoleResource(role, button13);
             RoleResource roleResource17 = new RoleResource(role, button5_1);
+            RoleResource roleResource18 = new RoleResource(role, button14);
 
             SystemProperty systemProperty = new SystemProperty(PropertyGroupType.COMMON, "TEST", "테스트", "테스트 속성", true);
 
@@ -216,6 +218,7 @@ public class initData {
             em.persist(button12);
             em.persist(button13);
             em.persist(button5_1);
+            em.persist(button14);
 
 //            em.persist(roleResource2);
 //            em.persist(roleResource2_1);
@@ -234,6 +237,7 @@ public class initData {
             em.persist(roleResource15);
             em.persist(roleResource16);
             em.persist(roleResource17);
+            em.persist(roleResource18);
 
             em.persist(systemProperty);
 
@@ -268,3 +272,4 @@ public class initData {
         }
     }
 }
+

@@ -20,6 +20,7 @@ public class SystemPropertyServiceImpl implements SystemPropertyService {
 
     private final SystemPropertyRepository systemPropertyRepository;
 
+    @Transactional(readOnly = true)
     @Override
     public List<SystemPropertyDto.Result> searchByCondition(SystemPropertyDto.Search search) {
         return systemPropertyRepository.searchByCondition(search)

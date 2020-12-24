@@ -56,7 +56,7 @@ public class SvnOperator implements VcsOperator {
             long endRevision = repository.getDatedRevision(endDt);
 
             // 로그 엔트리를 얻음
-            Collection<SVNLogEntry> logEntries = repository.log(new String[]{""}, null, startRevision, endRevision, false, true);
+            Collection<SVNLogEntry> logEntries = repository.log(new String[]{""}, null, startRevision, endRevision, false, false);
 
             return logEntries.stream()
                     .map(svnLogEntry -> {
