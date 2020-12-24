@@ -131,6 +131,14 @@ include::{snippets}/version/delete/path-parameters.adoc[]
 ==== 응답
 include::{snippets}/version/delete/http-response.adoc[]
 
+[[resources-version-release]]
+=== 버전 배포
+==== 요청
+include::{snippets}/version/release/http-request.adoc[]
+include::{snippets}/version/release/path-parameters.adoc[]
+==== 응답
+include::{snippets}/version/release/http-response.adoc[]
+
 
 [[resources-issue]]
 == 이슈

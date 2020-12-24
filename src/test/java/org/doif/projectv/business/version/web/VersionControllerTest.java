@@ -187,4 +187,29 @@ class VersionControllerTest extends ApiDocumentTest {
                         )
                 ));
     }
+    
+    @Test
+    public void 버전_배포_API_테스트() throws Exception {
+        // given
+        given(versionService.release(eq(1L)))
+                .willReturn(ResponseUtil.ok());
+
+        // when
+        ResultActions result = mockMvc.perform(
+                put("/api/version/release/{id}", 1L)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+        );
+
+        // then
+        result.andExpect(status().isOk())
+                .andDo(print())
+                .andDo(document("version/release",
+                        getDocumentRequest(),
+                        getDocumentResponse(),
+                        pathParameters(
+                                parameterWithName("id").description("버전 ID")
+                        )
+                ));
+    }
 }
