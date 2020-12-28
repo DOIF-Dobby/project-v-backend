@@ -27,10 +27,7 @@ import java.nio.file.Files;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
@@ -52,13 +49,14 @@ public class SvnOperator implements VcsOperator {
             Date endDt = Date.from(endDate.plusDays(1).atStartOfDay(ZoneId.systemDefault()).toInstant());
 
             // 날짜로 해당 리비전 번호를 얻음
-            long startRevision = repository.getDatedRevision(startDt);
+            // 해당 날짜의 첫번째 번호보다 전의 것을 찾아옴 그래서 +1 해줌
+            long startRevision = repository.getDatedRevision(startDt) + 1;
             long endRevision = repository.getDatedRevision(endDt);
 
             // 로그 엔트리를 얻음
             Collection<SVNLogEntry> logEntries = repository.log(new String[]{""}, null, startRevision, endRevision, false, false);
 
-            return logEntries.stream()
+            List<VcsDto.Log> logList = logEntries.stream()
                     .map(svnLogEntry -> {
                         Long revision = svnLogEntry.getRevision();
                         String author = svnLogEntry.getAuthor();
@@ -68,6 +66,11 @@ public class SvnOperator implements VcsOperator {
                         return new VcsDto.Log(String.valueOf(revision), date, author, message);
                     })
                     .collect(Collectors.toList());
+
+            // 최신로그가 맨 첫번째오도록 reverse
+            Collections.reverse(logList);
+
+            return logList;
 
         } catch (SVNException e) {
             e.printStackTrace();
