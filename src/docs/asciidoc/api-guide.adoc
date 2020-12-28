@@ -5,7 +5,7 @@ endif::[]
 :icons: font
 :source-highlighter: highlightjs
 :toc: left
-:toclevels: 2
+:toclevels: 3
 :sectlinks:
 :docinfo: shared-head
 :operation-http-request-title: Example Request
@@ -20,344 +20,387 @@ endif::[]
 include::{snippets}/common/common-response/code-response-fields.adoc[]
 include::{snippets}/common/code-response/code-response-fields-responseCode.adoc[]
 
+== 비지니스
+---
+
 [[resources-project]]
-== 프로젝트
+=== 프로젝트
 
 [[resources-project-select]]
-=== 프로젝트 조회
-==== 요청
+==== 프로젝트 조회
+===== 요청
 include::{snippets}/project/select/http-request.adoc[]
-==== 응답
+===== 응답
 include::{snippets}/project/select/http-response.adoc[]
 include::{snippets}/project/select/response-fields-beneath-content.adoc[]
 
 [[resources-project-insert]]
-=== 프로젝트 추가
-==== 요청
+==== 프로젝트 추가
+===== 요청
 include::{snippets}/project/insert/http-request.adoc[]
 include::{snippets}/project/insert/request-fields.adoc[]
-==== 응답
+===== 응답
 include::{snippets}/project/insert/http-response.adoc[]
 
 [[resources-project-update]]
-=== 프로젝트 변경
-==== 요청
+==== 프로젝트 변경
+===== 요청
 include::{snippets}/project/update/http-request.adoc[]
 include::{snippets}/project/update/path-parameters.adoc[]
 include::{snippets}/project/update/request-fields.adoc[]
-==== 응답
+===== 응답
 include::{snippets}/project/update/http-response.adoc[]
 
 [[resources-project-delete]]
-=== 프로젝트 삭제
-==== 요청
+==== 프로젝트 삭제
+===== 요청
 include::{snippets}/project/delete/http-request.adoc[]
 include::{snippets}/project/delete/path-parameters.adoc[]
-==== 응답
+===== 응답
 include::{snippets}/project/delete/http-response.adoc[]
 
 [[resources-module]]
-== 모듈
+=== 모듈
 
 [[resources-module-select]]
-=== 모듈 조회
-==== 요청
+==== 모듈 조회
+===== 요청
 include::{snippets}/module/select/http-request.adoc[]
 include::{snippets}/module/select/request-fields.adoc[]
-==== 응답
+===== 응답
 include::{snippets}/module/select/http-response.adoc[]
 include::{snippets}/module/select/response-fields-content.adoc[]
 
 [[resources-module-insert]]
-=== 모듈 추가
-==== 요청
+==== 모듈 추가
+===== 요청
 include::{snippets}/module/insert/http-request.adoc[]
 include::{snippets}/module/insert/request-fields.adoc[]
-==== 응답
+===== 응답
 include::{snippets}/module/insert/http-response.adoc[]
 
 [[resources-module-update]]
-=== 모듈 수정
-==== 요청
+==== 모듈 수정
+===== 요청
 include::{snippets}/module/update/http-request.adoc[]
 include::{snippets}/module/update/path-parameters.adoc[]
 include::{snippets}/module/update/request-fields.adoc[]
-==== 응답
+===== 응답
 include::{snippets}/module/update/http-response.adoc[]
 
 [[resources-module-delete]]
-=== 모듈 삭제
-==== 요청
+==== 모듈 삭제
+===== 요청
 include::{snippets}/module/delete/http-request.adoc[]
 include::{snippets}/module/delete/path-parameters.adoc[]
-==== 응답
+===== 응답
 include::{snippets}/module/delete/http-response.adoc[]
 
 [[resources-version]]
-== 버전
+=== 버전
 
 [[resources-version-select]]
-=== 버전 조회
-==== 요청
+==== 버전 조회
+===== 요청
 include::{snippets}/version/select/http-request.adoc[]
 include::{snippets}/version/select/request-fields.adoc[]
-==== 응답
+===== 응답
 include::{snippets}/version/select/http-response.adoc[]
 include::{snippets}/version/select/response-fields.adoc[]
 include::{snippets}/version/select/response-fields-pageInfo.content.adoc[]
 
 [[resources-version-insert]]
-=== 버전 추가
-==== 요청
+==== 버전 추가
+===== 요청
 include::{snippets}/version/insert/http-request.adoc[]
 include::{snippets}/version/insert/request-fields.adoc[]
-==== 응답
+===== 응답
 include::{snippets}/version/insert/http-response.adoc[]
 
 [[resources-version-update]]
-=== 버전 수정
-==== 요청
+==== 버전 수정
+===== 요청
 include::{snippets}/version/update/http-request.adoc[]
 include::{snippets}/version/update/path-parameters.adoc[]
 include::{snippets}/version/update/request-fields.adoc[]
-==== 응답
+===== 응답
 include::{snippets}/version/update/http-response.adoc[]
 
 [[resources-version-delete]]
-=== 버전 삭제
-==== 요청
+==== 버전 삭제
+===== 요청
 include::{snippets}/version/delete/http-request.adoc[]
 include::{snippets}/version/delete/path-parameters.adoc[]
-==== 응답
+===== 응답
 include::{snippets}/version/delete/http-response.adoc[]
 
 [[resources-version-release]]
-=== 버전 배포
-==== 요청
+==== 버전 배포
+===== 요청
 include::{snippets}/version/release/http-request.adoc[]
 include::{snippets}/version/release/path-parameters.adoc[]
-==== 응답
+===== 응답
 include::{snippets}/version/release/http-response.adoc[]
 
 
 [[resources-issue]]
-== 이슈
+=== 이슈
 
 [[resources-issue-select]]
-=== 이슈 조회
-==== 요청
+==== 이슈 조회
+===== 요청
 include::{snippets}/issue/select/http-request.adoc[]
 include::{snippets}/issue/select/request-fields.adoc[]
-==== 응답
+===== 응답
 include::{snippets}/issue/select/http-response.adoc[]
 include::{snippets}/issue/select/response-fields.adoc[]
 include::{snippets}/issue/select/response-fields-pageInfo.content.adoc[]
 
 [[resources-issue-insert]]
-=== 이슈 추가
-==== 요청
+==== 이슈 추가
+===== 요청
 include::{snippets}/issue/insert/http-request.adoc[]
 include::{snippets}/issue/insert/request-fields.adoc[]
-==== 응답
+===== 응답
 include::{snippets}/issue/insert/http-response.adoc[]
 
 [[resources-issue-update]]
-=== 이슈 수정
-==== 요청
+==== 이슈 수정
+===== 요청
 include::{snippets}/issue/update/http-request.adoc[]
 include::{snippets}/issue/update/path-parameters.adoc[]
 include::{snippets}/issue/update/request-fields.adoc[]
-==== 응답
+===== 응답
 include::{snippets}/issue/update/http-response.adoc[]
 
 [[resources-issue-delete]]
-=== 이슈 삭제
-==== 요청
+==== 이슈 삭제
+===== 요청
 include::{snippets}/issue/delete/http-request.adoc[]
 include::{snippets}/issue/delete/path-parameters.adoc[]
-==== 응답
+===== 응답
 include::{snippets}/issue/delete/http-response.adoc[]
 
 
 [[resources-version-issue]]
-== 버전-이슈
+=== 버전-이슈
 
 [[resources-version-issue-select-by-issue-id]]
-=== 버전-이슈 조회 (이슈 ID로)
-==== 요청
+==== 버전-이슈 조회 (이슈 ID로)
+===== 요청
 include::{snippets}/version-issue/select-by-issue-id/http-request.adoc[]
 include::{snippets}/version-issue/select-by-issue-id/path-parameters.adoc[]
-==== 응답
+===== 응답
 include::{snippets}/version-issue/select-by-issue-id/http-response.adoc[]
 include::{snippets}/version-issue/select-by-issue-id/response-fields-content.adoc[]
 
 [[resources-version-issue-select-by-version-id]]
-=== 버전-이슈 조회 (버전 ID로)
-==== 요청
+==== 버전-이슈 조회 (버전 ID로)
+===== 요청
 include::{snippets}/version-issue/select-by-version-id/http-request.adoc[]
 include::{snippets}/version-issue/select-by-version-id/path-parameters.adoc[]
-==== 응답
+===== 응답
 include::{snippets}/version-issue/select-by-version-id/http-response.adoc[]
 include::{snippets}/version-issue/select-by-version-id/response-fields-content.adoc[]
 
 [[resources-version-issue-insert]]
-=== 버전-이슈 추가
-==== 요청
+==== 버전-이슈 추가
+===== 요청
 include::{snippets}/version-issue/insert/http-request.adoc[]
 include::{snippets}/version-issue/insert/request-fields.adoc[]
-==== 응답
+===== 응답
 include::{snippets}/version-issue/insert/http-response.adoc[]
 
 [[resources-version-issue-update]]
-=== 버전-이슈 수정
-==== 요청
+==== 버전-이슈 수정
+===== 요청
 include::{snippets}/version-issue/update/http-request.adoc[]
 include::{snippets}/version-issue/update/path-parameters.adoc[]
 include::{snippets}/version-issue/update/request-fields.adoc[]
-==== 응답
+===== 응답
 include::{snippets}/version-issue/update/http-response.adoc[]
 
 [[resources-version-issue-delete]]
-=== 버전-이슈 삭제
-==== 요청
+==== 버전-이슈 삭제
+===== 요청
 include::{snippets}/version-issue/delete/http-request.adoc[]
 include::{snippets}/version-issue/delete/path-parameters.adoc[]
-==== 응답
+===== 응답
 include::{snippets}/version-issue/delete/http-response.adoc[]
 
 [[resources-version-issue-overview]]
-=== 버전-이슈 현황 조회
-==== 요청
+==== 버전-이슈 현황 조회
+===== 요청
 include::{snippets}/version-issue/overview/http-request.adoc[]
 include::{snippets}/version-issue/overview/request-fields.adoc[]
-==== 응답
+===== 응답
 include::{snippets}/version-issue/overview/http-response.adoc[]
 include::{snippets}/version-issue/overview/response-fields.adoc[]
 include::{snippets}/version-issue/overview/response-fields-pageInfo.content.adoc[]
 
 [[resources-task]]
-== 작업
+=== 작업
 
 [[resources-task-select]]
-=== 작업 조회
-==== 요청
+==== 작업 조회
+===== 요청
 include::{snippets}/task/select/http-request.adoc[]
 include::{snippets}/task/select/request-fields.adoc[]
-==== 응답
+===== 응답
 include::{snippets}/task/select/http-response.adoc[]
 include::{snippets}/task/select/response-fields.adoc[]
 include::{snippets}/task/select/response-fields-pageInfo.content.adoc[]
 
 [[resources-task-insert]]
-=== 작업 추가
-==== 요청
+==== 작업 추가
+===== 요청
 include::{snippets}/task/insert/http-request.adoc[]
 include::{snippets}/task/insert/request-fields.adoc[]
-==== 응답
+===== 응답
 include::{snippets}/task/insert/http-response.adoc[]
 
 [[resources-task-update]]
-=== 작업 수정
-==== 요청
+==== 작업 수정
+===== 요청
 include::{snippets}/task/update/http-request.adoc[]
 include::{snippets}/task/update/path-parameters.adoc[]
 include::{snippets}/task/update/request-fields.adoc[]
-==== 응답
+===== 응답
 include::{snippets}/task/update/http-response.adoc[]
 
 [[resources-task-delete]]
-=== 작업 삭제
-==== 요청
+==== 작업 삭제
+===== 요청
 include::{snippets}/task/delete/http-request.adoc[]
 include::{snippets}/task/delete/path-parameters.adoc[]
-==== 응답
+===== 응답
 include::{snippets}/task/delete/http-response.adoc[]
 
 
 [[resources-patch-log]]
-== 패치로그
+=== 패치로그
 
 [[resources-patch-log-select]]
-=== 패치로그 조회
-==== 요청
+==== 패치로그 조회
+===== 요청
 include::{snippets}/patch-log/select/http-request.adoc[]
 include::{snippets}/patch-log/select/request-fields.adoc[]
-==== 응답
+===== 응답
 include::{snippets}/patch-log/select/http-response.adoc[]
 include::{snippets}/patch-log/select/response-fields.adoc[]
 include::{snippets}/patch-log/select/response-fields-pageInfo.content.adoc[]
 
 [[resources-patch-log-insert]]
-=== 패치로그 추가
-==== 요청
+==== 패치로그 추가
+===== 요청
 include::{snippets}/patch-log/insert/http-request.adoc[]
 include::{snippets}/patch-log/insert/request-fields.adoc[]
-==== 응답
+===== 응답
 include::{snippets}/patch-log/insert/http-response.adoc[]
 
 [[resources-patch-log-update]]
-=== 패치로그 수정
-==== 요청
+==== 패치로그 수정
+===== 요청
 include::{snippets}/patch-log/update/http-request.adoc[]
 include::{snippets}/patch-log/update/path-parameters.adoc[]
 include::{snippets}/patch-log/update/request-fields.adoc[]
-==== 응답
+===== 응답
 include::{snippets}/patch-log/update/http-response.adoc[]
 
 [[resources-patch-log-delete]]
-=== 패치로그 삭제
-==== 요청
+==== 패치로그 삭제
+===== 요청
 include::{snippets}/patch-log/delete/http-request.adoc[]
 include::{snippets}/patch-log/delete/path-parameters.adoc[]
-==== 응답
+===== 응답
 include::{snippets}/patch-log/delete/http-response.adoc[]
 
 [[resources-vcs-auth-info]]
-== 버전관리시스템 인증정보
+=== 버전관리시스템 인증정보
 
 [[resources-vcs-auth-info-select]]
-=== 버전관리시스템 인증정보 조회
-==== 요청
+==== 버전관리시스템 인증정보 조회
+===== 요청
 include::{snippets}/vcs-auth-info/select/http-request.adoc[]
 include::{snippets}/vcs-auth-info/select/request-fields.adoc[]
-==== 응답
+===== 응답
 include::{snippets}/vcs-auth-info/select/http-response.adoc[]
 include::{snippets}/vcs-auth-info/select/response-fields-content.adoc[]
 
 [[resources-vcs-auth-info-insert]]
-=== 버전관리시스템 인증정보 추가
-==== 요청
+==== 버전관리시스템 인증정보 추가
+===== 요청
 include::{snippets}/vcs-auth-info/insert/http-request.adoc[]
 include::{snippets}/vcs-auth-info/insert/request-fields.adoc[]
-==== 응답
+===== 응답
 include::{snippets}/vcs-auth-info/insert/http-response.adoc[]
 
 [[resources-vcs-auth-info-update]]
-=== 버전관리시스템 인증정보 수정
-==== 요청
+==== 버전관리시스템 인증정보 수정
+===== 요청
 include::{snippets}/vcs-auth-info/update/http-request.adoc[]
 include::{snippets}/vcs-auth-info/update/path-parameters.adoc[]
 include::{snippets}/vcs-auth-info/update/request-fields.adoc[]
-==== 응답
+===== 응답
 include::{snippets}/vcs-auth-info/update/http-response.adoc[]
 
 [[resources-vcs-auth-info-delete]]
-=== 버전관리시스템 인증정보 삭제
-==== 요청
+==== 버전관리시스템 인증정보 삭제
+===== 요청
 include::{snippets}/vcs-auth-info/delete/http-request.adoc[]
 include::{snippets}/vcs-auth-info/delete/path-parameters.adoc[]
-==== 응답
+===== 응답
 include::{snippets}/vcs-auth-info/delete/http-response.adoc[]
 
 
 [[resources-patch-log]]
-== 버전관리 시스템
+=== 버전관리 시스템
 
 [[resources-vcs-log-select]]
-=== 로그 조회
-==== 요청
+==== 로그 조회
+===== 요청
 include::{snippets}/vcs/logs/http-request.adoc[]
 include::{snippets}/vcs/logs/request-fields.adoc[]
-==== 응답
+===== 응답
 include::{snippets}/vcs/logs/http-response.adoc[]
 include::{snippets}/vcs/logs/response-fields-content.adoc[]
+
+== 공통
+---
+
+[[resources-system-property]]
+=== 시스템 속성
+
+[[resources-system-property-select]]
+==== 시스템 속성 조회
+===== 요청
+include::{snippets}/system-property/select/http-request.adoc[]
+include::{snippets}/system-property/select/request-fields.adoc[]
+===== 응답
+include::{snippets}/system-property/select/http-response.adoc[]
+include::{snippets}/system-property/select/response-fields-content.adoc[]
+
+[[resources-system-property-insert]]
+==== 시스템 속성 추가
+===== 요청
+include::{snippets}/system-property/insert/http-request.adoc[]
+include::{snippets}/system-property/insert/request-fields.adoc[]
+===== 응답
+include::{snippets}/system-property/insert/http-response.adoc[]
+
+[[resources-system-property-update]]
+==== 시스템 속성 수정
+===== 요청
+include::{snippets}/system-property/update/http-request.adoc[]
+include::{snippets}/system-property/update/path-parameters.adoc[]
+include::{snippets}/system-property/update/request-fields.adoc[]
+===== 응답
+include::{snippets}/system-property/update/http-response.adoc[]
+
+[[resources-system-property-delete]]
+==== 시스템 속성 삭제
+===== 요청
+include::{snippets}/system-property/delete/http-request.adoc[]
+include::{snippets}/system-property/delete/path-parameters.adoc[]
+===== 응답
+include::{snippets}/system-property/delete/http-response.adoc[]

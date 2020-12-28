@@ -1,5 +1,6 @@
 package org.doif.projectv.business.vcs.web;
 
+import static org.doif.projectv.common.api.DocumentFormatGenerator.getDateFormat;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.doif.projectv.business.vcs.dto.VcsDto;
@@ -74,8 +75,8 @@ class VcsControllerTest extends ApiDocumentTest {
                         getDocumentResponse(),
                         requestFields(
                                 fieldWithPath("moduleId").type(NUMBER).description("모듈 ID"),
-                                fieldWithPath("startDate").type(STRING).description("조회 시작일"),
-                                fieldWithPath("endDate").type(STRING).description("조회 종료일")
+                                fieldWithPath("startDate").type(STRING).attributes(getDateFormat()).description("조회 시작일"),
+                                fieldWithPath("endDate").type(STRING).attributes(getDateFormat()).description("조회 종료일")
                         ),
                         responseFields(
                                 beneathPath("content").withSubsectionId("content"),

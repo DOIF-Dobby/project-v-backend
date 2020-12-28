@@ -10,7 +10,7 @@ public class SystemPropertyDto {
     @Setter
     @ToString
     public static class Result {
-        private Long systemProperyId;
+        private Long systemPropertyId;
         private PropertyGroupType propertyGroup;
         private String propertyGroupName;
         private String property;
@@ -19,8 +19,8 @@ public class SystemPropertyDto {
         private boolean updatable;
         private String updatableName;
 
-        public Result(Long systemProperyId, PropertyGroupType propertyGroup, String property, String value, String description, boolean updatable) {
-            this.systemProperyId = systemProperyId;
+        public Result(Long systemPropertyId, PropertyGroupType propertyGroup, String property, String value, String description, boolean updatable) {
+            this.systemPropertyId = systemPropertyId;
             this.propertyGroup = propertyGroup;
             this.propertyGroupName = propertyGroup.getMessage();
             this.property = property;

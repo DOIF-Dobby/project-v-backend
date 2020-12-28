@@ -19,6 +19,7 @@ import org.doif.projectv.business.version.service.VersionService;
 import org.doif.projectv.business.version.web.VersionController;
 import org.doif.projectv.common.api.web.ApiCommonController;
 import org.doif.projectv.common.enumeration.EnumMapper;
+import org.doif.projectv.common.system.service.SystemPropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -51,6 +52,7 @@ import org.springframework.test.web.servlet.MockMvc;
 @ComponentScan(basePackages = "org.doif.projectv.business.version.web")
 @ComponentScan(basePackages = "org.doif.projectv.business.patchlog.web")
 @ComponentScan(basePackages = "org.doif.projectv.business.vcs.web")
+@ComponentScan(basePackages = "org.doif.projectv.common.system.web")
 public abstract class ApiDocumentTest {
 
     @Autowired
@@ -88,4 +90,7 @@ public abstract class ApiDocumentTest {
 
     @MockBean
     protected VcsAuthInfoService vcsAuthInfoService;
+
+    @MockBean
+    protected SystemPropertyService systemPropertyService;
 }
