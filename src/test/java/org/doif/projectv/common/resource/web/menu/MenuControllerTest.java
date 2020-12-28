@@ -1,10 +1,13 @@
-package org.doif.projectv.common.resource.web.menucateory;
+package org.doif.projectv.common.resource.web.menu;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.codehaus.plexus.util.StringUtils;
 import org.doif.projectv.common.api.ApiDocumentTest;
 import org.doif.projectv.common.enumeration.CodeEnum;
+import org.doif.projectv.common.resource.constant.MenuType;
 import org.doif.projectv.common.resource.dto.MenuCategoryDto;
+import org.doif.projectv.common.resource.dto.MenuDto;
 import org.doif.projectv.common.response.ResponseUtil;
 import org.doif.projectv.common.status.EnableStatus;
 import org.junit.jupiter.api.Test;
@@ -35,30 +38,37 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-class MenuCategoryControllerTest extends ApiDocumentTest {
+class MenuControllerTest extends ApiDocumentTest {
+
 
     @Test
-    public void 메뉴_카테고리_조회_API_테스트() throws Exception {
+    public void 메뉴_조회_API_테스트() throws Exception {
         // given
-        MenuCategoryDto.Result content = new MenuCategoryDto.Result(
-                2L,
-                "버전-이슈",
-                "버전-이슈 메뉴 카테고리",
-                EnableStatus.ENABLE,
-                1L,
-                1,
-                "edit"
-        );
+        MenuDto.Result content = new MenuDto.Result();
+        content.setResourceId(2L);
+        content.setName("버전-이슈 관리");
+        content.setDescription("버전-이슈 관리 메뉴입니다.");
+        content.setStatus(EnableStatus.ENABLE);
+        content.setStatusName(EnableStatus.ENABLE.getMessage());
+        content.setParentId(1L);
+        content.setDepth(2);
+        content.setPaddingName("버전-이슈 관리");
+        content.setSort(1);
+        content.setPath("1-1");
+        content.setType(MenuType.MENU);
+        content.setTypeName(MenuType.MENU.getMessage());
+        content.setIcon("heart");
+        content.setUrl("/version-issue");
 
-        List<MenuCategoryDto.Result> results = Arrays.asList(content);
-        MenuCategoryDto.Response response = new MenuCategoryDto.Response(results);
+        List<MenuDto.Result> results = Arrays.asList(content);
+        MenuDto.Response response = new MenuDto.Response(results);
 
-        given(menuCategoryService.select())
+        given(menuService.select())
                 .willReturn(results);
 
         // when
         ResultActions result = mockMvc.perform(
-                get("/api/resources/menu-category")
+                get("/api/resources/menu")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
         );
@@ -67,40 +77,47 @@ class MenuCategoryControllerTest extends ApiDocumentTest {
         result.andExpect(status().isOk())
                 .andExpect(content().json(objectMapper.writeValueAsString(response)))
                 .andDo(print())
-                .andDo(document("menu-category/select",
+                .andDo(document("menu/select",
                         getDocumentRequest(),
                         getDocumentResponse(),
                         responseFields(
                                 beneathPath("content").withSubsectionId("content"),
-                                fieldWithPath("resourceId").type(NUMBER).description("메뉴-카테고리 ID"),
-                                fieldWithPath("name").type(STRING).description("메뉴-카테고리명"),
-                                fieldWithPath("description").type(STRING).description("메뉴-카테고리 설명"),
+                                fieldWithPath("resourceId").type(NUMBER).description("메뉴 ID"),
+                                fieldWithPath("name").type(STRING).description("메뉴명"),
+                                fieldWithPath("description").type(STRING).description("메뉴 설명"),
                                 fieldWithPath("status").type(STRING).description(generateLinkCode(CodeEnum.ENABLE_STATUS)),
                                 fieldWithPath("statusName").type(STRING).description(generateText(CodeEnum.ENABLE_STATUS)),
                                 fieldWithPath("parentId").type(NUMBER).description("부모 메뉴-카테고리 ID"),
                                 fieldWithPath("sort").type(NUMBER).description("정렬 순서"),
-                                fieldWithPath("icon").type(STRING).description("아이콘")
+                                fieldWithPath("icon").type(STRING).description("아이콘"),
+                                fieldWithPath("paddingName").type(STRING).description("패딩된 이름"),
+                                fieldWithPath("depth").type(NUMBER).description("메뉴 깊이"),
+                                fieldWithPath("path").type(STRING).description("정렬을 위한 항목"),
+                                fieldWithPath("type").type(STRING).description(generateLinkCode(CodeEnum.MENU_TYPE)),
+                                fieldWithPath("typeName").type(STRING).description(generateText(CodeEnum.MENU_TYPE)),
+                                fieldWithPath("url").type(STRING).description("메뉴 URL")
                         )
                 ));
     }
 
     @Test
-    public void 메뉴_카테고리_추가_API_테스트() throws Exception {
+    public void 메뉴_추가_API_테스트() throws Exception {
         // given
-        MenuCategoryDto.Insert insert = new MenuCategoryDto.Insert();
-        insert.setParentId(1L);
+        MenuDto.Insert insert = new MenuDto.Insert();
+        insert.setMenuCategoryId(1L);
         insert.setName("버전관리시스템");
         insert.setDescription("버전관리시스템 메뉴-카테고리");
         insert.setStatus(EnableStatus.ENABLE);
-        insert.setSort(2);
+        insert.setSort(1);
         insert.setIcon("heart");
+        insert.setUrl("/vcs");
 
-        given(menuCategoryService.insert(any(MenuCategoryDto.Insert.class)))
+        given(menuService.insert(any(MenuDto.Insert.class)))
                 .willReturn(ResponseUtil.ok());
 
         // when
         ResultActions result = mockMvc.perform(
-                post("/api/resources/menu-category")
+                post("/api/resources/menu")
                         .content(objectMapper.writeValueAsBytes(insert))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
@@ -109,36 +126,38 @@ class MenuCategoryControllerTest extends ApiDocumentTest {
         // then
         result.andExpect(status().isOk())
                 .andDo(print())
-                .andDo(document("menu-category/insert",
+                .andDo(document("menu/insert",
                         getDocumentRequest(),
                         getDocumentResponse(),
                         requestFields(
-                                fieldWithPath("name").type(STRING).description("메뉴-카테고리명"),
-                                fieldWithPath("description").optional().type(STRING).description("메뉴-카테고리 설명"),
+                                fieldWithPath("name").type(STRING).description("메뉴"),
+                                fieldWithPath("description").optional().type(STRING).description("메뉴 설명"),
                                 fieldWithPath("status").type(STRING).description(generateLinkCode(CodeEnum.ENABLE_STATUS)),
-                                fieldWithPath("parentId").type(NUMBER).description("부모 메뉴-카테고리 ID"),
+                                fieldWithPath("menuCategoryId").type(NUMBER).description("부모 메뉴-카테고리 ID"),
                                 fieldWithPath("sort").type(NUMBER).description("정렬 순서"),
-                                fieldWithPath("icon").type(STRING).description("아이콘")
+                                fieldWithPath("icon").type(STRING).description("아이콘"),
+                                fieldWithPath("url").type(STRING).description("메뉴 URL")
                         )
                 ));
     }
 
     @Test
-    public void 메뉴_카테고리_수정_API_테스트() throws Exception {
+    public void 메뉴_수정_API_테스트() throws Exception {
         // given
-        MenuCategoryDto.Update update = new MenuCategoryDto.Update();
-        update.setName("버전관리시스템");
-        update.setDescription("버전관리시스템 메뉴-카테고리");
+        MenuDto.Update update = new MenuDto.Update();
+        update.setName("버전관리시스템 관리");
+        update.setDescription("버전관리시스템 관리 메뉴입니다.");
         update.setStatus(EnableStatus.ENABLE);
-        update.setSort(2);
+        update.setSort(1);
         update.setIcon("heart");
+        update.setUrl("/vcs");
 
-        given(menuCategoryService.update(eq(1L), any(MenuCategoryDto.Update.class)))
+        given(menuService.update(eq(1L), any(MenuDto.Update.class)))
                 .willReturn(ResponseUtil.ok());
 
         // when
         ResultActions result = mockMvc.perform(
-                put("/api/resources/menu-category/{id}", 1L)
+                put("/api/resources/menu/{id}", 1L)
                         .content(objectMapper.writeValueAsBytes(update))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
@@ -147,31 +166,32 @@ class MenuCategoryControllerTest extends ApiDocumentTest {
         // then
         result.andExpect(status().isOk())
                 .andDo(print())
-                .andDo(document("menu-category/update",
+                .andDo(document("menu/update",
                         getDocumentRequest(),
                         getDocumentResponse(),
                         pathParameters(
-                                parameterWithName("id").description("메뉴-카테고리 ID")
+                                parameterWithName("id").description("메뉴 ID")
                         ),
                         requestFields(
-                                fieldWithPath("name").type(STRING).description("메뉴-카테고리명"),
-                                fieldWithPath("description").optional().type(STRING).description("메뉴-카테고리 설명"),
+                                fieldWithPath("name").type(STRING).description("메뉴"),
+                                fieldWithPath("description").optional().type(STRING).description("메뉴 설명"),
                                 fieldWithPath("status").type(STRING).description(generateLinkCode(CodeEnum.ENABLE_STATUS)),
                                 fieldWithPath("sort").type(NUMBER).description("정렬 순서"),
-                                fieldWithPath("icon").type(STRING).description("아이콘")
+                                fieldWithPath("icon").type(STRING).description("아이콘"),
+                                fieldWithPath("url").type(STRING).description("메뉴 URL")
                         )
                 ));
     }
 
     @Test
-    public void 메뉴_카테고리_삭제_API_테스트() throws Exception {
+    public void 메뉴_삭제_API_테스트() throws Exception {
         // given
-        given(menuCategoryService.delete(eq(1L)))
+        given(menuService.delete(eq(1L)))
                 .willReturn(ResponseUtil.ok());
 
         // when
         ResultActions result = mockMvc.perform(
-                delete("/api/resources/menu-category/{id}", 1L)
+                delete("/api/resources/menu/{id}", 1L)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
         );
@@ -179,11 +199,11 @@ class MenuCategoryControllerTest extends ApiDocumentTest {
         // then
         result.andExpect(status().isOk())
                 .andDo(print())
-                .andDo(document("menu-category/delete",
+                .andDo(document("menu/delete",
                         getDocumentRequest(),
                         getDocumentResponse(),
                         pathParameters(
-                                parameterWithName("id").description("메뉴-카테고리 ID")
+                                parameterWithName("id").description("메뉴 ID")
                         )
                 ));
     }

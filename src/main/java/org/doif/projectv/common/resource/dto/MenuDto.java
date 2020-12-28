@@ -21,6 +21,7 @@ public class MenuDto {
         private Integer depth;
         private String path;
         private MenuType type;
+        private String typeName;
         private String icon;
         private String url;
 

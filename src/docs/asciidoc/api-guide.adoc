@@ -450,3 +450,41 @@ include::{snippets}/menu-category/delete/http-request.adoc[]
 include::{snippets}/menu-category/delete/path-parameters.adoc[]
 ===== 응답
 include::{snippets}/menu-category/delete/http-response.adoc[]
+
+
+---
+[[resources-menu]]
+=== 메뉴
+
+[[resources-menu-select]]
+==== 메뉴 조회
+===== 요청
+include::{snippets}/menu/select/http-request.adoc[]
+===== 응답
+include::{snippets}/menu/select/http-response.adoc[]
+include::{snippets}/menu/select/response-fields-content.adoc[]
+
+[[resources-menu-insert]]
+==== 메뉴 추가
+===== 요청
+include::{snippets}/menu/insert/http-request.adoc[]
+include::{snippets}/menu/insert/request-fields.adoc[]
+===== 응답
+include::{snippets}/menu/insert/http-response.adoc[]
+
+[[resources-menu-update]]
+==== 메뉴 수정
+===== 요청
+include::{snippets}/menu/update/http-request.adoc[]
+include::{snippets}/menu/update/path-parameters.adoc[]
+include::{snippets}/menu/update/request-fields.adoc[]
+===== 응답
+include::{snippets}/menu/update/http-response.adoc[]
+
+[[resources-menu-delete]]
+==== 메뉴 삭제
+===== 요청
+include::{snippets}/menu/delete/http-request.adoc[]
+include::{snippets}/menu/delete/path-parameters.adoc[]
+===== 응답
+include::{snippets}/menu/delete/http-response.adoc[]

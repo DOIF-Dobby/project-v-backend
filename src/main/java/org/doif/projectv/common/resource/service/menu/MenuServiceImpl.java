@@ -44,6 +44,7 @@ public class MenuServiceImpl implements MenuService {
 
                     result.setDepthAndPath(menuCategory);
                     result.setType(MenuType.CATEGORY);
+                    result.setTypeName(MenuType.CATEGORY.getMessage());
                     result.setPaddingName(menuCategory.getName());
 
                     return result;
@@ -64,6 +65,7 @@ public class MenuServiceImpl implements MenuService {
 
                     result.setDepthAndPath(menu);
                     result.setType(MenuType.MENU);
+                    result.setTypeName(MenuType.MENU.getMessage());
                     result.setPaddingName(menu.getName());
 
                     return result;
