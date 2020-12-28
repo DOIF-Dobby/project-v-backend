@@ -13,6 +13,7 @@ import org.doif.projectv.business.version.constant.VersionStatus;
 import org.doif.projectv.common.resource.constant.MenuType;
 import org.doif.projectv.common.resource.constant.MessageType;
 import org.doif.projectv.common.response.ResponseCode;
+import org.doif.projectv.common.status.EnableStatus;
 import org.doif.projectv.common.system.constant.PropertyGroupType;
 import org.doif.projectv.common.user.constant.UserStatus;
 
@@ -24,6 +25,7 @@ public enum CodeEnum {
     MESSAGE_TYPE("messageType", "메세지 유형", MessageType.class),
     MENU_TYPE("menuType", "메뉴 유형", MenuType.class),
     USER_STATUS("userStatus", "유저 상태", UserStatus.class),
+    ENABLE_STATUS("enableStatus", "사용가능 상태", EnableStatus.class),
 
     // business 패키지 하위
     TASK_TYPE("taskType", "작업 유형", TaskType.class),

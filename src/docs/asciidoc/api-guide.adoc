@@ -302,7 +302,7 @@ include::{snippets}/patch-log/update/http-request.adoc[]
 include::{snippets}/patch-log/update/path-parameters.adoc[]
 include::{snippets}/patch-log/update/request-fields.adoc[]
 ==== 응답
-include::{snippets}/task/update/http-response.adoc[]
+include::{snippets}/patch-log/update/http-response.adoc[]
 
 [[resources-patch-log-delete]]
 === 패치로그 삭제
@@ -311,3 +311,53 @@ include::{snippets}/patch-log/delete/http-request.adoc[]
 include::{snippets}/patch-log/delete/path-parameters.adoc[]
 ==== 응답
 include::{snippets}/patch-log/delete/http-response.adoc[]
+
+[[resources-vcs-auth-info]]
+== 버전관리시스템 인증정보
+
+[[resources-vcs-auth-info-select]]
+=== 버전관리시스템 인증정보 조회
+==== 요청
+include::{snippets}/vcs-auth-info/select/http-request.adoc[]
+include::{snippets}/vcs-auth-info/select/request-fields.adoc[]
+==== 응답
+include::{snippets}/vcs-auth-info/select/http-response.adoc[]
+include::{snippets}/vcs-auth-info/select/response-fields-content.adoc[]
+
+[[resources-vcs-auth-info-insert]]
+=== 버전관리시스템 인증정보 추가
+==== 요청
+include::{snippets}/vcs-auth-info/insert/http-request.adoc[]
+include::{snippets}/vcs-auth-info/insert/request-fields.adoc[]
+==== 응답
+include::{snippets}/vcs-auth-info/insert/http-response.adoc[]
+
+[[resources-vcs-auth-info-update]]
+=== 버전관리시스템 인증정보 수정
+==== 요청
+include::{snippets}/vcs-auth-info/update/http-request.adoc[]
+include::{snippets}/vcs-auth-info/update/path-parameters.adoc[]
+include::{snippets}/vcs-auth-info/update/request-fields.adoc[]
+==== 응답
+include::{snippets}/vcs-auth-info/update/http-response.adoc[]
+
+[[resources-vcs-auth-info-delete]]
+=== 버전관리시스템 인증정보 삭제
+==== 요청
+include::{snippets}/vcs-auth-info/delete/http-request.adoc[]
+include::{snippets}/vcs-auth-info/delete/path-parameters.adoc[]
+==== 응답
+include::{snippets}/vcs-auth-info/delete/http-response.adoc[]
+
+
+[[resources-patch-log]]
+== 버전관리 시스템
+
+[[resources-vcs-log-select]]
+=== 로그 조회
+==== 요청
+include::{snippets}/vcs/logs/http-request.adoc[]
+include::{snippets}/vcs/logs/request-fields.adoc[]
+==== 응답
+include::{snippets}/vcs/logs/http-response.adoc[]
+include::{snippets}/vcs/logs/response-fields-content.adoc[]

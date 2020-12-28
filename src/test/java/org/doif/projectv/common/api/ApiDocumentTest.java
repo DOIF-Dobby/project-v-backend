@@ -13,6 +13,8 @@ import org.doif.projectv.business.project.service.ProjectService;
 import org.doif.projectv.business.project.web.ProjectController;
 import org.doif.projectv.business.task.service.TaskService;
 import org.doif.projectv.business.task.web.TaskController;
+import org.doif.projectv.business.vcs.service.VcsAuthInfoService;
+import org.doif.projectv.business.vcs.service.VcsService;
 import org.doif.projectv.business.version.service.VersionService;
 import org.doif.projectv.business.version.web.VersionController;
 import org.doif.projectv.common.api.web.ApiCommonController;
@@ -48,6 +50,7 @@ import org.springframework.test.web.servlet.MockMvc;
 @ComponentScan(basePackages = "org.doif.projectv.business.task.web")
 @ComponentScan(basePackages = "org.doif.projectv.business.version.web")
 @ComponentScan(basePackages = "org.doif.projectv.business.patchlog.web")
+@ComponentScan(basePackages = "org.doif.projectv.business.vcs.web")
 public abstract class ApiDocumentTest {
 
     @Autowired
@@ -79,4 +82,10 @@ public abstract class ApiDocumentTest {
 
     @MockBean
     protected PatchLogService patchLogService;
+
+    @MockBean
+    protected VcsService vcsService;
+
+    @MockBean
+    protected VcsAuthInfoService vcsAuthInfoService;
 }

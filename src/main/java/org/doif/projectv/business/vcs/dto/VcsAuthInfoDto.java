@@ -15,6 +15,7 @@ public class VcsAuthInfoDto {
         private Long vcsAuthInfoId;
         private String userId;
         private VcsType vcsType;
+        private String vcsTypeName;
         private String vcsAuthId;
         private String vcsAuthPassword;
         private EnableStatus status;
@@ -24,6 +25,7 @@ public class VcsAuthInfoDto {
             this.vcsAuthInfoId = vcsAuthInfoId;
             this.userId = userId;
             this.vcsType = vcsType;
+            this.vcsTypeName = vcsType.getMessage();
             this.vcsAuthId = vcsAuthId;
             this.vcsAuthPassword = vcsAuthPassword;
             this.status = status;
