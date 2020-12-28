@@ -59,6 +59,8 @@ include::{snippets}/project/delete/path-parameters.adoc[]
 ===== 응답
 include::{snippets}/project/delete/http-response.adoc[]
 
+
+---
 [[resources-module]]
 === 모듈
 
@@ -96,6 +98,8 @@ include::{snippets}/module/delete/path-parameters.adoc[]
 ===== 응답
 include::{snippets}/module/delete/http-response.adoc[]
 
+
+---
 [[resources-version]]
 === 버전
 
@@ -143,6 +147,7 @@ include::{snippets}/version/release/path-parameters.adoc[]
 include::{snippets}/version/release/http-response.adoc[]
 
 
+---
 [[resources-issue]]
 === 이슈
 
@@ -182,6 +187,7 @@ include::{snippets}/issue/delete/path-parameters.adoc[]
 include::{snippets}/issue/delete/http-response.adoc[]
 
 
+---
 [[resources-version-issue]]
 === 버전-이슈
 
@@ -238,6 +244,7 @@ include::{snippets}/version-issue/overview/http-response.adoc[]
 include::{snippets}/version-issue/overview/response-fields.adoc[]
 include::{snippets}/version-issue/overview/response-fields-pageInfo.content.adoc[]
 
+---
 [[resources-task]]
 === 작업
 
@@ -277,6 +284,7 @@ include::{snippets}/task/delete/path-parameters.adoc[]
 include::{snippets}/task/delete/http-response.adoc[]
 
 
+---
 [[resources-patch-log]]
 === 패치로그
 
@@ -315,6 +323,7 @@ include::{snippets}/patch-log/delete/path-parameters.adoc[]
 ===== 응답
 include::{snippets}/patch-log/delete/http-response.adoc[]
 
+---
 [[resources-vcs-auth-info]]
 === 버전관리시스템 인증정보
 
@@ -352,7 +361,7 @@ include::{snippets}/vcs-auth-info/delete/path-parameters.adoc[]
 ===== 응답
 include::{snippets}/vcs-auth-info/delete/http-response.adoc[]
 
-
+---
 [[resources-patch-log]]
 === 버전관리 시스템
 
@@ -404,3 +413,40 @@ include::{snippets}/system-property/delete/http-request.adoc[]
 include::{snippets}/system-property/delete/path-parameters.adoc[]
 ===== 응답
 include::{snippets}/system-property/delete/http-response.adoc[]
+
+---
+[[resources-menu-category]]
+=== 메뉴 카테고리
+
+[[resources-menu-category-select]]
+==== 메뉴 카테고리 조회
+===== 요청
+include::{snippets}/menu-category/select/http-request.adoc[]
+===== 응답
+include::{snippets}/menu-category/select/http-response.adoc[]
+include::{snippets}/menu-category/select/response-fields-content.adoc[]
+
+[[resources-menu-category-insert]]
+==== 메뉴 카테고리 추가
+===== 요청
+include::{snippets}/menu-category/insert/http-request.adoc[]
+include::{snippets}/menu-category/insert/request-fields.adoc[]
+===== 응답
+include::{snippets}/menu-category/insert/http-response.adoc[]
+
+[[resources-menu-category-update]]
+==== 메뉴 카테고리 수정
+===== 요청
+include::{snippets}/menu-category/update/http-request.adoc[]
+include::{snippets}/menu-category/update/path-parameters.adoc[]
+include::{snippets}/menu-category/update/request-fields.adoc[]
+===== 응답
+include::{snippets}/menu-category/update/http-response.adoc[]
+
+[[resources-menu-category-delete]]
+==== 메뉴 카테고리 삭제
+===== 요청
+include::{snippets}/menu-category/delete/http-request.adoc[]
+include::{snippets}/menu-category/delete/path-parameters.adoc[]
+===== 응답
+include::{snippets}/menu-category/delete/http-response.adoc[]

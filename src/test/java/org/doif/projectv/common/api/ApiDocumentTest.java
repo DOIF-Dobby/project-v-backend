@@ -19,6 +19,13 @@ import org.doif.projectv.business.version.service.VersionService;
 import org.doif.projectv.business.version.web.VersionController;
 import org.doif.projectv.common.api.web.ApiCommonController;
 import org.doif.projectv.common.enumeration.EnumMapper;
+import org.doif.projectv.common.resource.service.button.ButtonService;
+import org.doif.projectv.common.resource.service.label.LabelService;
+import org.doif.projectv.common.resource.service.menu.MenuService;
+import org.doif.projectv.common.resource.service.menucategory.MenuCategoryService;
+import org.doif.projectv.common.resource.service.message.MessageService;
+import org.doif.projectv.common.resource.service.page.PageService;
+import org.doif.projectv.common.resource.service.tab.TabService;
 import org.doif.projectv.common.system.service.SystemPropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
@@ -53,6 +60,7 @@ import org.springframework.test.web.servlet.MockMvc;
 @ComponentScan(basePackages = "org.doif.projectv.business.patchlog.web")
 @ComponentScan(basePackages = "org.doif.projectv.business.vcs.web")
 @ComponentScan(basePackages = "org.doif.projectv.common.system.web")
+@ComponentScan(basePackages = "org.doif.projectv.common.resource.web")
 public abstract class ApiDocumentTest {
 
     @Autowired
@@ -93,4 +101,26 @@ public abstract class ApiDocumentTest {
 
     @MockBean
     protected SystemPropertyService systemPropertyService;
+
+    @MockBean
+    protected MenuCategoryService menuCategoryService;
+
+    @MockBean
+    protected MenuService menuService;
+
+    @MockBean
+    protected ButtonService buttonService;
+
+    @MockBean
+    protected LabelService labelService;
+
+    @MockBean
+    protected MessageService messageService;
+
+    @MockBean
+    protected PageService pageService;
+
+    @MockBean
+    protected TabService tabService;
+
 }
