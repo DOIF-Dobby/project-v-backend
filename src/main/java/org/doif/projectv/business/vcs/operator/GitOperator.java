@@ -13,8 +13,7 @@ import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevWalk;
-import org.eclipse.jgit.revwalk.filter.CommitTimeRevFilter;
-import org.eclipse.jgit.revwalk.filter.RevFilter;
+import org.eclipse.jgit.revwalk.filter.*;
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 import org.springframework.stereotype.Component;
@@ -47,12 +46,16 @@ public class GitOperator implements VcsOperator {
         Date until = Date.from(endDate.plusDays(1).atStartOfDay(ZoneId.systemDefault()).toInstant());
         List<VcsDto.Log> logs = new ArrayList<>();
 
-        RevFilter between = CommitTimeRevFilter.between(since, until);
+        String vcsAuthId = getVcsAuthId();
+
+        RevFilter betweenFilter = CommitTimeRevFilter.between(since, until);    // 날짜 필터
+        RevFilter authorFilter = AuthorRevFilter.create(vcsAuthId);             // Commit한 사람 필터
+        RevFilter filter = AndRevFilter.create(betweenFilter, authorFilter);    // 합체
 
         try {
             git = getGit(repositoryInfo);
             Iterable<RevCommit> commits = git.log()
-                    .setRevFilter(between)
+                    .setRevFilter(filter)
                     .call();
 
             for (RevCommit commit : commits) {
@@ -167,6 +170,23 @@ public class GitOperator implements VcsOperator {
         return FileSystemUtils.deleteRecursively(directory);
     }
 
+    /**
+     * VcsAuthId 조회
+     * @return
+     */
+    private String getVcsAuthId() {
+        Optional<User> optionalUser = SecurityUtil.getUserByContext();
+        User requestUser = optionalUser.orElseThrow(() -> new IllegalArgumentException("인증 오류"));
+        String requestUserId = requestUser.getId();
+
+        VcsAuthInfoDto.Result vcsAuthInfo = vcsAuthInfoService.searchByUserIdAndVcsType(requestUserId, VcsType.GIT);
+        return vcsAuthInfo.getVcsAuthId();
+    }
+
+    /**
+     * 요청한 유저의 id의 매칭되는 Git 인증정보를 조회해서 반환
+     * @return
+     */
     private UsernamePasswordCredentialsProvider getCredentialsProvider() {
         Optional<User> optionalUser = SecurityUtil.getUserByContext();
         User requestUser = optionalUser.orElseThrow(() -> new IllegalArgumentException("인증 오류"));
@@ -179,6 +199,13 @@ public class GitOperator implements VcsOperator {
         return new UsernamePasswordCredentialsProvider(authId, authPassword);
     }
 
+    /**
+     * 원격 저장소에서 Repostiory 정보로 Clone 한다음 Git 객체 반환 
+     * @param repositoryInfo
+     * @return
+     * @throws GitAPIException
+     * @throws IOException
+     */
     private Git getGit(String repositoryInfo) throws GitAPIException, IOException {
         File tempDir = Files.createTempDirectory("gitTempDir").toFile();
         return Git.cloneRepository()
@@ -187,6 +214,11 @@ public class GitOperator implements VcsOperator {
                 .call();
     }
 
+    /**
+     * Git 객체를 close 하고 실제 Clone한 위치의 디렉토리를 삭제
+     * @param git
+     * @return
+     */
     private boolean deleteGitTempDirectory(Git git) {
         if(git == null) {
             return false;

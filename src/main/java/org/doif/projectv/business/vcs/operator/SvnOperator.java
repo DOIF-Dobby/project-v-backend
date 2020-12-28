@@ -16,6 +16,7 @@ import org.tmatesoft.svn.core.SVNException;
 import org.tmatesoft.svn.core.SVNLogEntry;
 import org.tmatesoft.svn.core.SVNURL;
 import org.tmatesoft.svn.core.auth.BasicAuthenticationManager;
+import org.tmatesoft.svn.core.auth.ISVNAuthenticationManager;
 import org.tmatesoft.svn.core.io.SVNRepository;
 import org.tmatesoft.svn.core.io.SVNRepositoryFactory;
 import org.tmatesoft.svn.core.wc.SVNRevision;
@@ -53,6 +54,8 @@ public class SvnOperator implements VcsOperator {
             long startRevision = repository.getDatedRevision(startDt) + 1;
             long endRevision = repository.getDatedRevision(endDt);
 
+            String vcsAuthId = getVcsAuthId();
+
             // 로그 엔트리를 얻음
             Collection<SVNLogEntry> logEntries = repository.log(new String[]{""}, null, startRevision, endRevision, false, false);
 
@@ -65,6 +68,7 @@ public class SvnOperator implements VcsOperator {
 
                         return new VcsDto.Log(String.valueOf(revision), date, author, message);
                     })
+                    .filter(log -> vcsAuthId.equals(log.getAuthor()))       // 요청한 유저의 로그만 보여주기 위해
                     .collect(Collectors.toList());
 
             // 최신로그가 맨 첫번째오도록 reverse
@@ -203,6 +207,25 @@ public class SvnOperator implements VcsOperator {
         return FileSystemUtils.deleteRecursively(directory);
     }
 
+    /**
+     * VcsAuthId 조회
+     * @return
+     */
+    private String getVcsAuthId() {
+        Optional<User> optionalUser = SecurityUtil.getUserByContext();
+        User requestUser = optionalUser.orElseThrow(() -> new IllegalArgumentException("인증 오류"));
+        String requestUserId = requestUser.getId();
+
+        VcsAuthInfoDto.Result vcsAuthInfo = vcsAuthInfoService.searchByUserIdAndVcsType(requestUserId, VcsType.SVN);
+        return vcsAuthInfo.getVcsAuthId();
+    }
+
+    /**
+     * 요청한 유저의 id의 매칭되는 SVN 인증정보를 조회해서 해당 인증정보로 SVN Repository를 연결한 다음 반환
+     * @param repositoryInfo
+     * @return
+     * @throws SVNException
+     */
     private SVNRepository getAuthenticatedSvnRepository(String repositoryInfo) throws SVNException {
         Optional<User> optionalUser = SecurityUtil.getUserByContext();
         User requestUser = optionalUser.orElseThrow(() -> new IllegalArgumentException("인증 오류"));
