@@ -14,6 +14,7 @@ public class MessageDto {
     public static class Result extends ResourceDto.Result {
         private String message;
         private MessageType type;
+        private String typeName;
 
         public Result(Long resourceId, String name, String description, EnableStatus status, String message, MessageType type) {
             this.resourceId = resourceId;
@@ -23,6 +24,7 @@ public class MessageDto {
             this.statusName = status.getMessage();
             this.message = message;
             this.type = type;
+            this.typeName = type.getMessage();
         }
     }
 

@@ -488,3 +488,41 @@ include::{snippets}/menu/delete/http-request.adoc[]
 include::{snippets}/menu/delete/path-parameters.adoc[]
 ===== 응답
 include::{snippets}/menu/delete/http-response.adoc[]
+
+
+---
+[[resources-message]]
+=== 메시지
+
+[[resources-message-select]]
+==== 메시지 조회
+===== 요청
+include::{snippets}/message/select/http-request.adoc[]
+===== 응답
+include::{snippets}/message/select/http-response.adoc[]
+include::{snippets}/message/select/response-fields-content.adoc[]
+
+[[resources-message-insert]]
+==== 메시지 추가
+===== 요청
+include::{snippets}/message/insert/http-request.adoc[]
+include::{snippets}/message/insert/request-fields.adoc[]
+===== 응답
+include::{snippets}/message/insert/http-response.adoc[]
+
+[[resources-message-update]]
+==== 메시지 수정
+===== 요청
+include::{snippets}/message/update/http-request.adoc[]
+include::{snippets}/message/update/path-parameters.adoc[]
+include::{snippets}/message/update/request-fields.adoc[]
+===== 응답
+include::{snippets}/message/update/http-response.adoc[]
+
+[[resources-message-delete]]
+==== 메시지 삭제
+===== 요청
+include::{snippets}/message/delete/http-request.adoc[]
+include::{snippets}/message/delete/path-parameters.adoc[]
+===== 응답
+include::{snippets}/message/delete/http-response.adoc[]
