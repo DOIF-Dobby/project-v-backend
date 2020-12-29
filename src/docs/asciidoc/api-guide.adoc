@@ -759,3 +759,25 @@ include::{snippets}/role/delete/http-request.adoc[]
 include::{snippets}/role/delete/path-parameters.adoc[]
 ===== 응답
 include::{snippets}/role/delete/http-response.adoc[]
+
+
+---
+[[resources-user-role]]
+=== UserRole
+
+[[resources-user-role-select]]
+==== UserRole 조회
+===== 요청
+include::{snippets}/user-role/select/http-request.adoc[]
+include::{snippets}/user-role/select/request-fields.adoc[]
+===== 응답
+include::{snippets}/user-role/select/http-response.adoc[]
+include::{snippets}/user-role/select/response-fields-content.adoc[]
+
+[[resources-user-role-allocate]]
+==== UserRole 할당
+===== 요청
+include::{snippets}/user-role/allocate/http-request.adoc[]
+include::{snippets}/user-role/allocate/request-fields.adoc[]
+===== 응답
+include::{snippets}/user-role/allocate/http-response.adoc[]

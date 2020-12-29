@@ -29,6 +29,8 @@ import org.doif.projectv.common.resource.service.tab.TabService;
 import org.doif.projectv.common.role.service.RoleResourceService;
 import org.doif.projectv.common.role.service.RoleService;
 import org.doif.projectv.common.system.service.SystemPropertyService;
+import org.doif.projectv.common.user.service.UserRoleService;
+import org.doif.projectv.common.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -65,6 +67,7 @@ import org.springframework.test.web.servlet.MockMvc;
 @ComponentScan(basePackages = "org.doif.projectv.common.system.web")
 @ComponentScan(basePackages = "org.doif.projectv.common.resource.web")
 @ComponentScan(basePackages = "org.doif.projectv.common.role.web")
+@ComponentScan(basePackages = "org.doif.projectv.common.user.web")
 public abstract class ApiDocumentTest {
 
     @Autowired
@@ -132,5 +135,11 @@ public abstract class ApiDocumentTest {
 
     @MockBean
     protected RoleResourceService roleResourceService;
+
+    @MockBean
+    protected UserRoleService userRoleService;
+
+    @MockBean
+    protected UserService userService;
 
 }
