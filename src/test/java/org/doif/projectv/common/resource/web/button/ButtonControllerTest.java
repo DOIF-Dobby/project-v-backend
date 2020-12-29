@@ -1,14 +1,17 @@
-package org.doif.projectv.common.resource.web.label;
+package org.doif.projectv.common.resource.web.button;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.doif.projectv.common.api.ApiDocumentTest;
 import org.doif.projectv.common.enumeration.CodeEnum;
+import org.doif.projectv.common.resource.dto.ButtonDto;
 import org.doif.projectv.common.resource.dto.LabelDto;
 import org.doif.projectv.common.resource.dto.MenuCategoryDto;
+import org.doif.projectv.common.resource.dto.TabDto;
 import org.doif.projectv.common.response.ResponseUtil;
 import org.doif.projectv.common.status.EnableStatus;
 import org.junit.jupiter.api.Test;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 
@@ -36,32 +39,34 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-class LabelControllerTest extends ApiDocumentTest {
+class ButtonControllerTest extends ApiDocumentTest {
 
     @Test
-    public void 라벨_조회_API_테스트() throws Exception {
+    public void 버튼_조회_API_테스트() throws Exception {
         // given
-        LabelDto.Search search = new LabelDto.Search();
+        ButtonDto.Search search = new ButtonDto.Search();
         search.setPageId(1L);
 
-        LabelDto.Result content = new LabelDto.Result(
+        ButtonDto.Result content = new ButtonDto.Result(
                 2L,
-                "버전관리시스템 유형",
-                "버전관리시스템 유형",
+                "버전 수정",
+                "버전 수정 버튼",
                 EnableStatus.ENABLE,
+                "/api/version/{id}",
+                HttpMethod.PUT,
                 1L,
-                "LABEL_VCS_TYPE"
+                "edit"
         );
 
-        List<LabelDto.Result> results = Arrays.asList(content);
-        LabelDto.Response response = new LabelDto.Response(results);
+        List<ButtonDto.Result> results = Arrays.asList(content);
+        ButtonDto.Response response = new ButtonDto.Response(results);
 
-        given(labelService.selectByPage(any(LabelDto.Search.class)))
+        given(buttonService.selectByPage(any(ButtonDto.Search.class)))
                 .willReturn(results);
-
+        
         // when
         ResultActions result = mockMvc.perform(
-                get("/api/resources/label")
+                get("/api/resources/button")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsBytes(search))
@@ -71,7 +76,7 @@ class LabelControllerTest extends ApiDocumentTest {
         result.andExpect(status().isOk())
                 .andExpect(content().json(objectMapper.writeValueAsString(response)))
                 .andDo(print())
-                .andDo(document("label/select",
+                .andDo(document("button/select",
                         getDocumentRequest(),
                         getDocumentResponse(),
                         requestFields(
@@ -79,33 +84,37 @@ class LabelControllerTest extends ApiDocumentTest {
                         ),
                         responseFields(
                                 beneathPath("content").withSubsectionId("content"),
-                                fieldWithPath("resourceId").type(NUMBER).description("라벨 ID"),
-                                fieldWithPath("name").type(STRING).description("라벨명"),
-                                fieldWithPath("description").type(STRING).description("라벨 설명"),
+                                fieldWithPath("resourceId").type(NUMBER).description("버튼 ID"),
+                                fieldWithPath("name").type(STRING).description("버튼명"),
+                                fieldWithPath("description").type(STRING).description("버튼 설명"),
                                 fieldWithPath("status").type(STRING).description(generateLinkCode(CodeEnum.ENABLE_STATUS)),
                                 fieldWithPath("statusName").type(STRING).description(generateText(CodeEnum.ENABLE_STATUS)),
+                                fieldWithPath("url").type(STRING).description("버튼 URL"),
+                                fieldWithPath("httpMethod").type(STRING).description("http 메서드"),
                                 fieldWithPath("pageId").type(NUMBER).description("페이지 ID"),
-                                fieldWithPath("label").type(STRING).description("라벨 코드")
+                                fieldWithPath("icon").type(STRING).description("아이콘")
                         )
                 ));
     }
 
     @Test
-    public void 라벨_추가_API_테스트() throws Exception {
+    public void 버튼_추가_API_테스트() throws Exception {
         // given
-        LabelDto.Insert insert = new LabelDto.Insert();
-        insert.setName("메뉴명");
-        insert.setDescription("메뉴명");
-        insert.setLabel("LABEL_MENU_NAME");
+        ButtonDto.Insert insert = new ButtonDto.Insert();
+        insert.setName("버전 삭제");
+        insert.setDescription("버전 삭제 버튼");
         insert.setStatus(EnableStatus.ENABLE);
         insert.setPageId(1L);
+        insert.setIcon("delete");
+        insert.setUrl("/api/version/{id}");
+        insert.setHttpMethod(HttpMethod.DELETE);
 
-        given(labelService.insert(any(LabelDto.Insert.class)))
+        given(buttonService.insert(any(ButtonDto.Insert.class)))
                 .willReturn(ResponseUtil.ok());
 
         // when
         ResultActions result = mockMvc.perform(
-                post("/api/resources/label")
+                post("/api/resources/button")
                         .content(objectMapper.writeValueAsBytes(insert))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
@@ -114,33 +123,38 @@ class LabelControllerTest extends ApiDocumentTest {
         // then
         result.andExpect(status().isOk())
                 .andDo(print())
-                .andDo(document("label/insert",
+                .andDo(document("button/insert",
                         getDocumentRequest(),
                         getDocumentResponse(),
                         requestFields(
-                                fieldWithPath("name").type(STRING).description("라벨명"),
-                                fieldWithPath("description").optional().type(STRING).description("라벨 설명"),
+                                fieldWithPath("name").type(STRING).description("버튼명"),
+                                fieldWithPath("description").type(STRING).optional().description("버튼 설명"),
                                 fieldWithPath("status").type(STRING).description(generateLinkCode(CodeEnum.ENABLE_STATUS)),
+                                fieldWithPath("url").type(STRING).description("버튼 URL"),
+                                fieldWithPath("httpMethod").type(STRING).description("http 메서드"),
                                 fieldWithPath("pageId").type(NUMBER).description("페이지 ID"),
-                                fieldWithPath("label").type(STRING).description("라벨 코드")
+                                fieldWithPath("icon").type(STRING).description("아이콘")
                         )
                 ));
     }
 
     @Test
-    public void 라벨_수정_API_테스트() throws Exception {
+    public void 버튼_수정_API_테스트() throws Exception {
         // given
-        LabelDto.Update update = new LabelDto.Update();
-        update.setName("메뉴명");
-        update.setDescription("메뉴명");
+        ButtonDto.Update update = new ButtonDto.Update();
+        update.setName("버전 삭제");
+        update.setDescription("버전 삭제 버튼");
         update.setStatus(EnableStatus.ENABLE);
+        update.setIcon("delete");
+        update.setUrl("/api/version/{id}");
+        update.setHttpMethod(HttpMethod.DELETE);
 
-        given(labelService.update(eq(1L), any(LabelDto.Update.class)))
+        given(buttonService.update(eq(1L), any(ButtonDto.Update.class)))
                 .willReturn(ResponseUtil.ok());
 
         // when
         ResultActions result = mockMvc.perform(
-                put("/api/resources/label/{id}", 1L)
+                put("/api/resources/button/{id}", 1L)
                         .content(objectMapper.writeValueAsBytes(update))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
@@ -149,29 +163,32 @@ class LabelControllerTest extends ApiDocumentTest {
         // then
         result.andExpect(status().isOk())
                 .andDo(print())
-                .andDo(document("label/update",
+                .andDo(document("button/update",
                         getDocumentRequest(),
                         getDocumentResponse(),
                         pathParameters(
-                                parameterWithName("id").description("라벨 ID")
+                                parameterWithName("id").description("버튼 ID")
                         ),
                         requestFields(
-                                fieldWithPath("name").type(STRING).description("라벨명"),
-                                fieldWithPath("description").optional().type(STRING).description("라벨 설명"),
-                                fieldWithPath("status").type(STRING).description(generateLinkCode(CodeEnum.ENABLE_STATUS))
+                                fieldWithPath("name").type(STRING).description("버튼명"),
+                                fieldWithPath("description").type(STRING).optional().description("버튼 설명"),
+                                fieldWithPath("status").type(STRING).description(generateLinkCode(CodeEnum.ENABLE_STATUS)),
+                                fieldWithPath("url").type(STRING).description("버튼 URL"),
+                                fieldWithPath("httpMethod").type(STRING).description("http 메서드"),
+                                fieldWithPath("icon").type(STRING).description("아이콘")
                         )
                 ));
     }
-
+    
     @Test
-    public void 라벨_삭제_API_테스트() throws Exception {
+    public void 버튼_삭제_API_테스트() throws Exception {
         // given
-        given(labelService.delete(eq(1L)))
+        given(buttonService.delete(eq(1L)))
                 .willReturn(ResponseUtil.ok());
 
         // when
         ResultActions result = mockMvc.perform(
-                delete("/api/resources/label/{id}", 1L)
+                delete("/api/resources/button/{id}", 1L)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
         );
@@ -179,13 +196,13 @@ class LabelControllerTest extends ApiDocumentTest {
         // then
         result.andExpect(status().isOk())
                 .andDo(print())
-                .andDo(document("label/delete",
+                .andDo(document("button/delete",
                         getDocumentRequest(),
                         getDocumentResponse(),
                         pathParameters(
-                                parameterWithName("id").description("라벨 ID")
+                                parameterWithName("id").description("버튼 ID")
                         )
                 ));
     }
-
+    
 }

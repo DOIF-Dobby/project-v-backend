@@ -40,7 +40,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class MessageControllerTest extends ApiDocumentTest {
 
     @Test
-    public void 메시지_카테고리_조회_API_테스트() throws Exception {
+    public void 메시지_조회_API_테스트() throws Exception {
         // given
         MessageDto.Result content = new MessageDto.Result(
                 1L,
@@ -86,7 +86,7 @@ class MessageControllerTest extends ApiDocumentTest {
     }
 
     @Test
-    public void 메시지_카테고리_추가_API_테스트() throws Exception {
+    public void 메시지_추가_API_테스트() throws Exception {
         // given
         MessageDto.Insert insert = new MessageDto.Insert();
         insert.setName("하위 이슈가 존재하여 삭제할 수 없습니다.");
@@ -123,7 +123,7 @@ class MessageControllerTest extends ApiDocumentTest {
     }
 
     @Test
-    public void 메시지_카테고리_수정_API_테스트() throws Exception {
+    public void 메시지_수정_API_테스트() throws Exception {
         // given
         MessageDto.Update update = new MessageDto.Update();
         update.setName("하위 이슈가 존재하여 삭제할 수 없습니다.");
@@ -161,7 +161,7 @@ class MessageControllerTest extends ApiDocumentTest {
     }
 
     @Test
-    public void 메시지_카테고리_삭제_API_테스트() throws Exception {
+    public void 메시지_삭제_API_테스트() throws Exception {
         // given
         given(messageService.delete(eq(1L)))
                 .willReturn(ResponseUtil.ok());

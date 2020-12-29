@@ -642,3 +642,42 @@ include::{snippets}/tab/delete/http-request.adoc[]
 include::{snippets}/tab/delete/path-parameters.adoc[]
 ===== 응답
 include::{snippets}/tab/delete/http-response.adoc[]
+
+
+---
+[[resources-button]]
+=== 버튼
+
+[[resources-button-select]]
+==== 버튼 조회
+===== 요청
+include::{snippets}/button/select/http-request.adoc[]
+include::{snippets}/button/select/request-fields.adoc[]
+===== 응답
+include::{snippets}/button/select/http-response.adoc[]
+include::{snippets}/button/select/response-fields-content.adoc[]
+
+[[resources-button-insert]]
+==== 버튼 추가
+===== 요청
+include::{snippets}/button/insert/http-request.adoc[]
+include::{snippets}/button/insert/request-fields.adoc[]
+===== 응답
+include::{snippets}/button/insert/http-response.adoc[]
+
+[[resources-button-update]]
+==== 버튼 수정
+===== 요청
+include::{snippets}/button/update/http-request.adoc[]
+include::{snippets}/button/update/path-parameters.adoc[]
+include::{snippets}/button/update/request-fields.adoc[]
+===== 응답
+include::{snippets}/button/update/http-response.adoc[]
+
+[[resources-button-delete]]
+==== 버튼 삭제
+===== 요청
+include::{snippets}/button/delete/http-request.adoc[]
+include::{snippets}/button/delete/path-parameters.adoc[]
+===== 응답
+include::{snippets}/button/delete/http-response.adoc[]

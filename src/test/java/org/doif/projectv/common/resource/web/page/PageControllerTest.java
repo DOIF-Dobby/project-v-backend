@@ -40,7 +40,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class PageControllerTest extends ApiDocumentTest {
 
     @Test
-    public void 페이지_카테고리_조회_API_테스트() throws Exception {
+    public void 페이지_조회_API_테스트() throws Exception {
         // given
         PageDto.Result content = new PageDto.Result(
                 1L,
@@ -85,7 +85,7 @@ class PageControllerTest extends ApiDocumentTest {
     }
 
     @Test
-    public void 페이지_카테고리_추가_API_테스트() throws Exception {
+    public void 페이지_추가_API_테스트() throws Exception {
         // given
         PageDto.Insert insert = new PageDto.Insert();
         insert.setName("이슈 관리");
@@ -122,7 +122,7 @@ class PageControllerTest extends ApiDocumentTest {
     }
 
     @Test
-    public void 페이지_카테고리_수정_API_테스트() throws Exception {
+    public void 페이지_수정_API_테스트() throws Exception {
         // given
         PageDto.Update update = new PageDto.Update();
         update.setName("이슈 관리");
@@ -162,7 +162,7 @@ class PageControllerTest extends ApiDocumentTest {
     }
 
     @Test
-    public void 페이지_카테고리_삭제_API_테스트() throws Exception {
+    public void 페이지_삭제_API_테스트() throws Exception {
         // given
         given(pageService.delete(eq(1L)))
                 .willReturn(ResponseUtil.ok());

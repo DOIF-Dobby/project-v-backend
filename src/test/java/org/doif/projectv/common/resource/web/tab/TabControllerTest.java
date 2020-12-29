@@ -41,7 +41,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class TabControllerTest extends ApiDocumentTest {
 
     @Test
-    public void 탭_카테고리_조회_API_테스트() throws Exception {
+    public void 탭_조회_API_테스트() throws Exception {
         // given
         TabDto.Search search = new TabDto.Search();
         search.setPageId(1L);
@@ -99,7 +99,7 @@ class TabControllerTest extends ApiDocumentTest {
     }
 
     @Test
-    public void 탭_카테고리_추가_API_테스트() throws Exception {
+    public void 탭_추가_API_테스트() throws Exception {
         // given
         TabDto.Insert insert = new TabDto.Insert();
         insert.setName("탭2");
@@ -142,7 +142,7 @@ class TabControllerTest extends ApiDocumentTest {
     }
 
     @Test
-    public void 탭_카테고리_수정_API_테스트() throws Exception {
+    public void 탭_수정_API_테스트() throws Exception {
         // given
         TabDto.Update update = new TabDto.Update();
         update.setName("탭2");
@@ -186,7 +186,7 @@ class TabControllerTest extends ApiDocumentTest {
     }
 
     @Test
-    public void 탭_카테고리_삭제_API_테스트() throws Exception {
+    public void 탭_삭제_API_테스트() throws Exception {
         // given
         given(tabService.delete(eq(1L)))
                 .willReturn(ResponseUtil.ok());
