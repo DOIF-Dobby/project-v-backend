@@ -23,7 +23,7 @@ public class Issue extends BaseEntity {
     private String issueName;
 
     @Lob
-    @Column(name = "contents")
+    @Column(name = "contents", nullable = false)
     private String contents;
 
     @Enumerated(EnumType.STRING)
@@ -31,7 +31,7 @@ public class Issue extends BaseEntity {
     private IssueStatus status;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "category", length = 20)
+    @Column(name = "category", length = 20, nullable = false)
     private IssueCategory category;
 
     public Issue(String issueName, String contents, IssueStatus status, IssueCategory category) {

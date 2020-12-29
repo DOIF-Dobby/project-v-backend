@@ -18,7 +18,7 @@ public class JasyptConfig {
     @Value("${encrypt.algorithm}")
     private String algorithm;
 
-    @Bean("jasyptStringEncrptor")
+    @Bean("jasyptStringEncryptor")
     public StringEncryptor stringEncryptor() {
         PooledPBEStringEncryptor encryptor = new PooledPBEStringEncryptor();
         SimpleStringPBEConfig config = new SimpleStringPBEConfig();

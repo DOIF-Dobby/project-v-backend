@@ -26,6 +26,7 @@ public class Version extends BaseEntity {
     @Column(name = "name", length = 50, nullable = false)
     private String name;
 
+    @Lob
     @Column(name = "description", nullable = false)
     private String description;
 

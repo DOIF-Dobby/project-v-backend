@@ -25,21 +25,21 @@ public class Task extends BaseEntity {
     @JoinColumn(name = "version_issue_id", nullable = false)
     private VersionIssue versionIssue;
 
-    @Column(name = "start_date")
+    @Column(name = "start_date", nullable = false)
     private LocalDate startDate;
 
-    @Column(name = "end_date")
+    @Column(name = "end_date", nullable = false)
     private LocalDate endDate;
 
     @Lob
-    @Column(name = "contents")
+    @Column(name = "contents", nullable = false)
     private String contents;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "type", length = 20)
+    @Column(name = "type", length = 20, nullable = false)
     private TaskType type;
 
-    @Column(name = "man_day", precision = 4, scale = 1)
+    @Column(name = "man_day", precision = 4, scale = 1, nullable = false)
     private Double manDay;
 
     @Column(name = "worker", length = 50, nullable = false)

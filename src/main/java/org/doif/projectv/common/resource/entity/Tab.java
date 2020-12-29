@@ -16,7 +16,7 @@ import javax.persistence.*;
 public class Tab extends ResourceAuthority {
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "page_id")
+    @JoinColumn(name = "page_id", nullable = false)
     private Page page;
 
     @Column(name = "tab_group", length = 50, nullable = false)

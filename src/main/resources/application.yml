@@ -2,9 +2,9 @@ spring:
   profiles:
     active: local
 
-###############
-## Local 환경 #
-###############
+###########################################################################
+############################### Local 환경 #################################
+###########################################################################
 ---
 spring:
   profiles: local
@@ -38,4 +38,38 @@ logging.level:
 
 jasypt:
   encryptor:
-    bean: jasyptStringEncrptor
+    bean: jasyptStringEncryptor
+
+
+###########################################################################
+############################### Dev 환경 #################################
+###########################################################################
+---
+spring:
+  profiles: dev
+
+  datasource:
+    hikari:
+      jdbc-url: jdbc:mariadb://my-mariadb.cpmmhoavnmru.ap-northeast-2.rds.amazonaws.com:3306/projectv
+      driver-class-name: org.mariadb.jdbc.Driver
+      username: ENC(fCJAfjkw/K/Ye/OrBHFnOnginV/7mT2V)
+      password: ENC(LUeqX2JCP6IBGe9dq+snYThg0IR4DYIVEn0Jt5vwwxs=)
+
+  jpa:
+    hibernate:
+      ddl-auto: none      # 건들이지 말 것
+    properties:
+      hibernate:
+        # show_sql: true
+        format_sql: true
+
+  cache:
+    jcache:
+      config: classpath:config/ehcache.xml
+
+logging.level:
+  org.hibernate.SQL: info
+
+jasypt:
+  encryptor:
+    bean: jasyptStringEncryptor
