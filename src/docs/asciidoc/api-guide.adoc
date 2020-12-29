@@ -564,3 +564,41 @@ include::{snippets}/label/delete/http-request.adoc[]
 include::{snippets}/label/delete/path-parameters.adoc[]
 ===== 응답
 include::{snippets}/label/delete/http-response.adoc[]
+
+
+---
+[[resources-page]]
+=== 페이지
+
+[[resources-page-select]]
+==== 페이지 조회
+===== 요청
+include::{snippets}/page/select/http-request.adoc[]
+===== 응답
+include::{snippets}/page/select/http-response.adoc[]
+include::{snippets}/page/select/response-fields-content.adoc[]
+
+[[resources-page-insert]]
+==== 페이지 추가
+===== 요청
+include::{snippets}/page/insert/http-request.adoc[]
+include::{snippets}/page/insert/request-fields.adoc[]
+===== 응답
+include::{snippets}/page/insert/http-response.adoc[]
+
+[[resources-page-update]]
+==== 페이지 수정
+===== 요청
+include::{snippets}/page/update/http-request.adoc[]
+include::{snippets}/page/update/path-parameters.adoc[]
+include::{snippets}/page/update/request-fields.adoc[]
+===== 응답
+include::{snippets}/page/update/http-response.adoc[]
+
+[[resources-page-delete]]
+==== 페이지 삭제
+===== 요청
+include::{snippets}/page/delete/http-request.adoc[]
+include::{snippets}/page/delete/path-parameters.adoc[]
+===== 응답
+include::{snippets}/page/delete/http-response.adoc[]
