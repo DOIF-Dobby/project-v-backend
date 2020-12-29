@@ -31,7 +31,7 @@ public class RoleServiceImpl implements RoleService{
 
     @Override
     public CommonResponse insert(RoleDto.Insert dto) {
-        Role role = new Role(dto.getName(), dto.getDescription(), EnableStatus.ENABLE);
+        Role role = new Role(dto.getName(), dto.getDescription(), dto.getStatus());
         roleRepository.save(role);
         return ResponseUtil.ok();
     }
@@ -39,7 +39,7 @@ public class RoleServiceImpl implements RoleService{
     @Override
     public CommonResponse update(Long id, RoleDto.Update dto) {
         Optional<Role> optionalRole = roleRepository.findById(id);
-        Role role = optionalRole.orElseThrow(() -> new IllegalArgumentException("롤을 찾을 수 없음"));
+        Role role = optionalRole.orElseThrow(() -> new IllegalArgumentException("Role를 찾을 수 없음"));
         role.changeRole(dto.getName(), dto.getDescription(), dto.getStatus());
 
         return ResponseUtil.ok();
@@ -48,7 +48,7 @@ public class RoleServiceImpl implements RoleService{
     @Override
     public CommonResponse delete(Long id) {
         Optional<Role> optionalRole = roleRepository.findById(id);
-        Role role = optionalRole.orElseThrow(() -> new IllegalArgumentException("롤을 찾을 수 없음"));
+        Role role = optionalRole.orElseThrow(() -> new IllegalArgumentException("Role를 찾을 수 없음"));
         roleRepository.delete(role);
 
         return ResponseUtil.ok();

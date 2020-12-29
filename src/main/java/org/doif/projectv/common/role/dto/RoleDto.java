@@ -43,6 +43,7 @@ public class RoleDto {
     public static class Insert {
         private String name;
         private String description;
+        private EnableStatus status;
     }
 
     @Getter

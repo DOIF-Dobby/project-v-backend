@@ -53,7 +53,7 @@ class RoleServiceTest {
     @Test
     void ROLE_추가_서비스_테스트() {
         // given
-        RoleDto.Insert insert = new RoleDto.Insert("관리자 Role", "관리자 롤입니다.");
+        RoleDto.Insert insert = new RoleDto.Insert("관리자 Role", "관리자 롤입니다.", EnableStatus.ENABLE);
 
         // when
         CommonResponse response = roleService.insert(insert);

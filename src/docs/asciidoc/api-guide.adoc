@@ -721,3 +721,41 @@ include::{snippets}/role-resource/allocate/http-request.adoc[]
 include::{snippets}/role-resource/allocate/request-fields.adoc[]
 ===== 응답
 include::{snippets}/role-resource/allocate/http-response.adoc[]
+
+
+---
+[[resources-role]]
+=== Role
+
+[[resources-role-select]]
+==== Role 조회
+===== 요청
+include::{snippets}/role/select/http-request.adoc[]
+===== 응답
+include::{snippets}/role/select/http-response.adoc[]
+include::{snippets}/role/select/response-fields-content.adoc[]
+
+[[resources-role-insert]]
+==== Role 추가
+===== 요청
+include::{snippets}/role/insert/http-request.adoc[]
+include::{snippets}/role/insert/request-fields.adoc[]
+===== 응답
+include::{snippets}/role/insert/http-response.adoc[]
+
+[[resources-role-update]]
+==== Role 수정
+===== 요청
+include::{snippets}/role/update/http-request.adoc[]
+include::{snippets}/role/update/path-parameters.adoc[]
+include::{snippets}/role/update/request-fields.adoc[]
+===== 응답
+include::{snippets}/role/update/http-response.adoc[]
+
+[[resources-role-delete]]
+==== Role 삭제
+===== 요청
+include::{snippets}/role/delete/http-request.adoc[]
+include::{snippets}/role/delete/path-parameters.adoc[]
+===== 응답
+include::{snippets}/role/delete/http-response.adoc[]
