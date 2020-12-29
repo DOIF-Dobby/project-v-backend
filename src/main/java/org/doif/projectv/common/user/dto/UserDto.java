@@ -24,6 +24,7 @@ public class UserDto {
             this.id = id;
             this.name = name;
             this.status = status;
+            this.statusName = status.getMessage();
         }
     }
 

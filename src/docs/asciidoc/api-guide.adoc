@@ -781,3 +781,43 @@ include::{snippets}/user-role/allocate/http-request.adoc[]
 include::{snippets}/user-role/allocate/request-fields.adoc[]
 ===== 응답
 include::{snippets}/user-role/allocate/http-response.adoc[]
+
+
+---
+[[resources-user]]
+=== 유저
+
+[[resources-user-select]]
+==== 유저 조회
+===== 요청
+include::{snippets}/user/select/http-request.adoc[]
+include::{snippets}/user/select/request-fields.adoc[]
+===== 응답
+include::{snippets}/user/select/http-response.adoc[]
+include::{snippets}/user/select/response-fields.adoc[]
+include::{snippets}/user/select/response-fields-pageInfo.content.adoc[]
+
+[[resources-user-insert]]
+==== 유저 추가
+===== 요청
+include::{snippets}/user/insert/http-request.adoc[]
+include::{snippets}/user/insert/request-fields.adoc[]
+===== 응답
+include::{snippets}/user/insert/http-response.adoc[]
+
+[[resources-user-update]]
+==== 유저 수정
+===== 요청
+include::{snippets}/user/update/http-request.adoc[]
+include::{snippets}/user/update/path-parameters.adoc[]
+include::{snippets}/user/update/request-fields.adoc[]
+===== 응답
+include::{snippets}/user/update/http-response.adoc[]
+
+[[resources-user-delete]]
+==== 유저 삭제
+===== 요청
+include::{snippets}/user/delete/http-request.adoc[]
+include::{snippets}/user/delete/path-parameters.adoc[]
+===== 응답
+include::{snippets}/user/delete/http-response.adoc[]
