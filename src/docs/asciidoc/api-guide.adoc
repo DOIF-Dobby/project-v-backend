@@ -526,3 +526,41 @@ include::{snippets}/message/delete/http-request.adoc[]
 include::{snippets}/message/delete/path-parameters.adoc[]
 ===== 응답
 include::{snippets}/message/delete/http-response.adoc[]
+
+
+---
+[[resources-label]]
+=== 라벨
+
+[[resources-label-select]]
+==== 라벨 조회
+===== 요청
+include::{snippets}/label/select/http-request.adoc[]
+===== 응답
+include::{snippets}/label/select/http-response.adoc[]
+include::{snippets}/label/select/response-fields-content.adoc[]
+
+[[resources-label-insert]]
+==== 라벨 추가
+===== 요청
+include::{snippets}/label/insert/http-request.adoc[]
+include::{snippets}/label/insert/request-fields.adoc[]
+===== 응답
+include::{snippets}/label/insert/http-response.adoc[]
+
+[[resources-label-update]]
+==== 라벨 수정
+===== 요청
+include::{snippets}/label/update/http-request.adoc[]
+include::{snippets}/label/update/path-parameters.adoc[]
+include::{snippets}/label/update/request-fields.adoc[]
+===== 응답
+include::{snippets}/label/update/http-response.adoc[]
+
+[[resources-label-delete]]
+==== 라벨 삭제
+===== 요청
+include::{snippets}/label/delete/http-request.adoc[]
+include::{snippets}/label/delete/path-parameters.adoc[]
+===== 응답
+include::{snippets}/label/delete/http-response.adoc[]
