@@ -38,7 +38,8 @@ public class TabServiceImpl implements TabService {
                         tab.getUrl(),
                         tab.getHttpMethod(),
                         tab.getTabGroup(),
-                        tab.getSort()
+                        tab.getSort(),
+                        tab.getPage().getId()
                 ))
                 .collect(Collectors.toList());
     }

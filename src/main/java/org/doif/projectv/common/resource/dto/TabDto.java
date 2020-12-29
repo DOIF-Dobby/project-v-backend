@@ -14,8 +14,9 @@ public class TabDto {
     public static class Result extends ResourceAuthorityDto.Result {
         private String tabGroup;
         private Integer sort;
+        private Long pageId;
 
-        public Result(Long resourceId, String name, String description, EnableStatus status, String url, HttpMethod httpMethod, String tabGroup, Integer sort) {
+        public Result(Long resourceId, String name, String description, EnableStatus status, String url, HttpMethod httpMethod, String tabGroup, Integer sort, Long pageId) {
             this.resourceId = resourceId;
             this.name = name;
             this.description = description;
@@ -25,6 +26,7 @@ public class TabDto {
             this.httpMethod = httpMethod;
             this.tabGroup = tabGroup;
             this.sort = sort;
+            this.pageId = pageId;
         }
     }
 

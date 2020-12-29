@@ -536,6 +536,7 @@ include::{snippets}/message/delete/http-response.adoc[]
 ==== 라벨 조회
 ===== 요청
 include::{snippets}/label/select/http-request.adoc[]
+include::{snippets}/label/select/request-fields.adoc[]
 ===== 응답
 include::{snippets}/label/select/http-response.adoc[]
 include::{snippets}/label/select/response-fields-content.adoc[]
@@ -602,3 +603,42 @@ include::{snippets}/page/delete/http-request.adoc[]
 include::{snippets}/page/delete/path-parameters.adoc[]
 ===== 응답
 include::{snippets}/page/delete/http-response.adoc[]
+
+
+---
+[[resources-tab]]
+=== 탭
+
+[[resources-tab-select]]
+==== 탭 조회
+===== 요청
+include::{snippets}/tab/select/http-request.adoc[]
+include::{snippets}/tab/select/request-fields.adoc[]
+===== 응답
+include::{snippets}/tab/select/http-response.adoc[]
+include::{snippets}/tab/select/response-fields-content.adoc[]
+
+[[resources-tab-insert]]
+==== 탭 추가
+===== 요청
+include::{snippets}/tab/insert/http-request.adoc[]
+include::{snippets}/tab/insert/request-fields.adoc[]
+===== 응답
+include::{snippets}/tab/insert/http-response.adoc[]
+
+[[resources-tab-update]]
+==== 탭 수정
+===== 요청
+include::{snippets}/tab/update/http-request.adoc[]
+include::{snippets}/tab/update/path-parameters.adoc[]
+include::{snippets}/tab/update/request-fields.adoc[]
+===== 응답
+include::{snippets}/tab/update/http-response.adoc[]
+
+[[resources-tab-delete]]
+==== 탭 삭제
+===== 요청
+include::{snippets}/tab/delete/http-request.adoc[]
+include::{snippets}/tab/delete/path-parameters.adoc[]
+===== 응답
+include::{snippets}/tab/delete/http-response.adoc[]
