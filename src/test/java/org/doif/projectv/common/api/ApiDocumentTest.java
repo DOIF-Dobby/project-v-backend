@@ -26,6 +26,8 @@ import org.doif.projectv.common.resource.service.menucategory.MenuCategoryServic
 import org.doif.projectv.common.resource.service.message.MessageService;
 import org.doif.projectv.common.resource.service.page.PageService;
 import org.doif.projectv.common.resource.service.tab.TabService;
+import org.doif.projectv.common.role.service.RoleResourceService;
+import org.doif.projectv.common.role.service.RoleService;
 import org.doif.projectv.common.system.service.SystemPropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
@@ -62,6 +64,7 @@ import org.springframework.test.web.servlet.MockMvc;
 @ComponentScan(basePackages = "org.doif.projectv.business.**.web")
 @ComponentScan(basePackages = "org.doif.projectv.common.system.web")
 @ComponentScan(basePackages = "org.doif.projectv.common.resource.web")
+@ComponentScan(basePackages = "org.doif.projectv.common.role.web")
 public abstract class ApiDocumentTest {
 
     @Autowired
@@ -123,5 +126,11 @@ public abstract class ApiDocumentTest {
 
     @MockBean
     protected TabService tabService;
+
+    @MockBean
+    protected RoleService roleService;
+
+    @MockBean
+    protected RoleResourceService roleResourceService;
 
 }
