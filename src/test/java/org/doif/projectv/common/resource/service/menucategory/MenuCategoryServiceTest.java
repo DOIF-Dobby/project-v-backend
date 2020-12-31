@@ -1,10 +1,7 @@
 package org.doif.projectv.common.resource.service.menucategory;
 
-import org.assertj.core.api.Assertions;
 import org.doif.projectv.common.resource.dto.MenuCategoryDto;
-import org.doif.projectv.common.resource.entity.Label;
 import org.doif.projectv.common.resource.entity.MenuCategory;
-import org.doif.projectv.common.resource.entity.Page;
 import org.doif.projectv.common.resource.repository.menucategory.MenuCategoryRepository;
 import org.doif.projectv.common.response.CommonResponse;
 import org.doif.projectv.common.response.ResponseCode;
@@ -14,15 +11,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.http.HttpMethod;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 @Transactional
@@ -39,8 +34,8 @@ class MenuCategoryServiceTest {
 
     @BeforeEach
     public void init() {
-        MenuCategory parent = new MenuCategory("부모", "부모", EnableStatus.ENABLE, 1, "heart", null);
-        MenuCategory child = new MenuCategory("자식", "자식", EnableStatus.ENABLE, 1, "heart", parent);
+        MenuCategory parent = new MenuCategory("부모", "부모", EnableStatus.ENABLE,  "MENU_CATEGORY_1", 1, "heart", null);
+        MenuCategory child = new MenuCategory("자식", "자식", EnableStatus.ENABLE, "MENU_CATEGORY_2", 1, "heart", parent);
 
         em.persist(parent);
         em.persist(child);
@@ -72,6 +67,7 @@ class MenuCategoryServiceTest {
         insert.setSort(2);
         insert.setStatus(EnableStatus.ENABLE);
         insert.setParentId(parentId);
+        insert.setCode("MENU_CATEGORY_3");
 
         // when
         CommonResponse response = menuCategoryService.insert(insert);
