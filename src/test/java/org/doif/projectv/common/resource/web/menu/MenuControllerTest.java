@@ -44,21 +44,22 @@ class MenuControllerTest extends ApiDocumentTest {
     @Test
     public void 메뉴_조회_API_테스트() throws Exception {
         // given
-        MenuDto.Result content = new MenuDto.Result();
-        content.setResourceId(2L);
-        content.setName("버전-이슈 관리");
-        content.setDescription("버전-이슈 관리 메뉴입니다.");
-        content.setStatus(EnableStatus.ENABLE);
-        content.setStatusName(EnableStatus.ENABLE.getMessage());
-        content.setParentId(1L);
+        MenuDto.Result content = new MenuDto.Result(
+                2L,
+                "버전-이슈 관리",
+                "버전-이슈 관리 메뉴입니다.",
+                EnableStatus.ENABLE,
+                "MENU_1",
+                1L,
+                1,
+                MenuType.MENU,
+                "heart",
+                "/version-issue"
+        );
+
         content.setDepth(2);
         content.setPaddingName("버전-이슈 관리");
-        content.setSort(1);
         content.setPath("1-1");
-        content.setType(MenuType.MENU);
-        content.setTypeName(MenuType.MENU.getMessage());
-        content.setIcon("heart");
-        content.setUrl("/version-issue");
 
         List<MenuDto.Result> results = Arrays.asList(content);
         MenuDto.Response response = new MenuDto.Response(results);
@@ -87,6 +88,7 @@ class MenuControllerTest extends ApiDocumentTest {
                                 fieldWithPath("description").type(STRING).description("메뉴 설명"),
                                 fieldWithPath("status").type(STRING).description(generateLinkCode(CodeEnum.ENABLE_STATUS)),
                                 fieldWithPath("statusName").type(STRING).description(generateText(CodeEnum.ENABLE_STATUS)),
+                                fieldWithPath("code").type(STRING).description("메뉴 코드"),
                                 fieldWithPath("parentId").type(NUMBER).description("부모 메뉴-카테고리 ID"),
                                 fieldWithPath("sort").type(NUMBER).description("정렬 순서"),
                                 fieldWithPath("icon").type(STRING).description("아이콘"),
@@ -111,6 +113,7 @@ class MenuControllerTest extends ApiDocumentTest {
         insert.setSort(1);
         insert.setIcon("heart");
         insert.setUrl("/vcs");
+        insert.setCode("MENU_1");
 
         given(menuService.insert(any(MenuDto.Insert.class)))
                 .willReturn(ResponseUtil.ok());
@@ -133,6 +136,7 @@ class MenuControllerTest extends ApiDocumentTest {
                                 fieldWithPath("name").type(STRING).description("메뉴"),
                                 fieldWithPath("description").optional().type(STRING).description("메뉴 설명"),
                                 fieldWithPath("status").type(STRING).description(generateLinkCode(CodeEnum.ENABLE_STATUS)),
+                                fieldWithPath("code").type(STRING).description("메뉴 코드"),
                                 fieldWithPath("menuCategoryId").type(NUMBER).description("부모 메뉴-카테고리 ID"),
                                 fieldWithPath("sort").type(NUMBER).description("정렬 순서"),
                                 fieldWithPath("icon").type(STRING).description("아이콘"),

@@ -27,10 +27,8 @@ public class Menu extends Resource {
     @Column(name = "icon", length = 50)
     private String icon;
 
-    public Menu(String name, String description, EnableStatus status, MenuCategory menuCategory, Integer sort, String url, String icon) {
-        this.name = name;
-        this.description = description;
-        this.status = status;
+    public Menu(String name, String description, EnableStatus status, String code, MenuCategory menuCategory, Integer sort, String url, String icon) {
+        super(name, description, status, code);
         this.menuCategory = menuCategory;
         this.sort = sort;
         this.url = url;

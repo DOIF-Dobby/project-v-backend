@@ -15,16 +15,12 @@ import javax.persistence.*;
 @Table(name = "RESOURCE_MESSAGE")
 public class Message extends Resource {
 
-    @Column(name = "message", length = 50, nullable = false)
-    private String message;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "type", length = 20, nullable = false)
     private MessageType type;
 
-    public Message(String name, String description, EnableStatus status, String message, MessageType type) {
-        super(name, description, status);
-        this.message = message;
+    public Message(String name, String description, EnableStatus status, String code, MessageType type) {
+        super(name, description, status, code);
         this.type = type;
     }
 

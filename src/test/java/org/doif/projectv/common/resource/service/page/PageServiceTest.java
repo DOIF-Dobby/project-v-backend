@@ -32,7 +32,7 @@ class PageServiceTest {
 
     @BeforeEach
     public void init() {
-        Page page = new Page("이슈 관리 페이지", "이슈 관리 페이지 입니다.", EnableStatus.ENABLE, "/api/pages/issue", HttpMethod.GET);
+        Page page = new Page("이슈 관리 페이지", "이슈 관리 페이지 입니다.", EnableStatus.ENABLE, "PAGE_1", "/api/pages/issue");
 
         em.persist(page);
     }
@@ -57,7 +57,7 @@ class PageServiceTest {
         insert.setDescription("작업 관리 페이지 입니다.");
         insert.setStatus(EnableStatus.ENABLE);
         insert.setUrl("/api/pages/task");
-        insert.setHttpMethod(HttpMethod.GET);
+        insert.setCode("PAGE_2");
 
         // when
         CommonResponse response = pageService.insert(insert);
@@ -77,7 +77,6 @@ class PageServiceTest {
         update.setDescription("작업 관리 페이지 입니다.");
         update.setStatus(EnableStatus.DISABLE);
         update.setUrl("/api/pages/task");
-        update.setHttpMethod(HttpMethod.GET);
 
         Long resourceId = pageService.select().get(0).getResourceId();
 
@@ -113,13 +112,13 @@ class PageServiceTest {
         insert.setDescription("작업 관리 페이지 입니다.");
         insert.setStatus(EnableStatus.ENABLE);
         insert.setUrl("/pages/task");
-        insert.setHttpMethod(HttpMethod.GET);
+        insert.setCode("PAGE_2");
 
         // when
         IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> pageService.insert(insert));
 
         // then
-        assertThat(e.getMessage()).isEqualTo("권한 리소스의 url은 /api/ 로 시작해야 합니다.");
+        assertThat(e.getMessage()).isEqualTo("페이지 리소스의 url은 /api/pages/ 로 시작해야 합니다.");
     }
 
     @Test
@@ -130,7 +129,6 @@ class PageServiceTest {
         update.setDescription("작업 관리 페이지 입니다.");
         update.setStatus(EnableStatus.DISABLE);
         update.setUrl("/pages/task");
-        update.setHttpMethod(HttpMethod.GET);
 
         Long resourceId = pageService.select().get(0).getResourceId();
 
@@ -138,7 +136,7 @@ class PageServiceTest {
         IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> pageService.update(resourceId, update));
 
         // then
-        assertThat(e.getMessage()).isEqualTo("권한 리소스의 url은 /api/ 로 시작해야 합니다.");
+        assertThat(e.getMessage()).isEqualTo("페이지 리소스의 url은 /api/pages/ 로 시작해야 합니다.");
 
     }
 

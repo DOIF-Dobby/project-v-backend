@@ -15,23 +15,19 @@ import javax.persistence.*;
 @Table(name = "RESOURCE_TAB")
 public class Tab extends ResourceAuthority {
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "page_id", nullable = false)
-    private Page page;
-
     @Column(name = "tab_group", length = 50, nullable = false)
     private String tabGroup;
 
     @Column(name = "sort", length = 5, nullable = false)
     private Integer sort;
 
-    public Tab(String name, String description, EnableStatus status, String url, HttpMethod httpMethod, Page page, String tabGroup, Integer sort) {
-        super(name, description, status, url, httpMethod);
+    public Tab(String name, String description, EnableStatus status, String code, String url, HttpMethod httpMethod, Page page, String tabGroup, Integer sort) {
+        super(name, description, status, code, url, httpMethod, page);
         this.page = page;
         this.tabGroup = tabGroup;
         this.sort = sort;
 
-        page.getTabs().add(this);
+//        page.getTabs().add(this);
     }
 
     public void changeTab(String name, String description, EnableStatus status, String url, HttpMethod httpMethod, String tabGroup, Integer sort) {

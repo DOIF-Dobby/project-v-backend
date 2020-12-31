@@ -15,19 +15,14 @@ import javax.persistence.*;
 @Table(name = "RESOURCE_BUTTON")
 public class Button extends ResourceAuthority {
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "page_id", nullable = false)
-    private Page page;
-
     @Column(name = "icon", length = 50)
     private String icon;
 
-    public Button(String name, String description, EnableStatus status, String url, HttpMethod httpMethod, Page page, String icon) {
-        super(name, description, status, url, httpMethod);
-        this.page = page;
+    public Button(String name, String description, EnableStatus status, String code, String url, HttpMethod httpMethod, Page page, String icon) {
+        super(name, description, status, code, url, httpMethod, page);
         this.icon = icon;
 
-        page.getButtons().add(this);
+//        page.getButtons().add(this);
     }
 
     public void changeButton(String name, String description, EnableStatus status, String url, HttpMethod httpMethod, String icon) {

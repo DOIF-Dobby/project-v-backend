@@ -44,8 +44,8 @@ class LabelServiceTest {
 
     @BeforeEach
     public void init() {
-        Page page = new Page("이슈 관리 페이지", "이슈 관리 페이지 입니다.", EnableStatus.ENABLE, "/api/pages/issue", HttpMethod.GET);
-        Label label = new Label("안녕하세요", "안녕하세요", EnableStatus.ENABLE, page, "LABEL_HELLO");
+        Page page = new Page("이슈 관리 페이지", "이슈 관리 페이지 입니다.", EnableStatus.ENABLE, "PAGE_1", "/api/pages/issue");
+        Label label = new Label("안녕하세요", "안녕하세요", EnableStatus.ENABLE, "LABEL_1", page);
 
         em.persist(page);
         em.persist(label);
@@ -75,7 +75,7 @@ class LabelServiceTest {
 
         LabelDto.Insert insert = new LabelDto.Insert();
         insert.setPageId(pageId);
-        insert.setLabel("LABEL_BYE");
+        insert.setCode("LABEL_BYE");
         insert.setName("안녕히 계세요");
         insert.setDescription("안녕히 계세요");
         insert.setStatus(EnableStatus.ENABLE);

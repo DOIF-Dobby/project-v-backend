@@ -18,13 +18,9 @@ public class Label extends Resource {
     @JoinColumn(name = "page_id", nullable = false)
     private Page page;
 
-    @Column(name = "label", length = 50, nullable = false)
-    private String label;
-
-    public Label(String name, String description, EnableStatus status, Page page, String label) {
-        super(name, description, status);
+    public Label(String name, String description, EnableStatus status, String code, Page page) {
+        super(name, description, status, code);
         this.page = page;
-        this.label = label;
 
         page.getLabels().add(this);
     }

@@ -64,7 +64,7 @@ class MessageServiceTest {
         insert.setDescription("don`t lie lie");
         insert.setStatus(EnableStatus.ENABLE);
         insert.setType(MessageType.INFO);
-        insert.setMessage("MESSAGE_HARU_HARU");
+        insert.setCode("MESSAGE_HARU_HARU");
 
         // when
         CommonResponse response = messageService.insert(insert);

@@ -25,13 +25,13 @@ public class PageServiceImpl implements PageService {
     public List<PageDto.Result> select() {
         return pageRepository.findAll()
                 .stream()
-                .map(page -> new PageDto.Result(page.getId(), page.getName(), page.getDescription(), page.getStatus(), page.getUrl(), page.getHttpMethod()))
+                .map(page -> new PageDto.Result(page.getId(), page.getName(), page.getDescription(), page.getStatus(), page.getCode(), page.getUrl()))
                 .collect(Collectors.toList());
     }
 
     @Override
     public CommonResponse insert(PageDto.Insert dto) {
-        Page page = new Page(dto.getName(), dto.getDescription(), dto.getStatus(), dto.getUrl(), dto.getHttpMethod());
+        Page page = new Page(dto.getName(), dto.getDescription(), dto.getStatus(), dto.getCode(), dto.getUrl());
         pageRepository.save(page);
 
         return ResponseUtil.ok();
@@ -41,7 +41,7 @@ public class PageServiceImpl implements PageService {
     public CommonResponse update(Long id, PageDto.Update dto) {
         Optional<Page> optionalPage = pageRepository.findById(id);
         Page page = optionalPage.orElseThrow(() -> new IllegalArgumentException("페이지를 찾을 수 없음"));
-        page.changePage(dto.getName(), dto.getDescription(), dto.getStatus(), dto.getUrl(), dto.getHttpMethod());
+        page.changePage(dto.getName(), dto.getDescription(), dto.getStatus(), dto.getUrl());
 
         return ResponseUtil.ok();
     }

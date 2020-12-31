@@ -12,17 +12,11 @@ public class MessageDto {
     @Setter
     @ToString
     public static class Result extends ResourceDto.Result {
-        private String message;
         private MessageType type;
         private String typeName;
 
-        public Result(Long resourceId, String name, String description, EnableStatus status, String message, MessageType type) {
-            this.resourceId = resourceId;
-            this.name = name;
-            this.description = description;
-            this.status = status;
-            this.statusName = status.getMessage();
-            this.message = message;
+        public Result(Long resourceId, String name, String description, EnableStatus status, String code, MessageType type) {
+            super(resourceId, name, description, status, code);
             this.type = type;
             this.typeName = type.getMessage();
         }
@@ -32,7 +26,6 @@ public class MessageDto {
     @Setter
     @Builder
     @AllArgsConstructor
-    @NoArgsConstructor
     public static class Response {
         List<Result> content;
     }
@@ -41,7 +34,6 @@ public class MessageDto {
     @Setter
     @ToString
     public static class Insert extends ResourceDto.Insert {
-        private String message;
         private MessageType type;
     }
 

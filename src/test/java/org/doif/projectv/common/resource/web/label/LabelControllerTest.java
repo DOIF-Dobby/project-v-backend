@@ -49,8 +49,8 @@ class LabelControllerTest extends ApiDocumentTest {
                 "버전관리시스템 유형",
                 "버전관리시스템 유형",
                 EnableStatus.ENABLE,
-                1L,
-                "LABEL_VCS_TYPE"
+                "LABEL_1",
+                1L
         );
 
         List<LabelDto.Result> results = Arrays.asList(content);
@@ -85,7 +85,7 @@ class LabelControllerTest extends ApiDocumentTest {
                                 fieldWithPath("status").type(STRING).description(generateLinkCode(CodeEnum.ENABLE_STATUS)),
                                 fieldWithPath("statusName").type(STRING).description(generateText(CodeEnum.ENABLE_STATUS)),
                                 fieldWithPath("pageId").type(NUMBER).description("페이지 ID"),
-                                fieldWithPath("label").type(STRING).description("라벨 코드")
+                                fieldWithPath("code").type(STRING).description("라벨 코드")
                         )
                 ));
     }
@@ -96,7 +96,7 @@ class LabelControllerTest extends ApiDocumentTest {
         LabelDto.Insert insert = new LabelDto.Insert();
         insert.setName("메뉴명");
         insert.setDescription("메뉴명");
-        insert.setLabel("LABEL_MENU_NAME");
+        insert.setCode("LABEL_MENU_NAME");
         insert.setStatus(EnableStatus.ENABLE);
         insert.setPageId(1L);
 
@@ -122,7 +122,7 @@ class LabelControllerTest extends ApiDocumentTest {
                                 fieldWithPath("description").optional().type(STRING).description("라벨 설명"),
                                 fieldWithPath("status").type(STRING).description(generateLinkCode(CodeEnum.ENABLE_STATUS)),
                                 fieldWithPath("pageId").type(NUMBER).description("페이지 ID"),
-                                fieldWithPath("label").type(STRING).description("라벨 코드")
+                                fieldWithPath("code").type(STRING).description("라벨 코드")
                         )
                 ));
     }

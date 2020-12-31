@@ -24,9 +24,9 @@ public class RoleResource extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "resource_id", nullable = false)
-    private ResourceAuthority resource;
+    private Resource resource;
 
-    public RoleResource(Role role, ResourceAuthority resource) {
+    public RoleResource(Role role, Resource resource) {
         this.role = role;
         this.resource = resource;
     }

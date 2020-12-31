@@ -47,8 +47,8 @@ class PageControllerTest extends ApiDocumentTest {
                 "버전관리",
                 "버전관리 페이지",
                 EnableStatus.ENABLE,
-                "/api/pages/version",
-                HttpMethod.GET
+                "PAGE_1",
+                "/api/pages/version"
         );
 
         List<PageDto.Result> results = Arrays.asList(content);
@@ -78,8 +78,8 @@ class PageControllerTest extends ApiDocumentTest {
                                 fieldWithPath("description").type(STRING).description("페이지 설명"),
                                 fieldWithPath("status").type(STRING).description(generateLinkCode(CodeEnum.ENABLE_STATUS)),
                                 fieldWithPath("statusName").type(STRING).description(generateText(CodeEnum.ENABLE_STATUS)),
-                                fieldWithPath("url").type(STRING).description("페이지 URL"),
-                                fieldWithPath("httpMethod").type(STRING).description("http 메서드")
+                                fieldWithPath("code").type(STRING).description("페이지 코드"),
+                                fieldWithPath("url").type(STRING).description("페이지 URL")
                         )
                 ));
     }
@@ -92,7 +92,7 @@ class PageControllerTest extends ApiDocumentTest {
         insert.setDescription("이슈 관리 페이지");
         insert.setStatus(EnableStatus.ENABLE);
         insert.setUrl("/api/pages/issue");
-        insert.setHttpMethod(HttpMethod.GET);
+        insert.setCode("PAGE_2");
 
         given(pageService.insert(any(PageDto.Insert.class)))
                 .willReturn(ResponseUtil.ok());
@@ -115,8 +115,8 @@ class PageControllerTest extends ApiDocumentTest {
                                 fieldWithPath("name").type(STRING).description("페이지명"),
                                 fieldWithPath("description").optional().type(STRING).description("페이지 설명"),
                                 fieldWithPath("status").type(STRING).description(generateLinkCode(CodeEnum.ENABLE_STATUS)),
-                                fieldWithPath("url").type(STRING).description("페이지 URL"),
-                                fieldWithPath("httpMethod").type(STRING).description("http 메서드")
+                                fieldWithPath("code").type(STRING).description("페이지 코드"),
+                                fieldWithPath("url").type(STRING).description("페이지 URL")
                         )
                 ));
     }
@@ -129,7 +129,6 @@ class PageControllerTest extends ApiDocumentTest {
         update.setDescription("이슈 관리 페이지");
         update.setStatus(EnableStatus.ENABLE);
         update.setUrl("/api/pages/issue");
-        update.setHttpMethod(HttpMethod.GET);
 
         given(pageService.update(eq(1L), any(PageDto.Update.class)))
                 .willReturn(ResponseUtil.ok());
@@ -155,8 +154,7 @@ class PageControllerTest extends ApiDocumentTest {
                                 fieldWithPath("name").type(STRING).description("페이지명"),
                                 fieldWithPath("description").optional().type(STRING).description("페이지 설명"),
                                 fieldWithPath("status").type(STRING).description(generateLinkCode(CodeEnum.ENABLE_STATUS)),
-                                fieldWithPath("url").type(STRING).description("페이지 URL"),
-                                fieldWithPath("httpMethod").type(STRING).description("http 메서드")
+                                fieldWithPath("url").type(STRING).description("페이지 URL")
                         )
                 ));
     }

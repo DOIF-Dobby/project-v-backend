@@ -44,8 +44,8 @@ class TabServiceTest {
 
     @BeforeEach
     public void init() {
-        Page page = new Page("이슈 관리 페이지", "이슈 관리 페이지 입니다.", EnableStatus.ENABLE, "/api/pages/issue", HttpMethod.GET);
-        Tab tab = new Tab("탭탭", "탭입니다.", EnableStatus.ENABLE, "/api/tabs/tab1", HttpMethod.GET, page, "TAB_GROUP1", 1);
+        Page page = new Page("이슈 관리 페이지", "이슈 관리 페이지 입니다.", EnableStatus.ENABLE, "PAGE_1", "/api/pages/issue");
+        Tab tab = new Tab("탭탭", "탭입니다.", EnableStatus.ENABLE, "TAB_1", "/api/tabs/tab1", HttpMethod.GET, page, "TAB_GROUP1", 1);
 
         em.persist(page);
         em.persist(tab);
@@ -82,6 +82,7 @@ class TabServiceTest {
         insert.setHttpMethod(HttpMethod.GET);
         insert.setTabGroup("TAB_GROUP1");
         insert.setSort(2);
+        insert.setCode("TAB_2");
 
         // when
         CommonResponse response = tabService.insert(insert);
@@ -153,6 +154,7 @@ class TabServiceTest {
         insert.setHttpMethod(HttpMethod.GET);
         insert.setTabGroup("TAB_GROUP1");
         insert.setSort(2);
+        insert.setCode("TAB_2");
 
         // when
         IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> tabService.insert(insert));

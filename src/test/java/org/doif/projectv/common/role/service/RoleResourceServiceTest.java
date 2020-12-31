@@ -57,23 +57,23 @@ class RoleResourceServiceTest {
         em.persist(role1);
         em.persist(role2);
 
-        Page page1 = new Page("페이지1", "페이지1", EnableStatus.ENABLE, "/api/page1", HttpMethod.GET);
-        Page page2 = new Page("페이지2", "페이지2", EnableStatus.ENABLE, "/api/page2", HttpMethod.GET);
-        Page page3 = new Page("페이지3", "페이지3", EnableStatus.ENABLE, "/api/page3", HttpMethod.GET);
+        Page page1 = new Page("페이지1", "페이지1", EnableStatus.ENABLE, "PAGE_1", "/api/pages/page1");
+        Page page2 = new Page("페이지2", "페이지2", EnableStatus.ENABLE, "PAGE_2", "/api/pages/page2");
+        Page page3 = new Page("페이지3", "페이지3", EnableStatus.ENABLE, "PAGE_3", "/api/pages/page3");
         em.persist(page1);
         em.persist(page2);
         em.persist(page3);
 
-        Button button1 = new Button("버튼1", "", EnableStatus.ENABLE, "/api/button1", HttpMethod.GET, page1, "");
-        Button button2 = new Button("버튼2", "", EnableStatus.ENABLE, "/api/button2", HttpMethod.GET, page1, "");
-        Button button3 = new Button("버튼3", "", EnableStatus.ENABLE, "/api/button3", HttpMethod.GET, page1, "");
+        Button button1 = new Button("버튼1", "", EnableStatus.ENABLE, "BUTTON_1",  "/api/button1", HttpMethod.GET, page1, "");
+        Button button2 = new Button("버튼2", "", EnableStatus.ENABLE, "BUTTON_2",  "/api/button2", HttpMethod.GET, page1, "");
+        Button button3 = new Button("버튼3", "", EnableStatus.ENABLE, "BUTTON_3",  "/api/button3", HttpMethod.GET, page1, "");
         em.persist(button1);
         em.persist(button2);
         em.persist(button3);
 
-        Tab tab1 = new Tab("탭1", "", EnableStatus.ENABLE, "/api/tab1", HttpMethod.GET, page1, "TABGROUP1", 1);
-        Tab tab2 = new Tab("탭2", "", EnableStatus.ENABLE, "/api/tab2", HttpMethod.GET, page1, "TABGROUP1", 2);
-        Tab tab3 = new Tab("탭3", "", EnableStatus.ENABLE, "/api/tab3", HttpMethod.GET, page1, "TABGROUP1", 3);
+        Tab tab1 = new Tab("탭1", "", EnableStatus.ENABLE, "TAB_1", "/api/tab1", HttpMethod.GET, page1, "TABGROUP1", 1);
+        Tab tab2 = new Tab("탭2", "", EnableStatus.ENABLE, "TAB_2", "/api/tab2", HttpMethod.GET, page1, "TABGROUP1", 2);
+        Tab tab3 = new Tab("탭3", "", EnableStatus.ENABLE, "TAB_3", "/api/tab3", HttpMethod.GET, page1, "TABGROUP1", 3);
         em.persist(tab1);
         em.persist(tab2);
         em.persist(tab3);

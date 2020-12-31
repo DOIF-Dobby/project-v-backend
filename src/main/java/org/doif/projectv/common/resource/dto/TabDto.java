@@ -14,19 +14,11 @@ public class TabDto {
     public static class Result extends ResourceAuthorityDto.Result {
         private String tabGroup;
         private Integer sort;
-        private Long pageId;
 
-        public Result(Long resourceId, String name, String description, EnableStatus status, String url, HttpMethod httpMethod, String tabGroup, Integer sort, Long pageId) {
-            this.resourceId = resourceId;
-            this.name = name;
-            this.description = description;
-            this.status = status;
-            this.statusName = status.getMessage();
-            this.url = url;
-            this.httpMethod = httpMethod;
+        public Result(Long resourceId, String name, String description, EnableStatus status, String code, String url, HttpMethod httpMethod, Long pageId, String tabGroup, Integer sort) {
+            super(resourceId, name, description, status, code, url, httpMethod, pageId);
             this.tabGroup = tabGroup;
             this.sort = sort;
-            this.pageId = pageId;
         }
     }
 
@@ -34,7 +26,6 @@ public class TabDto {
     @Setter
     @Builder
     @AllArgsConstructor
-    @NoArgsConstructor
     public static class Response {
         List<Result> content;
     }
@@ -49,7 +40,6 @@ public class TabDto {
     @Setter
     @ToString
     public static class Insert extends ResourceAuthorityDto.Insert {
-        private Long pageId;
         private String tabGroup;
         private Integer sort;
     }

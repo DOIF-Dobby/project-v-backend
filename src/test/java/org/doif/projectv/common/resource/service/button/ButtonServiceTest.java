@@ -42,8 +42,8 @@ class ButtonServiceTest {
 
     @BeforeEach
     public void init() {
-        Page page = new Page("이슈 관리 페이지", "이슈 관리 페이지 입니다.", EnableStatus.ENABLE, "/api/pages/issue", HttpMethod.GET);
-        Button button = new Button("조회", "이슈 조회 버튼", EnableStatus.ENABLE, "/api/issue", HttpMethod.GET, page, "heart");
+        Page page = new Page("이슈 관리 페이지", "이슈 관리 페이지 입니다.", EnableStatus.ENABLE, "PAGE_1", "/api/pages/issue");
+        Button button = new Button("조회", "이슈 조회 버튼", EnableStatus.ENABLE, "BUTTON_1", "/api/issue", HttpMethod.GET, page, "heart");
 
         em.persist(page);
         em.persist(button);
@@ -79,6 +79,7 @@ class ButtonServiceTest {
         insert.setUrl("/api/issue");
         insert.setHttpMethod(HttpMethod.POST);
         insert.setIcon("add");
+        insert.setCode("BUTTON_2");
 
         // when
         CommonResponse response = buttonService.insert(insert);
@@ -146,6 +147,7 @@ class ButtonServiceTest {
         insert.setUrl("/issue");
         insert.setHttpMethod(HttpMethod.POST);
         insert.setIcon("add");
+        insert.setCode("BUTTON_1");
 
         // when
         IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> buttonService.insert(insert));

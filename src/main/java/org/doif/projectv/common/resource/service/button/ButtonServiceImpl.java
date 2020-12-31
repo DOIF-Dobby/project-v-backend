@@ -32,8 +32,11 @@ public class ButtonServiceImpl implements ButtonService {
                 .stream()
                 .map(button -> new ButtonDto.Result(
                         button.getId(),
-                        button.getName(), button.getDescription(),
-                        button.getStatus(), button.getUrl(),
+                        button.getName(),
+                        button.getDescription(),
+                        button.getStatus(),
+                        button.getCode(),
+                        button.getUrl(),
                         button.getHttpMethod(),
                         button.getPage().getId(),
                         button.getIcon()
@@ -46,7 +49,7 @@ public class ButtonServiceImpl implements ButtonService {
         Optional<Page> optionalPage = pageRepository.findById(dto.getPageId());
         Page page = optionalPage.orElseThrow(() -> new IllegalArgumentException("페이지를 찾을 수 없음"));
 
-        Button button = new Button(dto.getName(), dto.getDescription(), dto.getStatus(), dto.getUrl(), dto.getHttpMethod(), page, dto.getIcon());
+        Button button = new Button(dto.getName(), dto.getDescription(), dto.getStatus(), dto.getCode(), dto.getUrl(), dto.getHttpMethod(), page, dto.getIcon());
         buttonRepository.save(button);
 
         return ResponseUtil.ok();

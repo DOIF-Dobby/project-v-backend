@@ -32,8 +32,8 @@ public class MenuCategory extends Resource {
     @Column(name = "icon", length = 50)
     private String icon;
 
-    public MenuCategory(String name, String description, EnableStatus status, Integer sort, String icon, MenuCategory parent) {
-        super(name, description, status);
+    public MenuCategory(String name, String description, EnableStatus status, String code, Integer sort, String icon, MenuCategory parent) {
+        super(name, description, status, code);
         this.sort = sort;
         this.icon = icon;
         this.parent = parent;

@@ -51,11 +51,12 @@ class TabControllerTest extends ApiDocumentTest {
                 "탭1",
                 "탭1 입니다.",
                 EnableStatus.ENABLE,
+                "TAB1",
                 "/api/tabs/tab1",
                 HttpMethod.GET,
-                "TAB_GROUP1",
-                1,
-                1L
+                1L,
+                "TAB_GROUP_1",
+                1
         );
 
         List<TabDto.Result> results = Arrays.asList(content);
@@ -89,6 +90,7 @@ class TabControllerTest extends ApiDocumentTest {
                                 fieldWithPath("description").type(STRING).description("탭 설명"),
                                 fieldWithPath("status").type(STRING).description(generateLinkCode(CodeEnum.ENABLE_STATUS)),
                                 fieldWithPath("statusName").type(STRING).description(generateText(CodeEnum.ENABLE_STATUS)),
+                                fieldWithPath("code").type(STRING).description("탭 코드"),
                                 fieldWithPath("url").type(STRING).description("탭 URL"),
                                 fieldWithPath("httpMethod").type(STRING).description("http 메서드"),
                                 fieldWithPath("pageId").type(NUMBER).description("페이지 ID"),
@@ -110,6 +112,7 @@ class TabControllerTest extends ApiDocumentTest {
         insert.setHttpMethod(HttpMethod.GET);
         insert.setStatus(EnableStatus.ENABLE);
         insert.setSort(2);
+        insert.setCode("TAB_2");
 
         given(tabService.insert(any(TabDto.Insert.class)))
                 .willReturn(ResponseUtil.ok());
@@ -132,6 +135,7 @@ class TabControllerTest extends ApiDocumentTest {
                                 fieldWithPath("name").type(STRING).description("탭명"),
                                 fieldWithPath("description").type(STRING).optional().description("탭 설명"),
                                 fieldWithPath("status").type(STRING).description(generateLinkCode(CodeEnum.ENABLE_STATUS)),
+                                fieldWithPath("code").type(STRING).description("탭 코드"),
                                 fieldWithPath("url").type(STRING).description("탭 URL"),
                                 fieldWithPath("httpMethod").type(STRING).description("http 메서드"),
                                 fieldWithPath("pageId").type(NUMBER).description("페이지 ID"),

@@ -26,8 +26,14 @@ public class ResourceRepositoryImpl implements ResourceQueryRepository {
     public List<ResourceAuthorityDto.Result> searchAuthorityResource(String userId) {
         return queryFactory
                 .select(new QResourceAuthorityDto_Result(
+                        resourceAuthority.id,
+                        resourceAuthority.name,
+                        resourceAuthority.description,
+                        resourceAuthority.status,
+                        resourceAuthority.code,
                         resourceAuthority.url,
-                        resourceAuthority.httpMethod
+                        resourceAuthority.httpMethod,
+                        resourceAuthority.page.id
                 ))
                 .from(resourceAuthority)
                 .join(resourceAuthority.roleResources, roleResource)

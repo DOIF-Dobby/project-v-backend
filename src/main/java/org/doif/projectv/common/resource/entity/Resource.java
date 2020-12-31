@@ -33,13 +33,17 @@ public abstract class Resource extends BaseEntity {
     @Column(name = "status", length = 20, nullable = false)
     protected EnableStatus status;
 
+    @Column(name = "code", nullable = false)
+    protected String code;
+
     @OneToMany(mappedBy = "resource")
     protected List<RoleResource> roleResources = new ArrayList<>();
 
-    protected Resource(String name, String description, EnableStatus status) {
+    protected Resource(String name, String description, EnableStatus status, String code) {
         this.name = name;
         this.description = description;
         this.status = status;
+        this.code = code;
     }
 
     protected void changeResource(String name, String description, EnableStatus status) {

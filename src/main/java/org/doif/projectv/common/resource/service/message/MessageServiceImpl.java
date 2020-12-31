@@ -30,7 +30,7 @@ public class MessageServiceImpl implements MessageService {
                         message.getName(),
                         message.getDescription(),
                         message.getStatus(),
-                        message.getMessage(),
+                        message.getCode(),
                         message.getType()
                 ))
                 .collect(Collectors.toList());
@@ -38,7 +38,7 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public CommonResponse insert(MessageDto.Insert dto) {
-        Message message = new Message(dto.getName(), dto.getDescription(), dto.getStatus(), dto.getMessage(), dto.getType());
+        Message message = new Message(dto.getName(), dto.getDescription(), dto.getStatus(), dto.getCode(), dto.getType());
         messageRepository.save(message);
         return ResponseUtil.ok();
     }
