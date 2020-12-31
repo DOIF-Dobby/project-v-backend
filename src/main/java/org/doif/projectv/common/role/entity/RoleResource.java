@@ -29,5 +29,7 @@ public class RoleResource extends BaseEntity {
     public RoleResource(Role role, Resource resource) {
         this.role = role;
         this.resource = resource;
+
+        resource.getRoleResources().add(this);
     }
 }

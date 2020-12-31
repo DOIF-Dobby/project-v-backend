@@ -1,10 +1,12 @@
 package org.doif.projectv.common.resource.service;
 
-import org.doif.projectv.common.resource.dto.ResourceAuthorityDto;
+import org.doif.projectv.common.resource.dto.AuthCheckDto;
 
 import java.util.List;
 
 public interface ResourceService {
 
-    List<ResourceAuthorityDto.Result> searchAuthorityResource(String userId);
+    List<AuthCheckDto.ResourceAuthorityCheck> searchAuthorityResource(String userId);
+
+    List<AuthCheckDto.ResourcePageCheck> searchPageResource(String userId);
 }

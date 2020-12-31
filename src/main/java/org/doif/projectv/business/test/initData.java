@@ -146,6 +146,7 @@ public class initData {
             Button button4 = new Button("버튼4", "", EnableStatus.ENABLE, "BUTTON_4", "/api/task", GET, page, "");
             Button button5 = new Button("버튼5", "", EnableStatus.ENABLE, "BUTTON_5", "/api/module/{id}", PUT, page, "");
             Button button5_1 = new Button("버튼5_1", "", EnableStatus.ENABLE, "BUTTON_5_1", "/api/module", POST, page, "");
+            Button button5_2 = new Button("버튼5_2", "", EnableStatus.ENABLE, "BUTTON_5_2", "/api/module", GET, page, "");
             Button button6 = new Button("버튼6", "", EnableStatus.ENABLE, "BUTTON_6", "/api/version/release/{id}", PUT, page, "");
             Button button7 = new Button("버튼7", "", EnableStatus.ENABLE, "BUTTON_7", "/api/version", POST, page, "");
             Button button8 = new Button("버튼8", "", EnableStatus.ENABLE, "BUTTON_8", "/api/version", GET, page, "");
@@ -172,6 +173,7 @@ public class initData {
             RoleResource roleResource16 = new RoleResource(role, button13);
             RoleResource roleResource17 = new RoleResource(role, button5_1);
             RoleResource roleResource18 = new RoleResource(role, button14);
+            RoleResource roleResource19 = new RoleResource(role, button5_2);
 
             SystemProperty systemProperty = new SystemProperty(PropertyGroupType.COMMON, "TEST", "테스트", "테스트 속성", true);
 
@@ -219,6 +221,7 @@ public class initData {
             em.persist(button13);
             em.persist(button5_1);
             em.persist(button14);
+            em.persist(button5_2);
 
 //            em.persist(roleResource2);
 //            em.persist(roleResource2_1);
@@ -238,6 +241,7 @@ public class initData {
             em.persist(roleResource16);
             em.persist(roleResource17);
             em.persist(roleResource18);
+            em.persist(roleResource19);
 
             em.persist(systemProperty);
 

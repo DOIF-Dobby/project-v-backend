@@ -16,7 +16,6 @@ public class ResourceAuthorityDto {
         protected HttpMethod httpMethod;
         protected Long pageId;
 
-        @QueryProjection
         public Result(Long resourceId, String name, String description, EnableStatus status, String code, String url, HttpMethod httpMethod, Long pageId) {
             super(resourceId, name, description, status, code);
             this.url = url;

@@ -2,7 +2,6 @@ package org.doif.projectv.common.resource.dto;
 
 import lombok.*;
 import org.doif.projectv.common.status.EnableStatus;
-import org.springframework.http.HttpMethod;
 
 import java.util.List;
 
@@ -40,5 +39,14 @@ public class PageDto {
     @ToString
     public static class Update extends ResourceDto.Update {
         private String url;
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    public static class Child {
+        private List<ButtonDto.Result> buttons;
+        private List<TabDto.Result> tabs;
+        private List<LabelDto.Result> labels;
     }
 }
