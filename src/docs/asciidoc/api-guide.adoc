@@ -20,6 +20,18 @@ endif::[]
 include::{snippets}/common/common-response/code-response-fields.adoc[]
 include::{snippets}/common/code-response/code-response-fields-responseCode.adoc[]
 
+===== 요청시 필요한 Request Header
+|===
+|Key|Value
+
+|Authorization
+|인증 토큰
+
+|pageId
+|해당 리소스 권한을 가진 Page Id
+
+|===
+
 == 비지니스
 ---
 

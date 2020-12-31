@@ -19,6 +19,7 @@ import org.doif.projectv.business.version.service.VersionService;
 import org.doif.projectv.business.version.web.VersionController;
 import org.doif.projectv.common.api.web.ApiCommonController;
 import org.doif.projectv.common.enumeration.EnumMapper;
+import org.doif.projectv.common.resource.service.ResourceService;
 import org.doif.projectv.common.resource.service.button.ButtonService;
 import org.doif.projectv.common.resource.service.label.LabelService;
 import org.doif.projectv.common.resource.service.menu.MenuService;
@@ -141,5 +142,8 @@ public abstract class ApiDocumentTest {
 
     @MockBean
     protected UserService userService;
+
+    @MockBean
+    protected ResourceService resourceService;
 
 }
