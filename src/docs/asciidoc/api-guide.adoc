@@ -833,3 +833,17 @@ include::{snippets}/user/delete/http-request.adoc[]
 include::{snippets}/user/delete/path-parameters.adoc[]
 ===== 응답
 include::{snippets}/user/delete/http-response.adoc[]
+
+
+---
+[[resources-page-child]]
+=== 페이지 자식 리소스
+
+[[resources-page-child]]
+==== 페이지 자식 리소스 조회
+===== 요청
+include::{snippets}/page-child/select/http-request.adoc[]
+include::{snippets}/page-child/select/path-parameters.adoc[]
+===== 응답
+include::{snippets}/page-child/select/http-response.adoc[]
+include::{snippets}/page-child/select/response-fields.adoc[]
