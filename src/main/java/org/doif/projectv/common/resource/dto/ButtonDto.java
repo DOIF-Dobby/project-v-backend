@@ -11,7 +11,6 @@ public class ButtonDto {
     @Getter
     @Setter
     @ToString
-    @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class Result extends ResourceAuthorityDto.Result {
         private String icon;
 
@@ -25,7 +24,6 @@ public class ButtonDto {
     @Setter
     @Builder
     @AllArgsConstructor
-    @NoArgsConstructor
     public static class Response {
         List<Result> content;
     }
@@ -39,7 +37,6 @@ public class ButtonDto {
     @Getter
     @Setter
     @ToString
-    @NoArgsConstructor
     public static class Insert extends ResourceAuthorityDto.Insert {
         private String icon;
     }
@@ -47,7 +44,6 @@ public class ButtonDto {
     @Getter
     @Setter
     @ToString
-    @NoArgsConstructor
     public static class Update extends ResourceAuthorityDto.Update {
         private String icon;
     }
