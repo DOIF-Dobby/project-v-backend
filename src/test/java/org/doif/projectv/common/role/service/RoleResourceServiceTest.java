@@ -2,6 +2,7 @@ package org.doif.projectv.common.role.service;
 
 import org.assertj.core.api.Assertions;
 import org.doif.projectv.common.resource.entity.Button;
+import org.doif.projectv.common.resource.entity.Label;
 import org.doif.projectv.common.resource.entity.Page;
 import org.doif.projectv.common.resource.entity.Tab;
 import org.doif.projectv.common.resource.repository.button.ButtonRepository;
@@ -27,6 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 @Transactional
@@ -280,5 +282,26 @@ class RoleResourceServiceTest {
         assertThat(resultButtons).extracting("checked").containsExactly(true, true, false);
         assertThat(resultTabs.size()).isEqualTo(3);
         assertThat(resultTabs).extracting("checked").containsExactly(true, true, false);
+    }
+
+    @Test
+    public void ROLE_RESOURCE_잘못된_할당_테스트() throws Exception {
+        // given
+        Role devRole = roleRepository.findAll()
+                .stream()
+                .filter(role -> role.getName().equals("개발자 Role"))
+                .findFirst().get();
+
+        Page page = pageRepository.findAll().get(0);
+
+        Button button = new Button("버튼1", "버튼1", EnableStatus.ENABLE, "BUTTON_TEST", "/api/test", HttpMethod.GET, page, "");
+        Label label = new Label("라벨1", "라벨1", EnableStatus.ENABLE, "LABEL_TEST", page);
+
+        // when
+        RoleResource roleResource = new RoleResource(devRole, button);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> new RoleResource(devRole, label));
+
+        // then
+        assertThat(e.getMessage()).isEqualTo("Role-Resource 에는 Page 또는 ResourceAuthority 만이 할당될 수 있습니다.");
     }
 }

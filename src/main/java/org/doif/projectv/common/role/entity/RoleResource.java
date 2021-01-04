@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.doif.projectv.common.jpa.entity.BaseEntity;
+import org.doif.projectv.common.resource.entity.Page;
 import org.doif.projectv.common.resource.entity.Resource;
 import org.doif.projectv.common.resource.entity.ResourceAuthority;
 
@@ -27,9 +28,13 @@ public class RoleResource extends BaseEntity {
     private Resource resource;
 
     public RoleResource(Role role, Resource resource) {
-        this.role = role;
-        this.resource = resource;
+        if( (resource instanceof Page) || (resource instanceof ResourceAuthority) ) {
+            this.role = role;
+            this.resource = resource;
 
-        resource.getRoleResources().add(this);
+            resource.getRoleResources().add(this);
+        } else {
+            throw new IllegalArgumentException("Role-Resource 에는 Page 또는 ResourceAuthority 만이 할당될 수 있습니다.");
+        }
     }
 }
