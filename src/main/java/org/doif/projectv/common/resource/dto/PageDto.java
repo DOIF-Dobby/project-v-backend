@@ -4,6 +4,7 @@ import lombok.*;
 import org.doif.projectv.common.status.EnableStatus;
 
 import java.util.List;
+import java.util.Map;
 
 public class PageDto {
 
@@ -45,8 +46,8 @@ public class PageDto {
     @Setter
     @ToString
     public static class Child {
-        private List<ButtonDto.Result> buttons;
-        private List<TabDto.Result> tabs;
-        private List<LabelDto.Result> labels;
+        private Map<String, ButtonDto.Result> buttonMap;
+        private Map<String, TabDto.Result> tabMap;
+        private Map<String, LabelDto.Result> labelMap;
     }
 }

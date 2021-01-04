@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -17,9 +18,9 @@ public class ResourceWeb {
 
     private final ResourceService resourceService;
 
-    @GetMapping("/api/pages/{path}")
-    public ResponseEntity<PageDto.Child> select(@PathVariable String path) {
-        PageDto.Child child = resourceService.searchPageChildResource("/api/pages/"+ path);
+    @GetMapping("/api/pages/**")
+    public ResponseEntity<PageDto.Child> select(HttpServletRequest request) {
+        PageDto.Child child = resourceService.searchPageChildResource(request.getRequestURI());
 
         return ResponseEntity.ok(child);
     }

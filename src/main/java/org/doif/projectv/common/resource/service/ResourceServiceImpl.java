@@ -13,6 +13,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -61,7 +62,7 @@ public class ResourceServiceImpl implements ResourceService {
         Optional<Page> optionalPage = pageRepository.findByUrl(url);
         Page page = optionalPage.orElseThrow(() -> new IllegalArgumentException("페이지를 찾을 수 없음"));
 
-        List<ButtonDto.Result> buttons = buttonRepository.findAllByPageAndStatus(page, EnableStatus.ENABLE)
+        Map<String, ButtonDto.Result> buttonMap = buttonRepository.findAllByPageAndStatus(page, EnableStatus.ENABLE)
                 .stream()
                 .map(button -> new ButtonDto.Result(
                         button.getId(),
@@ -74,9 +75,9 @@ public class ResourceServiceImpl implements ResourceService {
                         button.getPage().getId(),
                         button.getIcon()
                 ))
-                .collect(Collectors.toList());
+                .collect(Collectors.toMap(ResourceDto.Result::getCode, result -> result));
 
-        List<TabDto.Result> tabs = tabRepository.findAllByPageAndStatus(page, EnableStatus.ENABLE)
+        Map<String, TabDto.Result> tabMap = tabRepository.findAllByPageAndStatus(page, EnableStatus.ENABLE)
                 .stream()
                 .map(tab -> new TabDto.Result(
                         tab.getId(),
@@ -90,9 +91,9 @@ public class ResourceServiceImpl implements ResourceService {
                         tab.getTabGroup(),
                         tab.getSort()
                 ))
-                .collect(Collectors.toList());
+                .collect(Collectors.toMap(ResourceDto.Result::getCode, result -> result));
 
-        List<LabelDto.Result> labels = labelRepository.findAllByPageAndStatus(page, EnableStatus.ENABLE)
+        Map<String, LabelDto.Result> labelMap = labelRepository.findAllByPageAndStatus(page, EnableStatus.ENABLE)
                 .stream()
                 .map(label -> new LabelDto.Result(
                         label.getId(),
@@ -102,11 +103,11 @@ public class ResourceServiceImpl implements ResourceService {
                         label.getCode(),
                         label.getPage().getId()
                 ))
-                .collect(Collectors.toList());
+                .collect(Collectors.toMap(ResourceDto.Result::getCode, result -> result));
 
-        child.setButtons(buttons);
-        child.setTabs(tabs);
-        child.setLabels(labels);
+        child.setButtonMap(buttonMap);
+        child.setTabMap(tabMap);
+        child.setLabelMap(labelMap);
 
         return child;
     }

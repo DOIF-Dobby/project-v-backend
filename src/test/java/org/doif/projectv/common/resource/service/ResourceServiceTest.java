@@ -25,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 
 import java.util.List;
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -172,14 +173,14 @@ class ResourceServiceTest {
 
         // when
         PageDto.Child macbookChild = resourceService.searchPageChildResource("/api/pages/macbook");
-        List<ButtonDto.Result> macbookChildButtons = macbookChild.getButtons();
+        Map<String, ButtonDto.Result> macbookChildButtonMap = macbookChild.getButtonMap();
 
         PageDto.Child samsungChild = resourceService.searchPageChildResource("/api/pages/samsung");
-        List<ButtonDto.Result> samsungChildButtons = samsungChild.getButtons();
+        Map<String, ButtonDto.Result> samsungChildButtonMap = samsungChild.getButtonMap();
 
         // then
-        assertThat(macbookChildButtons.size()).isEqualTo(3);
-        assertThat(samsungChildButtons.size()).isEqualTo(0);
+        assertThat(macbookChildButtonMap.get("BUTTON_1").getName()).isEqualTo("버튼1");
+        assertThat(samsungChildButtonMap).isEmpty();
 
     }
 }
