@@ -30,6 +30,7 @@ public class MenuCategoryServiceImpl implements MenuCategoryService {
                         menuCategory.getName(),
                         menuCategory.getDescription(),
                         menuCategory.getStatus(),
+                        menuCategory.getCode(),
                         menuCategory.getParent() == null ? null : menuCategory.getParent().getId(),
                         menuCategory.getSort(),
                         menuCategory.getIcon()
@@ -41,7 +42,7 @@ public class MenuCategoryServiceImpl implements MenuCategoryService {
     public CommonResponse insert(MenuCategoryDto.Insert dto) {
         Optional<MenuCategory> optionalParent = menuCategoryRepository.findById(dto.getParentId());
         MenuCategory parent = optionalParent.orElseThrow(() -> new IllegalArgumentException("부모 메뉴카테고리를 찾을 수 없음"));
-        MenuCategory menuCategory = new MenuCategory(dto.getName(), dto.getDescription(), dto.getStatus(), dto.getSort(), dto.getIcon(), parent);
+        MenuCategory menuCategory = new MenuCategory(dto.getName(), dto.getDescription(), dto.getStatus(), dto.getCode(), dto.getSort(), dto.getIcon(), parent);
         menuCategoryRepository.save(menuCategory);
 
         return ResponseUtil.ok();

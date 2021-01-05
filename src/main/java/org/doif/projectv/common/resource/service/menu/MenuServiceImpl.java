@@ -33,18 +33,20 @@ public class MenuServiceImpl implements MenuService {
 
         List<MenuDto.Result> categoryResults = menuCategories.stream()
                 .map(menuCategory -> {
-                    MenuDto.Result result = new MenuDto.Result();
-                    result.setResourceId(menuCategory.getId());
-                    result.setName(menuCategory.getName());
-                    result.setDescription(menuCategory.getDescription());
-                    result.setSort(menuCategory.getSort());
-                    result.setIcon(menuCategory.getIcon());
-                    result.setStatus(menuCategory.getStatus());
-                    result.setStatusName(menuCategory.getStatus().getMessage());
+                    MenuDto.Result result = new MenuDto.Result(
+                            menuCategory.getId(),
+                            menuCategory.getName(),
+                            menuCategory.getDescription(),
+                            menuCategory.getStatus(),
+                            menuCategory.getCode(),
+                            menuCategory.getParent() != null ? menuCategory.getParent().getId() : null,
+                            menuCategory.getSort(),
+                            MenuType.CATEGORY,
+                            menuCategory.getIcon(),
+                            null
+                    );
 
                     result.setDepthAndPath(menuCategory);
-                    result.setType(MenuType.CATEGORY);
-                    result.setTypeName(MenuType.CATEGORY.getMessage());
                     result.setPaddingName(menuCategory.getName());
 
                     return result;
@@ -53,19 +55,20 @@ public class MenuServiceImpl implements MenuService {
 
         List<MenuDto.Result> menuResults = menus.stream()
                 .map(menu -> {
-                    MenuDto.Result result = new MenuDto.Result();
-                    result.setResourceId(menu.getId());
-                    result.setName(menu.getName());
-                    result.setDescription(menu.getDescription());
-                    result.setSort(menu.getSort());
-                    result.setIcon(menu.getIcon());
-                    result.setStatus(menu.getStatus());
-                    result.setStatusName(menu.getStatus().getMessage());
-                    result.setUrl(menu.getUrl());
+                    MenuDto.Result result = new MenuDto.Result(
+                            menu.getId(),
+                            menu.getName(),
+                            menu.getDescription(),
+                            menu.getStatus(),
+                            menu.getCode(),
+                            menu.getMenuCategory().getId(),
+                            menu.getSort(),
+                            MenuType.MENU,
+                            menu.getIcon(),
+                            menu.getUrl()
+                    );
 
                     result.setDepthAndPath(menu);
-                    result.setType(MenuType.MENU);
-                    result.setTypeName(MenuType.MENU.getMessage());
                     result.setPaddingName(menu.getName());
 
                     return result;
@@ -83,7 +86,7 @@ public class MenuServiceImpl implements MenuService {
     public CommonResponse insert(MenuDto.Insert dto) {
         Optional<MenuCategory> optionalMenuCategory = menuCategoryRepository.findById(dto.getMenuCategoryId());
         MenuCategory menuCategory = optionalMenuCategory.orElseThrow(() -> new IllegalArgumentException("카테고리를 찾을 수 없음"));
-        Menu menu = new Menu(dto.getName(), dto.getDescription(), dto.getStatus(), menuCategory, dto.getSort(), dto.getUrl(), dto.getIcon());
+        Menu menu = new Menu(dto.getName(), dto.getDescription(), dto.getStatus(), dto.getCode(), menuCategory, dto.getSort(), dto.getUrl(), dto.getIcon());
         menuRepository.save(menu);
 
         return ResponseUtil.ok();

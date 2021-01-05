@@ -78,7 +78,7 @@ class MessageControllerTest extends ApiDocumentTest {
                                 fieldWithPath("description").type(STRING).description("메시지 설명"),
                                 fieldWithPath("status").type(STRING).description(generateLinkCode(CodeEnum.ENABLE_STATUS)),
                                 fieldWithPath("statusName").type(STRING).description(generateText(CodeEnum.ENABLE_STATUS)),
-                                fieldWithPath("message").type(STRING).description("메시지 코드"),
+                                fieldWithPath("code").type(STRING).description("메시지 코드"),
                                 fieldWithPath("type").type(STRING).description(generateLinkCode(CodeEnum.MESSAGE_TYPE)),
                                 fieldWithPath("typeName").type(STRING).description(generateText(CodeEnum.MESSAGE_TYPE))
                         )
@@ -92,7 +92,7 @@ class MessageControllerTest extends ApiDocumentTest {
         insert.setName("하위 이슈가 존재하여 삭제할 수 없습니다.");
         insert.setDescription("하위 이슈가 존재하여 삭제할 수 없습니다.");
         insert.setStatus(EnableStatus.ENABLE);
-        insert.setMessage("MSG_WARN_002");
+        insert.setCode("MSG_WARN_002");
         insert.setType(MessageType.WARN);
 
         given(messageService.insert(any(MessageDto.Insert.class)))
@@ -116,7 +116,7 @@ class MessageControllerTest extends ApiDocumentTest {
                                 fieldWithPath("name").type(STRING).description("메시지명"),
                                 fieldWithPath("description").type(STRING).optional().description("메시지 설명"),
                                 fieldWithPath("status").type(STRING).description(generateLinkCode(CodeEnum.ENABLE_STATUS)),
-                                fieldWithPath("message").type(STRING).description("메시지 코드"),
+                                fieldWithPath("code").type(STRING).description("메시지 코드"),
                                 fieldWithPath("type").type(STRING).description(generateLinkCode(CodeEnum.MESSAGE_TYPE))
                         )
                 ));

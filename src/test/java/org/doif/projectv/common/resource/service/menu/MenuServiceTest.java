@@ -40,31 +40,31 @@ class MenuServiceTest {
 
     @BeforeEach
     public void init() {
-        MenuCategory menuCategory1 = new MenuCategory("메뉴-카테고리 1", "메뉴-카테고리 1", EnableStatus.ENABLE, 1, "", null);
-        MenuCategory menuCategory1_1 = new MenuCategory("메뉴-카테고리 1-1", "메뉴-카테고리 1-1", EnableStatus.ENABLE, 1, "", menuCategory1);
-        MenuCategory menuCategory1_1_1 = new MenuCategory("메뉴-카테고리 1-1-1", "메뉴-카테고리 1-1-1", EnableStatus.ENABLE, 1, "", menuCategory1_1);
-        MenuCategory menuCategory1_1_2 = new MenuCategory("메뉴-카테고리 1-1-2", "메뉴-카테고리 1-1-2", EnableStatus.ENABLE, 2, "", menuCategory1_1);
+        MenuCategory menuCategory1 = new MenuCategory("메뉴-카테고리 1", "메뉴-카테고리 1", EnableStatus.ENABLE, "MENU_CATEGORY_1", 1, "", null);
+        MenuCategory menuCategory1_1 = new MenuCategory("메뉴-카테고리 1-1", "메뉴-카테고리 1-1", EnableStatus.ENABLE, "MENU_CATEGORY_1_1", 1, "", menuCategory1);
+        MenuCategory menuCategory1_1_1 = new MenuCategory("메뉴-카테고리 1-1-1", "메뉴-카테고리 1-1-1", EnableStatus.ENABLE, "MENU_CATEGORY_1_1_1", 1, "", menuCategory1_1);
+        MenuCategory menuCategory1_1_2 = new MenuCategory("메뉴-카테고리 1-1-2", "메뉴-카테고리 1-1-2", EnableStatus.ENABLE, "MENU_CATEGORY_1_1_2", 2, "", menuCategory1_1);
 
-        MenuCategory menuCategory2 = new MenuCategory("메뉴-카테고리 2", "메뉴-카테고리 2", EnableStatus.ENABLE, 2, "", null);
-        MenuCategory menuCategory2_1 = new MenuCategory("메뉴-카테고리 2-1", "메뉴-카테고리 2-1", EnableStatus.ENABLE, 1, "", menuCategory2);
-        MenuCategory menuCategory2_1_1 = new MenuCategory("메뉴-카테고리 2-1-1", "메뉴-카테고리 2-1-1", EnableStatus.ENABLE, 1, "", menuCategory2_1);
-        MenuCategory menuCategory2_1_2 = new MenuCategory("메뉴-카테고리 2-1-2", "메뉴-카테고리 2-1-2", EnableStatus.ENABLE, 2, "", menuCategory2_1);
+        MenuCategory menuCategory2 = new MenuCategory("메뉴-카테고리 2", "메뉴-카테고리 2", EnableStatus.ENABLE, "MENU_CATEGORY_2", 2, "", null);
+        MenuCategory menuCategory2_1 = new MenuCategory("메뉴-카테고리 2-1", "메뉴-카테고리 2-1", EnableStatus.ENABLE, "MENU_CATEGORY_2_1", 1, "", menuCategory2);
+        MenuCategory menuCategory2_1_1 = new MenuCategory("메뉴-카테고리 2-1-1", "메뉴-카테고리 2-1-1", EnableStatus.ENABLE, "MENU_CATEGORY_2_1_1", 1, "", menuCategory2_1);
+        MenuCategory menuCategory2_1_2 = new MenuCategory("메뉴-카테고리 2-1-2", "메뉴-카테고리 2-1-2", EnableStatus.ENABLE, "MENU_CATEGORY_2_1_2",2, "", menuCategory2_1);
 
-        MenuCategory menuCategory2_2 = new MenuCategory("메뉴-카테고리 2-2", "메뉴-카테고리 2-2", EnableStatus.ENABLE, 2, "", menuCategory2);
-        MenuCategory menuCategory2_2_1 = new MenuCategory("메뉴-카테고리 2-2-1", "메뉴-카테고리 2-2-1", EnableStatus.ENABLE, 1, "", menuCategory2_2);
-        MenuCategory menuCategory2_2_2 = new MenuCategory("메뉴-카테고리 2-2-2", "메뉴-카테고리 2-2-2", EnableStatus.ENABLE, 2, "", menuCategory2_2);
+        MenuCategory menuCategory2_2 = new MenuCategory("메뉴-카테고리 2-2", "메뉴-카테고리 2-2", EnableStatus.ENABLE, "MENU_CATEGORY_2_2", 2, "", menuCategory2);
+        MenuCategory menuCategory2_2_1 = new MenuCategory("메뉴-카테고리 2-2-1", "메뉴-카테고리 2-2-1", EnableStatus.ENABLE, "MENU_CATEGORY_2_2_1", 1, "", menuCategory2_2);
+        MenuCategory menuCategory2_2_2 = new MenuCategory("메뉴-카테고리 2-2-2", "메뉴-카테고리 2-2-2", EnableStatus.ENABLE, "MENU_CATEGORY_2_2_2", 2, "", menuCategory2_2);
 
-        MenuCategory menuCategory3 = new MenuCategory("메뉴-카테고리 3", "메뉴-카테고리 3", EnableStatus.ENABLE, 3, "", null);
-        MenuCategory menuCategory3_1 = new MenuCategory("메뉴-카테고리 3-1", "메뉴-카테고리 3-1", EnableStatus.ENABLE, 1, "", menuCategory3);
-        MenuCategory menuCategory3_1_1 = new MenuCategory("메뉴-카테고리 3-1-1", "메뉴-카테고리 3-1-1", EnableStatus.ENABLE, 1, "", menuCategory3_1);
+        MenuCategory menuCategory3 = new MenuCategory("메뉴-카테고리 3", "메뉴-카테고리 3", EnableStatus.ENABLE, "MENU_CATEGORY_3", 3, "", null);
+        MenuCategory menuCategory3_1 = new MenuCategory("메뉴-카테고리 3-1", "메뉴-카테고리 3-1", EnableStatus.ENABLE, "MENU_CATEGORY_3_1", 1, "", menuCategory3);
+        MenuCategory menuCategory3_1_1 = new MenuCategory("메뉴-카테고리 3-1-1", "메뉴-카테고리 3-1-1", EnableStatus.ENABLE, "MENU_CATEGORY_3_3_1", 1, "", menuCategory3_1);
 
-        Menu menu1 = new Menu("메뉴 1", "메뉴 1", EnableStatus.ENABLE, menuCategory1_1_1, 1, "", "");
-        Menu menu2 = new Menu("메뉴 2", "메뉴 2", EnableStatus.ENABLE, menuCategory1_1_2, 1, "", "");
-        Menu menu3 = new Menu("메뉴 3", "메뉴 3", EnableStatus.ENABLE, menuCategory2_1_1, 1, "", "");
-        Menu menu4 = new Menu("메뉴 4", "메뉴 4", EnableStatus.ENABLE, menuCategory2_1_1, 2, "", "");
-        Menu menu5 = new Menu("메뉴 5", "메뉴 5", EnableStatus.ENABLE, menuCategory2_1_2, 1, "", "");
-        Menu menu6 = new Menu("메뉴 6", "메뉴 6", EnableStatus.ENABLE, menuCategory2_2_1, 1, "", "");
-        Menu menu7 = new Menu("메뉴 7", "메뉴 7", EnableStatus.ENABLE, menuCategory2_2_2, 1, "", "");
+        Menu menu1 = new Menu("메뉴 1", "메뉴 1", EnableStatus.ENABLE, "MENU_1", menuCategory1_1_1, 1, "", "");
+        Menu menu2 = new Menu("메뉴 2", "메뉴 2", EnableStatus.ENABLE, "MENU_2", menuCategory1_1_2, 1, "", "");
+        Menu menu3 = new Menu("메뉴 3", "메뉴 3", EnableStatus.ENABLE, "MENU_3", menuCategory2_1_1, 1, "", "");
+        Menu menu4 = new Menu("메뉴 4", "메뉴 4", EnableStatus.ENABLE, "MENU_4", menuCategory2_1_1, 2, "", "");
+        Menu menu5 = new Menu("메뉴 5", "메뉴 5", EnableStatus.ENABLE, "MENU_5", menuCategory2_1_2, 1, "", "");
+        Menu menu6 = new Menu("메뉴 6", "메뉴 6", EnableStatus.ENABLE, "MENU_6", menuCategory2_2_1, 1, "", "");
+        Menu menu7 = new Menu("메뉴 7", "메뉴 7", EnableStatus.ENABLE, "MENU_7", menuCategory2_2_2, 1, "", "");
 
         em.persist(menuCategory3);
         em.persist(menuCategory3_1);
@@ -117,6 +117,7 @@ class MenuServiceTest {
         insert.setUrl("/menu/1");
         insert.setName("메뉴메뉴1");
         insert.setStatus(EnableStatus.ENABLE);
+        insert.setCode("MENU_10");
 
         // when
         CommonResponse response = menuService.insert(insert);

@@ -12,18 +12,10 @@ public class ButtonDto {
     @Setter
     @ToString
     public static class Result extends ResourceAuthorityDto.Result {
-        private Long pageId;
         private String icon;
 
-        public Result(Long resourceId, String name, String description, EnableStatus status, String url, HttpMethod httpMethod, Long pageId, String icon) {
-            this.resourceId = resourceId;
-            this.name = name;
-            this.description = description;
-            this.status = status;
-            this.statusName = status.getMessage();
-            this.url = url;
-            this.httpMethod = httpMethod;
-            this.pageId = pageId;
+        public Result(Long resourceId, String name, String description, EnableStatus status, String code, String url, HttpMethod httpMethod, Long pageId, String icon) {
+            super(resourceId, name, description, status, code, url, httpMethod, pageId);
             this.icon = icon;
         }
     }
@@ -32,7 +24,6 @@ public class ButtonDto {
     @Setter
     @Builder
     @AllArgsConstructor
-    @NoArgsConstructor
     public static class Response {
         List<Result> content;
     }
@@ -47,7 +38,6 @@ public class ButtonDto {
     @Setter
     @ToString
     public static class Insert extends ResourceAuthorityDto.Insert {
-        private Long pageId;
         private String icon;
     }
 

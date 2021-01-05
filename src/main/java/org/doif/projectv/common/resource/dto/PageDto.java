@@ -2,25 +2,21 @@ package org.doif.projectv.common.resource.dto;
 
 import lombok.*;
 import org.doif.projectv.common.status.EnableStatus;
-import org.springframework.http.HttpMethod;
 
 import java.util.List;
+import java.util.Map;
 
 public class PageDto {
 
     @Getter
     @Setter
     @ToString
-    public static class Result extends ResourceAuthorityDto.Result {
+    public static class Result extends ResourceDto.Result {
+        private String url;
 
-        public Result(Long resourceId, String name, String description, EnableStatus status, String url, HttpMethod httpMethod) {
-            this.resourceId = resourceId;
-            this.name = name;
-            this.description = description;
-            this.status = status;
-            this.statusName = status.getMessage();
+        public Result(Long resourceId, String name, String description, EnableStatus status, String code, String url) {
+            super(resourceId, name, description, status, code);
             this.url = url;
-            this.httpMethod = httpMethod;
         }
     }
 
@@ -28,7 +24,6 @@ public class PageDto {
     @Setter
     @Builder
     @AllArgsConstructor
-    @NoArgsConstructor
     public static class Response {
         List<Result> content;
     }
@@ -36,14 +31,23 @@ public class PageDto {
     @Getter
     @Setter
     @ToString
-    public static class Insert extends ResourceAuthorityDto.Insert {
-
+    public static class Insert extends ResourceDto.Insert {
+        private String url;
     }
 
     @Getter
     @Setter
     @ToString
-    public static class Update extends ResourceAuthorityDto.Update {
+    public static class Update extends ResourceDto.Update {
+        private String url;
+    }
 
+    @Getter
+    @Setter
+    @ToString
+    public static class Child {
+        private Map<String, ButtonDto.Result> buttonMap;
+        private Map<String, TabDto.Result> tabMap;
+        private Map<String, LabelDto.Result> labelMap;
     }
 }

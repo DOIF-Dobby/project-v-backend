@@ -25,14 +25,22 @@ public class MenuDto {
         private String icon;
         private String url;
 
+        public Result(Long resourceId, String name, String description, EnableStatus status, String code, Long parentId, Integer sort, MenuType type, String icon, String url) {
+            super(resourceId, name, description, status, code);
+            this.parentId = parentId;
+            this.sort = sort;
+            this.type = type;
+            this.typeName = type.getMessage();
+            this.icon = icon;
+            this.url = url;
+        }
+
         public void setDepthAndPath(MenuCategory menuCategory) {
-            this.setParentId(menuCategory.getParent() != null ? menuCategory.getParent().getId() : null);
             this.depth = menuCategory.getDepth();
             this.path = menuCategory.getPath();
         }
 
         public void setDepthAndPath(Menu menu) {
-            this.setParentId(menu.getMenuCategory() != null ? menu.getMenuCategory().getId() : null);
             this.depth = menu.getDepth();
             this.path = menu.getPath();
         }

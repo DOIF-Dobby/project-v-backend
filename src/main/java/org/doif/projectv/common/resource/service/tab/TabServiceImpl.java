@@ -35,11 +35,12 @@ public class TabServiceImpl implements TabService {
                         tab.getName(),
                         tab.getDescription(),
                         tab.getStatus(),
+                        tab.getCode(),
                         tab.getUrl(),
                         tab.getHttpMethod(),
+                        tab.getPage().getId(),
                         tab.getTabGroup(),
-                        tab.getSort(),
-                        tab.getPage().getId()
+                        tab.getSort()
                 ))
                 .collect(Collectors.toList());
     }
@@ -49,7 +50,7 @@ public class TabServiceImpl implements TabService {
         Optional<Page> optionalPage = pageRepository.findById(dto.getPageId());
         Page page = optionalPage.orElseThrow(() -> new IllegalArgumentException("페이지를 찾을 수 없음"));
 
-        Tab tab = new Tab(dto.getName(), dto.getDescription(), dto.getStatus(), dto.getUrl(), dto.getHttpMethod(), page, dto.getTabGroup(), dto.getSort());
+        Tab tab = new Tab(dto.getName(), dto.getDescription(), dto.getStatus(), dto.getCode(), dto.getUrl(), dto.getHttpMethod(), page, dto.getTabGroup(), dto.getSort());
         tabRepository.save(tab);
 
         return ResponseUtil.ok();

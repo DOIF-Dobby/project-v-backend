@@ -20,6 +20,18 @@ endif::[]
 include::{snippets}/common/common-response/code-response-fields.adoc[]
 include::{snippets}/common/code-response/code-response-fields-responseCode.adoc[]
 
+===== 요청시 필요한 Request Header
+|===
+|Key|Value
+
+|Authorization
+|인증 토큰
+
+|pageId
+|해당 리소스 권한을 가진 Page Id
+
+|===
+
 == 비지니스
 ---
 
@@ -821,3 +833,20 @@ include::{snippets}/user/delete/http-request.adoc[]
 include::{snippets}/user/delete/path-parameters.adoc[]
 ===== 응답
 include::{snippets}/user/delete/http-response.adoc[]
+
+
+---
+[[resources-page-child]]
+=== 페이지 자식 리소스
+
+[[resources-page-child]]
+==== 페이지 자식 리소스 조회
+===== 요청
+include::{snippets}/page-child/select/http-request.adoc[]
+
+예시는 /api/pages/issue로 했는데 Page 리소스 등록 시 값으로 준 /api/pages/ 로 시작하는 url로 요청하면 된다.
+응답의 각 맵 하위의 key는 해당 리소스의 code 값이다.
+
+===== 응답
+include::{snippets}/page-child/select/http-response.adoc[]
+include::{snippets}/page-child/select/response-fields.adoc[]

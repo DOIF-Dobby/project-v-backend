@@ -45,6 +45,7 @@ class MenuCategoryControllerTest extends ApiDocumentTest {
                 "버전-이슈",
                 "버전-이슈 메뉴 카테고리",
                 EnableStatus.ENABLE,
+                "MENU_CATEGORY_1",
                 1L,
                 1,
                 "edit"
@@ -77,6 +78,7 @@ class MenuCategoryControllerTest extends ApiDocumentTest {
                                 fieldWithPath("description").type(STRING).description("메뉴-카테고리 설명"),
                                 fieldWithPath("status").type(STRING).description(generateLinkCode(CodeEnum.ENABLE_STATUS)),
                                 fieldWithPath("statusName").type(STRING).description(generateText(CodeEnum.ENABLE_STATUS)),
+                                fieldWithPath("code").type(STRING).description("메뉴-카테고리 코드"),
                                 fieldWithPath("parentId").type(NUMBER).description("부모 메뉴-카테고리 ID"),
                                 fieldWithPath("sort").type(NUMBER).description("정렬 순서"),
                                 fieldWithPath("icon").type(STRING).description("아이콘")
@@ -94,6 +96,7 @@ class MenuCategoryControllerTest extends ApiDocumentTest {
         insert.setStatus(EnableStatus.ENABLE);
         insert.setSort(2);
         insert.setIcon("heart");
+        insert.setCode("MENU_CATEGORY_2");
 
         given(menuCategoryService.insert(any(MenuCategoryDto.Insert.class)))
                 .willReturn(ResponseUtil.ok());
@@ -116,6 +119,7 @@ class MenuCategoryControllerTest extends ApiDocumentTest {
                                 fieldWithPath("name").type(STRING).description("메뉴-카테고리명"),
                                 fieldWithPath("description").optional().type(STRING).description("메뉴-카테고리 설명"),
                                 fieldWithPath("status").type(STRING).description(generateLinkCode(CodeEnum.ENABLE_STATUS)),
+                                fieldWithPath("code").type(STRING).description("메뉴-카테고리 코드"),
                                 fieldWithPath("parentId").type(NUMBER).description("부모 메뉴-카테고리 ID"),
                                 fieldWithPath("sort").type(NUMBER).description("정렬 순서"),
                                 fieldWithPath("icon").type(STRING).description("아이콘")

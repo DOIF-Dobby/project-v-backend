@@ -52,6 +52,7 @@ class ButtonControllerTest extends ApiDocumentTest {
                 "버전 수정",
                 "버전 수정 버튼",
                 EnableStatus.ENABLE,
+                "BUTTON_1",
                 "/api/version/{id}",
                 HttpMethod.PUT,
                 1L,
@@ -89,6 +90,7 @@ class ButtonControllerTest extends ApiDocumentTest {
                                 fieldWithPath("description").type(STRING).description("버튼 설명"),
                                 fieldWithPath("status").type(STRING).description(generateLinkCode(CodeEnum.ENABLE_STATUS)),
                                 fieldWithPath("statusName").type(STRING).description(generateText(CodeEnum.ENABLE_STATUS)),
+                                fieldWithPath("code").type(STRING).description("버튼 코드"),
                                 fieldWithPath("url").type(STRING).description("버튼 URL"),
                                 fieldWithPath("httpMethod").type(STRING).description("http 메서드"),
                                 fieldWithPath("pageId").type(NUMBER).description("페이지 ID"),
@@ -108,6 +110,7 @@ class ButtonControllerTest extends ApiDocumentTest {
         insert.setIcon("delete");
         insert.setUrl("/api/version/{id}");
         insert.setHttpMethod(HttpMethod.DELETE);
+        insert.setCode("BUTTON_1");
 
         given(buttonService.insert(any(ButtonDto.Insert.class)))
                 .willReturn(ResponseUtil.ok());
@@ -130,6 +133,7 @@ class ButtonControllerTest extends ApiDocumentTest {
                                 fieldWithPath("name").type(STRING).description("버튼명"),
                                 fieldWithPath("description").type(STRING).optional().description("버튼 설명"),
                                 fieldWithPath("status").type(STRING).description(generateLinkCode(CodeEnum.ENABLE_STATUS)),
+                                fieldWithPath("code").type(STRING).description("버튼 코드"),
                                 fieldWithPath("url").type(STRING).description("버튼 URL"),
                                 fieldWithPath("httpMethod").type(STRING).description("http 메서드"),
                                 fieldWithPath("pageId").type(NUMBER).description("페이지 ID"),

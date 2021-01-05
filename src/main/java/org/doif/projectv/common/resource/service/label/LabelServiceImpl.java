@@ -35,8 +35,8 @@ public class LabelServiceImpl implements LabelService {
                         label.getName(),
                         label.getDescription(),
                         label.getStatus(),
-                        label.getPage().getId(),
-                        label.getLabel()
+                        label.getCode(),
+                        label.getPage().getId()
                 ))
                 .collect(Collectors.toList());
     }
@@ -46,7 +46,7 @@ public class LabelServiceImpl implements LabelService {
         Optional<Page> optionalPage = pageRepository.findById(dto.getPageId());
         Page page = optionalPage.orElseThrow(() -> new IllegalArgumentException("페이지를 찾을 수 없음"));
 
-        Label label = new Label(dto.getName(), dto.getDescription(), dto.getStatus(), page, dto.getLabel());
+        Label label = new Label(dto.getName(), dto.getDescription(), dto.getStatus(), dto.getCode(), page);
         labelRepository.save(label);
 
         return ResponseUtil.ok();

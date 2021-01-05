@@ -15,12 +15,8 @@ public class MenuCategoryDto {
         private Integer sort;
         private String icon;
 
-        public Result(Long resourceId, String name, String description, EnableStatus status, Long parentId, Integer sort, String icon) {
-            this.resourceId = resourceId;
-            this.name = name;
-            this.description = description;
-            this.status = status;
-            this.statusName = status.getMessage();
+        public Result(Long resourceId, String name, String description, EnableStatus status, String code, Long parentId, Integer sort, String icon) {
+            super(resourceId, name, description, status, code);
             this.parentId = parentId;
             this.sort = sort;
             this.icon = icon;
@@ -31,7 +27,6 @@ public class MenuCategoryDto {
     @Setter
     @Builder
     @AllArgsConstructor
-    @NoArgsConstructor
     public static class Response {
         List<Result> content;
     }

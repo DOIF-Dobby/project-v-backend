@@ -21,10 +21,17 @@ public abstract class ResourceAuthority extends Resource {
     @Column(name = "http_method", length = 10, nullable = false)
     protected HttpMethod httpMethod;
 
-    protected ResourceAuthority(String name, String description, EnableStatus status, String url, HttpMethod httpMethod) {
-        super(name, description, status);
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "page_id", nullable = false)
+    protected Page page;
+
+    protected ResourceAuthority(String name, String description, EnableStatus status, String code, String url, HttpMethod httpMethod, Page page) {
+        super(name, description, status, code);
+        this.page = page;
         this.url = url;
         this.httpMethod = httpMethod;
+
+        page.getResourceAuthorities().add(this);
 
         urlCheck();
     }
