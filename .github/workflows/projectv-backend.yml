@@ -4,12 +4,6 @@ name: projectv-backend
 
 on:
   workflow_dispatch:
-
-# env:
-#   ENCRYPT_KEY: ${{ secrets.ENCRYPT_KEY }}
-#   ENCRYPT_ALGORITHM: ${{ secrets.ENCRYPT_ALGORITHM }}
-#   ENCRYPT_SALT: ${{ secrets.ENCRYPT_SALT }}
-#   JWT_KEY: ${{ secrets.JWT_KEY }}
   
 jobs:
   build:
@@ -29,15 +23,15 @@ jobs:
         shell: bash
         
       - name: Create encrypt properties file
+        env:
+          ENCRYPT_KEY: ${{ secrets.ENCRYPT_KEY }}
+          ENCRYPT_ALGORITHM: ${{ secrets.ENCRYPT_ALGORITHM }}
+          ENCRYPT_SALT: ${{ secrets.ENCRYPT_SALT }}
+          JWT_KEY: ${{ secrets.JWT_KEY }}
         shell: bash
-        run: echo -e "encrypt.key=testkey\nencrypt.algorithm=PBEWithMD5AndDES\nencrypt.salt=ABCD\njwt.key=testjwtkey" > ./src/main/resources/encrypt.properties
+        run: echo -e "encrypt.key=$ENCRYPT_KEY\nencrypt.algorithm=$ENCRYPT_ALGORITHM\nencrypt.salt=$ENCRYPT_SALT\njwt.key=$JWT_KEY" > ./src/main/resources/encrypt.properties
         
                 
       - name: Build with Gradle
-#         env:
-#           encypt.key: testkey
-#           encrypt.algorithm: PBEWithMD5AndDES
-#           encrypt.salt: ABCD
-#           jwt.key: testjwtkey
         run: ./gradlew clean build -Dfile.encoding=UTF-8
         shell: bash
