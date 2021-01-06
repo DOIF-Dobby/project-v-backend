@@ -35,9 +35,9 @@ jobs:
                 
       - name: Build with Gradle
         env:
-          encypt.key: ${{ secrets.ENCRYPT_KEY }}
-          encrypt.algorithm: ${{ secrets.ENCRYPT_ALGORITHM }}
-          encrypt.salt: ${{ secrets.ENCRYPT_SALT }}
-          jwt.key: ${{ secrets.JWT_KEY }}
+          encypt.key: testkey
+          encrypt.algorithm: PBEWithMD5AndDES
+          encrypt.salt: ABCD
+          jwt.key: testjwtkey
         run: ./gradlew clean build -Dfile.encoding=UTF-8
         shell: bash
