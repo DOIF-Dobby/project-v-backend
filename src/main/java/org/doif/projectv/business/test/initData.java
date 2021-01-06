@@ -45,7 +45,7 @@ import java.time.LocalDate;
 
 import static org.springframework.http.HttpMethod.*;
 
-@Profile("none")
+@Profile("local")
 @Component
 @RequiredArgsConstructor
 public class initData {
@@ -58,7 +58,6 @@ public class initData {
     }
 
     @Component
-    @PropertySource("classpath:encrypt.properties")
     static class InitDataService {
         @PersistenceContext
         private EntityManager em;
@@ -77,12 +76,12 @@ public class initData {
 //        @Value("${git.password}")
 //        private String gitPassword;
 
-        private String svnRepo ;
-        private String svnId;
-        private String svnPassword;
-        private String gitRepo;
-        private String gitId;
-        private String gitPassword;
+        private String svnRepo = "";
+        private String svnId = "";
+        private String svnPassword = "";
+        private String gitRepo = "";
+        private String gitId = "";
+        private String gitPassword = "";
 
         @Autowired
         PasswordEncoder passwordEncoder;

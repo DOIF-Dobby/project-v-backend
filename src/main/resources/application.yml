@@ -2,6 +2,14 @@ spring:
   profiles:
     active: local
 
+encrypt:
+  key: testKey
+  algorithm: PBEWithMD5AndDES
+  salt: 1234
+
+jwt:
+  key: sibal
+
 ###########################################################################
 ############################### Local 환경 #################################
 ###########################################################################
@@ -9,12 +17,6 @@ spring:
 spring:
   profiles: local
 
-  #  datasource:
-#    hikari:
-#      jdbc-url: jdbc:mariadb://my-mariadb.mariadb.database.azure.com:3306/project_v?useSSL=true&characterEncoding=UTF-8&serverTimezone=UTC
-#      driver-class-name: org.mariadb.jdbc.Driver
-#      username: ENC(fHF03FbnN1R4+d8WE/zymLu4lEcUImRZ90pHZc1HS/U=)
-#      password: ENC(2SYD7hl0pZ9zdWbviKMpOBbhShHIpo8J)
   datasource:
     url: jdbc:h2:tcp://localhost/~/dev/h2/database/projectv
     driver-class-name: org.h2.Driver
