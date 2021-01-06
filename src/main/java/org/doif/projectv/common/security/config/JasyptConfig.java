@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
 @Configuration
-@PropertySource("classpath:encrypt.properties")
 public class JasyptConfig {
 
     @Value("${encrypt.key}")

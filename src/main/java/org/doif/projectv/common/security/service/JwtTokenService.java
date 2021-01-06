@@ -3,21 +3,16 @@ package org.doif.projectv.common.security.service;
 import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.doif.projectv.common.role.entity.Role;
 import org.doif.projectv.common.user.entity.User;
-import org.doif.projectv.common.user.entity.UserRole;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
 import java.security.Key;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * <pre>
@@ -28,7 +23,6 @@ import java.util.stream.Collectors;
  * @version : 1.0.0
 **/
 @RequiredArgsConstructor
-@PropertySource("classpath:encrypt.properties")
 @Slf4j
 public class JwtTokenService {
 

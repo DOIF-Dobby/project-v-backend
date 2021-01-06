@@ -2,6 +2,14 @@ spring:
   profiles:
     active: test
 
+encrypt:
+  key: testKey
+  algorithm: PBEWithMD5AndDES
+  salt: 1234
+
+jwt:
+  key: jwtTestKey
+
 ################
 ### TEST 환경 #
 ################

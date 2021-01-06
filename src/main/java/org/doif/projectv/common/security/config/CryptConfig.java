@@ -10,7 +10,6 @@ import org.springframework.security.crypto.encrypt.BytesEncryptor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
-@PropertySource("classpath:encrypt.properties")
 public class CryptConfig {
 
     @Value("${encrypt.key}")
