@@ -30,7 +30,7 @@ jobs:
         
       - name: Create encrypt properties file
         shell: bash
-        run: echo -e "encypt.key=testkey\nencrypt.algorithm=PBEWithMD5AndDES\nencrypt.salt=ABCD\njwt.key=testjwtkey" > ./src/main/resources/encrypt.properties
+        run: echo -e "encrypt.key=testkey\nencrypt.algorithm=PBEWithMD5AndDES\nencrypt.salt=ABCD\njwt.key=testjwtkey" > ./src/main/resources/encrypt.properties
         
                 
       - name: Build with Gradle
