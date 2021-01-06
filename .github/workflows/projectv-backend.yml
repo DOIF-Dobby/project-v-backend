@@ -23,14 +23,15 @@ jobs:
         shell: bash
         
       - name: Create encrypt properties file
-        run: echo -e "encypt.key=$ENCRYPT_KEY\nencrypt.algorithm=$ENCRYPT_ALGORITHM\nencrypt.salt=$ENCRYPT_SALT\njwt.key=$JWT_KEY"
         shell: bash
         env:
           ENCRYPT_KEY: ${{ secrets.ENCRYPT_KEY }}
           ENCRYPT_ALGORITHM: ${{ secrets.ENCRYPT_ALGORITHM }}
           ENCRYPT_SALT: ${{ secrets.ENCRYPT_SALT }}
           JWT_KEY: ${{ secrets.JWT_KEY }}
+        run: echo "$ENCRYPT_KEY"
         
+                
       - name: Build with Gradle
         run: ./gradlew clean build -Dfile.encoding=UTF-8
         shell: bash
