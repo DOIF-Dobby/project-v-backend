@@ -28,16 +28,16 @@ jobs:
         run: chmod +x gradlew
         shell: bash
         
-#       - name: Create encrypt properties file
-#         shell: bash
-#         run: echo -e "encypt.key=$ENCRYPT_KEY\nencrypt.algorithm=$ENCRYPT_ALGORITHM\nencrypt.salt=$ENCRYPT_SALT\njwt.key=$JWT_KEY" > ./src/main/resources/encrypt.properties
+      - name: Create encrypt properties file
+        shell: bash
+        run: echo -e "encypt.key=testkey\nencrypt.algorithm=PBEWithMD5AndDES\nencrypt.salt=ABCD\njwt.key=testjwtkey" > ./src/main/resources/encrypt.properties
         
                 
       - name: Build with Gradle
-        env:
-          encypt.key: testkey
-          encrypt.algorithm: PBEWithMD5AndDES
-          encrypt.salt: ABCD
-          jwt.key: testjwtkey
+#         env:
+#           encypt.key: testkey
+#           encrypt.algorithm: PBEWithMD5AndDES
+#           encrypt.salt: ABCD
+#           jwt.key: testjwtkey
         run: ./gradlew clean build -Dfile.encoding=UTF-8
         shell: bash
