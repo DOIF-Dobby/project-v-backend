@@ -45,7 +45,7 @@ import java.time.LocalDate;
 
 import static org.springframework.http.HttpMethod.*;
 
-@Profile("local")
+@Profile("none")
 @Component
 @RequiredArgsConstructor
 public class initData {
@@ -63,20 +63,26 @@ public class initData {
         @PersistenceContext
         private EntityManager em;
 
-        @Value("${svn.repo}")
-        private String svnRepo;
-        @Value("${svn.id}")
+//        @Value("${svn.repo}")
+//        private String svnRepo ;
+//        @Value("${svn.id}")
+//        private String svnId;
+//        @Value("${svn.password}")
+//        private String svnPassword;
+//
+//        @Value("${git.repo}")
+//        private String gitRepo;
+//        @Value("${git.id}")
+//        private String gitId;
+//        @Value("${git.password}")
+//        private String gitPassword;
+
+        private String svnRepo ;
         private String svnId;
-        @Value("${svn.password}")
         private String svnPassword;
-
-        @Value("${git.repo}")
         private String gitRepo;
-        @Value("${git.id}")
         private String gitId;
-        @Value("${git.password}")
         private String gitPassword;
-
 
         @Autowired
         PasswordEncoder passwordEncoder;

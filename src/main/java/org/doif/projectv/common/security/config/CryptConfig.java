@@ -16,7 +16,7 @@ public class CryptConfig {
     @Value("${encrypt.key}")
     private String key;
 
-    @Value("${encrpyt.salt}")
+    @Value("${encrypt.salt}")
     private String salt;
 
     /**
