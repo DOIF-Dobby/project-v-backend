@@ -10,6 +10,7 @@ env:
   ENCRYPT_ALGORITHM: ${{ secrets.ENCRYPT_ALGORITHM }}
   ENCRYPT_SALT: ${{ secrets.ENCRYPT_SALT }}
   JWT_KEY: ${{ secrets.JWT_KEY }}
+  NOONMOOL: gmdjdgmdjd
   
 jobs:
   build:
@@ -30,7 +31,7 @@ jobs:
         
       - name: Create encrypt properties file
         shell: bash
-        run: echo "$ENCRYPT_KEY"
+        run: echo "$ENCRYPT_KEY $NOONMOOL"
         
                 
 #      - name: Build with Gradle
