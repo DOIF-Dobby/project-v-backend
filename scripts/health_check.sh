@@ -14,7 +14,7 @@ fi
 
 echo "> Start health check of WAS at 'http://127.0.0.1:${TARGET_PORT}' ..."
 
-for RETRY_COUNT in `seq 1 100`;
+for (( RETRY_COUNT=1; RETRY_COUNT<=100; RETRY_COUNT++ ));
 do
     echo "> #${RETRY_COUNT} trying..."
     RESPONSE_CODE=$(curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:${TARGET_PORT}/health)
@@ -26,6 +26,6 @@ do
       echo "> Health check failed"
       exit 1
     fi
-    sleep 5
+    sleep 10
 done
         
