@@ -15,10 +15,12 @@ fi
 
 TARGET_PID=$(lsof -Fp -i TCP:${TARGET_PORT} | grep -Po 'p[0-9]+' | grep -Po '[0-9]+')
 
-if [ ! -z "${TARGET_PID}" ]; then
+if [ -n "${TARGET_PID}" ]; then
   echo "> Kill WAS running at ${TARGET_PORT}"
   sudo kill "${TARGET_PID}"
 fi
+
+sleep 5
 
 nohup java -jar -Dspring.profiles.active=dev -Dserver.port=${TARGET_PORT} -Dspring.config.location=file:/home/ec2-user/config/projectv/application.yml /home/ec2-user/projectv/build/libs/*.jar > /home/ec2-user/nohup.out 2>&1 &
 
