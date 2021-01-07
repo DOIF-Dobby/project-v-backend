@@ -20,8 +20,6 @@ if [ ! -z "${TARGET_PID}" ]; then
   sudo kill "${TARGET_PID}"
 fi
 
-cp /home/ec2-user/config/projectv/application.yml /home/ec2-user/projectv/build/libs/application.yml
-
 nohup java -jar -Dspring.profiles.active=dev -Dserver.port=${TARGET_PORT} -Dspring.config.location=file:/home/ec2-user/config/projectv/application.yml /home/ec2-user/projectv/build/libs/*.jar > /home/ec2-user/nohup.out 2>&1 &
 
 
