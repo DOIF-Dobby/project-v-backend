@@ -13,4 +13,9 @@ public class IndexController {
     public ResponseEntity<String> index() {
         return ResponseEntity.ok("Project-V");
     }
+
+    @GetMapping("/health")
+    public ResponseEntity<String> health() {
+        return ResponseEntity.ok("ok");
+    }
 }
