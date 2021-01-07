@@ -11,7 +11,7 @@ public class IndexController {
 
     @GetMapping("/")
     public ResponseEntity<String> index() {
-        return ResponseEntity.ok("Project-V Fighting !");
+        return ResponseEntity.ok("Project-V Fighting !!");
     }
 
     @GetMapping("/health")
