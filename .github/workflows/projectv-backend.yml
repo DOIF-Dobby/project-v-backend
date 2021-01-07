@@ -4,6 +4,8 @@ name: projectv-backend
 
 on:
   workflow_dispatch:
+  push:
+    branches: [ main ]
 
 env:
   S3_BUCKET_NAME: projectv-deploy
