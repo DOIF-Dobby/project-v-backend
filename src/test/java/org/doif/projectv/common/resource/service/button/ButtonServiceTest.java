@@ -53,11 +53,9 @@ class ButtonServiceTest {
     public void Button_조회_서비스_테스트() throws Exception {
         // given
         Long pageId = pageRepository.findAll().get(0).getId();
-        ButtonDto.Search search = new ButtonDto.Search();
-        search.setPageId(pageId);
 
         // when
-        List<ButtonDto.Result> results = buttonService.selectByPage(search);
+        List<ButtonDto.Result> results = buttonService.selectByPage(pageId);
 
         // then
         assertThat(results.size()).isEqualTo(1);
@@ -68,8 +66,6 @@ class ButtonServiceTest {
     public void Button_추가_서비스_테스트() throws Exception {
         // given
         Long pageId = pageRepository.findAll().get(0).getId();
-        ButtonDto.Search search = new ButtonDto.Search();
-        search.setPageId(pageId);
 
         ButtonDto.Insert insert = new ButtonDto.Insert();
         insert.setPageId(pageId);
@@ -83,7 +79,7 @@ class ButtonServiceTest {
 
         // when
         CommonResponse response = buttonService.insert(insert);
-        List<ButtonDto.Result> results = buttonService.selectByPage(search);
+        List<ButtonDto.Result> results = buttonService.selectByPage(pageId);
 
         // then
         assertThat(response.getCode()).isEqualTo(ResponseCode.OK.getCode());
@@ -96,8 +92,6 @@ class ButtonServiceTest {
         // given
         Long buttonId = buttonRepository.findAll().get(0).getId();
         Long pageId = pageRepository.findAll().get(0).getId();
-        ButtonDto.Search search = new ButtonDto.Search();
-        search.setPageId(pageId);
 
         ButtonDto.Update update = new ButtonDto.Update();
         update.setName("이슈 조회");
@@ -109,7 +103,7 @@ class ButtonServiceTest {
 
         // when
         CommonResponse response = buttonService.update(buttonId, update);
-        List<ButtonDto.Result> results = buttonService.selectByPage(search);
+        List<ButtonDto.Result> results = buttonService.selectByPage(pageId);
 
         // then
         assertThat(response.getCode()).isEqualTo(ResponseCode.OK.getCode());
@@ -122,12 +116,10 @@ class ButtonServiceTest {
         // given
         Long buttonId = buttonRepository.findAll().get(0).getId();
         Long pageId = pageRepository.findAll().get(0).getId();
-        ButtonDto.Search search = new ButtonDto.Search();
-        search.setPageId(pageId);
 
         // when
         CommonResponse response = buttonService.delete(buttonId);
-        List<ButtonDto.Result> results = buttonService.selectByPage(search);
+        List<ButtonDto.Result> results = buttonService.selectByPage(pageId);
 
         // then
         assertThat(response.getCode()).isEqualTo(ResponseCode.OK.getCode());

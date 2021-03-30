@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/vcs-auth-info")
+@RequestMapping("/api/vcs-auth-infos")
 @RequiredArgsConstructor
 public class VcsAuthInfoController {
 
     private final VcsAuthInfoService vcsAuthInfoService;
 
     @GetMapping
-    public ResponseEntity<VcsAuthInfoDto.Response> searchByCondition(@RequestBody VcsAuthInfoDto.Search search) {
+    public ResponseEntity<VcsAuthInfoDto.Response> searchByCondition(VcsAuthInfoDto.Search search) {
         List<VcsAuthInfoDto.Result> result = vcsAuthInfoService.searchByCondition(search);
         VcsAuthInfoDto.Response response = new VcsAuthInfoDto.Response(result);
         return ResponseEntity.ok(response);

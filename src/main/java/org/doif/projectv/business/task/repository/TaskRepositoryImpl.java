@@ -1,5 +1,6 @@
 package org.doif.projectv.business.task.repository;
 
+import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import org.doif.projectv.business.task.constant.TaskType;
 import org.doif.projectv.business.task.dto.QTaskDto_Result;
@@ -72,6 +73,7 @@ public class TaskRepositoryImpl extends Querydsl4RepositorySupport implements Ta
                         endDateLt(search.getEndDate()),
                         moduleIdEq(search.getModuleId()),
                         versionIdEq(search.getVersionId()),
+                        versionIssueIdEq(search.getVersionIssueId()),
                         typeEq(search.getType()),
                         workerEq(search.getWorker())
                 )
@@ -93,6 +95,10 @@ public class TaskRepositoryImpl extends Querydsl4RepositorySupport implements Ta
 
     private BooleanExpression versionIdEq(Long versionId) {
         return isEmpty(versionId) ? null : versionIssue.version.id.eq(versionId);
+    }
+
+    private BooleanExpression versionIssueIdEq(Long versionIssueId) {
+        return isEmpty(versionIssueId) ? null : versionIssue.id.eq(versionIssueId);
     }
 
     private BooleanExpression typeEq(TaskType type) {

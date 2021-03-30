@@ -7,6 +7,7 @@ import org.doif.projectv.common.enumeration.CodeEnum;
 import org.doif.projectv.common.response.ResponseUtil;
 import org.doif.projectv.common.system.constant.PropertyGroupType;
 import org.doif.projectv.common.system.dto.SystemPropertyDto;
+import org.doif.projectv.common.util.MultiValueMapConverter;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
@@ -27,8 +28,7 @@ import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.docu
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.payload.JsonFieldType.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
-import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
-import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
+import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -58,10 +58,10 @@ class SystemPropertyControllerTest extends ApiDocumentTest {
 
         // when
         ResultActions result = mockMvc.perform(
-                get("/api/system-property")
+                get("/api/system-properties")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsBytes(search))
+                        .params(MultiValueMapConverter.convert(objectMapper, search))
         );
 
         // then
@@ -71,8 +71,8 @@ class SystemPropertyControllerTest extends ApiDocumentTest {
                 .andDo(document("system-property/select",
                         getDocumentRequest(),
                         getDocumentResponse(),
-                        requestFields(
-                                fieldWithPath("propertyGroup").type(STRING).optional().description(generateLinkCode(CodeEnum.PROPERTY_GROUP_TYPE))
+                        requestParameters(
+                                parameterWithName("propertyGroup").description(generateLinkCode(CodeEnum.PROPERTY_GROUP_TYPE))
                         ),
                         responseFields(
                                 beneathPath("content").withSubsectionId("content"),
@@ -103,7 +103,7 @@ class SystemPropertyControllerTest extends ApiDocumentTest {
 
         // when
         ResultActions result = mockMvc.perform(
-                post("/api/system-property")
+                post("/api/system-properties")
                         .content(objectMapper.writeValueAsBytes(insert))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
@@ -138,7 +138,7 @@ class SystemPropertyControllerTest extends ApiDocumentTest {
 
         // when
         ResultActions result = mockMvc.perform(
-                put("/api/system-property/{id}", 1L)
+                put("/api/system-properties/{id}", 1L)
                         .content(objectMapper.writeValueAsBytes(update))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
@@ -169,7 +169,7 @@ class SystemPropertyControllerTest extends ApiDocumentTest {
 
         // when
         ResultActions result = mockMvc.perform(
-                delete("/api/system-property/{id}", 1L)
+                delete("/api/system-properties/{id}", 1L)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
         );

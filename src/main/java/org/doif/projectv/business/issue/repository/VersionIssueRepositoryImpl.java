@@ -1,5 +1,6 @@
 package org.doif.projectv.business.issue.repository;
 
+import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.JPAExpressions;
 import org.doif.projectv.business.issue.constant.IssueCategory;
@@ -31,6 +32,7 @@ import static org.doif.projectv.business.project.entity.QProject.*;
 import static org.doif.projectv.business.task.entity.QTask.*;
 import static org.doif.projectv.business.version.entity.QVersion.*;
 import static org.springframework.util.StringUtils.*;
+import static org.springframework.util.StringUtils.isEmpty;
 
 public class VersionIssueRepositoryImpl extends Querydsl4RepositorySupport implements VersionIssueQueryRepository {
 
@@ -125,6 +127,7 @@ public class VersionIssueRepositoryImpl extends Querydsl4RepositorySupport imple
                 .where(
                         projectEq(search.getProjectId()),
                         moduleEq(search.getModuleId()),
+                        versionEq(search.getVersionId()),
                         statusEq(search.getStatus()),
                         categoryEq(search.getCategory()),
                         issueYmEq(search.getIssueYm()),
@@ -170,6 +173,10 @@ public class VersionIssueRepositoryImpl extends Querydsl4RepositorySupport imple
         return isEmpty(moduleId) ? null : module.id.eq(moduleId);
     }
 
+    private BooleanExpression versionEq(Long versionId) {
+        return isEmpty(versionId) ? null : version.id.eq(versionId);
+    }
+
     private BooleanExpression statusEq(IssueStatus status) {
         return isEmpty(status) ? null : issue.status.eq(status);
     }
@@ -189,5 +196,4 @@ public class VersionIssueRepositoryImpl extends Querydsl4RepositorySupport imple
     private BooleanExpression assigneeEq(String assignee) {
         return isEmpty(assignee) ? null : versionIssue.assignee.eq(assignee);
     }
-
 }

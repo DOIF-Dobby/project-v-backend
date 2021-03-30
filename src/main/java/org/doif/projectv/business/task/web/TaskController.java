@@ -10,14 +10,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/task")
+@RequestMapping("/api/tasks")
 @RequiredArgsConstructor
 public class TaskController {
 
     private final TaskService taskService;
 
     @GetMapping
-    public ResponseEntity<TaskDto.Response> searchByCondition(@RequestBody TaskDto.Search search, Pageable pageable) {
+    public ResponseEntity<TaskDto.Response> searchByCondition(TaskDto.Search search, Pageable pageable) {
         Page<TaskDto.Result> result = taskService.searchByCondition(search, pageable);
         TaskDto.Response response = new TaskDto.Response(result);
         return ResponseEntity.ok(response);

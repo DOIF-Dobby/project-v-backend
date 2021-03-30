@@ -1,6 +1,8 @@
 package org.doif.projectv.business.version.web;
 
 import lombok.RequiredArgsConstructor;
+import org.doif.projectv.business.issue.dto.VersionIssueDto;
+import org.doif.projectv.business.issue.service.VersionIssueService;
 import org.doif.projectv.business.version.dto.VersionDto;
 import org.doif.projectv.business.version.service.VersionService;
 import org.doif.projectv.common.response.CommonResponse;
@@ -9,19 +11,15 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("/api/version")
+@RequestMapping("/api/versions")
 @RequiredArgsConstructor
 public class VersionController {
 
     private final VersionService versionService;
-
-    @GetMapping
-    public ResponseEntity<VersionDto.Response> searchByCondition(@RequestBody VersionDto.Search search, Pageable pageable) {
-        Page<VersionDto.Result> result = versionService.searchByCondition(search, pageable);
-        VersionDto.Response response = new VersionDto.Response(result);
-        return ResponseEntity.ok(response);
-    }
+    private final VersionIssueService versionIssueService;
 
     @PostMapping
     public ResponseEntity<CommonResponse> insert(@RequestBody VersionDto.Insert dto) {
@@ -41,9 +39,16 @@ public class VersionController {
         return ResponseEntity.ok(response);
     }
 
-    @PutMapping("/release/{id}")
-    public ResponseEntity<CommonResponse> release(@PathVariable Long id) {
-        CommonResponse response = versionService.release(id);
+    @PostMapping("/release")
+    public ResponseEntity<CommonResponse> release(@RequestBody VersionDto.Release dto) {
+        CommonResponse response = versionService.release(dto.getVersionId());
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/{id}/version-issues")
+    public ResponseEntity<VersionIssueDto.Response> searchByVersionId(@PathVariable Long id) {
+        List<VersionIssueDto.Result> content = versionIssueService.searchByVersionId(id);
+        VersionIssueDto.Response response = new VersionIssueDto.Response(content);
         return ResponseEntity.ok(response);
     }
 }

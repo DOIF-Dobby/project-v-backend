@@ -59,7 +59,7 @@ class PageControllerTest extends ApiDocumentTest {
 
         // when
         ResultActions result = mockMvc.perform(
-                get("/api/resources/page")
+                get("/api/resources/pages")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
         );
@@ -99,7 +99,7 @@ class PageControllerTest extends ApiDocumentTest {
 
         // when
         ResultActions result = mockMvc.perform(
-                post("/api/resources/page")
+                post("/api/resources/pages")
                         .content(objectMapper.writeValueAsBytes(insert))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
@@ -135,7 +135,7 @@ class PageControllerTest extends ApiDocumentTest {
 
         // when
         ResultActions result = mockMvc.perform(
-                put("/api/resources/page/{id}", 1L)
+                put("/api/resources/pages/{id}", 1L)
                         .content(objectMapper.writeValueAsBytes(update))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
@@ -167,7 +167,7 @@ class PageControllerTest extends ApiDocumentTest {
 
         // when
         ResultActions result = mockMvc.perform(
-                delete("/api/resources/page/{id}", 1L)
+                delete("/api/resources/pages/{id}", 1L)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
         );

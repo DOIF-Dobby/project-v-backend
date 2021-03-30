@@ -10,14 +10,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/patch-log")
+@RequestMapping("/api/patch-logs")
 @RequiredArgsConstructor
 public class PatchLogController {
 
     private final PatchLogService patchLogService;
 
     @GetMapping
-    public ResponseEntity<PatchLogDto.Response> searchByCondition(@RequestBody PatchLogDto.Search search, Pageable pageable) {
+    public ResponseEntity<PatchLogDto.Response> searchByCondition(PatchLogDto.Search search, Pageable pageable) {
         Page<PatchLogDto.Result> result = patchLogService.searchByCondition(search, pageable);
         PatchLogDto.Response response = new PatchLogDto.Response(result);
         return ResponseEntity.ok(response);

@@ -58,7 +58,7 @@ class ProjectControllerTest extends ApiDocumentTest {
 
         // when
         ResultActions result = mockMvc.perform(
-                get("/api/project")
+                get("/api/projects")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON));
 
@@ -96,7 +96,7 @@ class ProjectControllerTest extends ApiDocumentTest {
 
         // when
         ResultActions result = mockMvc.perform(
-                post("/api/project")
+                post("/api/projects")
                         .content(objectMapper.writeValueAsBytes(insert))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
@@ -127,7 +127,7 @@ class ProjectControllerTest extends ApiDocumentTest {
 
         // when
         ResultActions result = mockMvc.perform(
-                put("/api/project/{id}", 1L)
+                put("/api/projects/{id}", 1L)
                 .content(objectMapper.writeValueAsBytes(update))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
@@ -158,7 +158,7 @@ class ProjectControllerTest extends ApiDocumentTest {
 
         // when
         ResultActions result = mockMvc.perform(
-                delete("/api/project/{id}", 1L)
+                delete("/api/projects/{id}", 1L)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
         );

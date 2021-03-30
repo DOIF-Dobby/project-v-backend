@@ -69,7 +69,7 @@ class MenuControllerTest extends ApiDocumentTest {
 
         // when
         ResultActions result = mockMvc.perform(
-                get("/api/resources/menu")
+                get("/api/resources/menus")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
         );
@@ -120,7 +120,7 @@ class MenuControllerTest extends ApiDocumentTest {
 
         // when
         ResultActions result = mockMvc.perform(
-                post("/api/resources/menu")
+                post("/api/resources/menus")
                         .content(objectMapper.writeValueAsBytes(insert))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
@@ -161,7 +161,7 @@ class MenuControllerTest extends ApiDocumentTest {
 
         // when
         ResultActions result = mockMvc.perform(
-                put("/api/resources/menu/{id}", 1L)
+                put("/api/resources/menus/{id}", 1L)
                         .content(objectMapper.writeValueAsBytes(update))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
@@ -195,7 +195,7 @@ class MenuControllerTest extends ApiDocumentTest {
 
         // when
         ResultActions result = mockMvc.perform(
-                delete("/api/resources/menu/{id}", 1L)
+                delete("/api/resources/menus/{id}", 1L)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
         );

@@ -26,8 +26,8 @@ public class UserRoleServiceImpl implements UserRoleService {
     private final RoleRepository roleRepository;
 
     @Override
-    public List<UserRoleDto.ResultRole> selectRole(UserRoleDto.Search search) {
-        return userRoleRepository.selectRole(search);
+    public List<UserRoleDto.ResultRole> selectRole(String userId) {
+        return userRoleRepository.selectRole(userId);
     }
 
     @Transactional

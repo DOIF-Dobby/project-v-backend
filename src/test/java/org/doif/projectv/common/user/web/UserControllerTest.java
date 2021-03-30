@@ -7,6 +7,7 @@ import org.doif.projectv.common.enumeration.CodeEnum;
 import org.doif.projectv.common.response.ResponseUtil;
 import org.doif.projectv.common.user.constant.UserStatus;
 import org.doif.projectv.common.user.dto.UserDto;
+import org.doif.projectv.common.util.MultiValueMapConverter;
 import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -33,8 +34,7 @@ import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.docu
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.payload.JsonFieldType.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
-import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
-import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
+import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -60,10 +60,10 @@ class UserControllerTest extends ApiDocumentTest {
 
         // when
         ResultActions result = mockMvc.perform(
-                get("/api/user")
+                get("/api/users")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsBytes(search))
+                        .params(MultiValueMapConverter.convert(objectMapper, search))
         );
 
         // then
@@ -73,10 +73,10 @@ class UserControllerTest extends ApiDocumentTest {
                 .andDo(document("user/select",
                         getDocumentRequest(),
                         getDocumentResponse(),
-                        requestFields(
-                                fieldWithPath("id").type(STRING).optional().description("유저 ID"),
-                                fieldWithPath("name").type(STRING).optional().description("유저 이름"),
-                                fieldWithPath("status").type(STRING).optional().description("유저 상태")
+                        requestParameters(
+                                parameterWithName("id").description("유저 ID"),
+                                parameterWithName("name").description("유저 이름"),
+                                parameterWithName("status").description("유저 상태")
                         ),
                         responseFields(subsectionWithPath("pageInfo").type(OBJECT).description(generateLinkPageInfo())),
                         responseFields(
@@ -103,7 +103,7 @@ class UserControllerTest extends ApiDocumentTest {
         
         // when
         ResultActions result = mockMvc.perform(
-                post("/api/user")
+                post("/api/users")
                         .content(objectMapper.writeValueAsBytes(insert))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
@@ -136,7 +136,7 @@ class UserControllerTest extends ApiDocumentTest {
 
         // when
         ResultActions result = mockMvc.perform(
-                put("/api/user/{id}", "kjpmj")
+                put("/api/users/{id}", "kjpmj")
                         .content(objectMapper.writeValueAsBytes(update))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
@@ -166,7 +166,7 @@ class UserControllerTest extends ApiDocumentTest {
 
         // when
         ResultActions result = mockMvc.perform(
-                delete("/api/user/{id}", "kjpmj")
+                delete("/api/users/{id}", "kjpmj")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
         );

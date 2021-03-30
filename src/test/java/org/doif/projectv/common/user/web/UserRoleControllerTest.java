@@ -43,9 +43,6 @@ class UserRoleControllerTest extends ApiDocumentTest {
     @Test
     public void UserRole_조회_API_테스트() throws Exception {
         // given
-        UserRoleDto.Search search = new UserRoleDto.Search();
-        search.setUserId("kjpmj");
-
         UserRoleDto.ResultRole content = new UserRoleDto.ResultRole(
                 1L,
                 "관리자 Role",
@@ -57,15 +54,14 @@ class UserRoleControllerTest extends ApiDocumentTest {
         List<UserRoleDto.ResultRole> results = Arrays.asList(content);
         UserRoleDto.Response response = new UserRoleDto.Response(results);
 
-        given(userRoleService.selectRole(any(UserRoleDto.Search.class)))
+        given(userRoleService.selectRole(eq("kjpmj")))
                 .willReturn(results);
 
         // when
         ResultActions result = mockMvc.perform(
-                get("/api/user-role")
+                get("/api/users/{id}/user-roles", "kjpmj")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsBytes(search))
         );
 
         // then
@@ -75,8 +71,8 @@ class UserRoleControllerTest extends ApiDocumentTest {
                 .andDo(document("user-role/select",
                         getDocumentRequest(),
                         getDocumentResponse(),
-                        requestFields(
-                                fieldWithPath("userId").type(STRING).description("유저 ID")
+                        pathParameters(
+                                parameterWithName("id").description("유저 ID")
                         ),
                         responseFields(
                                 beneathPath("content").withSubsectionId("content"),
@@ -104,7 +100,7 @@ class UserRoleControllerTest extends ApiDocumentTest {
 
         // when
         ResultActions result = mockMvc.perform(
-                post("/api/user-role")
+                post("/api/user-roles")
                         .content(objectMapper.writeValueAsBytes(allocate))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)

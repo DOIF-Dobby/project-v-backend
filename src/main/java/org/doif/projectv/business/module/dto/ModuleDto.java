@@ -41,14 +41,6 @@ public class ModuleDto {
     @Setter
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class Search {
-        private Long projectId;
-    }
-
-    @Getter
-    @Setter
-    @AllArgsConstructor
-    @NoArgsConstructor
     public static class Response {
         private List<ModuleDto.Result> content;
     }

@@ -38,9 +38,6 @@ class ModuleControllerTest extends ApiDocumentTest {
     @Test
     public void 모듈_조회_API_테스트() throws Exception {
         // given
-        ModuleDto.Search search = new ModuleDto.Search(1L);
-        search.setProjectId(1L);
-
         ModuleDto.Result content = new ModuleDto.Result(1L, "금결원 PG 어드민 WEB", "금윰결제원 PG 관리자 WEB 모듈입니다", VcsType.SVN, "repository", BuildTool.MAVEN);
         content.setModuleName("금결원 PG 어드민 WEB");
         content.setDescription("금윰결제원 PG 관리자 WEB 모듈입니다.");
@@ -58,10 +55,9 @@ class ModuleControllerTest extends ApiDocumentTest {
 
         // when
         ResultActions result = mockMvc.perform(
-                get("/api/module")
+                get("/api/projects/{id}/modules", 1L)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsBytes(search))
         );
 
         // then
@@ -71,8 +67,8 @@ class ModuleControllerTest extends ApiDocumentTest {
                 .andDo(document("module/select",
                         getDocumentRequest(),
                         getDocumentResponse(),
-                        requestFields(
-                                fieldWithPath("projectId").type(NUMBER).description("프로젝트 ID")
+                        pathParameters(
+                                parameterWithName("id").description("모듈 ID")
                         ),
                         responseFields(
                                 beneathPath("content").withSubsectionId("content"),
@@ -106,7 +102,7 @@ class ModuleControllerTest extends ApiDocumentTest {
 
         // when
         ResultActions result = mockMvc.perform(
-                post("/api/module")
+                post("/api/modules")
                         .content(objectMapper.writeValueAsBytes(insert))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
@@ -142,7 +138,7 @@ class ModuleControllerTest extends ApiDocumentTest {
 
         // when
         ResultActions result = mockMvc.perform(
-                put("/api/module/{id}", 1L)
+                put("/api/modules/{id}", 1L)
                         .content(objectMapper.writeValueAsBytes(update))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
@@ -175,7 +171,7 @@ class ModuleControllerTest extends ApiDocumentTest {
 
         // when
         ResultActions result = mockMvc.perform(
-                delete("/api/module/{id}", 1L)
+                delete("/api/modules/{id}", 1L)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
         );

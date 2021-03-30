@@ -3,25 +3,23 @@ package org.doif.projectv.business.module.web;
 import lombok.RequiredArgsConstructor;
 import org.doif.projectv.business.module.dto.ModuleDto;
 import org.doif.projectv.business.module.service.ModuleService;
+import org.doif.projectv.business.version.dto.VersionDto;
+import org.doif.projectv.business.version.service.VersionService;
 import org.doif.projectv.common.response.CommonResponse;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/module")
+@RequestMapping("/api/modules")
 @RequiredArgsConstructor
 public class ModuleController {
 
     private final ModuleService moduleService;
-
-    @GetMapping
-    public ResponseEntity<ModuleDto.Response> searchByProjectId(@RequestBody ModuleDto.Search search) {
-        List<ModuleDto.Result> content = moduleService.searchByProjectId(search.getProjectId());
-        ModuleDto.Response response = new ModuleDto.Response(content);
-        return ResponseEntity.ok(response);
-    }
+    private final VersionService versionService;
 
     @PostMapping
     public ResponseEntity<CommonResponse> insert(@RequestBody ModuleDto.Insert dto) {
@@ -38,6 +36,13 @@ public class ModuleController {
     @DeleteMapping("/{id}")
     public ResponseEntity<CommonResponse> delete(@PathVariable Long id) {
         CommonResponse response = moduleService.delete(id);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/{id}/versions")
+    public ResponseEntity<VersionDto.Response> searchByCondition(@PathVariable Long id, VersionDto.Search search, Pageable pageable) {
+        Page<VersionDto.Result> result = versionService.searchByCondition(id, search, pageable);
+        VersionDto.Response response = new VersionDto.Response(result);
         return ResponseEntity.ok(response);
     }
 }

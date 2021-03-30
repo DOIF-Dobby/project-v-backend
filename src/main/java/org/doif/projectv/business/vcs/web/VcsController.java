@@ -23,7 +23,7 @@ public class VcsController {
     private final VcsService vcsService;
 
     @GetMapping("/logs")
-    public ResponseEntity<Response<Log>> searchLogByCondition(@RequestBody SearchLog search) {
+    public ResponseEntity<Response<Log>> searchLogByCondition(SearchLog search) {
         List<Log> result = vcsService.searchLogByCondition(search);
         Response<Log> response = new Response<>(result);
         return ResponseEntity.ok(response);

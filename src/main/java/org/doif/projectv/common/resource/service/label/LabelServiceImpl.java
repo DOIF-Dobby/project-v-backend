@@ -25,8 +25,8 @@ public class LabelServiceImpl implements LabelService {
 
     @Transactional(readOnly = true)
     @Override
-    public List<LabelDto.Result> selectByPage(LabelDto.Search search) {
-        Optional<Page> optionalPage = pageRepository.findById(search.getPageId());
+    public List<LabelDto.Result> selectByPage(Long pageId) {
+        Optional<Page> optionalPage = pageRepository.findById(pageId);
         Page page = optionalPage.orElseThrow(() -> new IllegalArgumentException("페이지를 찾을 수 없음"));
         return labelRepository.findAllByPage(page)
                 .stream()

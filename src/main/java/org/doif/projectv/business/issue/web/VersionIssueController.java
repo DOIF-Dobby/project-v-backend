@@ -12,25 +12,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/version-issue")
+@RequestMapping("/api/version-issues")
 @RequiredArgsConstructor
 public class VersionIssueController {
 
     private final VersionIssueService versionIssueService;
-
-    @GetMapping("/issue/{issueId}")
-    public ResponseEntity<VersionIssueDto.Response> searchByIssueId(@PathVariable Long issueId) {
-        List<VersionIssueDto.Result> content = versionIssueService.searchByIssueId(issueId);
-        VersionIssueDto.Response response = new VersionIssueDto.Response(content);
-        return ResponseEntity.ok(response);
-    }
-
-    @GetMapping("/version/{versionId}")
-    public ResponseEntity<VersionIssueDto.Response> searchByVersionId(@PathVariable Long versionId) {
-        List<VersionIssueDto.Result> content = versionIssueService.searchByVersionId(versionId);
-        VersionIssueDto.Response response = new VersionIssueDto.Response(content);
-        return ResponseEntity.ok(response);
-    }
 
     @PostMapping
     public ResponseEntity<CommonResponse> insert(@RequestBody VersionIssueDto.Insert dto) {
@@ -51,7 +37,7 @@ public class VersionIssueController {
     }
 
     @GetMapping("/overview")
-    public ResponseEntity<VersionIssueDto.ResponseOverview> searchOverview(@RequestBody VersionIssueDto.Search search, Pageable pageable) {
+    public ResponseEntity<VersionIssueDto.ResponseOverview> searchOverview(VersionIssueDto.Search search, Pageable pageable) {
         Page<VersionIssueDto.ResultOverview> pageInfo = versionIssueService.searchOverview(search, pageable);
         VersionIssueDto.ResponseOverview response = new VersionIssueDto.ResponseOverview(pageInfo);
         return ResponseEntity.ok(response);

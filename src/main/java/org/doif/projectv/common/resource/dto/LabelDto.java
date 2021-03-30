@@ -29,12 +29,6 @@ public class LabelDto {
 
     @Getter
     @Setter
-    public static class Search {
-        private Long pageId;
-    }
-
-    @Getter
-    @Setter
     @ToString
     public static class Insert extends ResourceDto.Insert {
         private Long pageId;

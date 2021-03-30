@@ -55,11 +55,9 @@ class TabServiceTest {
     public void Tab_조회_서비스_테스트() throws Exception {
         // given
         Long pageId = pageRepository.findAll().get(0).getId();
-        TabDto.Search search = new TabDto.Search();
-        search.setPageId(pageId);
 
         // when
-        List<TabDto.Result> results = tabService.selectByPage(search);
+        List<TabDto.Result> results = tabService.selectByPage(pageId);
 
         // then
         assertThat(results.size()).isEqualTo(1);
@@ -70,8 +68,6 @@ class TabServiceTest {
     public void Tab_추가_서비스_테스트() throws Exception {
         // given
         Long pageId = pageRepository.findAll().get(0).getId();
-        TabDto.Search search = new TabDto.Search();
-        search.setPageId(pageId);
 
         TabDto.Insert insert = new TabDto.Insert();
         insert.setPageId(pageId);
@@ -86,7 +82,7 @@ class TabServiceTest {
 
         // when
         CommonResponse response = tabService.insert(insert);
-        List<TabDto.Result> results = tabService.selectByPage(search);
+        List<TabDto.Result> results = tabService.selectByPage(pageId);
 
         // then
         assertThat(response.getCode()).isEqualTo(ResponseCode.OK.getCode());
@@ -98,8 +94,6 @@ class TabServiceTest {
     public void Tab_수정_서비스_테스트() throws Exception {
         // given
         Long pageId = pageRepository.findAll().get(0).getId();
-        TabDto.Search search = new TabDto.Search();
-        search.setPageId(pageId);
 
         Long tabId = tabRepository.findAll().get(0).getId();
 
@@ -114,7 +108,7 @@ class TabServiceTest {
 
         // when
         CommonResponse response = tabService.update(tabId, update);
-        List<TabDto.Result> results = tabService.selectByPage(search);
+        List<TabDto.Result> results = tabService.selectByPage(pageId);
 
         // then
         assertThat(response.getCode()).isEqualTo(ResponseCode.OK.getCode());
@@ -126,14 +120,12 @@ class TabServiceTest {
     public void Tab_삭제_서비스_테스트() throws Exception {
         // given
         Long pageId = pageRepository.findAll().get(0).getId();
-        TabDto.Search search = new TabDto.Search();
-        search.setPageId(pageId);
 
         Long tabId = tabRepository.findAll().get(0).getId();
 
         // when
         CommonResponse response = tabService.delete(tabId);
-        List<TabDto.Result> results = tabService.selectByPage(search);
+        List<TabDto.Result> results = tabService.selectByPage(pageId);
 
         // then
         assertThat(response.getCode()).isEqualTo(ResponseCode.OK.getCode());

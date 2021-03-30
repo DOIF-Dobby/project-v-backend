@@ -6,7 +6,7 @@ import org.doif.projectv.common.response.CommonResponse;
 import java.util.List;
 
 public interface LabelService {
-    List<LabelDto.Result> selectByPage(LabelDto.Search search);
+    List<LabelDto.Result> selectByPage(Long pageId);
 
     CommonResponse insert(LabelDto.Insert dto);
 

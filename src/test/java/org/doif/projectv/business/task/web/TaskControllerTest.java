@@ -5,6 +5,7 @@ import org.doif.projectv.business.task.dto.TaskDto;
 import org.doif.projectv.common.api.ApiDocumentTest;
 import org.doif.projectv.common.enumeration.CodeEnum;
 import org.doif.projectv.common.response.ResponseUtil;
+import org.doif.projectv.common.util.MultiValueMapConverter;
 import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -29,8 +30,7 @@ import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
-import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
-import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
+import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -74,10 +74,10 @@ class TaskControllerTest extends ApiDocumentTest {
 
         // when
         ResultActions result = mockMvc.perform(
-                get("/api/task")
+                get("/api/tasks")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsBytes(search))
+                        .params(MultiValueMapConverter.convert(objectMapper, search))
         );
 
         // then
@@ -87,14 +87,14 @@ class TaskControllerTest extends ApiDocumentTest {
                 .andDo(document("task/select",
                         getDocumentRequest(),
                         getDocumentResponse(),
-                        requestFields(
-                                fieldWithPath("moduleId").type(JsonFieldType.NUMBER).optional().description("모듈 ID"),
-                                fieldWithPath("versionId").type(JsonFieldType.NUMBER).optional().description("버전 ID"),
-                                fieldWithPath("versionIssueId").type(JsonFieldType.NUMBER).optional().description("버전-이슈 ID"),
-                                fieldWithPath("startDate").type(JsonFieldType.STRING).optional().attributes(getDateFormat()).description("작업 시작일"),
-                                fieldWithPath("endDate").type(JsonFieldType.STRING).optional().attributes(getDateFormat()).description("작업 종료일"),
-                                fieldWithPath("type").type(JsonFieldType.STRING).optional().description(generateLinkCode(CodeEnum.TASK_TYPE)),
-                                fieldWithPath("worker").type(JsonFieldType.STRING).optional().description("작업자")
+                        requestParameters(
+                                parameterWithName("moduleId").description("모듈 ID"),
+                                parameterWithName("versionId").description("버전 ID"),
+                                parameterWithName("versionIssueId").description("버전-이슈 ID"),
+                                parameterWithName("startDate").attributes(getDateFormat()).description("작업 시작일"),
+                                parameterWithName("endDate").attributes(getDateFormat()).description("작업 종료일"),
+                                parameterWithName("type").description(generateLinkCode(CodeEnum.TASK_TYPE)),
+                                parameterWithName("worker").description("작업자")
                         ),
                         responseFields(subsectionWithPath("pageInfo").type(JsonFieldType.OBJECT).description(generateLinkPageInfo())),
                         responseFields(
@@ -133,7 +133,7 @@ class TaskControllerTest extends ApiDocumentTest {
 
         // when
         ResultActions result = mockMvc.perform(
-                post("/api/task")
+                post("/api/tasks")
                         .content(objectMapper.writeValueAsBytes(insert))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
@@ -176,7 +176,7 @@ class TaskControllerTest extends ApiDocumentTest {
 
         // when
         ResultActions result = mockMvc.perform(
-                put("/api/task/{id}", 1L)
+                put("/api/tasks/{id}", 1L)
                         .content(objectMapper.writeValueAsBytes(update))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
@@ -211,7 +211,7 @@ class TaskControllerTest extends ApiDocumentTest {
 
         // when
         ResultActions result = mockMvc.perform(
-                delete("/api/task/{id}", 1L)
+                delete("/api/tasks/{id}", 1L)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
         );

@@ -11,6 +11,7 @@ import org.doif.projectv.common.resource.dto.MessageDto;
 import org.doif.projectv.common.response.ResponseUtil;
 import org.doif.projectv.common.role.dto.RoleResourceDto;
 import org.doif.projectv.common.status.EnableStatus;
+import org.doif.projectv.common.util.MultiValueMapConverter;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
@@ -34,8 +35,7 @@ import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuild
 import static org.springframework.restdocs.payload.JsonFieldType.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
-import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
-import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
+import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -63,10 +63,10 @@ class RoleResourceControllerTest extends ApiDocumentTest {
 
         // when
         ResultActions result = mockMvc.perform(
-                get("/api/role-resource/page")
+                get("/api/role-resources/pages")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsBytes(searchPage))
+                        .params(MultiValueMapConverter.convert(objectMapper, searchPage))
         );
 
         // then
@@ -76,8 +76,8 @@ class RoleResourceControllerTest extends ApiDocumentTest {
                 .andDo(document("role-resource/select-page",
                         getDocumentRequest(),
                         getDocumentResponse(),
-                        requestFields(
-                                fieldWithPath("roleId").type(NUMBER).description("Role ID")
+                        requestParameters(
+                                parameterWithName("roleId").description("Role ID")
                         ),
                         responseFields(
                                 beneathPath("content").withSubsectionId("content"),
@@ -107,10 +107,10 @@ class RoleResourceControllerTest extends ApiDocumentTest {
 
         // when
         ResultActions result = mockMvc.perform(
-                get("/api/role-resource/button")
+                get("/api/role-resources/buttons")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsBytes(search))
+                        .params(MultiValueMapConverter.convert(objectMapper, search))
         );
 
         // then
@@ -120,9 +120,9 @@ class RoleResourceControllerTest extends ApiDocumentTest {
                 .andDo(document("role-resource/select-button",
                         getDocumentRequest(),
                         getDocumentResponse(),
-                        requestFields(
-                                fieldWithPath("roleId").type(NUMBER).description("Role ID"),
-                                fieldWithPath("pageId").type(NUMBER).description("페이지 ID")
+                        requestParameters(
+                                parameterWithName("roleId").description("Role ID"),
+                                parameterWithName("pageId").description("페이지 ID")
                         ),
                         responseFields(
                                 beneathPath("content").withSubsectionId("content"),
@@ -154,10 +154,10 @@ class RoleResourceControllerTest extends ApiDocumentTest {
 
         // when
         ResultActions result = mockMvc.perform(
-                get("/api/role-resource/tab")
+                get("/api/role-resources/tabs")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsBytes(search))
+                        .params(MultiValueMapConverter.convert(objectMapper, search))
         );
 
         // then
@@ -167,9 +167,9 @@ class RoleResourceControllerTest extends ApiDocumentTest {
                 .andDo(document("role-resource/select-tab",
                         getDocumentRequest(),
                         getDocumentResponse(),
-                        requestFields(
-                                fieldWithPath("roleId").type(NUMBER).description("Role ID"),
-                                fieldWithPath("pageId").type(NUMBER).description("페이지 ID")
+                        requestParameters(
+                                parameterWithName("roleId").description("Role ID"),
+                                parameterWithName("pageId").description("페이지 ID")
                         ),
                         responseFields(
                                 beneathPath("content").withSubsectionId("content"),
@@ -202,7 +202,7 @@ class RoleResourceControllerTest extends ApiDocumentTest {
 
         // when
         ResultActions result = mockMvc.perform(
-                post("/api/role-resource")
+                post("/api/role-resources")
                         .content(objectMapper.writeValueAsBytes(allocate))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)

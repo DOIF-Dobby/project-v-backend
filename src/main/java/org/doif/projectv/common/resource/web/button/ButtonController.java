@@ -10,18 +10,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/resources/button")
+@RequestMapping("/api/resources/buttons")
 @RequiredArgsConstructor
 public class ButtonController {
 
     private final ButtonService buttonService;
-
-    @GetMapping
-    public ResponseEntity<ButtonDto.Response> selectByPage(@RequestBody ButtonDto.Search search) {
-        List<ButtonDto.Result> result = buttonService.selectByPage(search);
-        ButtonDto.Response response = new ButtonDto.Response(result);
-        return ResponseEntity.ok(response);
-    }
 
     @PostMapping
     public ResponseEntity<CommonResponse> insert(@RequestBody ButtonDto.Insert dto) {

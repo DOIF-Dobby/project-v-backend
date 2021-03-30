@@ -5,6 +5,7 @@ import com.querydsl.core.annotations.QueryProjection;
 import lombok.*;
 import org.doif.projectv.business.task.constant.TaskType;
 import org.springframework.data.domain.Page;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
@@ -62,7 +63,9 @@ public class TaskDto {
         private Long moduleId;
         private Long versionId;
         private Long versionIssueId;
+        @DateTimeFormat(pattern = "yyyy-MM-dd")
         private LocalDate startDate;
+        @DateTimeFormat(pattern = "yyyy-MM-dd")
         private LocalDate endDate;
         private TaskType type;
         private String worker;

@@ -10,18 +10,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/resources/label")
+@RequestMapping("/api/resources/labels")
 @RequiredArgsConstructor
 public class LabelController {
 
     private final LabelService labelService;
-
-    @GetMapping
-    public ResponseEntity<LabelDto.Response> selectByPage(@RequestBody LabelDto.Search search) {
-        List<LabelDto.Result> result = labelService.selectByPage(search);
-        LabelDto.Response response = new LabelDto.Response(result);
-        return ResponseEntity.ok(response);
-    }
 
     @PostMapping
     public ResponseEntity<CommonResponse> insert(@RequestBody LabelDto.Insert dto) {

@@ -80,7 +80,7 @@ include::{snippets}/project/delete/http-response.adoc[]
 ==== 모듈 조회
 ===== 요청
 include::{snippets}/module/select/http-request.adoc[]
-include::{snippets}/module/select/request-fields.adoc[]
+include::{snippets}/module/select/path-parameters.adoc[]
 ===== 응답
 include::{snippets}/module/select/http-response.adoc[]
 include::{snippets}/module/select/response-fields-content.adoc[]
@@ -119,7 +119,8 @@ include::{snippets}/module/delete/http-response.adoc[]
 ==== 버전 조회
 ===== 요청
 include::{snippets}/version/select/http-request.adoc[]
-include::{snippets}/version/select/request-fields.adoc[]
+include::{snippets}/version/select/path-parameters.adoc[]
+include::{snippets}/version/select/request-parameters.adoc[]
 ===== 응답
 include::{snippets}/version/select/http-response.adoc[]
 include::{snippets}/version/select/response-fields.adoc[]
@@ -154,7 +155,7 @@ include::{snippets}/version/delete/http-response.adoc[]
 ==== 버전 배포
 ===== 요청
 include::{snippets}/version/release/http-request.adoc[]
-include::{snippets}/version/release/path-parameters.adoc[]
+include::{snippets}/version/release/request-fields.adoc[]
 ===== 응답
 include::{snippets}/version/release/http-response.adoc[]
 
@@ -167,7 +168,7 @@ include::{snippets}/version/release/http-response.adoc[]
 ==== 이슈 조회
 ===== 요청
 include::{snippets}/issue/select/http-request.adoc[]
-include::{snippets}/issue/select/request-fields.adoc[]
+include::{snippets}/issue/select/request-parameters.adoc[]
 ===== 응답
 include::{snippets}/issue/select/http-response.adoc[]
 include::{snippets}/issue/select/response-fields.adoc[]
@@ -250,7 +251,7 @@ include::{snippets}/version-issue/delete/http-response.adoc[]
 ==== 버전-이슈 현황 조회
 ===== 요청
 include::{snippets}/version-issue/overview/http-request.adoc[]
-include::{snippets}/version-issue/overview/request-fields.adoc[]
+include::{snippets}/version-issue/overview/request-parameters.adoc[]
 ===== 응답
 include::{snippets}/version-issue/overview/http-response.adoc[]
 include::{snippets}/version-issue/overview/response-fields.adoc[]
@@ -264,7 +265,7 @@ include::{snippets}/version-issue/overview/response-fields-pageInfo.content.adoc
 ==== 작업 조회
 ===== 요청
 include::{snippets}/task/select/http-request.adoc[]
-include::{snippets}/task/select/request-fields.adoc[]
+include::{snippets}/task/select/request-parameters.adoc[]
 ===== 응답
 include::{snippets}/task/select/http-response.adoc[]
 include::{snippets}/task/select/response-fields.adoc[]
@@ -304,7 +305,7 @@ include::{snippets}/task/delete/http-response.adoc[]
 ==== 패치로그 조회
 ===== 요청
 include::{snippets}/patch-log/select/http-request.adoc[]
-include::{snippets}/patch-log/select/request-fields.adoc[]
+include::{snippets}/patch-log/select/request-parameters.adoc[]
 ===== 응답
 include::{snippets}/patch-log/select/http-response.adoc[]
 include::{snippets}/patch-log/select/response-fields.adoc[]
@@ -343,7 +344,7 @@ include::{snippets}/patch-log/delete/http-response.adoc[]
 ==== 버전관리시스템 인증정보 조회
 ===== 요청
 include::{snippets}/vcs-auth-info/select/http-request.adoc[]
-include::{snippets}/vcs-auth-info/select/request-fields.adoc[]
+include::{snippets}/vcs-auth-info/select/request-parameters.adoc[]
 ===== 응답
 include::{snippets}/vcs-auth-info/select/http-response.adoc[]
 include::{snippets}/vcs-auth-info/select/response-fields-content.adoc[]
@@ -381,7 +382,7 @@ include::{snippets}/vcs-auth-info/delete/http-response.adoc[]
 ==== 로그 조회
 ===== 요청
 include::{snippets}/vcs/logs/http-request.adoc[]
-include::{snippets}/vcs/logs/request-fields.adoc[]
+include::{snippets}/vcs/logs/request-parameters.adoc[]
 ===== 응답
 include::{snippets}/vcs/logs/http-response.adoc[]
 include::{snippets}/vcs/logs/response-fields-content.adoc[]
@@ -396,7 +397,7 @@ include::{snippets}/vcs/logs/response-fields-content.adoc[]
 ==== 시스템 속성 조회
 ===== 요청
 include::{snippets}/system-property/select/http-request.adoc[]
-include::{snippets}/system-property/select/request-fields.adoc[]
+include::{snippets}/system-property/select/request-parameters.adoc[]
 ===== 응답
 include::{snippets}/system-property/select/http-response.adoc[]
 include::{snippets}/system-property/select/response-fields-content.adoc[]
@@ -548,7 +549,7 @@ include::{snippets}/message/delete/http-response.adoc[]
 ==== 라벨 조회
 ===== 요청
 include::{snippets}/label/select/http-request.adoc[]
-include::{snippets}/label/select/request-fields.adoc[]
+include::{snippets}/label/select/path-parameters.adoc[]
 ===== 응답
 include::{snippets}/label/select/http-response.adoc[]
 include::{snippets}/label/select/response-fields-content.adoc[]
@@ -625,7 +626,7 @@ include::{snippets}/page/delete/http-response.adoc[]
 ==== 탭 조회
 ===== 요청
 include::{snippets}/tab/select/http-request.adoc[]
-include::{snippets}/tab/select/request-fields.adoc[]
+include::{snippets}/tab/select/path-parameters.adoc[]
 ===== 응답
 include::{snippets}/tab/select/http-response.adoc[]
 include::{snippets}/tab/select/response-fields-content.adoc[]
@@ -664,7 +665,7 @@ include::{snippets}/tab/delete/http-response.adoc[]
 ==== 버튼 조회
 ===== 요청
 include::{snippets}/button/select/http-request.adoc[]
-include::{snippets}/button/select/request-fields.adoc[]
+include::{snippets}/button/select/path-parameters.adoc[]
 ===== 응답
 include::{snippets}/button/select/http-response.adoc[]
 include::{snippets}/button/select/response-fields-content.adoc[]
@@ -703,7 +704,7 @@ include::{snippets}/button/delete/http-response.adoc[]
 ==== RoleResource 페이지 조회
 ===== 요청
 include::{snippets}/role-resource/select-page/http-request.adoc[]
-include::{snippets}/role-resource/select-page/request-fields.adoc[]
+include::{snippets}/role-resource/select-page/request-parameters.adoc[]
 ===== 응답
 include::{snippets}/role-resource/select-page/http-response.adoc[]
 include::{snippets}/role-resource/select-page/response-fields-content.adoc[]
@@ -712,7 +713,7 @@ include::{snippets}/role-resource/select-page/response-fields-content.adoc[]
 ==== RoleResource 버튼 조회
 ===== 요청
 include::{snippets}/role-resource/select-button/http-request.adoc[]
-include::{snippets}/role-resource/select-button/request-fields.adoc[]
+include::{snippets}/role-resource/select-button/request-parameters.adoc[]
 ===== 응답
 include::{snippets}/role-resource/select-button/http-response.adoc[]
 include::{snippets}/role-resource/select-button/response-fields-content.adoc[]
@@ -721,7 +722,7 @@ include::{snippets}/role-resource/select-button/response-fields-content.adoc[]
 ==== RoleResource 탭 조회
 ===== 요청
 include::{snippets}/role-resource/select-tab/http-request.adoc[]
-include::{snippets}/role-resource/select-tab/request-fields.adoc[]
+include::{snippets}/role-resource/select-tab/request-parameters.adoc[]
 ===== 응답
 include::{snippets}/role-resource/select-tab/http-response.adoc[]
 include::{snippets}/role-resource/select-tab/response-fields-content.adoc[]
@@ -781,7 +782,7 @@ include::{snippets}/role/delete/http-response.adoc[]
 ==== UserRole 조회
 ===== 요청
 include::{snippets}/user-role/select/http-request.adoc[]
-include::{snippets}/user-role/select/request-fields.adoc[]
+include::{snippets}/user-role/select/path-parameters.adoc[]
 ===== 응답
 include::{snippets}/user-role/select/http-response.adoc[]
 include::{snippets}/user-role/select/response-fields-content.adoc[]
@@ -803,7 +804,7 @@ include::{snippets}/user-role/allocate/http-response.adoc[]
 ==== 유저 조회
 ===== 요청
 include::{snippets}/user/select/http-request.adoc[]
-include::{snippets}/user/select/request-fields.adoc[]
+include::{snippets}/user/select/request-parameters.adoc[]
 ===== 응답
 include::{snippets}/user/select/http-response.adoc[]
 include::{snippets}/user/select/response-fields.adoc[]

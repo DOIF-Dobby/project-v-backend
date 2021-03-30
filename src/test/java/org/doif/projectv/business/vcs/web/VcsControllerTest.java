@@ -7,6 +7,7 @@ import org.doif.projectv.business.vcs.dto.VcsDto;
 import org.doif.projectv.common.api.ApiDocumentTest;
 import org.doif.projectv.common.enumeration.CodeEnum;
 import org.doif.projectv.common.response.ResponseUtil;
+import org.doif.projectv.common.util.MultiValueMapConverter;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
@@ -30,8 +31,7 @@ import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuild
 import static org.springframework.restdocs.payload.JsonFieldType.NUMBER;
 import static org.springframework.restdocs.payload.JsonFieldType.STRING;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
-import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
-import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
+import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -63,7 +63,7 @@ class VcsControllerTest extends ApiDocumentTest {
                 get("/api/vcs/logs")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsBytes(searchLog))
+                        .params(MultiValueMapConverter.convert(objectMapper, searchLog))
         );
 
         // then
@@ -73,10 +73,10 @@ class VcsControllerTest extends ApiDocumentTest {
                 .andDo(document("vcs/logs",
                         getDocumentRequest(),
                         getDocumentResponse(),
-                        requestFields(
-                                fieldWithPath("moduleId").type(NUMBER).description("모듈 ID"),
-                                fieldWithPath("startDate").type(STRING).attributes(getDateFormat()).description("조회 시작일"),
-                                fieldWithPath("endDate").type(STRING).attributes(getDateFormat()).description("조회 종료일")
+                        requestParameters(
+                                parameterWithName("moduleId").description("모듈 ID"),
+                                parameterWithName("startDate").attributes(getDateFormat()).description("조회 시작일"),
+                                parameterWithName("endDate").attributes(getDateFormat()).description("조회 종료일")
                         ),
                         responseFields(
                                 beneathPath("content").withSubsectionId("content"),

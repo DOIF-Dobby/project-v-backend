@@ -34,8 +34,8 @@ public class VersionServiceImpl implements VersionService {
 
     @Transactional(readOnly = true)
     @Override
-    public Page<VersionDto.Result> searchByCondition(VersionDto.Search search, Pageable pageable) {
-        return versionRepository.searchByCondition(search, pageable);
+    public Page<VersionDto.Result> searchByCondition(Long id, VersionDto.Search search, Pageable pageable) {
+        return versionRepository.searchByCondition(id, search, pageable);
     }
 
     @Override

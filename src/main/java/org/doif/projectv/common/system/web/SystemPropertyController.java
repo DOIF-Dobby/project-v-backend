@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/system-property")
+@RequestMapping("/api/system-properties")
 @RequiredArgsConstructor
 public class SystemPropertyController {
 
     private final SystemPropertyService systemPropertyService;
 
     @GetMapping
-    public ResponseEntity<SystemPropertyDto.Response> searchByCondition(@RequestBody SystemPropertyDto.Search search) {
+    public ResponseEntity<SystemPropertyDto.Response> searchByCondition(SystemPropertyDto.Search search) {
         List<SystemPropertyDto.Result> result = systemPropertyService.searchByCondition(search);
         SystemPropertyDto.Response response = new SystemPropertyDto.Response(result);
         return ResponseEntity.ok(response);

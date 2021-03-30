@@ -10,18 +10,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/user-role")
+@RequestMapping("/api/user-roles")
 @RequiredArgsConstructor
 public class UserRoleController {
 
     private final UserRoleService userRoleService;
-
-    @GetMapping
-    public ResponseEntity<UserRoleDto.Response> selectRole(@RequestBody UserRoleDto.Search search) {
-        List<UserRoleDto.ResultRole> result = userRoleService.selectRole(search);
-        UserRoleDto.Response response = new UserRoleDto.Response(result);
-        return ResponseEntity.ok(response);
-    }
 
     @PostMapping
     public ResponseEntity<CommonResponse> allocate(@RequestBody UserRoleDto.Allocate dto) {

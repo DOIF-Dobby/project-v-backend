@@ -58,11 +58,9 @@ class UserRoleServiceTest {
     @Test
     public void USER_ROLE_조회_서비스_테스트() throws Exception {
         // given
-        UserRoleDto.Search search = new UserRoleDto.Search();
-        search.setUserId("kjpmj");
 
         // when
-        List<UserRoleDto.ResultRole> results = userRoleService.selectRole(search);
+        List<UserRoleDto.ResultRole> results = userRoleService.selectRole("kjpmj");
 
         // then
         assertThat(results.size()).isEqualTo(3);
@@ -72,9 +70,6 @@ class UserRoleServiceTest {
     @Test
     public void USER_ROLE_할당_서비스_테스트() throws Exception {
         // given
-        UserRoleDto.Search search = new UserRoleDto.Search();
-        search.setUserId("kjpmj");
-
         List<Role> roles = roleRepository.findAll();
 
         List<Long> roleIds = roles.stream()
@@ -89,7 +84,7 @@ class UserRoleServiceTest {
 
         // when
         CommonResponse response = userRoleService.allocate(allocate);
-        List<UserRoleDto.ResultRole> results = userRoleService.selectRole(search);
+        List<UserRoleDto.ResultRole> results = userRoleService.selectRole("kjpmj");
 
         // then
         assertThat(response.getCode()).isEqualTo(ResponseCode.OK.getCode());

@@ -8,12 +8,15 @@ import org.doif.projectv.business.module.entity.Module;
 import org.doif.projectv.business.module.repository.ModuleRepository;
 import org.doif.projectv.business.module.service.ModuleService;
 import org.doif.projectv.business.project.entity.Project;
+import org.doif.projectv.business.project.repository.ProjectRepository;
 import org.doif.projectv.business.vcs.constant.VcsType;
 import org.doif.projectv.business.version.constant.VersionStatus;
 import org.doif.projectv.business.version.dto.VersionDto;
 import org.doif.projectv.business.version.entity.Version;
+import org.doif.projectv.business.version.repository.VersionRepository;
 import org.doif.projectv.common.response.CommonResponse;
 import org.doif.projectv.common.response.ResponseCode;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +45,7 @@ class VersionServiceTest {
     @Autowired
     ModuleRepository moduleRepository;
 
+
     @BeforeEach
     public void init() {
         Project project = new Project("금융결제원 PG");
@@ -58,9 +62,10 @@ class VersionServiceTest {
         // given
         VersionDto.Search search = new VersionDto.Search();
         PageRequest pageRequest = PageRequest.of(0, 100);
+        Long moduleId = moduleRepository.findAll().get(0).getId();
 
         // when
-        Page<VersionDto.Result> results = versionService.searchByCondition(search, pageRequest);
+        Page<VersionDto.Result> results = versionService.searchByCondition(moduleId, search, pageRequest);
         List<VersionDto.Result> content = results.getContent();
 
         // then
@@ -88,7 +93,7 @@ class VersionServiceTest {
         search.setVersionName("v1.0.2");
         // when
         CommonResponse response = versionService.insert(insert);
-        Page<VersionDto.Result> results = versionService.searchByCondition(search, pageRequest);
+        Page<VersionDto.Result> results = versionService.searchByCondition(1L, search, pageRequest);
         List<VersionDto.Result> content = results.getContent();
 
         // then
@@ -102,14 +107,15 @@ class VersionServiceTest {
         // given
         VersionDto.Search search = new VersionDto.Search();
         PageRequest pageRequest = PageRequest.of(0, 100);
-        Long versionId = versionService.searchByCondition(search, pageRequest).getContent().get(0).getVersionId();
+        Long moduleId = moduleRepository.findAll().get(0).getId();
+        Long versionId = versionService.searchByCondition(moduleId, search, pageRequest).getContent().get(0).getVersionId();
 
         VersionDto.Update update = new VersionDto.Update();
         update.setDescription("버전 1.0.2");
 
         // when
         CommonResponse response = versionService.update(versionId, update);
-        Page<VersionDto.Result> results = versionService.searchByCondition(search, pageRequest);
+        Page<VersionDto.Result> results = versionService.searchByCondition(moduleId, search, pageRequest);
         List<VersionDto.Result> content = results.getContent();
 
         // then
@@ -123,11 +129,12 @@ class VersionServiceTest {
         // given
         VersionDto.Search search = new VersionDto.Search();
         PageRequest pageRequest = PageRequest.of(0, 100);
-        Long versionId = versionService.searchByCondition(search, pageRequest).getContent().get(0).getVersionId();
+        Long moduleId = moduleRepository.findAll().get(0).getId();
+        Long versionId = versionService.searchByCondition(moduleId, search, pageRequest).getContent().get(0).getVersionId();
 
         // when
         CommonResponse response = versionService.delete(versionId);
-        Page<VersionDto.Result> results = versionService.searchByCondition(search, pageRequest);
+        Page<VersionDto.Result> results = versionService.searchByCondition(moduleId, search, pageRequest);
         List<VersionDto.Result> content = results.getContent();
 
         // then

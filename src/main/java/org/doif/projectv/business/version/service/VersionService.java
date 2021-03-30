@@ -7,7 +7,7 @@ import org.springframework.data.domain.Pageable;
 
 public interface VersionService {
 
-    Page<VersionDto.Result> searchByCondition(VersionDto.Search search, Pageable pageable);
+    Page<VersionDto.Result> searchByCondition(Long id, VersionDto.Search search, Pageable pageable);
 
     CommonResponse insert(VersionDto.Insert dto);
 

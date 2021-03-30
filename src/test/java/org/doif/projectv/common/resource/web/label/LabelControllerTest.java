@@ -41,9 +41,6 @@ class LabelControllerTest extends ApiDocumentTest {
     @Test
     public void 라벨_조회_API_테스트() throws Exception {
         // given
-        LabelDto.Search search = new LabelDto.Search();
-        search.setPageId(1L);
-
         LabelDto.Result content = new LabelDto.Result(
                 2L,
                 "버전관리시스템 유형",
@@ -56,15 +53,14 @@ class LabelControllerTest extends ApiDocumentTest {
         List<LabelDto.Result> results = Arrays.asList(content);
         LabelDto.Response response = new LabelDto.Response(results);
 
-        given(labelService.selectByPage(any(LabelDto.Search.class)))
+        given(labelService.selectByPage(eq(1L)))
                 .willReturn(results);
 
         // when
         ResultActions result = mockMvc.perform(
-                get("/api/resources/label")
+                get("/api/resources/pages/{id}/labels", 1L)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsBytes(search))
         );
 
         // then
@@ -74,8 +70,8 @@ class LabelControllerTest extends ApiDocumentTest {
                 .andDo(document("label/select",
                         getDocumentRequest(),
                         getDocumentResponse(),
-                        requestFields(
-                                fieldWithPath("pageId").type(NUMBER).description("페이지 ID")
+                        pathParameters(
+                                parameterWithName("id").description("페이지 ID")
                         ),
                         responseFields(
                                 beneathPath("content").withSubsectionId("content"),
@@ -105,7 +101,7 @@ class LabelControllerTest extends ApiDocumentTest {
 
         // when
         ResultActions result = mockMvc.perform(
-                post("/api/resources/label")
+                post("/api/resources/labels")
                         .content(objectMapper.writeValueAsBytes(insert))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
@@ -140,7 +136,7 @@ class LabelControllerTest extends ApiDocumentTest {
 
         // when
         ResultActions result = mockMvc.perform(
-                put("/api/resources/label/{id}", 1L)
+                put("/api/resources/labels/{id}", 1L)
                         .content(objectMapper.writeValueAsBytes(update))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
@@ -171,7 +167,7 @@ class LabelControllerTest extends ApiDocumentTest {
 
         // when
         ResultActions result = mockMvc.perform(
-                delete("/api/resources/label/{id}", 1L)
+                delete("/api/resources/labels/{id}", 1L)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
         );

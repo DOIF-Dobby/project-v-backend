@@ -55,11 +55,9 @@ class LabelServiceTest {
     public void Label_조회_서비스_테스트() throws Exception {
         // given
         Long pageId = pageRepository.findAll().get(0).getId();
-        LabelDto.Search search = new LabelDto.Search();
-        search.setPageId(pageId);
 
         // when
-        List<LabelDto.Result> results = labelService.selectByPage(search);
+        List<LabelDto.Result> results = labelService.selectByPage(pageId);
 
         // then
         assertThat(results.size()).isEqualTo(1);
@@ -70,8 +68,6 @@ class LabelServiceTest {
     public void Label_추가_서비스_테스트() throws Exception {
         // given
         Long pageId = pageRepository.findAll().get(0).getId();
-        LabelDto.Search search = new LabelDto.Search();
-        search.setPageId(pageId);
 
         LabelDto.Insert insert = new LabelDto.Insert();
         insert.setPageId(pageId);
@@ -82,7 +78,7 @@ class LabelServiceTest {
 
         // when
         CommonResponse response = labelService.insert(insert);
-        List<LabelDto.Result> results = labelService.selectByPage(search);
+        List<LabelDto.Result> results = labelService.selectByPage(pageId);
 
         // then
         assertThat(response.getCode()).isEqualTo(ResponseCode.OK.getCode());
@@ -94,8 +90,6 @@ class LabelServiceTest {
     public void Label_수정_서비스_테스트() throws Exception {
         // given
         Long pageId = pageRepository.findAll().get(0).getId();
-        LabelDto.Search search = new LabelDto.Search();
-        search.setPageId(pageId);
 
         Long labelId = labelRepository.findAll().get(0).getId();
 
@@ -106,7 +100,7 @@ class LabelServiceTest {
 
         // when
         CommonResponse response = labelService.update(labelId, update);
-        List<LabelDto.Result> results = labelService.selectByPage(search);
+        List<LabelDto.Result> results = labelService.selectByPage(pageId);
 
         // then
         assertThat(response.getCode()).isEqualTo(ResponseCode.OK.getCode());
@@ -118,14 +112,12 @@ class LabelServiceTest {
     public void Label_삭제_서비스_테스트() throws Exception {
         // given
         Long pageId = pageRepository.findAll().get(0).getId();
-        LabelDto.Search search = new LabelDto.Search();
-        search.setPageId(pageId);
 
         Long labelId = labelRepository.findAll().get(0).getId();
 
         // when
         CommonResponse response = labelService.delete(labelId);
-        List<LabelDto.Result> results = labelService.selectByPage(search);
+        List<LabelDto.Result> results = labelService.selectByPage(pageId);
 
         // then
         assertThat(response.getCode()).isEqualTo(ResponseCode.OK.getCode());

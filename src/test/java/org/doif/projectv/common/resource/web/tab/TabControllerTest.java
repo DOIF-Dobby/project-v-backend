@@ -43,9 +43,6 @@ class TabControllerTest extends ApiDocumentTest {
     @Test
     public void 탭_조회_API_테스트() throws Exception {
         // given
-        TabDto.Search search = new TabDto.Search();
-        search.setPageId(1L);
-
         TabDto.Result content = new TabDto.Result(
                 2L,
                 "탭1",
@@ -62,15 +59,14 @@ class TabControllerTest extends ApiDocumentTest {
         List<TabDto.Result> results = Arrays.asList(content);
         TabDto.Response response = new TabDto.Response(results);
 
-        given(tabService.selectByPage(any(TabDto.Search.class)))
+        given(tabService.selectByPage(eq(1L)))
                 .willReturn(results);
 
         // when
         ResultActions result = mockMvc.perform(
-                get("/api/resources/tab")
+                get("/api/resources/pages/{id}/tabs", 1L)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsBytes(search))
         );
 
         // then
@@ -80,8 +76,8 @@ class TabControllerTest extends ApiDocumentTest {
                 .andDo(document("tab/select",
                         getDocumentRequest(),
                         getDocumentResponse(),
-                        requestFields(
-                                fieldWithPath("pageId").type(NUMBER).description("페이지 ID")
+                        pathParameters(
+                                parameterWithName("id").description("페이지 ID")
                         ),
                         responseFields(
                                 beneathPath("content").withSubsectionId("content"),
@@ -119,7 +115,7 @@ class TabControllerTest extends ApiDocumentTest {
 
         // when
         ResultActions result = mockMvc.perform(
-                post("/api/resources/tab")
+                post("/api/resources/tabs")
                         .content(objectMapper.writeValueAsBytes(insert))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
@@ -162,7 +158,7 @@ class TabControllerTest extends ApiDocumentTest {
 
         // when
         ResultActions result = mockMvc.perform(
-                put("/api/resources/tab/{id}", 1L)
+                put("/api/resources/tabs/{id}", 1L)
                         .content(objectMapper.writeValueAsBytes(update))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
@@ -197,7 +193,7 @@ class TabControllerTest extends ApiDocumentTest {
 
         // when
         ResultActions result = mockMvc.perform(
-                delete("/api/resources/tab/{id}", 1L)
+                delete("/api/resources/tabs/{id}", 1L)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
         );

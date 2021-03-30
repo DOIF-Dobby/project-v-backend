@@ -8,6 +8,7 @@ import org.doif.projectv.common.api.ApiDocumentTest;
 import org.doif.projectv.common.enumeration.CodeEnum;
 import org.doif.projectv.common.response.ResponseUtil;
 import org.doif.projectv.common.status.EnableStatus;
+import org.doif.projectv.common.util.MultiValueMapConverter;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
@@ -29,8 +30,7 @@ import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuild
 import static org.springframework.restdocs.payload.JsonFieldType.NUMBER;
 import static org.springframework.restdocs.payload.JsonFieldType.STRING;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
-import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
-import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
+import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -60,10 +60,10 @@ class VcsAuthInfoControllerTest extends ApiDocumentTest {
 
         // when
         ResultActions result = mockMvc.perform(
-                get("/api/vcs-auth-info")
+                get("/api/vcs-auth-infos")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsBytes(search))
+                        .params(MultiValueMapConverter.convert(objectMapper, search))
         );
 
         // then
@@ -73,8 +73,8 @@ class VcsAuthInfoControllerTest extends ApiDocumentTest {
                 .andDo(document("vcs-auth-info/select",
                         getDocumentRequest(),
                         getDocumentResponse(),
-                        requestFields(
-                                fieldWithPath("userId").type(STRING).description("유저 ID")
+                        requestParameters(
+                                parameterWithName("userId").description("유저 ID")
                         ),
                         responseFields(
                                 beneathPath("content").withSubsectionId("content"),
@@ -105,7 +105,7 @@ class VcsAuthInfoControllerTest extends ApiDocumentTest {
 
         // when
         ResultActions result = mockMvc.perform(
-                post("/api/vcs-auth-info")
+                post("/api/vcs-auth-infos")
                         .content(objectMapper.writeValueAsBytes(insert))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
@@ -140,7 +140,7 @@ class VcsAuthInfoControllerTest extends ApiDocumentTest {
 
         // when
         ResultActions result = mockMvc.perform(
-                put("/api/vcs-auth-info/{id}", 1L)
+                put("/api/vcs-auth-infos/{id}", 1L)
                         .content(objectMapper.writeValueAsBytes(update))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
@@ -171,7 +171,7 @@ class VcsAuthInfoControllerTest extends ApiDocumentTest {
 
         // when
         ResultActions result = mockMvc.perform(
-                delete("/api/vcs-auth-info/{id}", 1L)
+                delete("/api/vcs-auth-infos/{id}", 1L)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
         );

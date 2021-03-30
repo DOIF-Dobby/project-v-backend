@@ -10,28 +10,28 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/role-resource")
+@RequestMapping("/api/role-resources")
 @RequiredArgsConstructor
 public class RoleResourceController {
 
     private final RoleResourceService roleResourceService;
 
-    @GetMapping("/page")
-    public ResponseEntity<Response<ResultPage>> selectPage(@RequestBody SearchPage search) {
+    @GetMapping("/pages")
+    public ResponseEntity<Response<ResultPage>> selectPage(SearchPage search) {
         List<ResultPage> result = roleResourceService.selectPage(search);
         Response<ResultPage> response = new Response<>(result);
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/button")
-    public ResponseEntity<Response<ResultButton>> selectButton(@RequestBody Search search) {
+    @GetMapping("/buttons")
+    public ResponseEntity<Response<ResultButton>> selectButton(Search search) {
         List<ResultButton> result = roleResourceService.selectButton(search);
         Response<ResultButton> response = new Response<>(result);
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/tab")
-    public ResponseEntity<Response<ResultTab>> selectTab(@RequestBody Search search) {
+    @GetMapping("/tabs")
+    public ResponseEntity<Response<ResultTab>> selectTab(Search search) {
         List<ResultTab> result = roleResourceService.selectTab(search);
         Response<ResultTab> response = new Response<>(result);
         return ResponseEntity.ok(response);

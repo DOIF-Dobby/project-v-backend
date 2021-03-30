@@ -6,7 +6,7 @@ import org.doif.projectv.common.response.CommonResponse;
 import java.util.List;
 
 public interface ButtonService {
-    List<ButtonDto.Result> selectByPage(ButtonDto.Search search);
+    List<ButtonDto.Result> selectByPage(Long pageId);
 
     CommonResponse insert(ButtonDto.Insert dto);
 

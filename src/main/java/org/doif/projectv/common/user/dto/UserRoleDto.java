@@ -42,12 +42,6 @@ public class UserRoleDto {
 
     @Getter
     @Setter
-    public static class Search {
-        private String userId;
-    }
-
-    @Getter
-    @Setter
     @ToString
     public static class Allocate {
         private String userId;

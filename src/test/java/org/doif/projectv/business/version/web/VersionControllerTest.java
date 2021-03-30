@@ -3,25 +3,17 @@ package org.doif.projectv.business.version.web;
 import org.doif.projectv.business.version.constant.VersionStatus;
 import org.doif.projectv.business.version.dto.VersionDto;
 import org.doif.projectv.common.api.ApiDocumentTest;
-import org.doif.projectv.common.api.ApiDocumentUtils;
-import org.doif.projectv.common.api.DocumentLinkGenerator;
+import org.doif.projectv.common.util.MultiValueMapConverter;
 import org.doif.projectv.common.enumeration.CodeEnum;
 import org.doif.projectv.common.response.ResponseUtil;
 import org.junit.jupiter.api.Test;
-import org.mockito.BDDMockito;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
-import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
-import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.restdocs.payload.JsonFieldType;
-import org.springframework.restdocs.payload.PayloadDocumentation;
-import org.springframework.restdocs.request.RequestDocumentation;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +21,6 @@ import java.util.List;
 import static org.doif.projectv.common.api.ApiDocumentUtils.*;
 import static org.doif.projectv.common.api.DocumentLinkGenerator.*;
 import static org.doif.projectv.common.api.DocumentLinkGenerator.generateText;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.*;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
@@ -52,22 +43,21 @@ class VersionControllerTest extends ApiDocumentTest {
         Page<VersionDto.Result> pages = new PageImpl<>(versionResults, pageRequest, 100);
 
         VersionDto.Search search = new VersionDto.Search();
-        search.setModuleId(1L);
-        search.setModuleId(1L);
         search.setVersionName("1.0.1");
+        search.setDescription("뭐지");
         search.setVersionStatus(VersionStatus.DEVELOP);
 
-        given(versionService.searchByCondition(any(VersionDto.Search.class), any(Pageable.class)))
+        given(versionService.searchByCondition(eq(1L), any(VersionDto.Search.class), any(Pageable.class)))
                 .willReturn(pages);
 
         VersionDto.Response response = new VersionDto.Response(pages);
 
         // when
         ResultActions result = mockMvc.perform(
-                get("/api/version")
+                get("/api/modules/{id}/versions", 1L)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsBytes(search))
+                        .params(MultiValueMapConverter.convert(objectMapper, search))
         );
 
         // then
@@ -77,11 +67,13 @@ class VersionControllerTest extends ApiDocumentTest {
                 .andDo(document("version/select",
                         getDocumentRequest(),
                         getDocumentResponse(),
-                        requestFields(
-                                fieldWithPath("moduleId").type(JsonFieldType.NUMBER).optional().description("모듈 ID"),
-                                fieldWithPath("versionName").type(JsonFieldType.STRING).optional().description("버전명"),
-                                fieldWithPath("description").type(JsonFieldType.STRING).optional().description("버전 설명"),
-                                fieldWithPath("versionStatus").type(JsonFieldType.STRING).optional().description(generateLinkCode(CodeEnum.VERSION_STATUS))
+                        pathParameters(
+                                parameterWithName("id").description("모듈 ID")
+                        ),
+                        requestParameters(
+                                parameterWithName("versionName").description("버전명"),
+                                parameterWithName("description").description("버전 설명"),
+                                parameterWithName("versionStatus").description(generateLinkCode(CodeEnum.VERSION_STATUS))
                         ),
                         responseFields(subsectionWithPath("pageInfo").type(JsonFieldType.OBJECT).description(generateLinkPageInfo())),
                         responseFields(
@@ -111,7 +103,7 @@ class VersionControllerTest extends ApiDocumentTest {
 
         // when
         ResultActions result = mockMvc.perform(
-                post("/api/version")
+                post("/api/versions")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsBytes(insert))
@@ -142,7 +134,7 @@ class VersionControllerTest extends ApiDocumentTest {
 
         // when
         ResultActions result = mockMvc.perform(
-                put("/api/version/{id}", 1L)
+                put("/api/versions/{id}", 1L)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsBytes(update))
@@ -171,7 +163,7 @@ class VersionControllerTest extends ApiDocumentTest {
 
         // when
         ResultActions result = mockMvc.perform(
-                delete("/api/version/{id}", 1L)
+                delete("/api/versions/{id}", 1L)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
         );
@@ -191,14 +183,18 @@ class VersionControllerTest extends ApiDocumentTest {
     @Test
     public void 버전_배포_API_테스트() throws Exception {
         // given
+        VersionDto.Release release = new VersionDto.Release();
+        release.setVersionId(1L);
+
         given(versionService.release(eq(1L)))
                 .willReturn(ResponseUtil.ok());
 
         // when
         ResultActions result = mockMvc.perform(
-                put("/api/version/release/{id}", 1L)
+                post("/api/versions/release")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsBytes(release))
         );
 
         // then
@@ -207,8 +203,8 @@ class VersionControllerTest extends ApiDocumentTest {
                 .andDo(document("version/release",
                         getDocumentRequest(),
                         getDocumentResponse(),
-                        pathParameters(
-                                parameterWithName("id").description("버전 ID")
+                        requestFields(
+                                fieldWithPath("versionId").type(JsonFieldType.NUMBER).description("버전 ID")
                         )
                 ));
     }

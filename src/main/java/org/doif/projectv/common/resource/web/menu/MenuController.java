@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/resources/menu")
+@RequestMapping("/api/resources/menus")
 @RequiredArgsConstructor
 public class MenuController {
 

@@ -6,6 +6,7 @@ import org.doif.projectv.business.patchlog.dto.PatchLogDto;
 import org.doif.projectv.common.api.ApiDocumentTest;
 import org.doif.projectv.common.enumeration.CodeEnum;
 import org.doif.projectv.common.response.ResponseUtil;
+import org.doif.projectv.common.util.MultiValueMapConverter;
 import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -29,8 +30,7 @@ import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
-import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
-import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
+import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -78,10 +78,10 @@ class PatchLogControllerTest extends ApiDocumentTest {
 
         // when
         ResultActions result = mockMvc.perform(
-                get("/api/patch-log")
+                get("/api/patch-logs")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsBytes(search))
+                        .params(MultiValueMapConverter.convert(objectMapper, search))
         );
 
         // then
@@ -91,16 +91,16 @@ class PatchLogControllerTest extends ApiDocumentTest {
                 .andDo(document("patch-log/select",
                         getDocumentRequest(),
                         getDocumentResponse(),
-                        requestFields(
-                                fieldWithPath("moduleId").type(JsonFieldType.NUMBER).optional().description("모듈 ID"),
-                                fieldWithPath("versionId").type(JsonFieldType.NUMBER).optional().description("버전 ID"),
-                                fieldWithPath("target").type(JsonFieldType.STRING).optional().description(generateLinkCode(CodeEnum.PATCH_TARGET)),
-                                fieldWithPath("status").type(JsonFieldType.STRING).optional().description(generateLinkCode(CodeEnum.PATCH_STATUS)),
-                                fieldWithPath("patchScheduleDateGoe").type(JsonFieldType.STRING).optional().attributes(getDateFormat()).description("패치 예정일 From"),
-                                fieldWithPath("patchScheduleDateLt").type(JsonFieldType.STRING).optional().attributes(getDateFormat()).description("패치 예정일 To"),
-                                fieldWithPath("patchDateGoe").type(JsonFieldType.STRING).optional().attributes(getDateFormat()).description("패치일 From"),
-                                fieldWithPath("patchDateLt").type(JsonFieldType.STRING).optional().attributes(getDateFormat()).description("패치일 To"),
-                                fieldWithPath("worker").type(JsonFieldType.STRING).optional().description("작업자")
+                        requestParameters(
+                                parameterWithName("moduleId").description("모듈 ID"),
+                                parameterWithName("versionId").description("버전 ID"),
+                                parameterWithName("target").description(generateLinkCode(CodeEnum.PATCH_TARGET)),
+                                parameterWithName("status").description(generateLinkCode(CodeEnum.PATCH_STATUS)),
+                                parameterWithName("patchScheduleDateGoe").attributes(getDateFormat()).description("패치 예정일 From"),
+                                parameterWithName("patchScheduleDateLt").attributes(getDateFormat()).description("패치 예정일 To"),
+                                parameterWithName("patchDateGoe").attributes(getDateFormat()).description("패치일 From"),
+                                parameterWithName("patchDateLt").attributes(getDateFormat()).description("패치일 To"),
+                                parameterWithName("worker").description("작업자")
                         ),
                         responseFields(subsectionWithPath("pageInfo").type(JsonFieldType.OBJECT).description(generateLinkPageInfo())),
                         responseFields(
@@ -136,7 +136,7 @@ class PatchLogControllerTest extends ApiDocumentTest {
 
         // when
         ResultActions result = mockMvc.perform(
-                post("/api/patch-log")
+                post("/api/patch-logs")
                         .content(objectMapper.writeValueAsBytes(insert))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
@@ -175,7 +175,7 @@ class PatchLogControllerTest extends ApiDocumentTest {
 
         // when
         ResultActions result = mockMvc.perform(
-                put("/api/patch-log/{id}", 1L)
+                put("/api/patch-logs/{id}", 1L)
                         .content(objectMapper.writeValueAsBytes(update))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
@@ -209,7 +209,7 @@ class PatchLogControllerTest extends ApiDocumentTest {
 
         // when
         ResultActions result = mockMvc.perform(
-                delete("/api/patch-log/{id}", 1L)
+                delete("/api/patch-logs/{id}", 1L)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
         );

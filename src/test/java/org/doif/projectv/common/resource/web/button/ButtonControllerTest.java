@@ -44,8 +44,6 @@ class ButtonControllerTest extends ApiDocumentTest {
     @Test
     public void 버튼_조회_API_테스트() throws Exception {
         // given
-        ButtonDto.Search search = new ButtonDto.Search();
-        search.setPageId(1L);
 
         ButtonDto.Result content = new ButtonDto.Result(
                 2L,
@@ -62,15 +60,14 @@ class ButtonControllerTest extends ApiDocumentTest {
         List<ButtonDto.Result> results = Arrays.asList(content);
         ButtonDto.Response response = new ButtonDto.Response(results);
 
-        given(buttonService.selectByPage(any(ButtonDto.Search.class)))
+        given(buttonService.selectByPage(eq(1L)))
                 .willReturn(results);
         
         // when
         ResultActions result = mockMvc.perform(
-                get("/api/resources/button")
+                get("/api/resources/pages/{id}/buttons", 1L)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsBytes(search))
         );
 
         // then
@@ -80,8 +77,8 @@ class ButtonControllerTest extends ApiDocumentTest {
                 .andDo(document("button/select",
                         getDocumentRequest(),
                         getDocumentResponse(),
-                        requestFields(
-                                fieldWithPath("pageId").type(NUMBER).description("페이지 ID")
+                        pathParameters(
+                                parameterWithName("id").description("페이지 ID")
                         ),
                         responseFields(
                                 beneathPath("content").withSubsectionId("content"),
@@ -117,7 +114,7 @@ class ButtonControllerTest extends ApiDocumentTest {
 
         // when
         ResultActions result = mockMvc.perform(
-                post("/api/resources/button")
+                post("/api/resources/buttons")
                         .content(objectMapper.writeValueAsBytes(insert))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
@@ -158,7 +155,7 @@ class ButtonControllerTest extends ApiDocumentTest {
 
         // when
         ResultActions result = mockMvc.perform(
-                put("/api/resources/button/{id}", 1L)
+                put("/api/resources/buttons/{id}", 1L)
                         .content(objectMapper.writeValueAsBytes(update))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
@@ -192,7 +189,7 @@ class ButtonControllerTest extends ApiDocumentTest {
 
         // when
         ResultActions result = mockMvc.perform(
-                delete("/api/resources/button/{id}", 1L)
+                delete("/api/resources/buttons/{id}", 1L)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
         );

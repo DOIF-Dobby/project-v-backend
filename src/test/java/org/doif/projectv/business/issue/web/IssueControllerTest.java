@@ -6,6 +6,7 @@ import org.doif.projectv.business.issue.dto.IssueDto;
 import org.doif.projectv.common.api.ApiDocumentTest;
 import org.doif.projectv.common.enumeration.CodeEnum;
 import org.doif.projectv.common.response.ResponseUtil;
+import org.doif.projectv.common.util.MultiValueMapConverter;
 import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -30,8 +31,7 @@ import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.docu
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.payload.JsonFieldType.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
-import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
-import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
+import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -71,10 +71,10 @@ class IssueControllerTest extends ApiDocumentTest {
 
         // when
         ResultActions result = mockMvc.perform(
-                get("/api/issue")
+                get("/api/issues")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsBytes(search))
+                        .params(MultiValueMapConverter.convert(objectMapper, search))
         );
 
         // then
@@ -84,10 +84,10 @@ class IssueControllerTest extends ApiDocumentTest {
                 .andDo(document("issue/select",
                         getDocumentRequest(),
                         getDocumentResponse(),
-                        requestFields(
-                                fieldWithPath("category").type(STRING).optional().description(generateLinkCode(CodeEnum.ISSUE_CATEGORY)),
-                                fieldWithPath("status").type(STRING).optional().description(generateLinkCode(CodeEnum.ISSUE_STATUS)),
-                                fieldWithPath("contents").type(STRING).optional().description("이슈 내용")
+                        requestParameters(
+                                parameterWithName("category").description(generateLinkCode(CodeEnum.ISSUE_CATEGORY)),
+                                parameterWithName("status").description(generateLinkCode(CodeEnum.ISSUE_STATUS)),
+                                parameterWithName("contents").description("이슈 내용")
                         ),
                         responseFields(subsectionWithPath("pageInfo").type(OBJECT).description(generateLinkPageInfo())),
                         responseFields(
@@ -121,7 +121,7 @@ class IssueControllerTest extends ApiDocumentTest {
 
         // when
         ResultActions result = mockMvc.perform(
-                post("/api/issue")
+                post("/api/issues")
                         .content(objectMapper.writeValueAsBytes(insert))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
@@ -156,7 +156,7 @@ class IssueControllerTest extends ApiDocumentTest {
 
         // when
         ResultActions result = mockMvc.perform(
-                put("/api/issue/{id}", 1L)
+                put("/api/issues/{id}", 1L)
                         .content(objectMapper.writeValueAsBytes(update))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
@@ -188,7 +188,7 @@ class IssueControllerTest extends ApiDocumentTest {
 
         // when
         ResultActions result = mockMvc.perform(
-                delete("/api/issue/{id}", 1L)
+                delete("/api/issues/{id}", 1L)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
         );

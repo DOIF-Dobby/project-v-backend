@@ -10,18 +10,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/resources/tab")
+@RequestMapping("/api/resources/tabs")
 @RequiredArgsConstructor
 public class TabController {
 
     private final TabService tabService;
-
-    @GetMapping
-    public ResponseEntity<TabDto.Response> selectByPage(@RequestBody TabDto.Search search) {
-        List<TabDto.Result> result = tabService.selectByPage(search);
-        TabDto.Response response = new TabDto.Response(result);
-        return ResponseEntity.ok(response);
-    }
 
     @PostMapping
     public ResponseEntity<CommonResponse> insert(@RequestBody TabDto.Insert dto) {

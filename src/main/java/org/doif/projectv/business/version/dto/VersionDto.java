@@ -46,7 +46,6 @@ public class VersionDto {
     @Getter
     @Setter
     public static class Search {
-        private Long moduleId;
         private String versionName;
         private String description;
         private VersionStatus versionStatus;
@@ -64,5 +63,11 @@ public class VersionDto {
     @Setter
     public static class Update {
         private String description;
+    }
+
+    @Getter
+    @Setter
+    public static class Release {
+        private Long versionId;
     }
 }

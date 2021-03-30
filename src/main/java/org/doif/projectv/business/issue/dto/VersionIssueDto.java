@@ -75,7 +75,6 @@ public class VersionIssueDto {
         private String issueYm;
         private VersionIssueProgress progress;
         private String assignee;
-        private PatchTarget patchTarget;
     }
 
     @Getter

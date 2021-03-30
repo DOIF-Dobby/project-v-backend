@@ -6,6 +6,7 @@ import lombok.*;
 import org.doif.projectv.business.patchlog.constant.PatchStatus;
 import org.doif.projectv.business.patchlog.constant.PatchTarget;
 import org.springframework.data.domain.Page;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
@@ -59,13 +60,13 @@ public class PatchLogDto {
         private Long versionId;
         private PatchTarget target;
         private PatchStatus status;
-        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+        @DateTimeFormat(pattern = "yyyy-MM-dd")
         private LocalDate patchScheduleDateGoe;
-        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+        @DateTimeFormat(pattern = "yyyy-MM-dd")
         private LocalDate patchScheduleDateLt;
-        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+        @DateTimeFormat(pattern = "yyyy-MM-dd")
         private LocalDate patchDateGoe;
-        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+        @DateTimeFormat(pattern = "yyyy-MM-dd")
         private LocalDate patchDateLt;
         private String worker;
     }

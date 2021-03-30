@@ -2,6 +2,7 @@ package org.doif.projectv.business.vcs.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -26,9 +27,9 @@ public class VcsDto {
     @Setter
     public static class SearchLog {
         private Long moduleId;
-        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+        @DateTimeFormat(pattern = "yyyy-MM-dd")
         private LocalDate startDate;
-        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+        @DateTimeFormat(pattern = "yyyy-MM-dd")
         private LocalDate endDate;
     }
 

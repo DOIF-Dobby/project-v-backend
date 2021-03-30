@@ -19,7 +19,7 @@ public class VersionRepositoryImpl extends Querydsl4RepositorySupport implements
     }
 
     @Override
-    public Page<VersionDto.Result> searchByCondition(VersionDto.Search search, Pageable pageable) {
+    public Page<VersionDto.Result> searchByCondition(Long id, VersionDto.Search search, Pageable pageable) {
         return applyPagination(pageable, contentQuery -> contentQuery
                 .select(new QVersionDto_Result(
                         version.id,
@@ -32,7 +32,7 @@ public class VersionRepositoryImpl extends Querydsl4RepositorySupport implements
                 ))
                 .from(version)
                 .where(
-                        moduleIdEq(search.getModuleId()),
+                        moduleIdEq(id),
                         versionNameEq(search.getVersionName()),
                         descriptionLike(search.getDescription()),
                         versionStatusEq(search.getVersionStatus())

@@ -8,6 +8,7 @@ import org.doif.projectv.business.patchlog.constant.PatchTarget;
 import org.doif.projectv.common.api.ApiDocumentTest;
 import org.doif.projectv.common.enumeration.CodeEnum;
 import org.doif.projectv.common.response.ResponseUtil;
+import org.doif.projectv.common.util.MultiValueMapConverter;
 import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -32,8 +33,7 @@ import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
-import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
-import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
+import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -68,7 +68,7 @@ class VersionIssueControllerTest extends ApiDocumentTest {
 
         // when
         ResultActions result = mockMvc.perform(
-                get("/api/version-issue/issue/{issueId}", 1L)
+                get("/api/issues/{id}/version-issues", 1L)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
         );
@@ -81,7 +81,7 @@ class VersionIssueControllerTest extends ApiDocumentTest {
                         getDocumentRequest(),
                         getDocumentResponse(),
                         pathParameters(
-                                parameterWithName("issueId").description("이슈 ID")
+                                parameterWithName("id").description("이슈 ID")
                         ),
                         responseFields(
                                 beneathPath("content").withSubsectionId("content"),
@@ -129,7 +129,7 @@ class VersionIssueControllerTest extends ApiDocumentTest {
 
         // when
         ResultActions result = mockMvc.perform(
-                get("/api/version-issue/version/{versionId}", 1L)
+                get("/api/versions/{id}/version-issues", 1L)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
         );
@@ -142,7 +142,7 @@ class VersionIssueControllerTest extends ApiDocumentTest {
                         getDocumentRequest(),
                         getDocumentResponse(),
                         pathParameters(
-                                parameterWithName("versionId").description("버전 ID")
+                                parameterWithName("id").description("버전 ID")
                         ),
                         responseFields(
                                 beneathPath("content").withSubsectionId("content"),
@@ -178,7 +178,7 @@ class VersionIssueControllerTest extends ApiDocumentTest {
 
         // when
         ResultActions result = mockMvc.perform(
-                post("/api/version-issue")
+                post("/api/version-issues")
                         .content(objectMapper.writeValueAsBytes(insert))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
@@ -215,7 +215,7 @@ class VersionIssueControllerTest extends ApiDocumentTest {
 
         // when
         ResultActions result = mockMvc.perform(
-                put("/api/version-issue/{id}", 1L)
+                put("/api/version-issues/{id}", 1L)
                         .content(objectMapper.writeValueAsBytes(update))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
@@ -247,7 +247,7 @@ class VersionIssueControllerTest extends ApiDocumentTest {
 
         // when
         ResultActions result = mockMvc.perform(
-                delete("/api/version-issue/{id}", 1L)
+                delete("/api/version-issues/{id}", 1L)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
         );
@@ -303,17 +303,16 @@ class VersionIssueControllerTest extends ApiDocumentTest {
         search.setIssueYm("202011");
         search.setProgress(VersionIssueProgress.TODO);
         search.setAssignee("kjpmj");
-        search.setPatchTarget(PatchTarget.DEV);
 
         given(versionIssueService.searchOverview(any(VersionIssueDto.Search.class), any(Pageable.class)))
                 .willReturn(pages);
 
         // when
         ResultActions result = mockMvc.perform(
-                get("/api/version-issue/overview")
+                get("/api/version-issues/overview")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsBytes(search))
+                        .params(MultiValueMapConverter.convert(objectMapper, search))
         );
 
         // then
@@ -323,17 +322,16 @@ class VersionIssueControllerTest extends ApiDocumentTest {
                 .andDo(document("version-issue/overview",
                         getDocumentRequest(),
                         getDocumentResponse(),
-                        requestFields(
-                                fieldWithPath("projectId").type(JsonFieldType.NUMBER).optional().description("프로젝트 ID"),
-                                fieldWithPath("moduleId").type(JsonFieldType.NUMBER).optional().description("모듈 ID"),
-                                fieldWithPath("versionId").type(JsonFieldType.NUMBER).optional().description("버전 ID"),
-                                fieldWithPath("issueId").type(JsonFieldType.NUMBER).optional().description("이슈 ID"),
-                                fieldWithPath("status").type(JsonFieldType.STRING).optional().description(generateLinkCode(CodeEnum.ISSUE_STATUS)),
-                                fieldWithPath("category").type(JsonFieldType.STRING).optional().description(generateLinkCode(CodeEnum.ISSUE_CATEGORY)),
-                                fieldWithPath("issueYm").type(JsonFieldType.STRING).optional().description("이슈 년월"),
-                                fieldWithPath("progress").type(JsonFieldType.STRING).optional().description(generateLinkCode(CodeEnum.VERSION_ISSUE_PROGRESS)),
-                                fieldWithPath("assignee").type(JsonFieldType.STRING).optional().description("작업 예정자"),
-                                fieldWithPath("patchTarget").type(JsonFieldType.STRING).optional().description(generateLinkCode(CodeEnum.PATCH_TARGET))
+                        requestParameters(
+                                parameterWithName("projectId").description("프로젝트 ID"),
+                                parameterWithName("moduleId").description("모듈 ID"),
+                                parameterWithName("versionId").description("버전 ID"),
+                                parameterWithName("issueId").description("이슈 ID"),
+                                parameterWithName("status").description(generateLinkCode(CodeEnum.ISSUE_STATUS)),
+                                parameterWithName("category").description(generateLinkCode(CodeEnum.ISSUE_CATEGORY)),
+                                parameterWithName("issueYm").description("이슈 년월"),
+                                parameterWithName("progress").description(generateLinkCode(CodeEnum.VERSION_ISSUE_PROGRESS)),
+                                parameterWithName("assignee").description("작업 예정자")
                         ),
                         responseFields(subsectionWithPath("pageInfo").type(JsonFieldType.OBJECT).description(generateLinkPageInfo())),
                         responseFields(
