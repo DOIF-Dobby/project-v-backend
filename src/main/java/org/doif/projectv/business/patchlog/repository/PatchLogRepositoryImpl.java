@@ -1,19 +1,23 @@
 package org.doif.projectv.business.patchlog.repository;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
+import org.doif.projectv.business.client.entity.QClient;
 import org.doif.projectv.business.patchlog.constant.PatchStatus;
 import org.doif.projectv.business.patchlog.constant.PatchTarget;
 import org.doif.projectv.business.patchlog.dto.PatchLogDto;
 import org.doif.projectv.business.patchlog.dto.QPatchLogDto_Result;
 import org.doif.projectv.business.patchlog.entity.PatchLog;
+import org.doif.projectv.business.patchlog.entity.QPatchLogVersion;
 import org.doif.projectv.common.jpa.support.Querydsl4RepositorySupport;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDate;
 
+import static org.doif.projectv.business.client.entity.QClient.*;
 import static org.doif.projectv.business.module.entity.QModule.module;
 import static org.doif.projectv.business.patchlog.entity.QPatchLog.patchLog;
+import static org.doif.projectv.business.patchlog.entity.QPatchLogVersion.*;
 import static org.doif.projectv.business.version.entity.QVersion.version;
 import static org.springframework.util.StringUtils.isEmpty;
 
@@ -24,12 +28,11 @@ public class PatchLogRepositoryImpl extends Querydsl4RepositorySupport implement
     }
 
     @Override
-    public Page<PatchLogDto.Result> searchByCondition(PatchLogDto.Search search, Pageable pageable) {
+    public Page<PatchLogDto.Result> searchByCondition(Long clientId, PatchLogDto.Search search, Pageable pageable) {
         return applyPagination(pageable, contentQuery -> contentQuery
                 .select(new QPatchLogDto_Result(
                         patchLog.id,
-                        module.moduleName,
-                        version.name,
+                        client.name,
                         patchLog.target,
                         patchLog.status,
                         patchLog.patchScheduleDate,
@@ -38,11 +41,9 @@ public class PatchLogRepositoryImpl extends Querydsl4RepositorySupport implement
                         patchLog.remark
                 ))
                 .from(patchLog)
-                .join(patchLog.version, version)
-                .join(version.module, module)
+                .join(patchLog.client, client)
                 .where(
-                        moduleIdEq(search.getModuleId()),
-                        versionIdEq(search.getVersionId()),
+                        client.id.eq(clientId),
                         targetEq(search.getTarget()),
                         statusEq(search.getStatus()),
                         patchScheduleDateGoe(search.getPatchScheduleDateGoe()),
@@ -53,14 +54,6 @@ public class PatchLogRepositoryImpl extends Querydsl4RepositorySupport implement
                 )
                 .orderBy(patchLog.id.asc())
         );
-    }
-
-    private BooleanExpression moduleIdEq(Long moduleId) {
-        return isEmpty(moduleId) ? null : module.id.eq(moduleId);
-    }
-
-    private BooleanExpression versionIdEq(Long versionId) {
-        return isEmpty(versionId) ? null : version.id.eq(versionId);
     }
 
     private BooleanExpression targetEq(PatchTarget target) {

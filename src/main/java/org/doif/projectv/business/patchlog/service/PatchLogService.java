@@ -6,7 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface PatchLogService {
-    Page<PatchLogDto.Result> searchByCondition(PatchLogDto.Search search, Pageable pageable);
+    Page<PatchLogDto.Result> searchByCondition(Long clientId, PatchLogDto.Search search, Pageable pageable);
 
     CommonResponse insert(PatchLogDto.Insert dto);
 

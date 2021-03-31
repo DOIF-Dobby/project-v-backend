@@ -14,6 +14,7 @@ import org.doif.projectv.business.issue.entity.VersionIssue;
 import org.doif.projectv.business.module.entity.QModule;
 import org.doif.projectv.business.patchlog.constant.PatchTarget;
 import org.doif.projectv.business.patchlog.entity.QPatchLog;
+import org.doif.projectv.business.patchlog.entity.QPatchLogVersion;
 import org.doif.projectv.business.project.entity.QProject;
 import org.doif.projectv.business.task.entity.QTask;
 import org.doif.projectv.business.version.entity.QVersion;
@@ -28,6 +29,7 @@ import static org.doif.projectv.business.issue.entity.QIssue.*;
 import static org.doif.projectv.business.issue.entity.QVersionIssue.*;
 import static org.doif.projectv.business.module.entity.QModule.*;
 import static org.doif.projectv.business.patchlog.entity.QPatchLog.*;
+import static org.doif.projectv.business.patchlog.entity.QPatchLogVersion.*;
 import static org.doif.projectv.business.project.entity.QProject.*;
 import static org.doif.projectv.business.task.entity.QTask.*;
 import static org.doif.projectv.business.version.entity.QVersion.*;
@@ -106,16 +108,20 @@ public class VersionIssueRepositoryImpl extends Querydsl4RepositorySupport imple
                         JPAExpressions
                                 .select(patchLog.patchDate)
                                 .from(patchLog)
+                                .leftJoin(patchLog.patchLogVersions, patchLogVersion)
+                                .join(patchLogVersion.version, version)
                                 .where(
                                         patchLog.target.eq(PatchTarget.DEV),
-                                        patchLog.version.eq(version)
+                                        patchLogVersion.version.eq(version)
                                 ),
                         JPAExpressions
                                 .select(patchLog.patchDate)
                                 .from(patchLog)
+                                .leftJoin(patchLog.patchLogVersions, patchLogVersion)
+                                .join(patchLogVersion.version, version)
                                 .where(
                                         patchLog.target.eq(PatchTarget.PROD),
-                                        patchLog.version.eq(version)
+                                        patchLogVersion.version.eq(version)
                                 )
                 ))
                 .from(versionIssue)

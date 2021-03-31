@@ -17,8 +17,7 @@ public class PatchLogDto {
     @ToString
     public static class Result {
         private Long patchLogId;
-        private String moduleName;
-        private String versionName;
+        private String clientName;
         private PatchTarget target;
         private String targetName;
         private PatchStatus status;
@@ -29,10 +28,9 @@ public class PatchLogDto {
         private String remark;
 
         @QueryProjection
-        public Result(Long patchLogId, String moduleName,  String versionName, PatchTarget target, PatchStatus status, LocalDate patchScheduleDate, LocalDate patchDate, String worker, String remark) {
+        public Result(Long patchLogId, String clientName, PatchTarget target, PatchStatus status, LocalDate patchScheduleDate, LocalDate patchDate, String worker, String remark) {
             this.patchLogId = patchLogId;
-            this.moduleName = moduleName;
-            this.versionName = versionName;
+            this.clientName = clientName;
             this.target = target;
             this.targetName = target.getMessage();
             this.status = status;
@@ -56,8 +54,6 @@ public class PatchLogDto {
     @Getter
     @Setter
     public static class Search {
-        private Long moduleId;
-        private Long versionId;
         private PatchTarget target;
         private PatchStatus status;
         @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -74,7 +70,7 @@ public class PatchLogDto {
     @Getter
     @Setter
     public static class Insert {
-        private Long versionId;
+        private Long clientId;
         private PatchTarget target;
         private PatchStatus status;
         private LocalDate patchScheduleDate;

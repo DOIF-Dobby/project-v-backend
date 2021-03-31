@@ -3,6 +3,7 @@ package org.doif.projectv.business.patchlog.entity;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.doif.projectv.business.client.entity.Client;
 import org.doif.projectv.business.module.entity.Module;
 import org.doif.projectv.business.patchlog.constant.PatchStatus;
 import org.doif.projectv.business.patchlog.constant.PatchTarget;
@@ -25,8 +26,8 @@ public class PatchLog extends BaseEntity {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "version_id", nullable = false)
-    private Version version;
+    @JoinColumn(name = "client_id", nullable = false)
+    private Client client;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "target", length = 10, nullable = false)
@@ -48,27 +49,26 @@ public class PatchLog extends BaseEntity {
     @Column(name = "remark")
     private String remark;
 
-    public PatchLog(Version version, PatchTarget target, PatchStatus status, LocalDate patchScheduleDate, String worker, String remark) {
-        this.version = version;
+    @OneToMany(mappedBy = "patchLog")
+    private List<PatchLogVersion> patchLogVersions = new ArrayList<>();
+
+    public PatchLog(Client client, PatchTarget target, PatchStatus status, LocalDate patchScheduleDate, String worker, String remark) {
+        this.client = client;
         this.target = target;
         this.status = status;
         this.patchScheduleDate = patchScheduleDate;
         this.worker = worker;
         this.remark = remark;
-
-        version.getPatchLogs().add(this);
     }
 
-    public PatchLog(Version version, PatchTarget target, PatchStatus status, LocalDate patchScheduleDate, LocalDate patchDate, String worker, String remark) {
-        this.version = version;
+    public PatchLog(Client client, PatchTarget target, PatchStatus status, LocalDate patchScheduleDate, LocalDate patchDate, String worker, String remark) {
+        this.client = client;
         this.target = target;
         this.status = status;
         this.patchScheduleDate = patchScheduleDate;
         this.patchDate = patchDate;
         this.worker = worker;
         this.remark = remark;
-
-        version.getPatchLogs().add(this);
     }
 
     public void changePatchLog(PatchTarget target, PatchStatus status, LocalDate patchScheduleDate, LocalDate patchDate, String worker, String remark) {
@@ -78,7 +78,5 @@ public class PatchLog extends BaseEntity {
         this.patchDate = patchDate;
         this.worker = worker;
         this.remark = remark;
-
-        version.getPatchLogs().add(this);
     }
 }

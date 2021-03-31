@@ -1,6 +1,7 @@
 package org.doif.projectv.business.issue.service;
 
 import org.doif.projectv.business.buildtool.constant.BuildTool;
+import org.doif.projectv.business.client.entity.Client;
 import org.doif.projectv.business.issue.constant.IssueCategory;
 import org.doif.projectv.business.issue.constant.IssueStatus;
 import org.doif.projectv.business.issue.constant.VersionIssueProgress;
@@ -12,6 +13,7 @@ import org.doif.projectv.business.module.entity.Module;
 import org.doif.projectv.business.patchlog.constant.PatchStatus;
 import org.doif.projectv.business.patchlog.constant.PatchTarget;
 import org.doif.projectv.business.patchlog.entity.PatchLog;
+import org.doif.projectv.business.patchlog.entity.PatchLogVersion;
 import org.doif.projectv.business.project.entity.Project;
 import org.doif.projectv.business.task.constant.TaskType;
 import org.doif.projectv.business.task.entity.Task;
@@ -62,8 +64,12 @@ class VersionIssueServiceTest {
         VersionIssue versionIssue = new VersionIssue(version, issue, "202011", VersionIssueProgress.PROGRESSING, "kjpmj", "");
         Task task1 = new Task(versionIssue, LocalDate.of(2020, 11, 24), LocalDate.of(2020, 11, 24), "작업작업", TaskType.DEVELOP, 1.0, "kjpmj", "");
         Task task2 = new Task(versionIssue, LocalDate.of(2020, 11, 25), LocalDate.of(2020, 11, 25), "작업작업", TaskType.DEVELOP, 1.5, "kjpmj", "");
-        PatchLog patchLog1 = new PatchLog(version, PatchTarget.DEV, PatchStatus.COMPLETE, LocalDate.of(2020, 11, 26), LocalDate.of(2020, 11, 26), "kjpmj", "");
-        PatchLog patchLog2 = new PatchLog(version, PatchTarget.PROD, PatchStatus.COMPLETE, LocalDate.of(2020, 11, 26), LocalDate.of(2020, 11, 27),"kjpmj", "");
+
+        Client client = new Client("금융결제원", "VVIP");
+        PatchLog patchLog1 = new PatchLog(client, PatchTarget.DEV, PatchStatus.COMPLETE, LocalDate.of(2020, 11, 26), LocalDate.of(2020, 11, 26), "kjpmj", "");
+        PatchLog patchLog2 = new PatchLog(client, PatchTarget.PROD, PatchStatus.COMPLETE, LocalDate.of(2020, 11, 26), LocalDate.of(2020, 11, 27),"kjpmj", "");
+        PatchLogVersion patchLogVersion1 = new PatchLogVersion(patchLog1, version);
+        PatchLogVersion patchLogVersion2 = new PatchLogVersion(patchLog2, version);
 
         em.persist(project);
         em.persist(module);
@@ -72,8 +78,11 @@ class VersionIssueServiceTest {
         em.persist(versionIssue);
         em.persist(task1);
         em.persist(task2);
+        em.persist(client);
         em.persist(patchLog1);
         em.persist(patchLog2);
+        em.persist(patchLogVersion1);
+        em.persist(patchLogVersion2);
     }
 
     @Test

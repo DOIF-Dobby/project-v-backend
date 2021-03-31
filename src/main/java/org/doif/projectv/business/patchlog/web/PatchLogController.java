@@ -2,12 +2,16 @@ package org.doif.projectv.business.patchlog.web;
 
 import lombok.RequiredArgsConstructor;
 import org.doif.projectv.business.patchlog.dto.PatchLogDto;
+import org.doif.projectv.business.patchlog.dto.PatchLogVersionDto;
 import org.doif.projectv.business.patchlog.service.PatchLogService;
+import org.doif.projectv.business.patchlog.service.PatchLogVersionService;
 import org.doif.projectv.common.response.CommonResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/patch-logs")
@@ -15,13 +19,7 @@ import org.springframework.web.bind.annotation.*;
 public class PatchLogController {
 
     private final PatchLogService patchLogService;
-
-    @GetMapping
-    public ResponseEntity<PatchLogDto.Response> searchByCondition(PatchLogDto.Search search, Pageable pageable) {
-        Page<PatchLogDto.Result> result = patchLogService.searchByCondition(search, pageable);
-        PatchLogDto.Response response = new PatchLogDto.Response(result);
-        return ResponseEntity.ok(response);
-    }
+    private final PatchLogVersionService patchLogVersionService;
 
     @PostMapping
     public ResponseEntity<CommonResponse> insert(@RequestBody PatchLogDto.Insert dto) {
@@ -38,6 +36,13 @@ public class PatchLogController {
     @DeleteMapping("/{id}")
     public ResponseEntity<CommonResponse> delete(@PathVariable Long id) {
         CommonResponse response = patchLogService.delete(id);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/{id}/patch-log-versions")
+    public ResponseEntity<PatchLogVersionDto.Response> searchPatchLogVersionsByPatchLogId(@PathVariable Long id) {
+        List<PatchLogVersionDto.Result> results = patchLogVersionService.searchPatchLogVersionsByPatchLogId(id);
+        PatchLogVersionDto.Response response = new PatchLogVersionDto.Response(results);
         return ResponseEntity.ok(response);
     }
 }

@@ -33,6 +33,7 @@ public class VersionIssueServiceImpl implements VersionIssueService {
         return versionIssueRepository.searchByIssueId(issueId);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<VersionIssueDto.Result> searchByVersionId(Long versionId) {
         return versionIssueRepository.searchByVersionId(versionId);

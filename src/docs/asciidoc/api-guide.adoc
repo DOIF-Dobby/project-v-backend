@@ -305,6 +305,7 @@ include::{snippets}/task/delete/http-response.adoc[]
 ==== 패치로그 조회
 ===== 요청
 include::{snippets}/patch-log/select/http-request.adoc[]
+include::{snippets}/patch-log/select/path-parameters.adoc[]
 include::{snippets}/patch-log/select/request-parameters.adoc[]
 ===== 응답
 include::{snippets}/patch-log/select/http-response.adoc[]
@@ -335,6 +336,28 @@ include::{snippets}/patch-log/delete/http-request.adoc[]
 include::{snippets}/patch-log/delete/path-parameters.adoc[]
 ===== 응답
 include::{snippets}/patch-log/delete/http-response.adoc[]
+
+---
+[[resources-patch-log-version]]
+=== 패치로그-버전
+
+[[resources-patch-log-version-select]]
+==== 패치로그-버전 조회
+===== 요청
+include::{snippets}/patch-log-version/select/http-request.adoc[]
+include::{snippets}/patch-log-version/select/path-parameters.adoc[]
+===== 응답
+include::{snippets}/patch-log-version/select/http-response.adoc[]
+include::{snippets}/patch-log-version/select/response-fields-content.adoc[]
+
+[[resources-patch-log-version-insert]]
+==== 패치로그-버전 추가
+===== 요청
+include::{snippets}/patch-log-version/insert/http-request.adoc[]
+include::{snippets}/patch-log-version/insert/request-fields.adoc[]
+===== 응답
+include::{snippets}/patch-log-version/insert/http-response.adoc[]
+
 
 ---
 [[resources-vcs-auth-info]]

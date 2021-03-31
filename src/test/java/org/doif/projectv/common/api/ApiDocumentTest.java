@@ -1,6 +1,7 @@
 package org.doif.projectv.common.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.doif.projectv.business.client.service.ClientService;
 import org.doif.projectv.business.issue.service.IssueService;
 import org.doif.projectv.business.issue.service.VersionIssueService;
 import org.doif.projectv.business.issue.web.IssueController;
@@ -8,6 +9,7 @@ import org.doif.projectv.business.issue.web.VersionIssueController;
 import org.doif.projectv.business.module.service.ModuleService;
 import org.doif.projectv.business.module.web.ModuleController;
 import org.doif.projectv.business.patchlog.service.PatchLogService;
+import org.doif.projectv.business.patchlog.service.PatchLogVersionService;
 import org.doif.projectv.business.patchlog.web.PatchLogController;
 import org.doif.projectv.business.project.service.ProjectService;
 import org.doif.projectv.business.project.web.ProjectController;
@@ -100,6 +102,12 @@ public abstract class ApiDocumentTest {
 
     @MockBean
     protected PatchLogService patchLogService;
+
+    @MockBean
+    protected PatchLogVersionService patchLogVersionService;
+
+    @MockBean
+    protected ClientService clientService;
 
     @MockBean
     protected VcsService vcsService;

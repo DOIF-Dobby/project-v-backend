@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.doif.projectv.business.issue.entity.VersionIssue;
 import org.doif.projectv.business.module.entity.Module;
 import org.doif.projectv.business.patchlog.entity.PatchLog;
+import org.doif.projectv.business.patchlog.entity.PatchLogVersion;
 import org.doif.projectv.business.version.constant.VersionStatus;
 import org.doif.projectv.common.jpa.entity.BaseEntity;
 
@@ -48,7 +49,7 @@ public class Version extends BaseEntity {
     private List<VersionIssue> versionIssues = new ArrayList<>();
 
     @OneToMany(mappedBy = "version")
-    private List<PatchLog> patchLogs = new ArrayList<>();
+    private List<PatchLogVersion> patchLogVersions = new ArrayList<>();
 
     public Version(String name, String description, Module module) {
         this.name = name;

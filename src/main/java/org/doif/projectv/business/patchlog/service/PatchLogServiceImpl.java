@@ -1,6 +1,8 @@
 package org.doif.projectv.business.patchlog.service;
 
 import lombok.RequiredArgsConstructor;
+import org.doif.projectv.business.client.entity.Client;
+import org.doif.projectv.business.client.repository.ClientRepository;
 import org.doif.projectv.business.patchlog.dto.PatchLogDto;
 import org.doif.projectv.business.patchlog.entity.PatchLog;
 import org.doif.projectv.business.patchlog.repository.PatchLogRepository;
@@ -22,20 +24,20 @@ import java.util.Optional;
 public class PatchLogServiceImpl implements PatchLogService {
 
     private final PatchLogRepository patchLogRepository;
-    private final VersionRepository versionRepository;
+    private final ClientRepository clientRepository;
 
     @Transactional(readOnly = true)
     @Override
-    public Page<PatchLogDto.Result> searchByCondition(PatchLogDto.Search search, Pageable pageable) {
-        return patchLogRepository.searchByCondition(search, pageable);
+    public Page<PatchLogDto.Result> searchByCondition(Long clientId, PatchLogDto.Search search, Pageable pageable) {
+        return patchLogRepository.searchByCondition(clientId, search, pageable);
     }
 
     @Override
     public CommonResponse insert(PatchLogDto.Insert dto) {
-        Optional<Version> optionalVersion = versionRepository.findById(dto.getVersionId());
-        Version version = optionalVersion.orElseThrow(() -> new IllegalArgumentException("버전을 찾을 수 없음"));
+        Optional<Client> optionalClient = clientRepository.findById(dto.getClientId());
+        Client client = optionalClient.orElseThrow(() -> new IllegalArgumentException("고객을 찾을 수 없음"));
 
-        PatchLog patchLog = new PatchLog(version, dto.getTarget(), dto.getStatus(), dto.getPatchScheduleDate(), dto.getWorker(), dto.getRemark());
+        PatchLog patchLog = new PatchLog(client, dto.getTarget(), dto.getStatus(), dto.getPatchScheduleDate(), dto.getWorker(), dto.getRemark());
         patchLogRepository.save(patchLog);
 
         return ResponseUtil.ok();

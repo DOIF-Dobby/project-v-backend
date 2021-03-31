@@ -45,8 +45,7 @@ class PatchLogControllerTest extends ApiDocumentTest {
         List<PatchLogDto.Result> patchLogResults = new ArrayList<>();
         PatchLogDto.Result patchLogResult = new PatchLogDto.Result(
                 1L,
-                "금결원 PG WEB/ADMIN",
-                "1.0.2",
+                "금융결제원",
                 PatchTarget.DEV,
                 PatchStatus.SCHEDULE,
                 LocalDate.of(2020, 11, 25),
@@ -61,8 +60,6 @@ class PatchLogControllerTest extends ApiDocumentTest {
         Page<PatchLogDto.Result> pages = new PageImpl<>(patchLogResults, pageRequest, 100);
 
         PatchLogDto.Search search = new PatchLogDto.Search();
-        search.setModuleId(1L);
-        search.setVersionId(1L);
         search.setTarget(PatchTarget.DEV);
         search.setStatus(PatchStatus.SCHEDULE);
         search.setPatchScheduleDateGoe(LocalDate.of(2020, 11, 25));
@@ -73,12 +70,12 @@ class PatchLogControllerTest extends ApiDocumentTest {
 
         PatchLogDto.Response response = new PatchLogDto.Response(pages);
 
-        given(patchLogService.searchByCondition(any(PatchLogDto.Search.class), any(Pageable.class)))
+        given(patchLogService.searchByCondition(eq(1L), any(PatchLogDto.Search.class), any(Pageable.class)))
                 .willReturn(pages);
 
         // when
         ResultActions result = mockMvc.perform(
-                get("/api/patch-logs")
+                get("/api/clients/{id}/patch-logs", 1L)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
                         .params(MultiValueMapConverter.convert(objectMapper, search))
@@ -91,9 +88,10 @@ class PatchLogControllerTest extends ApiDocumentTest {
                 .andDo(document("patch-log/select",
                         getDocumentRequest(),
                         getDocumentResponse(),
+                        pathParameters(
+                                parameterWithName("id").description("고객 ID")
+                        ),
                         requestParameters(
-                                parameterWithName("moduleId").description("모듈 ID"),
-                                parameterWithName("versionId").description("버전 ID"),
                                 parameterWithName("target").description(generateLinkCode(CodeEnum.PATCH_TARGET)),
                                 parameterWithName("status").description(generateLinkCode(CodeEnum.PATCH_STATUS)),
                                 parameterWithName("patchScheduleDateGoe").attributes(getDateFormat()).description("패치 예정일 From"),
@@ -106,8 +104,7 @@ class PatchLogControllerTest extends ApiDocumentTest {
                         responseFields(
                                 beneathPath("pageInfo.content").withSubsectionId("pageInfo.content"),
                                 fieldWithPath("patchLogId").type(JsonFieldType.NUMBER).description("패치로그 ID"),
-                                fieldWithPath("moduleName").type(JsonFieldType.STRING).description("모듈명"),
-                                fieldWithPath("versionName").type(JsonFieldType.STRING).description("버전명"),
+                                fieldWithPath("clientName").type(JsonFieldType.STRING).description("고객명"),
                                 fieldWithPath("target").type(JsonFieldType.STRING).description(generateLinkCode(CodeEnum.PATCH_TARGET)),
                                 fieldWithPath("targetName").type(JsonFieldType.STRING).description(generateText(CodeEnum.PATCH_TARGET)),
                                 fieldWithPath("status").type(JsonFieldType.STRING).description(generateLinkCode(CodeEnum.PATCH_STATUS)),
@@ -124,7 +121,7 @@ class PatchLogControllerTest extends ApiDocumentTest {
     public void 패치로그_추가_API_테스트() throws Exception {
         // given
         PatchLogDto.Insert insert = new PatchLogDto.Insert();
-        insert.setVersionId(1L);
+        insert.setClientId(1L);
         insert.setTarget(PatchTarget.DEV);
         insert.setStatus(PatchStatus.SCHEDULE);
         insert.setPatchScheduleDate(LocalDate.of(2020, 11, 25));
@@ -149,7 +146,7 @@ class PatchLogControllerTest extends ApiDocumentTest {
                         getDocumentRequest(),
                         getDocumentResponse(),
                         requestFields(
-                                fieldWithPath("versionId").type(JsonFieldType.NUMBER).description("버전 ID"),
+                                fieldWithPath("clientId").type(JsonFieldType.NUMBER).description("고객 ID"),
                                 fieldWithPath("target").type(JsonFieldType.STRING).description(generateLinkCode(CodeEnum.PATCH_TARGET)),
                                 fieldWithPath("status").type(JsonFieldType.STRING).description(generateLinkCode(CodeEnum.PATCH_STATUS)),
                                 fieldWithPath("patchScheduleDate").type(JsonFieldType.STRING).attributes(getDateFormat()).description("패치 예정일"),
