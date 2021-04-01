@@ -1,6 +1,7 @@
 package org.doif.projectv.business.version.service;
 
 import org.doif.projectv.business.buildtool.constant.BuildTool;
+import org.doif.projectv.business.client.entity.Client;
 import org.doif.projectv.business.issue.constant.IssueCategory;
 import org.doif.projectv.business.issue.constant.IssueStatus;
 import org.doif.projectv.business.issue.constant.VersionIssueProgress;
@@ -9,6 +10,10 @@ import org.doif.projectv.business.issue.entity.VersionIssue;
 import org.doif.projectv.business.module.entity.Module;
 import org.doif.projectv.business.module.repository.ModuleRepository;
 import org.doif.projectv.business.module.service.ModuleService;
+import org.doif.projectv.business.patchlog.constant.PatchStatus;
+import org.doif.projectv.business.patchlog.constant.PatchTarget;
+import org.doif.projectv.business.patchlog.entity.PatchLog;
+import org.doif.projectv.business.patchlog.entity.PatchLogVersion;
 import org.doif.projectv.business.project.entity.Project;
 import org.doif.projectv.business.project.repository.ProjectRepository;
 import org.doif.projectv.business.vcs.constant.VcsType;
@@ -29,6 +34,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -145,7 +151,7 @@ class VersionServiceTest {
     }
 
     @Test
-    public void 테스트() throws Exception {
+    public void 이슈와_맵핑_되지_않은_버전_조회_테스트() throws Exception {
         // given
         Project project = new Project("프로젝트1");
         Module module = new Module("모듈1", project, "모듈1 입니다", VcsType.SVN, "", BuildTool.MAVEN);
@@ -174,5 +180,39 @@ class VersionServiceTest {
         // then
         assertThat(content.size()).isEqualTo(2);
         assertThat(content).extracting("versionName").containsExactly("v1.0.1", "3.1.1");
+    }
+
+    @Test
+    public void 패치로그와_맵핑_되지_않은_버전_조회_테스트() throws Exception {
+        // given
+        Project project = new Project("프로젝트1");
+        Module module = new Module("모듈1", project, "모듈1 입니다", VcsType.SVN, "", BuildTool.MAVEN);
+        Version version1 = new Version("1.0.0", "1.0.0", module, VersionStatus.RELEASE);
+        Version version2 = new Version("2.1.1", "2.1.1", module, VersionStatus.RELEASE);
+        Version version3 = new Version("3.1.1", "3.1.1", module, VersionStatus.RELEASE);
+        Client client = new Client("금결원", "VVIP");
+        PatchLog patchLog = new PatchLog(client, PatchTarget.DEV, PatchStatus.SCHEDULE, LocalDate.of(2021, 4, 1), "kjpmj", "안녕");
+        PatchLogVersion patchLogVersion1 = new PatchLogVersion(patchLog, version1);
+        PatchLogVersion patchLogVersion2 = new PatchLogVersion(patchLog, version2);
+
+        em.persist(project);
+        em.persist(module);
+        em.persist(version1);
+        em.persist(version2);
+        em.persist(version3);
+        em.persist(client);
+        em.persist(patchLog);
+        em.persist(patchLogVersion1);
+        em.persist(patchLogVersion2);
+
+        PageRequest pageRequest = PageRequest.of(0, 100);
+
+        // when
+        Page<VersionDto.Result> results = versionService.searchVersionsNotMappingPatchLog(patchLog.getId(), pageRequest);
+        List<VersionDto.Result> content = results.getContent();
+
+        // then
+        assertThat(content.size()).isEqualTo(1);
+        assertThat(content).extracting("versionName").containsExactly("3.1.1");
     }
 }

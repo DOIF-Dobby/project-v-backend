@@ -12,11 +12,13 @@ import org.doif.projectv.business.module.entity.Module;
 import org.doif.projectv.business.patchlog.constant.PatchStatus;
 import org.doif.projectv.business.patchlog.constant.PatchTarget;
 import org.doif.projectv.business.patchlog.entity.PatchLog;
+import org.doif.projectv.business.patchlog.entity.PatchLogVersion;
 import org.doif.projectv.business.project.entity.Project;
 import org.doif.projectv.business.task.constant.TaskType;
 import org.doif.projectv.business.task.entity.Task;
 import org.doif.projectv.business.vcs.constant.VcsType;
 import org.doif.projectv.business.vcs.entity.VcsAuthInfo;
+import org.doif.projectv.business.version.constant.VersionStatus;
 import org.doif.projectv.business.version.entity.Version;
 import org.doif.projectv.common.resource.entity.Button;
 import org.doif.projectv.common.resource.entity.Menu;
@@ -103,6 +105,10 @@ public class initData {
             Version version2 = new Version("0.0.5", "버전 0.0.5 입니다.", gitGradleModule);
             Version version3 = new Version("2.1.8", "버전 2.1.8 입니다.", module);
 
+            Version version4 = new Version("4.1.8", "버전 4.1.8 입니다.", module, VersionStatus.RELEASE);
+            Version version5 = new Version("5.1.8", "버전 5.1.8 입니다.", module, VersionStatus.RELEASE);
+            Version version6 = new Version("6.1.8", "버전 6.1.8 입니다.", module, VersionStatus.RELEASE);
+
             VersionIssue versionIssue1 = new VersionIssue(version1, issue1, "202001", VersionIssueProgress.COMPLETE, "kjpmj", "");
             VersionIssue versionIssue2 = new VersionIssue(version1, issue2, "202002", VersionIssueProgress.COMPLETE, "kjpmj", "");
             VersionIssue versionIssue3 = new VersionIssue(version2, issue1, "202003", VersionIssueProgress.COMPLETE, "kjpmj", "");
@@ -116,6 +122,9 @@ public class initData {
 
             PatchLog patchLog1 = new PatchLog(client, PatchTarget.DEV, PatchStatus.COMPLETE, LocalDate.of(2020,10,19), "kjpmj", "");
             PatchLog patchLog2 = new PatchLog(client, PatchTarget.PROD, PatchStatus.COMPLETE, LocalDate.of(2020,10,20), "kjpmj", "");
+
+            PatchLogVersion patchLogVersion1 = new PatchLogVersion(patchLog1, version4);
+            PatchLogVersion patchLogVersion2 = new PatchLogVersion(patchLog1, version5);
 
             User user = new User("kjpmj", passwordEncoder.encode("1234"), "김명진씨", UserStatus.VALID);
             Role role = new Role("관리자 ROLE", "관리자 ROLE입니다.", EnableStatus.ENABLE);
@@ -203,6 +212,9 @@ public class initData {
             em.persist(version1);
             em.persist(version2);
             em.persist(version3);
+            em.persist(version4);
+            em.persist(version5);
+            em.persist(version6);
             em.persist(issue1);
             em.persist(issue2);
             em.persist(issue3);
@@ -216,6 +228,8 @@ public class initData {
             em.persist(client);
             em.persist(patchLog1);
             em.persist(patchLog2);
+            em.persist(patchLogVersion1);
+            em.persist(patchLogVersion2);
 
             em.persist(user);
             em.persist(role);

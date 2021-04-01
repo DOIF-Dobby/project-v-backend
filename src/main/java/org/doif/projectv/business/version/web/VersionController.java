@@ -58,4 +58,11 @@ public class VersionController {
         VersionDto.Response response = new VersionDto.Response(content);
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping("/not-mapping-patch-log")
+    public ResponseEntity<VersionDto.Response> searchVersionsNotMappingPatchLog(@RequestParam("patchLogId") Long patchLogId, Pageable pageable) {
+        Page<VersionDto.Result> content = versionService.searchVersionsNotMappingPatchLog(patchLogId, pageable);
+        VersionDto.Response response = new VersionDto.Response(content);
+        return ResponseEntity.ok(response);
+    }
 }

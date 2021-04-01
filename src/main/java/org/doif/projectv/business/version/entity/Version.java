@@ -58,6 +58,13 @@ public class Version extends BaseEntity {
         this.status = VersionStatus.DEVELOP;
     }
 
+    public Version(String name, String description, Module module, VersionStatus status) {
+        this.name = name;
+        this.description = description;
+        this.module = module;
+        this.status = status;
+    }
+
     /**
      * 버전 설명 변경
      * @param description

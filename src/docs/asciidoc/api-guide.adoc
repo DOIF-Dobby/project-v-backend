@@ -169,6 +169,16 @@ include::{snippets}/version/select-not-mapping-issue/http-response.adoc[]
 include::{snippets}/version/select-not-mapping-issue/response-fields.adoc[]
 include::{snippets}/version/select-not-mapping-issue/response-fields-pageInfo.content.adoc[]
 
+[[resources-version-select-not-mapping-patch-log]]
+==== 패치로그와 맵핑 되지 않은 버전 조회
+===== 요청
+include::{snippets}/version/select-not-mapping-patch-log/http-request.adoc[]
+include::{snippets}/version/select-not-mapping-patch-log/request-parameters.adoc[]
+===== 응답
+include::{snippets}/version/select-not-mapping-patch-log/http-response.adoc[]
+include::{snippets}/version/select-not-mapping-patch-log/response-fields.adoc[]
+include::{snippets}/version/select-not-mapping-patch-log/response-fields-pageInfo.content.adoc[]
+
 
 ---
 [[resources-issue]]

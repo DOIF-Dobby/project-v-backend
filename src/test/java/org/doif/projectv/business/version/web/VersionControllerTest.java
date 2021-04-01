@@ -258,4 +258,54 @@ class VersionControllerTest extends ApiDocumentTest {
                         )
                 ));
     }
+
+    @Test
+    public void 패치로그와_맵핑_되지_않은_버전_조회_API_테스트() throws Exception {
+        // given
+        List<VersionDto.Result> versionResults = new ArrayList<>();
+        VersionDto.Result versionResult = new VersionDto.Result(1L, "1.0.1", "버전 설명", 1L, VersionStatus.RELEASE, "14000", "svn 복사된 태그 정보");
+
+        versionResults.add(versionResult);
+
+        PageRequest pageRequest = PageRequest.of(0, 100);
+        Page<VersionDto.Result> pages = new PageImpl<>(versionResults, pageRequest, 100);
+
+
+        given(versionService.searchVersionsNotMappingPatchLog(eq(1L), any(Pageable.class)))
+                .willReturn(pages);
+
+        VersionDto.Response response = new VersionDto.Response(pages);
+
+        // when
+        ResultActions result = mockMvc.perform(
+                get("/api/versions/not-mapping-patch-log", 1L)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .param("patchLogId", "1")
+        );
+
+        // then
+        result.andExpect(status().isOk())
+                .andExpect(content().json(objectMapper.writeValueAsString(response)))
+                .andDo(print())
+                .andDo(document("version/select-not-mapping-patch-log",
+                        getDocumentRequest(),
+                        getDocumentResponse(),
+                        requestParameters(
+                                parameterWithName("patchLogId").description("패치로그 ID")
+                        ),
+                        responseFields(subsectionWithPath("pageInfo").type(JsonFieldType.OBJECT).description(generateLinkPageInfo())),
+                        responseFields(
+                                beneathPath("pageInfo.content").withSubsectionId("pageInfo.content"),
+                                fieldWithPath("versionId").type(JsonFieldType.NUMBER).description("버전 ID"),
+                                fieldWithPath("versionName").type(JsonFieldType.STRING).description("버전명"),
+                                fieldWithPath("description").type(JsonFieldType.STRING).description("버전 설명"),
+                                fieldWithPath("moduleId").type(JsonFieldType.NUMBER).description("모듈 ID"),
+                                fieldWithPath("versionStatus").type(JsonFieldType.STRING).description(generateLinkCode(CodeEnum.VERSION_STATUS)),
+                                fieldWithPath("versionStatusName").type(JsonFieldType.STRING).description(generateText(CodeEnum.VERSION_STATUS)),
+                                fieldWithPath("revision").type(JsonFieldType.STRING).description("리비전"),
+                                fieldWithPath("tag").type(JsonFieldType.STRING).description("태그 경로")
+                        )
+                ));
+    }
 }

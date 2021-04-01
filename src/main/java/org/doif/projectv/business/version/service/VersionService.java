@@ -18,4 +18,6 @@ public interface VersionService {
     CommonResponse release(Long id);
 
     Page<VersionDto.Result> searchVersionsNotMappingIssue(Long issueId, Pageable pageable);
+
+    Page<VersionDto.Result> searchVersionsNotMappingPatchLog(Long patchLogId, Pageable pageable);
 }
