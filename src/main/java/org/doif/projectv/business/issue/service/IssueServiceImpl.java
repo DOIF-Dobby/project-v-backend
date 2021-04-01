@@ -51,4 +51,10 @@ public class IssueServiceImpl implements IssueService {
 
         return ResponseUtil.ok();
     }
+
+    @Transactional(readOnly = true)
+    @Override
+    public Page<IssueDto.Result> searchIssuesNotMappingVersion(Long versionId, Pageable pageable) {
+        return issueRepository.searchIssuesNotMappingVersion(versionId, pageable);
+    }
 }

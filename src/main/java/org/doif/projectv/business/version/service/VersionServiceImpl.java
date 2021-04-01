@@ -105,4 +105,9 @@ public class VersionServiceImpl implements VersionService {
 
         return ResponseUtil.ok();
     }
+
+    @Override
+    public Page<VersionDto.Result> searchVersionsNotMappingIssue(Long issueId, Pageable pageable) {
+        return versionRepository.searchVersionsNotMappingIssue(issueId, pageable);
+    }
 }

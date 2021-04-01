@@ -159,6 +159,16 @@ include::{snippets}/version/release/request-fields.adoc[]
 ===== 응답
 include::{snippets}/version/release/http-response.adoc[]
 
+[[resources-version-select-not-mapping-issue]]
+==== 이슈와 맵핑 되지 않은 버전 조회
+===== 요청
+include::{snippets}/version/select-not-mapping-issue/http-request.adoc[]
+include::{snippets}/version/select-not-mapping-issue/request-parameters.adoc[]
+===== 응답
+include::{snippets}/version/select-not-mapping-issue/http-response.adoc[]
+include::{snippets}/version/select-not-mapping-issue/response-fields.adoc[]
+include::{snippets}/version/select-not-mapping-issue/response-fields-pageInfo.content.adoc[]
+
 
 ---
 [[resources-issue]]
@@ -198,6 +208,16 @@ include::{snippets}/issue/delete/http-request.adoc[]
 include::{snippets}/issue/delete/path-parameters.adoc[]
 ===== 응답
 include::{snippets}/issue/delete/http-response.adoc[]
+
+[[resources-issue-select-not-mapping-version]]
+==== 버전과 맵핑 되지 않은 이슈 조회
+===== 요청
+include::{snippets}/issue/select-not-mapping-version/http-request.adoc[]
+include::{snippets}/issue/select-not-mapping-version/request-parameters.adoc[]
+===== 응답
+include::{snippets}/issue/select-not-mapping-version/http-response.adoc[]
+include::{snippets}/issue/select-not-mapping-version/response-fields.adoc[]
+include::{snippets}/issue/select-not-mapping-version/response-fields-pageInfo.content.adoc[]
 
 
 ---

@@ -22,7 +22,7 @@ public class IssueController {
     private final VersionIssueService versionIssueService;
 
     @GetMapping
-    public ResponseEntity<IssueDto.Response> searchByProjectId(IssueDto.Search search, Pageable pageable) {
+    public ResponseEntity<IssueDto.Response> searchByCondition(IssueDto.Search search, Pageable pageable) {
         Page<IssueDto.Result> content = issueService.searchByCondition(search, pageable);
         IssueDto.Response response = new IssueDto.Response(content);
         return ResponseEntity.ok(response);
@@ -50,6 +50,13 @@ public class IssueController {
     public ResponseEntity<VersionIssueDto.Response> searchByIssueId(@PathVariable Long id) {
         List<VersionIssueDto.Result> content = versionIssueService.searchByIssueId(id);
         VersionIssueDto.Response response = new VersionIssueDto.Response(content);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/not-mapping-version")
+    public ResponseEntity<IssueDto.Response> searchIssuesNotMappingVersion(@RequestParam("versionId") Long versionId, Pageable pageable) {
+        Page<IssueDto.Result> content = issueService.searchIssuesNotMappingVersion(versionId, pageable);
+        IssueDto.Response response = new IssueDto.Response(content);
         return ResponseEntity.ok(response);
     }
 }

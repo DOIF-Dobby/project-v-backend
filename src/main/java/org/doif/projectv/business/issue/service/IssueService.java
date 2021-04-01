@@ -15,4 +15,6 @@ public interface IssueService {
     CommonResponse update(Long id, IssueDto.Update dto);
 
     CommonResponse delete(Long id);
+
+    Page<IssueDto.Result> searchIssuesNotMappingVersion(Long versionId, Pageable pageable);
 }

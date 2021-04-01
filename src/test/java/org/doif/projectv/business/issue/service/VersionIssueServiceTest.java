@@ -118,12 +118,13 @@ class VersionIssueServiceTest {
     @Test
     public void 버전_이슈_추가_서비스_테스트() throws Exception {
         // given
-        Long issueId = issueRepository.findAll().get(0).getId();
+        Issue issue = new Issue("이슈이슈", "이슈 입니다.", IssueStatus.OPEN, IssueCategory.ERROR_MODIFY);
+        em.persist(issue);
         Long versionId = versionRepository.findAll().get(0).getId();
 
         VersionIssueDto.Insert insert = new VersionIssueDto.Insert();
         insert.setVersionId(versionId);
-        insert.setIssueId(issueId);
+        insert.setIssueId(issue.getId());
         insert.setAssignee("kjpmj");
         insert.setIssueYm("202012");
         insert.setProgress(VersionIssueProgress.COMPLETE);
@@ -131,12 +132,12 @@ class VersionIssueServiceTest {
 
         // when
         CommonResponse response = versionIssueService.insert(insert);
-        List<VersionIssueDto.Result> results = versionIssueService.searchByIssueId(issueId);
+        List<VersionIssueDto.Result> results = versionIssueService.searchByIssueId(issue.getId());
 
         // then
         assertThat(response.getCode()).isEqualTo(ResponseCode.OK.getCode());
-        assertThat(results.size()).isEqualTo(2);
-        assertThat(results).extracting("issueYm").containsExactly("202011", "202012");
+        assertThat(results.size()).isEqualTo(1);
+        assertThat(results).extracting("issueYm").containsExactly("202012");
     }
 
     @Test

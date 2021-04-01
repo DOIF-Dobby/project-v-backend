@@ -97,14 +97,16 @@ public class initData {
             Module gitGradleModule = new Module("금융결제원 PG WEB/MSELF", project, "", VcsType.GIT, gitRepo, BuildTool.GRADLE);
             Issue issue1 = new Issue("이슈1", "이슈1 입니다.", IssueStatus.OPEN, IssueCategory.NEW_DEVELOP);
             Issue issue2 = new Issue("이슈2", "이슈2 입니다.", IssueStatus.OPEN, IssueCategory.NEW_DEVELOP);
+            Issue issue3 = new Issue("이슈3", "이슈2 입니다.", IssueStatus.OPEN, IssueCategory.ERROR_MODIFY);
 
             Version version1 = new Version("v1.0.1", "버전 1.0.1 입니다.", module);
             Version version2 = new Version("0.0.5", "버전 0.0.5 입니다.", gitGradleModule);
+            Version version3 = new Version("2.1.8", "버전 2.1.8 입니다.", module);
 
             VersionIssue versionIssue1 = new VersionIssue(version1, issue1, "202001", VersionIssueProgress.COMPLETE, "kjpmj", "");
-            VersionIssue versionIssue2 = new VersionIssue(version1, issue1, "202002", VersionIssueProgress.COMPLETE, "kjpmj", "");
-            VersionIssue versionIssue3 = new VersionIssue(version1, issue2, "202003", VersionIssueProgress.COMPLETE, "kjpmj", "");
-            VersionIssue versionIssue4 = new VersionIssue(version1, issue2, "202004", VersionIssueProgress.COMPLETE, "kjpmj", "");
+            VersionIssue versionIssue2 = new VersionIssue(version1, issue2, "202002", VersionIssueProgress.COMPLETE, "kjpmj", "");
+            VersionIssue versionIssue3 = new VersionIssue(version2, issue1, "202003", VersionIssueProgress.COMPLETE, "kjpmj", "");
+            VersionIssue versionIssue4 = new VersionIssue(version2, issue2, "202004", VersionIssueProgress.COMPLETE, "kjpmj", "");
 
             Task task1 = new Task(versionIssue1, LocalDate.of(2020, 10, 10), LocalDate.of(2020, 10, 12), "이슈1 해결함", TaskType.DEVELOP, 0.5, "kjpmj", "remark1");
             Task task2 = new Task(versionIssue1, LocalDate.of(2020, 10, 11), LocalDate.of(2020, 10, 13), "이슈1 추가 수정", TaskType.DEVELOP, 1.0, "kjpmj", "remark1");
@@ -200,8 +202,10 @@ public class initData {
             em.persist(gitGradleModule);
             em.persist(version1);
             em.persist(version2);
+            em.persist(version3);
             em.persist(issue1);
             em.persist(issue2);
+            em.persist(issue3);
             em.persist(versionIssue1);
             em.persist(versionIssue2);
             em.persist(versionIssue3);
@@ -209,6 +213,7 @@ public class initData {
             em.persist(task1);
             em.persist(task2);
             em.persist(task3);
+            em.persist(client);
             em.persist(patchLog1);
             em.persist(patchLog2);
 

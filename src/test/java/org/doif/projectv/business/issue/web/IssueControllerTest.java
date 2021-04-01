@@ -204,4 +204,66 @@ class IssueControllerTest extends ApiDocumentTest {
                         )
                 ));
     }
+
+    @Test
+    public void 버전ID를_받아서_해당_버전과_맵핑_되지_않은_이슈_조회_API_테스트() throws Exception {
+        // given
+        IssueDto.Result content = new IssueDto.Result();
+        content.setIssueId(1L);
+        content.setCategory(IssueCategory.NEW_DEVELOP);
+        content.setCategoryName(IssueCategory.NEW_DEVELOP.getMessage());
+        content.setContents("임진성은 왜 늦는가");
+        content.setIssueName("임진성 바보");
+        content.setStatus(IssueStatus.OPEN);
+        content.setStatusName(IssueStatus.OPEN.getMessage());
+        content.setCreatedDate(LocalDateTime.now());
+        content.setCreatedBy("kjpmj");
+        content.setLastModifiedDate(LocalDateTime.now());
+        content.setLastModifiedBy("kjpmj");
+
+        List<IssueDto.Result> results = Arrays.asList(content);
+
+        PageRequest pageRequest = PageRequest.of(0, 100);
+        Page<IssueDto.Result> pages = new PageImpl<>(results, pageRequest, 100);
+
+        IssueDto.Response response = new IssueDto.Response(pages);
+
+        given(issueService.searchIssuesNotMappingVersion(eq(1L), any(Pageable.class)))
+                .willReturn(pages);
+
+        // when
+        ResultActions result = mockMvc.perform(
+                get("/api/issues/not-mapping-version")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .param("versionId", "1")
+        );
+
+        // then
+        result.andExpect(status().isOk())
+                .andExpect(content().json(objectMapper.writeValueAsString(response)))
+                .andDo(print())
+                .andDo(document("issue/select-not-mapping-version",
+                        getDocumentRequest(),
+                        getDocumentResponse(),
+                        requestParameters(
+                                parameterWithName("versionId").description("버전 Id")
+                        ),
+                        responseFields(subsectionWithPath("pageInfo").type(OBJECT).description(generateLinkPageInfo())),
+                        responseFields(
+                                beneathPath("pageInfo.content").withSubsectionId("pageInfo.content"),
+                                fieldWithPath("issueId").type(NUMBER).description("이슈 ID"),
+                                fieldWithPath("issueName").type(STRING).description("이슈명"),
+                                fieldWithPath("category").type(STRING).description(generateLinkCode(CodeEnum.ISSUE_CATEGORY)),
+                                fieldWithPath("categoryName").type(STRING).description(generateText(CodeEnum.ISSUE_CATEGORY)),
+                                fieldWithPath("status").type(STRING).description(generateLinkCode(CodeEnum.ISSUE_STATUS)),
+                                fieldWithPath("statusName").type(STRING).description(generateText(CodeEnum.ISSUE_STATUS)),
+                                fieldWithPath("contents").type(STRING).description("이슈 내용"),
+                                fieldWithPath("createdDate").type(STRING).attributes(getDateTimeFormat()).description("생성일"),
+                                fieldWithPath("lastModifiedDate").type(STRING).attributes(getDateTimeFormat()).description("수정일"),
+                                fieldWithPath("createdBy").type(STRING).description("생성자"),
+                                fieldWithPath("lastModifiedBy").type(STRING).description("수정자")
+                        )
+                ));
+    }
 }

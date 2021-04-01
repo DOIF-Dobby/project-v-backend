@@ -6,4 +6,6 @@ import org.springframework.data.domain.Pageable;
 
 public interface VersionQueryRepository {
     Page<VersionDto.Result> searchByCondition(Long id, VersionDto.Search search, Pageable pageable);
+
+    Page<VersionDto.Result> searchVersionsNotMappingIssue(Long issueId, Pageable pageable);
 }

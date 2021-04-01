@@ -16,4 +16,6 @@ public interface VersionService {
     CommonResponse delete(Long id);
 
     CommonResponse release(Long id);
+
+    Page<VersionDto.Result> searchVersionsNotMappingIssue(Long issueId, Pageable pageable);
 }

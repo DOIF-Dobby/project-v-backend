@@ -3,7 +3,9 @@ package org.doif.projectv.business.version.service;
 import org.doif.projectv.business.buildtool.constant.BuildTool;
 import org.doif.projectv.business.issue.constant.IssueCategory;
 import org.doif.projectv.business.issue.constant.IssueStatus;
+import org.doif.projectv.business.issue.constant.VersionIssueProgress;
 import org.doif.projectv.business.issue.entity.Issue;
+import org.doif.projectv.business.issue.entity.VersionIssue;
 import org.doif.projectv.business.module.entity.Module;
 import org.doif.projectv.business.module.repository.ModuleRepository;
 import org.doif.projectv.business.module.service.ModuleService;
@@ -140,5 +142,37 @@ class VersionServiceTest {
         // then
         assertThat(response.getCode()).isEqualTo(ResponseCode.OK.getCode());
         assertThat(content).isEmpty();
+    }
+
+    @Test
+    public void 테스트() throws Exception {
+        // given
+        Project project = new Project("프로젝트1");
+        Module module = new Module("모듈1", project, "모듈1 입니다", VcsType.SVN, "", BuildTool.MAVEN);
+        Version version1 = new Version("1.0.0", "1.0.0", module);
+        Version version2 = new Version("2.1.1", "2.1.1", module);
+        Version version3 = new Version("3.1.1", "3.1.1", module);
+        Issue issue1 = new Issue("이슈1", "이슈1 입니다.", IssueStatus.OPEN, IssueCategory.ERROR_MODIFY);
+        VersionIssue versionIssue1 = new VersionIssue(version1, issue1, "202104", VersionIssueProgress.PROGRESSING, "kjpmj", "안녕");
+        VersionIssue versionIssue2 = new VersionIssue(version2, issue1, "202104", VersionIssueProgress.PROGRESSING, "kjpmj", "안녕");
+
+        em.persist(project);
+        em.persist(module);
+        em.persist(version1);
+        em.persist(version2);
+        em.persist(version3);
+        em.persist(issue1);
+        em.persist(versionIssue1);
+        em.persist(versionIssue2);
+
+        PageRequest pageRequest = PageRequest.of(0, 100);
+
+        // when
+        Page<VersionDto.Result> results = versionService.searchVersionsNotMappingIssue(issue1.getId(), pageRequest);
+        List<VersionDto.Result> content = results.getContent();
+
+        // then
+        assertThat(content.size()).isEqualTo(2);
+        assertThat(content).extracting("versionName").containsExactly("v1.0.1", "3.1.1");
     }
 }

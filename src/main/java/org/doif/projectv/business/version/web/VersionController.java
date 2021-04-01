@@ -51,4 +51,11 @@ public class VersionController {
         VersionIssueDto.Response response = new VersionIssueDto.Response(content);
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping("/not-mapping-issue")
+    public ResponseEntity<VersionDto.Response> searchVersionsNotMappingIssue(@RequestParam("issueId") Long issueId, Pageable pageable) {
+        Page<VersionDto.Result> content = versionService.searchVersionsNotMappingIssue(issueId, pageable);
+        VersionDto.Response response = new VersionDto.Response(content);
+        return ResponseEntity.ok(response);
+    }
 }
