@@ -17,7 +17,7 @@ public class Client extends BaseEntity {
     @Column(name = "client_id", length = 10, nullable = false)
     private Long id;
 
-    @Column(name = "name", length = 50, nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
     @Column(name = "description")

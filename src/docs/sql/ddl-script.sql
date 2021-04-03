@@ -120,12 +120,30 @@ create or replace table task
         foreign key (version_issue_id) references version_issue (version_issue_id)
 ) comment = '작업', charset = utf8;
 
+-- client
+create or replace table client
+(
+    client_id          bigint auto_increment
+        primary key comment '고객사 ID',
+    name               varchar(255) not null comment '고객사명',
+    description        varchar(255) comment '고객사 섦명',
+    tel                date         not null comment '고객사 전화번호',
+    biz_reg_no         date         null comment '고객 사업자번호',
+    zip_code           varchar(50)  null comment '우편번호',
+    basic_addr         varchar(255) null comment '기본 주소',
+    detail_addr        varchar(255) null comment '상세 주소',
+    created_by         varchar(255) null comment '등록자',
+    created_date       datetime(6)  null comment '등록일시',
+    last_modified_by   varchar(255) null comment '수정자',
+    last_modified_date datetime(6)  null comment '수정일시'
+) comment = '고객사', charset = utf8;
+
 -- patch_log
 create or replace table patch_log
 (
     patch_log_id        bigint auto_increment
         primary key comment '패치 이력 ID',
-    version_id          bigint       not null comment '버전 ID',
+    client_id           bigint       not null comment '고객사 ID',
     target              varchar(10)  not null comment '패치 적용 대상',
     status              varchar(20)  not null comment '패치 상태',
     patch_schedule_date date         not null comment '패치 예정 일자',
@@ -136,9 +154,28 @@ create or replace table patch_log
     created_date        datetime(6)  null comment '등록일시',
     last_modified_by    varchar(255) null comment '수정자',
     last_modified_date  datetime(6)  null comment '수정일시',
-    constraint FK_patch_log__version
-        foreign key (version_id) references version (version_id)
+    constraint FK_patch_log__client
+        foreign key (client_id) references client (client_id)
 ) comment = '패치 이력', charset = utf8;
+
+-- patch_log_version
+create or replace table patch_log_version
+(
+    patch_log_version_id bigint auto_increment
+        primary key comment '패치 이력 버전 맵핑 ID',
+    patch_log_id         bigint       null comment '패치로그 ID',
+    version_id           bigint       null comment '버전 ID',
+    created_by           varchar(255) null comment '등록자',
+    created_date         datetime(6)  null comment '등록일시',
+    last_modified_by     varchar(255) null comment '수정자',
+    last_modified_date   datetime(6)  null comment '수정일시',
+    constraint FK_patch_log_version__patch_log
+        foreign key (patch_log_id) references patch_log (patch_log_id),
+    constraint FK_patch_log_version__version
+        foreign key (version_id) references version (version_id)
+) comment = '패치로그-버전', charset = utf8;
+
+create unique index UK_patch_log_id__version_id on patch_log_version (patch_log_id, version_id);
 
 -- vcs_auth_info
 create or replace table vcs_auth_info
