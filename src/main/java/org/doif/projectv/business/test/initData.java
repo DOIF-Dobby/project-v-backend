@@ -118,7 +118,7 @@ public class initData {
             Task task2 = new Task(versionIssue1, LocalDate.of(2020, 10, 11), LocalDate.of(2020, 10, 13), "이슈1 추가 수정", TaskType.DEVELOP, 1.0, "kjpmj", "remark1");
             Task task3 = new Task(versionIssue3, LocalDate.of(2020, 10, 12), LocalDate.of(2020, 10, 14), "이슈2 해결", TaskType.DEVELOP, 0.5, "kjpmj", "remark2");
 
-            Client client = new Client("금융결제원", "VVVVVIP");
+            Client client = new Client("금융결제원", "VVVVVIP", "01012345678", "1112233333", "12345", "서울", "강남");
 
             PatchLog patchLog1 = new PatchLog(client, PatchTarget.DEV, PatchStatus.COMPLETE, LocalDate.of(2020,10,19), "kjpmj", "");
             PatchLog patchLog2 = new PatchLog(client, PatchTarget.PROD, PatchStatus.COMPLETE, LocalDate.of(2020,10,20), "kjpmj", "");

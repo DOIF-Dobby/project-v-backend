@@ -23,12 +23,38 @@ public class Client extends BaseEntity {
     @Column(name = "description")
     private String description;
 
-    public Client(String name) {
-        this.name = name;
-    }
+    @Column(name = "tel", length = 11, nullable = false)
+    private String tel;
 
-    public Client(String name, String description) {
+    @Column(name = "biz_reg_no", length = 10, nullable = false)
+    private String bizRegNo;
+
+    @Column(name = "zip_code", length = 5, nullable = false)
+    private String zipCode;
+
+    @Column(name = "basic_addr", nullable = false)
+    private String basicAddr;
+
+    @Column(name = "detail_addr", nullable = false)
+    private String detailAddr;
+
+    public Client(String name, String description, String tel, String bizRegNo, String zipCode, String basicAddr, String detailAddr) {
         this.name = name;
         this.description = description;
+        this.tel = tel;
+        this.bizRegNo = bizRegNo;
+        this.zipCode = zipCode;
+        this.basicAddr = basicAddr;
+        this.detailAddr = detailAddr;
+    }
+
+    public void changeClient(String name, String description, String tel, String bizRegNo, String zipCode, String basicAddr, String detailAddr) {
+        this.name = name;
+        this.description = description;
+        this.tel = tel;
+        this.bizRegNo = bizRegNo;
+        this.zipCode = zipCode;
+        this.basicAddr = basicAddr;
+        this.detailAddr = detailAddr;
     }
 }

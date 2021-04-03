@@ -440,6 +440,44 @@ include::{snippets}/vcs/logs/request-parameters.adoc[]
 include::{snippets}/vcs/logs/http-response.adoc[]
 include::{snippets}/vcs/logs/response-fields-content.adoc[]
 
+---
+
+[[resources-client]]
+=== 고객사
+
+[[resources-client-select]]
+==== 고객사 조회
+===== 요청
+include::{snippets}/client/select/http-request.adoc[]
+===== 응답
+include::{snippets}/client/select/http-response.adoc[]
+include::{snippets}/client/select/response-fields-content.adoc[]
+
+[[resources-client-insert]]
+==== 고객사 추가
+===== 요청
+include::{snippets}/client/insert/http-request.adoc[]
+include::{snippets}/client/insert/request-fields.adoc[]
+===== 응답
+include::{snippets}/client/insert/http-response.adoc[]
+
+[[resources-client-update]]
+==== 고객사 변경
+===== 요청
+include::{snippets}/client/update/http-request.adoc[]
+include::{snippets}/client/update/path-parameters.adoc[]
+include::{snippets}/client/update/request-fields.adoc[]
+===== 응답
+include::{snippets}/client/update/http-response.adoc[]
+
+[[resources-client-delete]]
+==== 고객사 삭제
+===== 요청
+include::{snippets}/client/delete/http-request.adoc[]
+include::{snippets}/client/delete/path-parameters.adoc[]
+===== 응답
+include::{snippets}/client/delete/http-response.adoc[]
+
 == 공통
 ---
 

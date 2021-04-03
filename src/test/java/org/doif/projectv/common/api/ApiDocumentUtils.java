@@ -10,8 +10,8 @@ public interface ApiDocumentUtils {
     static OperationRequestPreprocessor getDocumentRequest() {
         return preprocessRequest(
                 modifyUris()    // 문서상 URI를 기본값인 http://localhost:8080에서 다른 걸로 변경하기 위해 사용
-                        .scheme("https")
-                        .host("docs.api.com")
+                        .scheme("http")
+                        .host("3.35.143.205")
                         .removePort(),
                 prettyPrint()); // 문서의 request를 예쁘게 출력하기 위해 사용
     }

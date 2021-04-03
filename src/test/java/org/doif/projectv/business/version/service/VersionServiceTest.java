@@ -190,7 +190,7 @@ class VersionServiceTest {
         Version version1 = new Version("1.0.0", "1.0.0", module, VersionStatus.RELEASE);
         Version version2 = new Version("2.1.1", "2.1.1", module, VersionStatus.RELEASE);
         Version version3 = new Version("3.1.1", "3.1.1", module, VersionStatus.RELEASE);
-        Client client = new Client("금결원", "VVIP");
+        Client client = new Client("금융결제원", "VVVVVIP", "01012345678", "1112233333", "12345", "서울", "강남");
         PatchLog patchLog = new PatchLog(client, PatchTarget.DEV, PatchStatus.SCHEDULE, LocalDate.of(2021, 4, 1), "kjpmj", "안녕");
         PatchLogVersion patchLogVersion1 = new PatchLogVersion(patchLog, version1);
         PatchLogVersion patchLogVersion2 = new PatchLogVersion(patchLog, version2);

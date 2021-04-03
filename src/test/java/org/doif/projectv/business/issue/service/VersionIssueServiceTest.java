@@ -65,7 +65,7 @@ class VersionIssueServiceTest {
         Task task1 = new Task(versionIssue, LocalDate.of(2020, 11, 24), LocalDate.of(2020, 11, 24), "작업작업", TaskType.DEVELOP, 1.0, "kjpmj", "");
         Task task2 = new Task(versionIssue, LocalDate.of(2020, 11, 25), LocalDate.of(2020, 11, 25), "작업작업", TaskType.DEVELOP, 1.5, "kjpmj", "");
 
-        Client client = new Client("금융결제원", "VVIP");
+        Client client = new Client("금융결제원", "VVVVVIP", "01012345678", "1112233333", "12345", "서울", "강남");
         PatchLog patchLog1 = new PatchLog(client, PatchTarget.DEV, PatchStatus.COMPLETE, LocalDate.of(2020, 11, 26), LocalDate.of(2020, 11, 26), "kjpmj", "");
         PatchLog patchLog2 = new PatchLog(client, PatchTarget.PROD, PatchStatus.COMPLETE, LocalDate.of(2020, 11, 26), LocalDate.of(2020, 11, 27),"kjpmj", "");
         PatchLogVersion patchLogVersion1 = new PatchLogVersion(patchLog1, version);

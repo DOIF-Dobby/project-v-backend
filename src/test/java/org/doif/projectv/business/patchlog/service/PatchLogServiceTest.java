@@ -61,7 +61,7 @@ class PatchLogServiceTest {
         Project project = new Project("금융결제원 PG");
         Module module = new Module("금융결제원 PG WEB/ADMIN", project, "", VcsType.SVN, "repo", BuildTool.MAVEN);
         Version version = new Version("v1.0.1", "버전 1.0.1 입니다.", module);
-        Client client = new Client("금융결제원", "VVIP");
+        Client client = new Client("금융결제원", "VVVVVIP", "01012345678", "1112233333", "12345", "서울", "강남");
         PatchLog patchLog = new PatchLog(client, PatchTarget.DEV, PatchStatus.SCHEDULE, LocalDate.of(2020, 11, 24), "kjpmj", "");
         PatchLogVersion patchLogVersion = new PatchLogVersion(patchLog, version);
 

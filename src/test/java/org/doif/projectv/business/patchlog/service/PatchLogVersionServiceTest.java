@@ -61,7 +61,7 @@ class PatchLogVersionServiceTest {
         Version version = new Version("v1.0.1", "버전 1.0.1 입니다.", module);
         Version version2 = new Version("v1.5.2", "버전 1.5.2 입니다.", module2);
 
-        Client client = new Client("금융결제원", "VVIP");
+        Client client = new Client("금융결제원", "VVVVVIP", "01012345678", "1112233333", "12345", "서울", "강남");
         PatchLog patchLog1 = new PatchLog(client, PatchTarget.DEV, PatchStatus.COMPLETE, LocalDate.of(2020, 11, 26), LocalDate.of(2020, 11, 26), "kjpmj", "");
         PatchLogVersion patchLogVersion1 = new PatchLogVersion(patchLog1, version);
         PatchLogVersion patchLogVersion2 = new PatchLogVersion(patchLog1, version2);
