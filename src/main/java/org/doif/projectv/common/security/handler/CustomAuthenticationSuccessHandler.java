@@ -2,6 +2,7 @@ package org.doif.projectv.common.security.handler;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.doif.projectv.common.security.constant.SecurityConstant;
 import org.doif.projectv.common.security.service.JwtTokenService;
 import org.doif.projectv.common.security.vo.UserDetailsInfo;
 import org.doif.projectv.common.user.entity.User;
@@ -13,10 +14,12 @@ import org.springframework.security.web.authentication.SavedRequestAwareAuthenti
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Base64;
 import java.util.Collection;
 
 /**
@@ -57,9 +60,15 @@ public class CustomAuthenticationSuccessHandler extends SavedRequestAwareAuthent
         log.info("[:: Login success user: {} ::]", user.getId());
         log.info("[:: Login success time: {} ::]", LocalDateTime.now());
 
-//        request.setAttribute(jwtTokenService.getAuthKey(), jwtTokenService.generateJwtToken(user));
-        response.setHeader(jwtTokenService.getAuthKey(), jwtTokenService.generateJwtToken(user));
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/login/success");
-        requestDispatcher.forward(request, response);
+        String jwtToken = jwtTokenService.generateJwtToken(user.getId());
+        Base64.Encoder encoder = Base64.getEncoder();
+        byte[] encodedJwtToken = encoder.encode(jwtToken.getBytes());
+        Cookie cookie = new Cookie(SecurityConstant.REFRESH_TOKEN, new String(encodedJwtToken));
+        cookie.setHttpOnly(true);
+        cookie.setMaxAge(SecurityConstant.REFRESH_TOKEN_MAX_AGE);
+        response.addCookie(cookie);
+//        response.setHeader(jwtTokenService.getAuthKey(), jwtTokenService.generateJwtToken(user));
+//        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/login/success");
+//        requestDispatcher.forward(request, response);
     }
 }

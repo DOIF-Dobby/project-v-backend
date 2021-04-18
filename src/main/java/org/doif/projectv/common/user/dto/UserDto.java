@@ -1,12 +1,8 @@
 package org.doif.projectv.common.user.dto;
 
-import com.querydsl.core.annotations.QueryProjection;
 import lombok.*;
 import org.doif.projectv.common.user.constant.UserStatus;
 import org.springframework.data.domain.Page;
-import org.springframework.util.StringUtils;
-
-import static org.springframework.util.StringUtils.*;
 
 public class UserDto {
 

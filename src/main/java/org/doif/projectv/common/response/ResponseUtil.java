@@ -6,4 +6,8 @@ public class ResponseUtil {
         return new CommonResponse(ResponseCode.OK);
     }
 
+    public static CommonResponse unAuthorized() {
+        return new CommonResponse(ResponseCode.UNAUTHORIZED);
+    }
+
 }

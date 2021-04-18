@@ -29,18 +29,15 @@ public class JwtTokenService {
     @Value("${jwt.key}")
     private String key;
 
-    // Request header 토큰 key 명
-    private static final String AUTH_KEY = "Authorization";
-
     // 토큰 유효시간 30분
     private static final long tokenValidTime = 30 * 60 * 1000L;
 
-    public String generateJwtToken(User user) {
+    public String generateJwtToken(String username) {
         Date now = new Date();
 
         String compact = Jwts.builder()
                 .setHeader(createHeader())
-                .setClaims(createClaims(user))                              // 정보 저장
+                .setClaims(createClaims(username))                              // 정보 저장
                 .setIssuedAt(now)                                           // 발행일
                 .setExpiration(new Date(now.getTime() + tokenValidTime))    // 만료일
                 .signWith(SignatureAlgorithm.HS256, createSigningKey())
@@ -48,13 +45,9 @@ public class JwtTokenService {
         return "Bearer " + compact;
     }
 
-    public String getAuthKey() {
-        return AUTH_KEY;
-    }
-
-    private Map<String, Object> createClaims(User user) {
+    private Map<String, Object> createClaims(String username) {
         Map<String, Object> claims = new HashMap<>();
-        claims.put("id", user.getId());
+        claims.put("username", username);
 
         return claims;
     }
@@ -101,12 +94,12 @@ public class JwtTokenService {
         return jwtToken.substring("Bearer ".length());
     }
 
-    public String getId(String jwtToken) {
+    public String getUsername(String jwtToken) {
         String token = getTokenFromHeader(jwtToken);
         Claims claims = Jwts.parser().setSigningKey(DatatypeConverter.parseBase64Binary(key))
                 .parseClaimsJws(token).getBody();
 
-        return claims.get("id", String.class);
+        return claims.get("username", String.class);
 
     }
 

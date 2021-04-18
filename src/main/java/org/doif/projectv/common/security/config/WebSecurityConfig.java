@@ -142,7 +142,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Bean
     public LogoutSuccessHandler logoutSuccessHandler() {
-        CustomLogoutSuccessHandler logoutSuccessHandler = new CustomLogoutSuccessHandler();
+        CustomLogoutSuccessHandler logoutSuccessHandler = new CustomLogoutSuccessHandler(jwtTokenService());
 //        logoutSuccessHandler.setDefaultTargetUrl("/loginPage?logout=logout");
         return logoutSuccessHandler;
     }

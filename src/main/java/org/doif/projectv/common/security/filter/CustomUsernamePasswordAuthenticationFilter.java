@@ -1,8 +1,6 @@
 package org.doif.projectv.common.security.filter;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.doif.projectv.common.user.dto.UserDto;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationServiceException;
@@ -14,7 +12,7 @@ import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import java.util.Base64;
 
 /**
  * <pre>
@@ -53,15 +51,26 @@ public class CustomUsernamePasswordAuthenticationFilter extends UsernamePassword
             throw new AuthenticationServiceException("Authentication method not supported: " + request.getMethod());
         }
 
+        // Authorization 헤더에 담긴 username:password로 인증
         UsernamePasswordAuthenticationToken authRequest;
+        String authorization = request.getHeader("Authorization").substring("Basic ".length());
+        Base64.Decoder decoder = Base64.getDecoder();
+        byte[] decode = decoder.decode(authorization);
+        String usernameAndPassword = new String(decode);
+
+        String[] strings = StringUtils.delimitedListToStringArray(usernameAndPassword, ":");
+        String username = strings[0];
+        String password = strings[1];
+
+        authRequest = new UsernamePasswordAuthenticationToken(username, password);
 
         // jackson ObjectMapper로 request body로 넘어온 데이터를 UserDto 객체로 변환
-        try{
-            UserDto.Auth userDto = new ObjectMapper().readValue(request.getInputStream(), UserDto.Auth.class);
-            authRequest = new UsernamePasswordAuthenticationToken(userDto.getId(), userDto.getPassword());
-        } catch (IOException exception){
-            throw new AuthenticationServiceException("Invalid Request");
-        }
+//        try{
+//            UserDto.Auth userDto = new ObjectMapper().readValue(request.getInputStream(), UserDto.Auth.class);
+//            authRequest = new UsernamePasswordAuthenticationToken(userDto.getId(), userDto.getPassword());
+//        } catch (IOException exception){
+//            throw new AuthenticationServiceException("Invalid Request");
+//        }
 
         setDetails(request, authRequest);
 

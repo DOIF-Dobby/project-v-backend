@@ -1,11 +1,11 @@
 package org.doif.projectv.common.security.filter;
 
 import lombok.extern.slf4j.Slf4j;
+import org.doif.projectv.common.security.constant.SecurityConstant;
 import org.doif.projectv.common.security.service.JwtTokenService;
 import org.doif.projectv.common.security.vo.JwtAuthenticationToken;
 import org.doif.projectv.common.user.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -14,7 +14,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
 /**
  * <pre>
@@ -35,7 +34,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
-        String token = request.getHeader(jwtTokenService.getAuthKey());
+        String token = request.getHeader(SecurityConstant.AUTH_KEY);
         String requestURI = request.getRequestURI();
         boolean isApiRequest = requestURI.startsWith("/api/");
 
@@ -57,7 +56,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
         // 토큰에서 권한과 userId 추출
-        String id = jwtTokenService.getId(token);
+        String id = jwtTokenService.getUsername(token);
         User user = new User(id);
 
         // Authentication 객체 생성 후, SecurityContext에 저장

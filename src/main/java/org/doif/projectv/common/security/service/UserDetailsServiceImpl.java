@@ -3,23 +3,17 @@ package org.doif.projectv.common.security.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.doif.projectv.common.security.vo.UserDetailsInfo;
-import org.doif.projectv.common.user.dto.UserDto;
 import org.doif.projectv.common.user.entity.User;
 import org.doif.projectv.common.user.repository.UserRepository;
-import org.doif.projectv.common.user.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ObjectUtils;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * <pre>
