@@ -53,7 +53,14 @@ public class CustomUsernamePasswordAuthenticationFilter extends UsernamePassword
 
         // Authorization 헤더에 담긴 username:password로 인증
         UsernamePasswordAuthenticationToken authRequest;
-        String authorization = request.getHeader("Authorization").substring("Basic ".length());
+        String authorization = request.getHeader("Authorization");
+
+        if(authorization == null) {
+            throw new AuthenticationServiceException("Invalid Request");
+        }
+
+        authorization = authorization.substring("Basic ".length());
+
         Base64.Decoder decoder = Base64.getDecoder();
         byte[] decode = decoder.decode(authorization);
         String usernameAndPassword = new String(decode);

@@ -38,10 +38,16 @@ public class CustomLogoutSuccessHandler extends SimpleUrlLogoutSuccessHandler {
         Cookie[] cookies = request.getCookies();
         for (Cookie cookie : cookies) {
             if(SecurityConstant.REFRESH_TOKEN.equals(cookie.getName())) {
-                String refreshToken = cookie.getValue();
-                byte[] decodeJwtToken = Base64.getDecoder().decode(refreshToken);
+                String encodeJwtToken = cookie.getValue();
+                byte[] decodeJwtToken = Base64.getDecoder().decode(encodeJwtToken);
+                String refreshToken = new String(decodeJwtToken);
 
-                String username = jwtTokenService.getUsername(new String(decodeJwtToken));
+                // 유효한 토큰이 아니라면 어차피 로그아웃된 것이나 다름없다.
+                if(!jwtTokenService.isValidToken(refreshToken)) {
+                    super.onLogoutSuccess(request, response, authentication);
+                }
+
+                String username = jwtTokenService.getUsername(refreshToken);
                 log.info("[:: Logout user: {} ::]", username);
                 log.info("[:: Logout time: {} ::]", LocalDateTime.now());
 

@@ -55,7 +55,6 @@ public class AuthorizationChecker {
         if(requestURI.startsWith("/api/pages/")) {
             // page 요청인데 GET 요청이 아니면 false
             if(!httpMethod.equals(HttpMethod.GET.name())) {
-
                 return false;
             }
 

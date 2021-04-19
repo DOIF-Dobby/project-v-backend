@@ -7,6 +7,7 @@ import org.doif.projectv.common.resource.entity.Menu;
 import org.doif.projectv.common.resource.entity.MenuCategory;
 import org.doif.projectv.common.status.EnableStatus;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MenuDto {
@@ -24,6 +25,7 @@ public class MenuDto {
         private String typeName;
         private String icon;
         private String url;
+        private List<Result> childrenItems = new ArrayList<>();
 
         public Result(Long resourceId, String name, String description, EnableStatus status, String code, Long parentId, Integer sort, MenuType type, String icon, String url) {
             super(resourceId, name, description, status, code);
