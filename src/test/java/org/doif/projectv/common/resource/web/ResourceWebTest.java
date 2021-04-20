@@ -44,6 +44,7 @@ class ResourceWebTest extends ApiDocumentTest {
     public void 페이지_자식_리소스_조회_API_테스트() throws Exception {
         // given
         PageDto.Child child = new PageDto.Child();
+        child.setPageId(1L);
         ButtonDto.Result button1 = new ButtonDto.Result(2L, "이슈 조회", "이슈 조회 버튼", EnableStatus.ENABLE, "BTN_ISSUE_SEARCH", "/api/issue", HttpMethod.GET, 1L, "find");
 //        ButtonDto.Result button2 = new ButtonDto.Result(3L, "이슈 추가", "이슈 추가 버튼", EnableStatus.ENABLE, "BTN_ISSUE_ADD", "/api/issue", HttpMethod.POST, 1L, "add");
 
@@ -79,6 +80,7 @@ class ResourceWebTest extends ApiDocumentTest {
                         getDocumentRequest(),
                         getDocumentResponse(),
                         responseFields(
+                                fieldWithPath("pageId").type(NUMBER).description("페이지 ID"),
                                 fieldWithPath("buttonMap").type(OBJECT).description("버튼 리소스 맵"),
                                 fieldWithPath("buttonMap.BTN_ISSUE_SEARCH.resourceId").type(NUMBER).description("버튼 ID"),
                                 fieldWithPath("buttonMap.BTN_ISSUE_SEARCH.name").type(STRING).description("버튼명"),

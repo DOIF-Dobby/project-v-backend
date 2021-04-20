@@ -112,6 +112,7 @@ public class ResourceServiceImpl implements ResourceService {
                 ))
                 .collect(Collectors.toMap(ResourceDto.Result::getCode, result -> result));
 
+        child.setPageId(page.getId());
         child.setButtonMap(buttonMap);
         child.setTabMap(tabMap);
         child.setLabelMap(labelMap);
