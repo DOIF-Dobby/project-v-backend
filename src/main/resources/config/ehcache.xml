@@ -74,4 +74,27 @@
             <heap unit="entries">2</heap>
         </resources>
     </cache>
+
+    <!-- userID로 권한 있는 사이드메뉴 조회 메서드 캐시 -->
+    <cache alias="selectSideMenuCache">
+        <key-type>java.lang.String</key-type>
+        <value-type>java.util.List</value-type>
+        <expiry>
+            <ttl unit="minutes">30</ttl>
+        </expiry>
+
+        <listeners>
+            <listener>
+                <class>org.doif.projectv.common.cache.listener.CacheEventLogger</class>
+                <event-firing-mode>ASYNCHRONOUS</event-firing-mode>
+                <event-ordering-mode>UNORDERED</event-ordering-mode>
+                <events-to-fire-on>CREATED</events-to-fire-on>
+                <events-to-fire-on>EXPIRED</events-to-fire-on>
+            </listener>
+        </listeners>
+
+        <resources>
+            <heap unit="entries">2</heap>
+        </resources>
+    </cache>
 </config>

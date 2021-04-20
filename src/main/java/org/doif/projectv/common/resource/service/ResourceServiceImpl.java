@@ -1,24 +1,29 @@
 package org.doif.projectv.common.resource.service;
 
 import lombok.RequiredArgsConstructor;
+import org.doif.projectv.common.resource.constant.MenuType;
 import org.doif.projectv.common.resource.dto.*;
+import org.doif.projectv.common.resource.entity.Menu;
+import org.doif.projectv.common.resource.entity.MenuCategory;
 import org.doif.projectv.common.resource.entity.Page;
 import org.doif.projectv.common.resource.repository.ResourceRepository;
 import org.doif.projectv.common.resource.repository.button.ButtonRepository;
 import org.doif.projectv.common.resource.repository.label.LabelRepository;
+import org.doif.projectv.common.resource.repository.menu.MenuRepository;
+import org.doif.projectv.common.resource.repository.menucategory.MenuCategoryRepository;
 import org.doif.projectv.common.resource.repository.page.PageRepository;
 import org.doif.projectv.common.resource.repository.tab.TabRepository;
 import org.doif.projectv.common.status.EnableStatus;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class ResourceServiceImpl implements ResourceService {
 
     private final ResourceRepository resourceRepository;
@@ -26,6 +31,8 @@ public class ResourceServiceImpl implements ResourceService {
     private final ButtonRepository buttonRepository;
     private final TabRepository tabRepository;
     private final LabelRepository labelRepository;
+    private final MenuRepository menuRepository;
+    private final MenuCategoryRepository menuCategoryRepository;
 
     /**
      * ResourceAuthority 하위의 Resource들을 userId 별로 캐싱해두고 다음 권한 검사할 때는 캐싱된 것으로 비교한다.
@@ -110,6 +117,90 @@ public class ResourceServiceImpl implements ResourceService {
         child.setLabelMap(labelMap);
 
         return child;
+
+    }
+
+    /**
+     * 특정 페이지의 자식들을 캐싱해두고 같은 페이지 요청 시 캐싱된 것을 반환 한다.
+     * @param userId
+     * @return
+     */
+    @Cacheable(value = "selectSideMenuCache", key = "#userId")
+    @Override
+    public List<MenuDto.Result> selectSideMenu(String userId) {
+        List<MenuCategory> menuCategories = resourceRepository.findAllMenuCategoryByValidResource(userId);
+        List<Menu> menus = resourceRepository.findAllMenuByValidResource(userId);
+
+        List<MenuDto.Result> categoryResults = menuCategories.stream()
+                .map(menuCategory -> {
+                    MenuDto.Result result = new MenuDto.Result(
+                            menuCategory.getId(),
+                            menuCategory.getName(),
+                            menuCategory.getDescription(),
+                            menuCategory.getStatus(),
+                            menuCategory.getCode(),
+                            menuCategory.getParent() != null ? menuCategory.getParent().getId() : null,
+                            menuCategory.getSort(),
+                            MenuType.CATEGORY,
+                            menuCategory.getIcon(),
+                            null
+                    );
+
+                    result.setDepthAndPath(menuCategory);
+                    result.setPaddingName(menuCategory.getName());
+
+                    return result;
+                })
+                .collect(Collectors.toList());
+
+        List<MenuDto.Result> menuResults = menus.stream()
+                .map(menu -> {
+                    MenuDto.Result result = new MenuDto.Result(
+                            menu.getId(),
+                            menu.getName(),
+                            menu.getDescription(),
+                            menu.getStatus(),
+                            menu.getCode(),
+                            menu.getMenuCategory().getId(),
+                            menu.getSort(),
+                            MenuType.MENU,
+                            menu.getIcon(),
+                            menu.getUrl()
+                    );
+
+                    result.setDepthAndPath(menu);
+                    result.setPaddingName(menu.getName());
+
+                    return result;
+                })
+                .collect(Collectors.toList());
+
+        categoryResults.addAll(menuResults);
+
+        List<MenuDto.Result> sideMenu = categoryResults.stream()
+                .sorted(Comparator.comparing(MenuDto.Result::getPath))
+                .collect(Collectors.toList());
+        return getHierarchicalList(sideMenu);
+    }
+
+    public static List<MenuDto.Result> getHierarchicalList(final List<MenuDto.Result> originalList) {
+        final List<MenuDto.Result> copyList = new ArrayList<>(originalList);
+
+        copyList.forEach(element -> {
+            originalList
+                    .stream()
+                    .filter(parent -> parent.getResourceId().equals(element.getParentId()))
+                    .findAny()
+                    .ifPresent(parent -> {
+                        if (parent.getChildrenItems() == null) {
+                            parent.setChildrenItems(new ArrayList<>());
+                        }
+                        parent.getChildrenItems().add(element);
+                        /* originalList.remove(element); don't remove the content before completing the recursive */
+                    });
+        });
+        originalList.subList(1, originalList.size()).clear();
+        return originalList;
     }
 
 

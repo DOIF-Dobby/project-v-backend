@@ -302,6 +302,6 @@ class RoleResourceServiceTest {
         IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> new RoleResource(devRole, label));
 
         // then
-        assertThat(e.getMessage()).isEqualTo("Role-Resource 에는 Page 또는 ResourceAuthority 만이 할당될 수 있습니다.");
+        assertThat(e.getMessage()).isEqualTo("Role-Resource 에는 MenuCategory, Menu, Page 또는 ResourceAuthority 만이 할당될 수 있습니다.");
     }
 }

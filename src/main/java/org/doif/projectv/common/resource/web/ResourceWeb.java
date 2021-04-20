@@ -5,6 +5,8 @@ import org.doif.projectv.common.resource.dto.MenuDto;
 import org.doif.projectv.common.resource.dto.PageDto;
 import org.doif.projectv.common.resource.service.ResourceService;
 import org.doif.projectv.common.resource.service.menu.MenuService;
+import org.doif.projectv.common.security.util.SecurityUtil;
+import org.doif.projectv.common.user.entity.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,20 +16,21 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
 public class ResourceWeb {
 
     private final ResourceService resourceService;
-    private final MenuService menuService;
 
-    @GetMapping("/api/pages/main")
-    public ResponseEntity<MenuDto.Response> selectMain(HttpServletRequest request) {
-        List<MenuDto.Result> result = menuService.select();
-        List<MenuDto.Result> hierarchicalList = ResourceWeb.getHierarchicalList(result);
+    @GetMapping("/api/side-menu")
+    public ResponseEntity<MenuDto.Response> selectSideMenu() {
+        Optional<User> userByContext = SecurityUtil.getUserByContext();
+        User user = userByContext.orElseThrow(() -> new IllegalArgumentException("유저를 찾을 수 없음"));
+        List<MenuDto.Result> result = resourceService.selectSideMenu(user.getId());
 
-        MenuDto.Response response = new MenuDto.Response(hierarchicalList);
+        MenuDto.Response response = new MenuDto.Response(result);
         return ResponseEntity.ok(response);
     }
 
@@ -36,26 +39,6 @@ public class ResourceWeb {
         PageDto.Child child = resourceService.searchPageChildResource(request.getRequestURI());
 
         return ResponseEntity.ok(child);
-    }
-
-    public static List<MenuDto.Result> getHierarchicalList(final List<MenuDto.Result> originalList) {
-        final List<MenuDto.Result> copyList = new ArrayList<>(originalList);
-
-        copyList.forEach(element -> {
-            originalList
-                    .stream()
-                    .filter(parent -> parent.getResourceId().equals(element.getParentId()))
-                    .findAny()
-                    .ifPresent(parent -> {
-                        if (parent.getChildrenItems() == null) {
-                            parent.setChildrenItems(new ArrayList<>());
-                        }
-                        parent.getChildrenItems().add(element);
-                        /* originalList.remove(element); don't remove the content before completing the recursive */
-                    });
-        });
-        originalList.subList(1, originalList.size()).clear();
-        return originalList;
     }
 
 }
