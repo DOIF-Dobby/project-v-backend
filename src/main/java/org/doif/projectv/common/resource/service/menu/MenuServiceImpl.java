@@ -7,6 +7,8 @@ import org.doif.projectv.common.resource.entity.Menu;
 import org.doif.projectv.common.resource.entity.MenuCategory;
 import org.doif.projectv.common.resource.repository.menu.MenuRepository;
 import org.doif.projectv.common.resource.repository.menucategory.MenuCategoryRepository;
+import org.doif.projectv.common.resource.service.ResourceServiceImpl;
+import org.doif.projectv.common.resource.util.ResourceUtil;
 import org.doif.projectv.common.response.CommonResponse;
 import org.doif.projectv.common.response.ResponseUtil;
 import org.springframework.stereotype.Service;
@@ -77,9 +79,11 @@ public class MenuServiceImpl implements MenuService {
 
         categoryResults.addAll(menuResults);
 
-        return categoryResults.stream()
+        List<MenuDto.Result> collect = categoryResults.stream()
                 .sorted(Comparator.comparing(MenuDto.Result::getPath))
                 .collect(Collectors.toList());
+
+        return ResourceUtil.getSubRowsList(collect);
     }
 
     @Override

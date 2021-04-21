@@ -26,6 +26,7 @@ public class MenuDto {
         private String icon;
         private String url;
         private List<Result> childrenItems = new ArrayList<>();
+        private List<Result> subRows = new ArrayList<>();
 
         public Result(Long resourceId, String name, String description, EnableStatus status, String code, Long parentId, Integer sort, MenuType type, String icon, String url) {
             super(resourceId, name, description, status, code);

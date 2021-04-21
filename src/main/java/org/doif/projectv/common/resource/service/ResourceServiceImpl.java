@@ -13,6 +13,7 @@ import org.doif.projectv.common.resource.repository.menu.MenuRepository;
 import org.doif.projectv.common.resource.repository.menucategory.MenuCategoryRepository;
 import org.doif.projectv.common.resource.repository.page.PageRepository;
 import org.doif.projectv.common.resource.repository.tab.TabRepository;
+import org.doif.projectv.common.resource.util.ResourceUtil;
 import org.doif.projectv.common.status.EnableStatus;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -181,28 +182,7 @@ public class ResourceServiceImpl implements ResourceService {
         List<MenuDto.Result> sideMenu = categoryResults.stream()
                 .sorted(Comparator.comparing(MenuDto.Result::getPath))
                 .collect(Collectors.toList());
-        return getHierarchicalList(sideMenu);
+        return ResourceUtil.getHierarchicalList(sideMenu);
     }
-
-    public static List<MenuDto.Result> getHierarchicalList(final List<MenuDto.Result> originalList) {
-        final List<MenuDto.Result> copyList = new ArrayList<>(originalList);
-
-        copyList.forEach(element -> {
-            originalList
-                    .stream()
-                    .filter(parent -> parent.getResourceId().equals(element.getParentId()))
-                    .findAny()
-                    .ifPresent(parent -> {
-                        if (parent.getChildrenItems() == null) {
-                            parent.setChildrenItems(new ArrayList<>());
-                        }
-                        parent.getChildrenItems().add(element);
-                        /* originalList.remove(element); don't remove the content before completing the recursive */
-                    });
-        });
-        originalList.subList(1, originalList.size()).clear();
-        return originalList;
-    }
-
 
 }
