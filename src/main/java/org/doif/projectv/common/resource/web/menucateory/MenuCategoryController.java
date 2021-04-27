@@ -3,6 +3,7 @@ package org.doif.projectv.common.resource.web.menucateory;
 import lombok.RequiredArgsConstructor;
 import org.doif.projectv.common.resource.dto.MenuCategoryDto;
 import org.doif.projectv.common.resource.service.menucategory.MenuCategoryService;
+import org.doif.projectv.common.enumeration.dto.CodeDto;
 import org.doif.projectv.common.response.CommonResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -39,5 +40,11 @@ public class MenuCategoryController {
     public ResponseEntity<CommonResponse> delete(@PathVariable Long id) {
         CommonResponse response = menuCategoryService.delete(id);
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/hierarchy-code")
+    public ResponseEntity<List<CodeDto>> selectHierarchyCode() {
+        List<CodeDto> result = menuCategoryService.selectHierarchy();
+        return ResponseEntity.ok(result);
     }
 }

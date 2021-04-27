@@ -3,6 +3,7 @@ package org.doif.projectv.common.resource.dto;
 import lombok.*;
 import org.doif.projectv.common.status.EnableStatus;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MenuCategoryDto {
@@ -14,6 +15,7 @@ public class MenuCategoryDto {
         private Long parentId;
         private Integer sort;
         private String icon;
+        private List<Result> childrenItems = new ArrayList<>();
 
         public Result(Long resourceId, String name, String description, EnableStatus status, String code, Long parentId, Integer sort, String icon) {
             super(resourceId, name, description, status, code);

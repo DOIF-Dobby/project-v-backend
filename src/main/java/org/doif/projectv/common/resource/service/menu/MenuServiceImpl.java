@@ -7,7 +7,6 @@ import org.doif.projectv.common.resource.entity.Menu;
 import org.doif.projectv.common.resource.entity.MenuCategory;
 import org.doif.projectv.common.resource.repository.menu.MenuRepository;
 import org.doif.projectv.common.resource.repository.menucategory.MenuCategoryRepository;
-import org.doif.projectv.common.resource.service.ResourceServiceImpl;
 import org.doif.projectv.common.resource.util.ResourceUtil;
 import org.doif.projectv.common.response.CommonResponse;
 import org.doif.projectv.common.response.ResponseUtil;
@@ -83,7 +82,14 @@ public class MenuServiceImpl implements MenuService {
                 .sorted(Comparator.comparing(MenuDto.Result::getPath))
                 .collect(Collectors.toList());
 
-        return ResourceUtil.getSubRowsList(collect);
+        List<MenuDto.Result> subRowsList2 = ResourceUtil.getSubRowsList(collect);
+
+        for (MenuDto.Result result : subRowsList2) {
+            System.out.println("result = " + result);
+        }
+
+
+        return subRowsList2;
     }
 
     @Override

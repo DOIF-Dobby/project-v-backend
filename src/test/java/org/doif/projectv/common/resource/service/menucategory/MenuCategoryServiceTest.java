@@ -3,6 +3,7 @@ package org.doif.projectv.common.resource.service.menucategory;
 import org.doif.projectv.common.resource.dto.MenuCategoryDto;
 import org.doif.projectv.common.resource.entity.MenuCategory;
 import org.doif.projectv.common.resource.repository.menucategory.MenuCategoryRepository;
+import org.doif.projectv.common.enumeration.dto.CodeDto;
 import org.doif.projectv.common.response.CommonResponse;
 import org.doif.projectv.common.response.ResponseCode;
 import org.doif.projectv.common.status.EnableStatus;
@@ -127,5 +128,16 @@ class MenuCategoryServiceTest {
             menuCategoryService.delete(menuCategoryId);
             menuCategoryService.select();
         });
+    }
+
+    @Test
+    public void MenuCategory_hierarchy_구조로_조회_테스트() throws Exception {
+        // given
+
+        // when
+        List<CodeDto> results = menuCategoryService.selectHierarchy();
+
+        // then
+        assertThat(results).extracting("name").containsExactly("부모", " 자식");
     }
 }

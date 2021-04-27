@@ -56,6 +56,11 @@ public class AuthorizationChecker {
             return httpMethod.equals(HttpMethod.GET.name());
         }
 
+        // '/api/codes' 로 시작하면 GET 메서드인지만 체크 한다.
+        if(requestURI.startsWith("/api/codes")) {
+            return httpMethod.equals(HttpMethod.GET.name());
+        }
+
         // '/api/pages/' 로 시작하면 ResourcePage 에 접근 권한이 있는지 체크 한다.
         if(requestURI.startsWith("/api/pages/")) {
             // page 요청인데 GET 요청이 아니면 false

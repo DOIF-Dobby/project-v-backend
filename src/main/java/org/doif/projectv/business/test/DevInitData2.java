@@ -48,33 +48,14 @@ public class DevInitData2 {
 
         @Transactional
         public void init() {
-//            Page commonPage = new Page("메인 페이지", "메인 페이지", EnableStatus.ENABLE, "PAGE_MAIN", "/api/pages/main");
-
-            Role devRole = em.find(Role.class, 1L);
-
-            MenuCategory menuCategory = em.find(MenuCategory.class, 60L);
-            Menu menu1 = em.find(Menu.class, 61L);
-            Menu menu2 = em.find(Menu.class, 62L);
-            Menu menu3 = em.find(Menu.class, 63L);
-            Menu menu4 = em.find(Menu.class, 64L);
-            Menu menu5 = em.find(Menu.class, 65L);
-            Menu menu6 = em.find(Menu.class, 66L);
+            Page page = em.find(Page.class, 3L);
+            Role role = em.find(Role.class, 1L);
 
 
-            // 페이지 등록
-//            em.persist(commonPage);
+            Button button = new Button("기타 허용", "기타 허용", EnableStatus.ENABLE, "BTN_RESOURCE_MENU_CATEGORY_ETC", "/api/resources/menu-categories/**", HttpMethod.GET, page, "");
 
-            // 페이지 RoleResource 등록
-//            em.persist(new RoleResource(devRole, commonPage));
-            em.persist(new RoleResource(devRole, menuCategory));
-            em.persist(new RoleResource(devRole, menu1));
-            em.persist(new RoleResource(devRole, menu2));
-            em.persist(new RoleResource(devRole, menu3));
-            em.persist(new RoleResource(devRole, menu4));
-            em.persist(new RoleResource(devRole, menu5));
-            em.persist(new RoleResource(devRole, menu6));
-
-            // 버튼 등록 및 RoleResource 등록
+            em.persist(button);
+            em.persist(new RoleResource(role, button));
         }
     }
 }
