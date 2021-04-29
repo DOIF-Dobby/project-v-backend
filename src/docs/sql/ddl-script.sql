@@ -340,6 +340,8 @@ create or replace table resource_menu
         foreign key (resource_id) references resource (resource_id)
 ) comment = '메뉴', charset = utf8;
 
+create unique index UK_url on resource_menu(url);
+
 -- resource_button
 create or replace table resource_button
 (
