@@ -72,4 +72,14 @@ public class MenuCategory extends Resource {
 
         return path;
     }
+
+    public List<String> getMenuPath(List<String> menuPath) {
+        menuPath.add(getName());
+
+        if(parent != null) {
+            return parent.getMenuPath(menuPath);
+        }
+
+        return menuPath;
+    }
 }

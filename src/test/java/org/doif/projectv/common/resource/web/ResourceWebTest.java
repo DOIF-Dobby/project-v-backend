@@ -32,8 +32,7 @@ import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuild
 import static org.springframework.restdocs.payload.JsonFieldType.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
-import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
-import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
+import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -61,26 +60,34 @@ class ResourceWebTest extends ApiDocumentTest {
         child.setButtonMap(buttonMap);
         child.setTabMap(tabMap);
         child.setLabelMap(labelMap);
+        child.setMenuName("메뉴명");
+        child.setMenuList(Arrays.asList("메뉴 카테고리", "메뉴"));
 
-        given(resourceService.searchPageChildResource(eq("/api/pages/issue")))
+        given(resourceService.searchPageChildResource(eq("/api/pages/issue"), eq("/menu")))
                 .willReturn(child);
 
         // when
         ResultActions result = mockMvc.perform(
                 get("/api/pages/issue")
+                        .param("menuPath", "/menu")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
         );
 
         // then
         result.andExpect(status().isOk())
-                .andExpect(content().json(objectMapper.writeValueAsString(child)))
+//                .andExpect(content().json(objectMapper.writeValueAsString(child)))
                 .andDo(print())
                 .andDo(document("page-child/select",
                         getDocumentRequest(),
                         getDocumentResponse(),
+                        requestParameters(
+                                parameterWithName("menuPath").description("메뉴 URL")
+                        ),
                         responseFields(
                                 fieldWithPath("pageId").type(NUMBER).description("페이지 ID"),
+                                fieldWithPath("menuName").type(STRING).description("메뉴명"),
+                                fieldWithPath("menuList").type(ARRAY).description("메뉴 경로 리스트"),
                                 fieldWithPath("buttonMap").type(OBJECT).description("버튼 리소스 맵"),
                                 fieldWithPath("buttonMap.BTN_ISSUE_SEARCH.resourceId").type(NUMBER).description("버튼 ID"),
                                 fieldWithPath("buttonMap.BTN_ISSUE_SEARCH.name").type(STRING).description("버튼명"),

@@ -12,7 +12,7 @@ public interface ResourceService {
 
     List<AuthCheckDto.ResourcePageCheck> searchPageResource(String userId);
 
-    PageDto.Child searchPageChildResource(String url);
+    PageDto.Child searchPageChildResource(String url, String menuPath);
 
     List<MenuDto.Result> selectSideMenu(String userId);
 }

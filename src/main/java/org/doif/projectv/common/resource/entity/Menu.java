@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import org.doif.projectv.common.status.EnableStatus;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @DiscriminatorValue("MENU")
@@ -66,5 +68,19 @@ public class Menu extends Resource {
         }
 
         return path;
+    }
+
+    public List<String> getMenuPath() {
+        return getMenuPath(new ArrayList<>());
+    }
+
+    private List<String> getMenuPath(List<String> menuPath) {
+        menuPath.add(getName());
+
+        if(menuCategory != null) {
+            return menuCategory.getMenuPath(menuPath);
+        }
+
+        return menuPath;
     }
 }

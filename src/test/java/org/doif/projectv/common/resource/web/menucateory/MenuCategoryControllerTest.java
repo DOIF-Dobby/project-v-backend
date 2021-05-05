@@ -25,8 +25,7 @@ import static org.mockito.BDDMockito.eq;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
-import static org.springframework.restdocs.payload.JsonFieldType.NUMBER;
-import static org.springframework.restdocs.payload.JsonFieldType.STRING;
+import static org.springframework.restdocs.payload.JsonFieldType.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
@@ -81,7 +80,8 @@ class MenuCategoryControllerTest extends ApiDocumentTest {
                                 fieldWithPath("code").type(STRING).description("메뉴-카테고리 코드"),
                                 fieldWithPath("parentId").type(NUMBER).description("부모 메뉴-카테고리 ID"),
                                 fieldWithPath("sort").type(NUMBER).description("정렬 순서"),
-                                fieldWithPath("icon").type(STRING).description("아이콘")
+                                fieldWithPath("icon").type(STRING).description("아이콘"),
+                                fieldWithPath("childrenItems").type(ARRAY).description("하위 카테고리")
                         )
                 ));
     }

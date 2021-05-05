@@ -97,7 +97,8 @@ class MenuControllerTest extends ApiDocumentTest {
                                 fieldWithPath("type").type(STRING).description(generateLinkCode(CodeEnum.MENU_TYPE)),
                                 fieldWithPath("typeName").type(STRING).description(generateText(CodeEnum.MENU_TYPE)),
                                 fieldWithPath("url").type(STRING).description("메뉴 URL"),
-                                fieldWithPath("childrenItems").type(ARRAY).description("메뉴 URL")
+                                fieldWithPath("childrenItems").type(ARRAY).description("하위 메뉴/카테고리"),
+                                fieldWithPath("subRows").type(ARRAY).description("하위 메뉴/카테고리")
                         )
                 ));
     }

@@ -138,6 +138,6 @@ class MenuCategoryServiceTest {
         List<CodeDto> results = menuCategoryService.selectHierarchy();
 
         // then
-        assertThat(results).extracting("name").containsExactly("부모", " 자식");
+        assertThat(results).extracting("name").containsExactly("부모", "자식");
     }
 }

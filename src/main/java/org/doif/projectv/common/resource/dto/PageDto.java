@@ -47,6 +47,8 @@ public class PageDto {
     @ToString
     public static class Child {
         private Long pageId;
+        private String menuName;
+        private List<String> menuList;
         private Map<String, ButtonDto.Result> buttonMap;
         private Map<String, TabDto.Result> tabMap;
         private Map<String, LabelDto.Result> labelMap;

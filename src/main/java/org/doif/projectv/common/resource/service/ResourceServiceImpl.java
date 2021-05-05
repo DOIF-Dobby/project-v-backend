@@ -1,5 +1,6 @@
 package org.doif.projectv.common.resource.service;
 
+import jdk.nashorn.internal.runtime.options.Option;
 import lombok.RequiredArgsConstructor;
 import org.doif.projectv.common.resource.constant.MenuType;
 import org.doif.projectv.common.resource.dto.*;
@@ -64,12 +65,23 @@ public class ResourceServiceImpl implements ResourceService {
      */
     @Cacheable(value = "pageChildResourceCache", key = "#url")
     @Override
-    public PageDto.Child searchPageChildResource(String url) {
+    public PageDto.Child searchPageChildResource(String url, String menuPath) {
         PageDto.Child child = new PageDto.Child();
 
         Optional<Page> optionalPage = pageRepository.findByUrl(url);
         Page page = optionalPage.orElseThrow(() -> new IllegalArgumentException("페이지를 찾을 수 없음"));
 
+        // 메뉴명, 메뉴 경로
+        Optional<Menu> optionalMenu = menuRepository.findByUrl(menuPath);
+        Menu menu = optionalMenu.orElseThrow(() -> new IllegalArgumentException("메뉴를 찾을 수 없음"));
+
+        List<String> menuList = menu.getMenuPath();
+        Collections.reverse(menuList);
+
+        child.setMenuName(menu.getName());
+        child.setMenuList(menuList);
+
+        // 버튼들
         Map<String, ButtonDto.Result> buttonMap = buttonRepository.findAllByPageAndStatus(page, EnableStatus.ENABLE)
                 .stream()
                 .map(button -> new ButtonDto.Result(
@@ -85,6 +97,7 @@ public class ResourceServiceImpl implements ResourceService {
                 ))
                 .collect(Collectors.toMap(ResourceDto.Result::getCode, result -> result));
 
+        // 탭들
         Map<String, TabDto.Result> tabMap = tabRepository.findAllByPageAndStatus(page, EnableStatus.ENABLE)
                 .stream()
                 .map(tab -> new TabDto.Result(
@@ -101,6 +114,7 @@ public class ResourceServiceImpl implements ResourceService {
                 ))
                 .collect(Collectors.toMap(ResourceDto.Result::getCode, result -> result));
 
+        // 라벨들
         Map<String, LabelDto.Result> labelMap = labelRepository.findAllByPageAndStatus(page, EnableStatus.ENABLE)
                 .stream()
                 .map(label -> new LabelDto.Result(

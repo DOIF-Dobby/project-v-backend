@@ -84,11 +84,6 @@ public class MenuServiceImpl implements MenuService {
 
         List<MenuDto.Result> subRowsList2 = ResourceUtil.getSubRowsList(collect);
 
-        for (MenuDto.Result result : subRowsList2) {
-            System.out.println("result = " + result);
-        }
-
-
         return subRowsList2;
     }
 

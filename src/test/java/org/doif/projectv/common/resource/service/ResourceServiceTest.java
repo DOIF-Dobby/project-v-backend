@@ -4,10 +4,7 @@ import org.assertj.core.api.Assertions;
 import org.doif.projectv.common.resource.dto.AuthCheckDto;
 import org.doif.projectv.common.resource.dto.ButtonDto;
 import org.doif.projectv.common.resource.dto.PageDto;
-import org.doif.projectv.common.resource.entity.Button;
-import org.doif.projectv.common.resource.entity.Label;
-import org.doif.projectv.common.resource.entity.Page;
-import org.doif.projectv.common.resource.entity.Tab;
+import org.doif.projectv.common.resource.entity.*;
 import org.doif.projectv.common.role.entity.Role;
 import org.doif.projectv.common.role.entity.RoleResource;
 import org.doif.projectv.common.status.EnableStatus;
@@ -49,6 +46,9 @@ class ResourceServiceTest {
         User user = new User("lim", limPassword, "임진성", UserStatus.VALID);
         Role devRole = new Role("개발자 ROLE", "개발자 Role 입니다.", EnableStatus.ENABLE);
         UserRole userRole1 = new UserRole(user, devRole);
+
+        MenuCategory menuCategory = new MenuCategory("메뉴 카테고리", "메뉴 카테고리", EnableStatus.ENABLE, "MENU_CATEGORY_01", 1, "", null);
+        Menu menu = new Menu("메뉴", "메뉴", EnableStatus.ENABLE, "MENU_01", menuCategory, 1, "/menu", "");
 
         Page page1 = new Page("맥북 관리 페이지", "맥북 오너 임진성", EnableStatus.ENABLE, "MAC_BOOK_OWNER", "/api/pages/macbook");
         Page page2 = new Page("삼전 관리 페이지", "삼전 주식 오너 전혜수", EnableStatus.DISABLE, "SAMSUNG_OWNER", "/api/pages/samsung");
@@ -96,6 +96,9 @@ class ResourceServiceTest {
         RoleResource roleResource17 = new RoleResource(devRole, tab5);
         RoleResource roleResource18 = new RoleResource(devRole, tab6);
 
+
+        em.persist(menuCategory);
+        em.persist(menu);
 
         em.persist(user);
         em.persist(devRole);
@@ -172,10 +175,10 @@ class ResourceServiceTest {
         // given
 
         // when
-        PageDto.Child macbookChild = resourceService.searchPageChildResource("/api/pages/macbook");
+        PageDto.Child macbookChild = resourceService.searchPageChildResource("/api/pages/macbook", "/menu");
         Map<String, ButtonDto.Result> macbookChildButtonMap = macbookChild.getButtonMap();
 
-        PageDto.Child samsungChild = resourceService.searchPageChildResource("/api/pages/samsung");
+        PageDto.Child samsungChild = resourceService.searchPageChildResource("/api/pages/samsung", "/menu");
         Map<String, ButtonDto.Result> samsungChildButtonMap = samsungChild.getButtonMap();
 
         // then
