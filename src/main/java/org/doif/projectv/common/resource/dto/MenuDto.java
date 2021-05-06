@@ -7,6 +7,7 @@ import org.doif.projectv.common.resource.entity.Menu;
 import org.doif.projectv.common.resource.entity.MenuCategory;
 import org.doif.projectv.common.status.EnableStatus;
 
+import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,6 +69,7 @@ public class MenuDto {
     @ToString
     public static class Insert extends ResourceDto.Insert {
         private Long menuCategoryId;
+        @NotEmpty
         private String url;
         private String icon;
         private Integer sort;

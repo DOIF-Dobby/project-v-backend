@@ -3,6 +3,10 @@ package org.doif.projectv.common.resource.dto;
 import lombok.*;
 import org.doif.projectv.common.status.EnableStatus;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 public class ResourceDto {
 
     @Getter
@@ -31,8 +35,10 @@ public class ResourceDto {
     @Setter
     @ToString
     public static class Insert {
+        @NotEmpty
         protected String name;
         protected String description;
+        @NotNull
         protected EnableStatus status;
         protected String code;
     }

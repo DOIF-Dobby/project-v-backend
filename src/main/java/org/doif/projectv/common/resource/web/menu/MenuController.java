@@ -5,8 +5,10 @@ import org.doif.projectv.common.resource.dto.MenuDto;
 import org.doif.projectv.common.resource.service.menu.MenuService;
 import org.doif.projectv.common.response.CommonResponse;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -24,7 +26,7 @@ public class MenuController {
     }
 
     @PostMapping
-    public ResponseEntity<CommonResponse> insert(@RequestBody MenuDto.Insert dto) {
+    public ResponseEntity<CommonResponse> insert(@RequestBody @Valid MenuDto.Insert dto) {
         CommonResponse response = menuService.insert(dto);
         return ResponseEntity.ok(response);
     }
