@@ -11,7 +11,8 @@ public enum ResponseCode implements EnumModel {
     NOT_FOUND("리소스를 찾지 못했습니다."),
     BAD_PARAMETER("요청 파라미터가 잘못되었습니다."),
     UNAUTHORIZED("인증에 실패하였습니다."),
-    SERVER_ERROR("서버 에러입니다.");
+    SERVER_ERROR("서버 에러입니다."),
+    VALIDATION("유효성 검사 실패입니다.");
 
     private final String message;
 

@@ -1,13 +1,19 @@
 package org.doif.projectv.common.exception;
 
 import lombok.extern.slf4j.Slf4j;
+import org.doif.projectv.common.response.CommonResponse;
+import org.doif.projectv.common.response.ResponseCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RestControllerAdvice
@@ -34,9 +40,14 @@ public class CustomExceptionHandler {
 //    }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<Object> handleError(MethodArgumentNotValidException e) {
-        List<ObjectError> allErrors = e.getBindingResult().getAllErrors();
+    public ResponseEntity<CommonResponse> handleValidationError(MethodArgumentNotValidException e) {
+        List<FieldError> fieldErrors = e.getBindingResult().getFieldErrors();
+        Map<String, String> validationMap = new HashMap<>();
 
-        return ResponseEntity.badRequest().body(allErrors);
+        for (FieldError fieldError : fieldErrors) {
+            validationMap.put(fieldError.getField(), fieldError.getDefaultMessage());
+        }
+
+        return ResponseEntity.badRequest().body(new CommonResponse(ResponseCode.VALIDATION, validationMap));
     }
 }

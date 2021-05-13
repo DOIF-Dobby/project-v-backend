@@ -32,7 +32,7 @@ public class MenuController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CommonResponse> update(@PathVariable Long id, @RequestBody MenuDto.Update dto) {
+    public ResponseEntity<CommonResponse> update(@PathVariable Long id, @RequestBody @Valid MenuDto.Update dto) {
         CommonResponse response = menuService.update(id, dto);
         return ResponseEntity.ok(response);
     }

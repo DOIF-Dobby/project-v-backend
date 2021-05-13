@@ -40,6 +40,7 @@ public class ResourceDto {
         protected String description;
         @NotNull
         protected EnableStatus status;
+        @NotEmpty
         protected String code;
     }
 
@@ -47,8 +48,10 @@ public class ResourceDto {
     @Setter
     @ToString
     public static class Update {
+        @NotEmpty
         protected String name;
         protected String description;
+        @NotNull
         protected EnableStatus status;
     }
 
