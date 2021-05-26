@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class IndexController {
 
-    @GetMapping("/")
-    public ResponseEntity<String> index() {
-        return ResponseEntity.ok("Project-V !!");
-    }
+//    @GetMapping("/")
+//    public ResponseEntity<String> index() {
+//        return ResponseEntity.ok("Project-V !!");
+//    }
 
     @GetMapping("/health")
     public ResponseEntity<String> health() {

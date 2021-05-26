@@ -104,3 +104,11 @@ compileQuerydsl {
     options.annotationProcessorPath = configurations.querydsl
 }
 //querydsl 추가 끝
+
+//
+task copyWebApp(type: Copy) {
+    from 'frontend/build'
+    into "build/resources/main/public"
+}
+
+compileJava.dependsOn(copyWebApp)

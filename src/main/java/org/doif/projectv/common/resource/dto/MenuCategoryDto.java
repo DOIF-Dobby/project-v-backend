@@ -3,6 +3,7 @@ package org.doif.projectv.common.resource.dto;
 import lombok.*;
 import org.doif.projectv.common.status.EnableStatus;
 
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +39,7 @@ public class MenuCategoryDto {
     @ToString
     public static class Insert extends ResourceDto.Insert {
         private Long parentId;
+        @NotNull
         private Integer sort;
         private String icon;
     }
@@ -46,6 +48,7 @@ public class MenuCategoryDto {
     @Setter
     @ToString
     public static class Update extends ResourceDto.Update {
+        @NotNull
         private Integer sort;
         private String icon;
     }

@@ -8,6 +8,7 @@ import org.doif.projectv.common.response.CommonResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -25,13 +26,13 @@ public class MenuCategoryController {
     }
 
     @PostMapping
-    public ResponseEntity<CommonResponse> insert(@RequestBody MenuCategoryDto.Insert dto) {
+    public ResponseEntity<CommonResponse> insert(@RequestBody @Valid MenuCategoryDto.Insert dto) {
         CommonResponse response = menuCategoryService.insert(dto);
         return ResponseEntity.ok(response);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CommonResponse> update(@PathVariable Long id, @RequestBody MenuCategoryDto.Update dto) {
+    public ResponseEntity<CommonResponse> update(@PathVariable Long id, @RequestBody @Valid MenuCategoryDto.Update dto) {
         CommonResponse response = menuCategoryService.update(id, dto);
         return ResponseEntity.ok(response);
     }
