@@ -3,6 +3,7 @@ package org.doif.projectv.common.resource.dto;
 import lombok.*;
 import org.doif.projectv.common.status.EnableStatus;
 
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
 import java.util.Map;
 
@@ -32,6 +33,7 @@ public class PageDto {
     @Setter
     @ToString
     public static class Insert extends ResourceDto.Insert {
+        @NotEmpty
         private String url;
     }
 
@@ -39,6 +41,7 @@ public class PageDto {
     @Setter
     @ToString
     public static class Update extends ResourceDto.Update {
+        @NotEmpty
         private String url;
     }
 

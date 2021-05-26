@@ -13,6 +13,7 @@ import org.doif.projectv.common.response.CommonResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -33,13 +34,13 @@ public class PageController {
     }
 
     @PostMapping
-    public ResponseEntity<CommonResponse> insert(@RequestBody PageDto.Insert dto) {
+    public ResponseEntity<CommonResponse> insert(@RequestBody @Valid PageDto.Insert dto) {
         CommonResponse response = pageService.insert(dto);
         return ResponseEntity.ok(response);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CommonResponse> update(@PathVariable Long id, @RequestBody PageDto.Update dto) {
+    public ResponseEntity<CommonResponse> update(@PathVariable Long id, @RequestBody @Valid PageDto.Update dto) {
         CommonResponse response = pageService.update(id, dto);
         return ResponseEntity.ok(response);
     }
