@@ -78,6 +78,11 @@ public class TokenController {
     @PostMapping("/check-login")
     public ResponseEntity<Boolean> checkLogin(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
+
+        if(cookies == null) {
+            return ResponseEntity.ok(false);
+        }
+
         for (Cookie cookie : cookies) {
             if(SecurityConstant.REFRESH_TOKEN.equals(cookie.getName())) {
                 String refreshToken = cookie.getValue();
