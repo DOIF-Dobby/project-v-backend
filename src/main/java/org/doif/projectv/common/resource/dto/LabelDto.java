@@ -3,6 +3,7 @@ package org.doif.projectv.common.resource.dto;
 import lombok.*;
 import org.doif.projectv.common.status.EnableStatus;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 public class LabelDto {
@@ -31,6 +32,7 @@ public class LabelDto {
     @Setter
     @ToString
     public static class Insert extends ResourceDto.Insert {
+        @NotNull
         private Long pageId;
     }
 

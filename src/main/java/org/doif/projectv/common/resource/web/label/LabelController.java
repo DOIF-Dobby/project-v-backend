@@ -7,6 +7,7 @@ import org.doif.projectv.common.response.CommonResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -17,13 +18,13 @@ public class LabelController {
     private final LabelService labelService;
 
     @PostMapping
-    public ResponseEntity<CommonResponse> insert(@RequestBody LabelDto.Insert dto) {
+    public ResponseEntity<CommonResponse> insert(@RequestBody @Valid LabelDto.Insert dto) {
         CommonResponse response = labelService.insert(dto);
         return ResponseEntity.ok(response);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CommonResponse> update(@PathVariable Long id, @RequestBody LabelDto.Update dto) {
+    public ResponseEntity<CommonResponse> update(@PathVariable Long id, @RequestBody @Valid LabelDto.Update dto) {
         CommonResponse response = labelService.update(id, dto);
         return ResponseEntity.ok(response);
     }
