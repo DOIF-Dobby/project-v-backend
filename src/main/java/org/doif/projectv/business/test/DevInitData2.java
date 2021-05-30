@@ -45,17 +45,18 @@ public class DevInitData2 {
 
         @Transactional
         public void init() {
-            Page page = em.find(Page.class, 5L);
+            Page page = em.find(Page.class, 2L);
             Role role = em.find(Role.class, 1L);
 
 
-//            Button button = new Button("조회", "페이지 자원 조회 버튼", EnableStatus.ENABLE, "BTN_RESOURCE_PAGE_FIND_BY_LABEL", "/api/resources/pages", HttpMethod.GET, page, "");
+
+            Button button = new Button("조회", "페이지 자원 조회 버튼", EnableStatus.ENABLE, "BTN_RESOURCE_PAGE_FIND_BY_BUTTON", "/api/resources/pages", HttpMethod.GET, page, "");
 
 //            em.remove(em.find(Resource.class, 29L));
 //            em.remove(em.find(RoleResource.class, 29L));
 //            em.remove(em.find(Button.class, 29L));
-//            em.persist(button);
-//            em.persist(new RoleResource(role, button));
+            em.persist(button);
+            em.persist(new RoleResource(role, button));
         }
     }
 }

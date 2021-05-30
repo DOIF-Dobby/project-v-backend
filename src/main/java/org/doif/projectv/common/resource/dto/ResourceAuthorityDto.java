@@ -5,6 +5,9 @@ import lombok.*;
 import org.doif.projectv.common.status.EnableStatus;
 import org.springframework.http.HttpMethod;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 public class ResourceAuthorityDto {
 
     @Getter
@@ -28,8 +31,11 @@ public class ResourceAuthorityDto {
     @Setter
     @ToString
     public static class Insert extends ResourceDto.Insert {
+        @NotEmpty
         protected String url;
+        @NotNull
         protected HttpMethod httpMethod;
+        @NotNull
         protected Long pageId;
     }
 
@@ -37,7 +43,9 @@ public class ResourceAuthorityDto {
     @Setter
     @ToString
     public static class Update extends ResourceDto.Update {
+        @NotEmpty
         protected String url;
+        @NotNull
         protected HttpMethod httpMethod;
     }
 }
