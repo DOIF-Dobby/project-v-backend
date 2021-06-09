@@ -4,6 +4,7 @@ import lombok.*;
 import org.doif.projectv.common.resource.constant.MessageType;
 import org.doif.projectv.common.status.EnableStatus;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 public class MessageDto {
@@ -34,6 +35,7 @@ public class MessageDto {
     @Setter
     @ToString
     public static class Insert extends ResourceDto.Insert {
+        @NotNull
         private MessageType type;
     }
 
@@ -41,6 +43,7 @@ public class MessageDto {
     @Setter
     @ToString
     public static class Update extends ResourceDto.Update {
+        @NotNull
         private MessageType type;
     }
 }

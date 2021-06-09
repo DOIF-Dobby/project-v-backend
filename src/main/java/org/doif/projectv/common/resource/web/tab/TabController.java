@@ -7,6 +7,7 @@ import org.doif.projectv.common.response.CommonResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -17,13 +18,13 @@ public class TabController {
     private final TabService tabService;
 
     @PostMapping
-    public ResponseEntity<CommonResponse> insert(@RequestBody TabDto.Insert dto) {
+    public ResponseEntity<CommonResponse> insert(@RequestBody @Valid TabDto.Insert dto) {
         CommonResponse response = tabService.insert(dto);
         return ResponseEntity.ok(response);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CommonResponse> update(@PathVariable Long id, @RequestBody TabDto.Update dto) {
+    public ResponseEntity<CommonResponse> update(@PathVariable Long id, @RequestBody @Valid TabDto.Update dto) {
         CommonResponse response = tabService.update(id, dto);
         return ResponseEntity.ok(response);
     }

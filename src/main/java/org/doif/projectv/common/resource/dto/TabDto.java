@@ -4,6 +4,8 @@ import lombok.*;
 import org.doif.projectv.common.status.EnableStatus;
 import org.springframework.http.HttpMethod;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 public class TabDto {
@@ -34,7 +36,9 @@ public class TabDto {
     @Setter
     @ToString
     public static class Insert extends ResourceAuthorityDto.Insert {
+        @NotEmpty
         private String tabGroup;
+        @NotNull
         private Integer sort;
     }
 
@@ -42,7 +46,9 @@ public class TabDto {
     @Setter
     @ToString
     public static class Update extends ResourceAuthorityDto.Update {
+        @NotEmpty
         private String tabGroup;
+        @NotNull
         private Integer sort;
     }
 }

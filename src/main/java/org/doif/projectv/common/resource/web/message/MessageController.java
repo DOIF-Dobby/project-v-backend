@@ -7,6 +7,7 @@ import org.doif.projectv.common.response.CommonResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -24,13 +25,13 @@ public class MessageController {
     }
 
     @PostMapping
-    public ResponseEntity<CommonResponse> insert(@RequestBody MessageDto.Insert dto) {
+    public ResponseEntity<CommonResponse> insert(@RequestBody @Valid MessageDto.Insert dto) {
         CommonResponse response = messageService.insert(dto);
         return ResponseEntity.ok(response);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CommonResponse> update(@PathVariable Long id, @RequestBody MessageDto.Update dto) {
+    public ResponseEntity<CommonResponse> update(@PathVariable Long id, @RequestBody @Valid MessageDto.Update dto) {
         CommonResponse response = messageService.update(id, dto);
         return ResponseEntity.ok(response);
     }
