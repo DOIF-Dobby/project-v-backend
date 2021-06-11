@@ -3,6 +3,8 @@ package org.doif.projectv.common.role.dto;
 import lombok.*;
 import org.doif.projectv.common.status.EnableStatus;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 public class RoleDto {
@@ -41,8 +43,10 @@ public class RoleDto {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Insert {
+        @NotEmpty
         private String name;
         private String description;
+        @NotNull
         private EnableStatus status;
     }
 
@@ -53,8 +57,10 @@ public class RoleDto {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Update {
+        @NotEmpty
         private String name;
         private String description;
+        @NotNull
         private EnableStatus status;
     }
 }

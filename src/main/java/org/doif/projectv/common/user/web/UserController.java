@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -29,13 +30,13 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<CommonResponse> insert(@RequestBody UserDto.Insert dto) {
+    public ResponseEntity<CommonResponse> insert(@RequestBody @Valid UserDto.Insert dto) {
         CommonResponse response = userService.insert(dto);
         return ResponseEntity.ok(response);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CommonResponse> update(@PathVariable String id, @RequestBody UserDto.Update dto) {
+    public ResponseEntity<CommonResponse> update(@PathVariable String id, @RequestBody @Valid UserDto.Update dto) {
         CommonResponse response = userService.update(id, dto);
         return ResponseEntity.ok(response);
     }

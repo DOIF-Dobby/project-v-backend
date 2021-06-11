@@ -7,6 +7,7 @@ import org.doif.projectv.common.role.service.RoleService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -24,13 +25,13 @@ public class RoleController {
     }
 
     @PostMapping
-    public ResponseEntity<CommonResponse> insert(@RequestBody RoleDto.Insert dto) {
+    public ResponseEntity<CommonResponse> insert(@RequestBody @Valid RoleDto.Insert dto) {
         CommonResponse response = roleService.insert(dto);
         return ResponseEntity.ok(response);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CommonResponse> update(@PathVariable Long id, @RequestBody RoleDto.Update dto) {
+    public ResponseEntity<CommonResponse> update(@PathVariable Long id, @RequestBody @Valid RoleDto.Update dto) {
         CommonResponse response = roleService.update(id, dto);
         return ResponseEntity.ok(response);
     }

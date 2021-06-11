@@ -4,6 +4,9 @@ import lombok.*;
 import org.doif.projectv.common.user.constant.UserStatus;
 import org.springframework.data.domain.Page;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 public class UserDto {
 
     @Getter
@@ -52,9 +55,13 @@ public class UserDto {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Insert {
+        @NotEmpty
         private String id;
+        @NotEmpty
         private String name;
+        @NotEmpty
         private String password;
+        @NotNull
         private UserStatus status;
     }
 
@@ -63,7 +70,9 @@ public class UserDto {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Update {
+        @NotEmpty
         private String name;
+        @NotNull
         private UserStatus status;
     }
 }

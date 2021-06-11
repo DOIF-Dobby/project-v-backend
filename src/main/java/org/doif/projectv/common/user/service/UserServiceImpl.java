@@ -11,11 +11,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.encrypt.BytesEncryptor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
@@ -23,6 +25,7 @@ public class UserServiceImpl implements UserService {
     private final BytesEncryptor bytesEncryptor;
 
     @Override
+    @Transactional(readOnly = true)
     public Page<UserDto.Result> selectByCondition(UserDto.Search search, Pageable pageable) {
         return userRepository.selectByCondition(search, pageable)
                 .map(user -> {
