@@ -800,24 +800,6 @@ include::{snippets}/role-resource/select-page/request-parameters.adoc[]
 include::{snippets}/role-resource/select-page/http-response.adoc[]
 include::{snippets}/role-resource/select-page/response-fields-content.adoc[]
 
-[[resources-role-resource-select-button]]
-==== RoleResource 버튼 조회
-===== 요청
-include::{snippets}/role-resource/select-button/http-request.adoc[]
-include::{snippets}/role-resource/select-button/request-parameters.adoc[]
-===== 응답
-include::{snippets}/role-resource/select-button/http-response.adoc[]
-include::{snippets}/role-resource/select-button/response-fields-content.adoc[]
-
-[[resources-role-resource-select-tab]]
-==== RoleResource 탭 조회
-===== 요청
-include::{snippets}/role-resource/select-tab/http-request.adoc[]
-include::{snippets}/role-resource/select-tab/request-parameters.adoc[]
-===== 응답
-include::{snippets}/role-resource/select-tab/http-response.adoc[]
-include::{snippets}/role-resource/select-tab/response-fields-content.adoc[]
-
 [[resources-role-resource-allocate]]
 ==== RoleResource 할당
 ===== 요청

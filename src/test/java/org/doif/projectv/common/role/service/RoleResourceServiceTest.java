@@ -135,89 +135,6 @@ class RoleResourceServiceTest {
     }
 
     @Test
-    public void ROLE_RESOURCE_버튼_조회_서비스_테스트() throws Exception {
-        // given
-        Role devRole = roleRepository.findAll()
-                .stream()
-                .filter(role -> role.getName().equals("개발자 Role"))
-                .findFirst().get();
-
-        Role userRole = roleRepository.findAll()
-                .stream()
-                .filter(role -> role.getName().equals("사용자 Role"))
-                .findFirst().get();
-
-        Page page1 = pageRepository.findAll()
-                .stream()
-                .filter(page -> page.getName().equals("페이지1"))
-                .findFirst().get();
-
-        RoleResourceDto.Search search = new RoleResourceDto.Search();
-        search.setRoleId(userRole.getId());
-        search.setPageId(page1.getId());
-
-        // when
-        List<RoleResourceDto.ResultButton> results1 = roleResourceService.selectButton(search);
-
-        // then
-        assertThat(results1.size()).isEqualTo(3);
-        assertThat(results1).extracting("checked").containsExactly(true, false, false);
-
-        // given
-        search.setRoleId(devRole.getId());
-
-        // when
-        List<RoleResourceDto.ResultButton> results2 = roleResourceService.selectButton(search);
-
-        // then
-        assertThat(results2.size()).isEqualTo(3);
-        assertThat(results2).extracting("checked").containsExactly(true, true, true);
-
-    }
-
-    @Test
-    public void ROLE_RESOURCE_탭_조회_서비스_테스트() throws Exception {
-        // given
-        Role devRole = roleRepository.findAll()
-                .stream()
-                .filter(role -> role.getName().equals("개발자 Role"))
-                .findFirst().get();
-
-        Role userRole = roleRepository.findAll()
-                .stream()
-                .filter(role -> role.getName().equals("사용자 Role"))
-                .findFirst().get();
-
-        Page page1 = pageRepository.findAll()
-                .stream()
-                .filter(page -> page.getName().equals("페이지1"))
-                .findFirst().get();
-
-        RoleResourceDto.Search search = new RoleResourceDto.Search();
-        search.setRoleId(userRole.getId());
-        search.setPageId(page1.getId());
-
-        // when
-        List<RoleResourceDto.ResultTab> results1 = roleResourceService.selectTab(search);
-
-        // then
-        assertThat(results1.size()).isEqualTo(3);
-        assertThat(results1).extracting("checked").containsExactly(true, false, false);
-
-        // given
-        search.setRoleId(devRole.getId());
-
-        // when
-        List<RoleResourceDto.ResultTab> results2 = roleResourceService.selectTab(search);
-
-        // then
-        assertThat(results2.size()).isEqualTo(3);
-        assertThat(results2).extracting("checked").containsExactly(true, true, true);
-
-    }
-
-
-    @Test
     public void ROLE_RESOURCE_할당_서비스_테스트() throws Exception {
         // given
         List<Long> pageIds = new ArrayList<>();
@@ -271,17 +188,11 @@ class RoleResourceServiceTest {
         // when
         CommonResponse response = roleResourceService.allocate(allocate);
         List<RoleResourceDto.ResultPage> resultPages = roleResourceService.selectPage(searchPage);
-        List<RoleResourceDto.ResultButton> resultButtons = roleResourceService.selectButton(search);
-        List<RoleResourceDto.ResultTab> resultTabs = roleResourceService.selectTab(search);
 
         // then
         assertThat(response.getCode()).isEqualTo(ResponseCode.OK.getCode());
         assertThat(resultPages.size()).isEqualTo(3);
         assertThat(resultPages).extracting("checked").containsExactly(true, true, false);
-        assertThat(resultButtons.size()).isEqualTo(3);
-        assertThat(resultButtons).extracting("checked").containsExactly(true, true, false);
-        assertThat(resultTabs.size()).isEqualTo(3);
-        assertThat(resultTabs).extracting("checked").containsExactly(true, true, false);
     }
 
     @Test

@@ -23,20 +23,6 @@ public class RoleResourceController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/buttons")
-    public ResponseEntity<Response<ResultButton>> selectButton(Search search) {
-        List<ResultButton> result = roleResourceService.selectButton(search);
-        Response<ResultButton> response = new Response<>(result);
-        return ResponseEntity.ok(response);
-    }
-
-    @GetMapping("/tabs")
-    public ResponseEntity<Response<ResultTab>> selectTab(Search search) {
-        List<ResultTab> result = roleResourceService.selectTab(search);
-        Response<ResultTab> response = new Response<>(result);
-        return ResponseEntity.ok(response);
-    }
-
     @PostMapping
     public ResponseEntity<CommonResponse> allocate(@RequestBody Allocate dto) {
         CommonResponse response = roleResourceService.allocate(dto);

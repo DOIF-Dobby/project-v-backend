@@ -35,17 +35,15 @@ public class RoleResourceServiceImpl implements RoleResourceService {
 
     @Override
     public List<RoleResourceDto.ResultPage> selectPage(RoleResourceDto.SearchPage search) {
-        return roleResourceRepository.selectPage(search);
-    }
+        List<RoleResourceDto.ResultPage> resultPages = roleResourceRepository.selectPage(search);
+        for (RoleResourceDto.ResultPage resultPage : resultPages) {
+            List<RoleResourceDto.ResultButton> resultButtons = roleResourceRepository.selectButton(new RoleResourceDto.Search(search.getRoleId(), resultPage.getPageId()));
+            List<RoleResourceDto.ResultTab> resultTabs = roleResourceRepository.selectTab(new RoleResourceDto.Search(search.getRoleId(), resultPage.getPageId()));
+            resultPage.setButtons(resultButtons);
+            resultPage.setTabs(resultTabs);
+        }
 
-    @Override
-    public List<RoleResourceDto.ResultButton> selectButton(RoleResourceDto.Search search) {
-        return roleResourceRepository.selectButton(search);
-    }
-
-    @Override
-    public List<RoleResourceDto.ResultTab> selectTab(RoleResourceDto.Search search) {
-        return roleResourceRepository.selectTab(search);
+        return resultPages;
     }
 
     @Transactional

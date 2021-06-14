@@ -10,6 +10,9 @@ import org.springframework.data.repository.query.Param;
 public interface RoleResourceRepository extends JpaRepository<RoleResource, Long>, RoleResourceQueryRepository {
 
     @Modifying(clearAutomatically = true)
-    @Query("delete from RoleResource rr where rr.role.id = :roleId")
+    @Query("delete from RoleResource rr " +
+            "where rr.role.id = :roleId " +
+            "and not exists (select 1 from Menu m where m.id = rr.resource.id) " +
+            "and not exists (select 1 from MenuCategory mc where mc.id = rr.resource.id)")
     void deleteByRoleId(@Param("roleId") Long roleId);
 }

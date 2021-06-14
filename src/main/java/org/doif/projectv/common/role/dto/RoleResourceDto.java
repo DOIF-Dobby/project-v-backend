@@ -5,6 +5,7 @@ import com.querydsl.core.annotations.QueryProjection;
 import lombok.*;
 import org.doif.projectv.common.status.EnableStatus;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RoleResourceDto {
@@ -19,6 +20,8 @@ public class RoleResourceDto {
         private EnableStatus status;
         private String statusName;
         private boolean checked;
+        private List<ResultButton> buttons = new ArrayList<>();
+        private List<ResultTab> tabs = new ArrayList<>();
 
         @QueryProjection
         public ResultPage(Long pageId, String name, EnableStatus status, boolean checked) {
@@ -97,6 +100,8 @@ public class RoleResourceDto {
 
     @Getter
     @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class Search {
         private Long roleId;
         private Long pageId;
