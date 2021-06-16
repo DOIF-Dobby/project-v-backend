@@ -11,4 +11,5 @@ public interface RoleResourceQueryRepository {
     List<RoleResourceDto.ResultButton> selectButton(RoleResourceDto.Search search);
 
     List<RoleResourceDto.ResultTab> selectTab(RoleResourceDto.Search search);
+
 }

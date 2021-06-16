@@ -23,9 +23,22 @@ public class RoleResourceController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/menus")
+    public ResponseEntity<Response<ResultMenu>> selectMenu(SearchMenu search) {
+        List<ResultMenu> result = roleResourceService.selectMenu(search);
+        Response<ResultMenu> response = new Response<>(result);
+        return ResponseEntity.ok(response);
+    }
+
     @PostMapping
     public ResponseEntity<CommonResponse> allocate(@RequestBody Allocate dto) {
         CommonResponse response = roleResourceService.allocate(dto);
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/menus")
+    public ResponseEntity<CommonResponse> allocateMenu(@RequestBody AllocateMenu dto) {
+        CommonResponse response = roleResourceService.allocateMenu(dto);
         return ResponseEntity.ok(response);
     }
 

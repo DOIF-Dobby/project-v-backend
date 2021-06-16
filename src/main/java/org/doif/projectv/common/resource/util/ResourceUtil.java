@@ -2,6 +2,7 @@ package org.doif.projectv.common.resource.util;
 
 import org.doif.projectv.common.enumeration.dto.CodeDto;
 import org.doif.projectv.common.resource.dto.MenuDto;
+import org.doif.projectv.common.role.dto.RoleResourceDto;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -59,6 +60,25 @@ public class ResourceUtil {
                     removeList.add(childDto);
                     parentDto.getSubRows().add(childDto);
                     parentDto.getSubRows().sort(Comparator.comparing(MenuDto.Result::getSort));
+                }
+            }
+        }
+
+        originalList.removeAll(removeList);
+
+        return originalList;
+    }
+
+    public static List<RoleResourceDto.ResultMenu> getRoleResourceMenuSubRowsList(final List<RoleResourceDto.ResultMenu> originalList) {
+        final List<RoleResourceDto.ResultMenu> copyList = new ArrayList<>(originalList);
+        final List<RoleResourceDto.ResultMenu> removeList = new ArrayList<>();
+
+        for (RoleResourceDto.ResultMenu childDto : copyList) {
+            for(RoleResourceDto.ResultMenu parentDto : originalList) {
+                if(childDto.getParentId() != null && childDto.getParentId().equals(parentDto.getMenuId())) {
+                    removeList.add(childDto);
+                    parentDto.getSubRows().add(childDto);
+                    parentDto.getSubRows().sort(Comparator.comparing(RoleResourceDto.ResultMenu::getSort));
                 }
             }
         }

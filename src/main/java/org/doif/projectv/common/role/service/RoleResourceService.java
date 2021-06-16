@@ -8,5 +8,9 @@ import java.util.List;
 public interface RoleResourceService {
     List<RoleResourceDto.ResultPage> selectPage(RoleResourceDto.SearchPage search);
 
+    List<RoleResourceDto.ResultMenu> selectMenu(RoleResourceDto.SearchMenu search);
+
     CommonResponse allocate(RoleResourceDto.Allocate dto);
+
+    CommonResponse allocateMenu(RoleResourceDto.AllocateMenu dto);
 }

@@ -1,20 +1,19 @@
 package org.doif.projectv.common.role.repository;
 
+import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
-import org.doif.projectv.common.resource.entity.QButton;
-import org.doif.projectv.common.resource.entity.QPage;
-import org.doif.projectv.common.resource.entity.QTab;
-import org.doif.projectv.common.role.dto.QRoleResourceDto_ResultButton;
-import org.doif.projectv.common.role.dto.QRoleResourceDto_ResultPage;
-import org.doif.projectv.common.role.dto.QRoleResourceDto_ResultTab;
-import org.doif.projectv.common.role.dto.RoleResourceDto;
+import org.doif.projectv.common.resource.constant.MenuType;
+import org.doif.projectv.common.resource.entity.*;
+import org.doif.projectv.common.role.dto.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 import static org.doif.projectv.common.resource.entity.QButton.*;
+import static org.doif.projectv.common.resource.entity.QMenu.*;
+import static org.doif.projectv.common.resource.entity.QMenuCategory.*;
 import static org.doif.projectv.common.resource.entity.QPage.page;
 import static org.doif.projectv.common.resource.entity.QTab.*;
 import static org.doif.projectv.common.role.entity.QRoleResource.roleResource;
