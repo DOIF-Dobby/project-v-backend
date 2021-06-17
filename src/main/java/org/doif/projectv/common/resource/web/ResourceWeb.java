@@ -5,12 +5,14 @@ import org.doif.projectv.common.resource.dto.MenuDto;
 import org.doif.projectv.common.resource.dto.PageDto;
 import org.doif.projectv.common.resource.service.ResourceService;
 import org.doif.projectv.common.resource.service.menu.MenuService;
+import org.doif.projectv.common.response.CommonResponse;
 import org.doif.projectv.common.security.util.SecurityUtil;
 import org.doif.projectv.common.user.entity.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -36,6 +38,12 @@ public class ResourceWeb {
         PageDto.Child child = resourceService.searchPageChildResource(request.getRequestURI(), menuPath);
 
         return ResponseEntity.ok(child);
+    }
+
+    @PostMapping("/api/cache/refresh/all")
+    public ResponseEntity<CommonResponse> update() {
+        CommonResponse response = resourceService.refreshCacheAll();
+        return ResponseEntity.ok(response);
     }
 
 }

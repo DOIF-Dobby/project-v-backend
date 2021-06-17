@@ -1,6 +1,5 @@
 package org.doif.projectv.common.resource.service;
 
-import jdk.nashorn.internal.runtime.options.Option;
 import lombok.RequiredArgsConstructor;
 import org.doif.projectv.common.resource.constant.MenuType;
 import org.doif.projectv.common.resource.dto.*;
@@ -11,12 +10,15 @@ import org.doif.projectv.common.resource.repository.ResourceRepository;
 import org.doif.projectv.common.resource.repository.button.ButtonRepository;
 import org.doif.projectv.common.resource.repository.label.LabelRepository;
 import org.doif.projectv.common.resource.repository.menu.MenuRepository;
-import org.doif.projectv.common.resource.repository.menucategory.MenuCategoryRepository;
 import org.doif.projectv.common.resource.repository.page.PageRepository;
 import org.doif.projectv.common.resource.repository.tab.TabRepository;
 import org.doif.projectv.common.resource.util.ResourceUtil;
+import org.doif.projectv.common.response.CommonResponse;
+import org.doif.projectv.common.response.ResponseUtil;
 import org.doif.projectv.common.status.EnableStatus;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,7 +36,6 @@ public class ResourceServiceImpl implements ResourceService {
     private final TabRepository tabRepository;
     private final LabelRepository labelRepository;
     private final MenuRepository menuRepository;
-    private final MenuCategoryRepository menuCategoryRepository;
 
     /**
      * ResourceAuthority 하위의 Resource들을 userId 별로 캐싱해두고 다음 권한 검사할 때는 캐싱된 것으로 비교한다.
@@ -137,7 +138,7 @@ public class ResourceServiceImpl implements ResourceService {
     }
 
     /**
-     * 특정 페이지의 자식들을 캐싱해두고 같은 페이지 요청 시 캐싱된 것을 반환 한다.
+     * 어플리케이션 메뉴를 요청할 때 userId 별로 캐싱해두고 반환한다.
      * @param userId
      * @return
      */
@@ -197,6 +198,21 @@ public class ResourceServiceImpl implements ResourceService {
                 .sorted(Comparator.comparing(MenuDto.Result::getPath))
                 .collect(Collectors.toList());
         return ResourceUtil.getHierarchicalList(sideMenu);
+    }
+
+    /**
+     * 모든 캐시를 삭제한다.
+     * @return
+     */
+    @Caching(evict = {
+            @CacheEvict(value = "authorityResourceCache", allEntries = true),
+            @CacheEvict(value = "pageResourceCache", allEntries = true),
+            @CacheEvict(value = "pageChildResourceCache", allEntries = true),
+            @CacheEvict(value = "selectSideMenuCache", allEntries = true),
+    })
+    @Override
+    public CommonResponse refreshCacheAll() {
+        return ResponseUtil.ok();
     }
 
 }
