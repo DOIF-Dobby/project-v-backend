@@ -3,6 +3,8 @@ package org.doif.projectv.common.system.dto;
 import lombok.*;
 import org.doif.projectv.common.system.constant.PropertyGroupType;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 public class SystemPropertyDto {
@@ -48,18 +50,24 @@ public class SystemPropertyDto {
     @Getter
     @Setter
     public static class Insert {
+        @NotNull
         private PropertyGroupType propertyGroup;
+        @NotEmpty
         private String property;
+        @NotEmpty
         private String value;
         private String description;
+        @NotNull
         private boolean updatable;
     }
 
     @Getter
     @Setter
     public static class Update {
+        @NotEmpty
         private String value;
         private String description;
+        @NotNull
         private boolean updatable;
     }
 }

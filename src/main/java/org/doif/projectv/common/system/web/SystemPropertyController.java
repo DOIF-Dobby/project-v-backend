@@ -7,6 +7,7 @@ import org.doif.projectv.common.system.service.SystemPropertyService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -24,13 +25,13 @@ public class SystemPropertyController {
     }
 
     @PostMapping
-    public ResponseEntity<CommonResponse> insert(@RequestBody SystemPropertyDto.Insert dto) {
+    public ResponseEntity<CommonResponse> insert(@RequestBody @Valid SystemPropertyDto.Insert dto) {
         CommonResponse response = systemPropertyService.insert(dto);
         return ResponseEntity.ok(response);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CommonResponse> update(@PathVariable Long id, @RequestBody SystemPropertyDto.Update dto) {
+    public ResponseEntity<CommonResponse> update(@PathVariable Long id, @RequestBody @Valid SystemPropertyDto.Update dto) {
         CommonResponse response = systemPropertyService.update(id, dto);
         return ResponseEntity.ok(response);
     }
