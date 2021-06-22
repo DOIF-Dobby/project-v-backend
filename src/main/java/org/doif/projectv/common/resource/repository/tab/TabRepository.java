@@ -14,7 +14,7 @@ public interface TabRepository extends JpaRepository<Tab, Long> {
     List<Tab> findAllByPage(Page page);
 
     @Query(
-            "select t " +
+            "select distinct t " +
             "from Tab t " +
             "join RoleResource rr on t.id = rr.resource.id " +
             "where t.page = :page " +

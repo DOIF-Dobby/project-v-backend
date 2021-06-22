@@ -34,8 +34,8 @@ public interface RoleResourceRepository extends JpaRepository<RoleResource, Long
 
     @Modifying(clearAutomatically = true)
     @Query("delete from RoleResource rr " +
-            "where rr.role.id = :roleId " +
-            "and exists (select 1 from Menu m where m.id = rr.resource.id) " +
-            "or exists (select 1 from MenuCategory mc where mc.id = rr.resource.id)")
+            "where  " +
+            "exists (select 1 from Menu m where m.id = rr.resource.id and rr.role.id = :roleId) " +
+            "or exists (select 1 from MenuCategory mc where mc.id = rr.resource.id and rr.role.id = :roleId)")
     void deleteMenuByRoleId(@Param("roleId") Long id);
 }

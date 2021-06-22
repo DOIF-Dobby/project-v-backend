@@ -34,7 +34,7 @@ public class ResourceRepositoryImpl implements ResourceQueryRepository {
                         resourceAuthority.url,
                         resourceAuthority.httpMethod,
                         resourceAuthority.page.id
-                ))
+                )).distinct()
                 .from(resourceAuthority)
                 .join(resourceAuthority.roleResources, roleResource)
                 .join(roleResource.role, role)
@@ -54,7 +54,7 @@ public class ResourceRepositoryImpl implements ResourceQueryRepository {
         return queryFactory
                 .select(new QAuthCheckDto_ResourcePageCheck(
                         page.url
-                ))
+                )).distinct()
                 .from(page)
                 .join(page.roleResources, roleResource)
                 .join(roleResource.role, role)
@@ -72,7 +72,7 @@ public class ResourceRepositoryImpl implements ResourceQueryRepository {
     @Override
     public List<MenuCategory> findAllMenuCategoryByValidResource(String userId) {
         return queryFactory
-                .select(menuCategory)
+                .select(menuCategory).distinct()
                 .from(menuCategory)
                 .join(menuCategory.roleResources, roleResource)
                 .join(roleResource.role, role)
@@ -90,7 +90,7 @@ public class ResourceRepositoryImpl implements ResourceQueryRepository {
     @Override
     public List<Menu> findAllMenuByValidResource(String userId) {
         return queryFactory
-                .select(menu)
+                .select(menu).distinct()
                 .from(menu)
                 .join(menu.roleResources, roleResource)
                 .join(roleResource.role, role)

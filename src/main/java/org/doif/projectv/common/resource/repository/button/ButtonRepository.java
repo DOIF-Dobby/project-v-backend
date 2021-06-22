@@ -14,7 +14,7 @@ public interface ButtonRepository extends JpaRepository<Button, Long> {
     List<Button> findAllByPage(Page page);
 
     @Query(
-            "select b " +
+            "select distinct b " +
             "from Button b " +
             "join RoleResource rr on b.id = rr.resource.id " +
             "where b.page = :page " +
