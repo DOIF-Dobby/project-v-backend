@@ -207,6 +207,7 @@ create or replace table user
     password           varchar(255) not null comment '사용자 PW',
     name               varchar(50)  not null comment '사용자 이름',
     status             varchar(20)  not null comment '사용자 상태',
+    profile_picture    varchar(255) null comment '프로필 사진',
     created_by         varchar(255) null comment '등록자',
     created_date       datetime(6)  null comment '등록일시',
     last_modified_by   varchar(255) null comment '수정자',

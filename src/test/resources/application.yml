@@ -45,3 +45,12 @@ spring:
 #
 #vcs:
 #  tempDir: C:\Users\MJ\dev\temp
+
+cloud:
+  aws:
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
+    credentials:
+      instance-profile: true

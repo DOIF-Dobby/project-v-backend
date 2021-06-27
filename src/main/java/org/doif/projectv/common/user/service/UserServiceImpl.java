@@ -14,6 +14,7 @@ import org.springframework.security.crypto.encrypt.BytesEncryptor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Optional;
@@ -68,7 +69,9 @@ public class UserServiceImpl implements UserService {
     public CommonResponse delete(String id) {
         Optional<User> optionalUser = userRepository.findById(id);
         User user = optionalUser.orElseThrow(() -> new IllegalArgumentException("유저를 찾을 수 없음"));
-        fileUploadService.deleteImage(user.getProfilePicture());
+        if(StringUtils.hasText(user.getProfilePicture())) {
+            fileUploadService.deleteImage(user.getProfilePicture());
+        }
         userRepository.delete(user);
 
         return ResponseUtil.ok();

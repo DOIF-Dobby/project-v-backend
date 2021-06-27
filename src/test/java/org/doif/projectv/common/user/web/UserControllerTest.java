@@ -49,7 +49,7 @@ class UserControllerTest extends ApiDocumentTest {
         search.setId("kjpmj");
         search.setStatus(UserStatus.VALID);
 
-        UserDto.Result content = new UserDto.Result("kjpmj", "김씨", UserStatus.VALID, "/imag");
+        UserDto.Result content = new UserDto.Result("kjpmj", "김씨", UserStatus.VALID, "/test-image.png");
         List<UserDto.Result> results = Arrays.asList(content);
         PageRequest pageRequest = PageRequest.of(0, 100);
         Page<UserDto.Result> pages = new PageImpl<>(results, pageRequest, 100);
@@ -84,7 +84,8 @@ class UserControllerTest extends ApiDocumentTest {
                                 fieldWithPath("id").type(STRING).description("작업 ID"),
                                 fieldWithPath("name").type(STRING).description("버전명"),
                                 fieldWithPath("status").type(STRING).description(generateLinkCode(CodeEnum.USER_STATUS)),
-                                fieldWithPath("statusName").type(STRING).description(generateText(CodeEnum.USER_STATUS))
+                                fieldWithPath("statusName").type(STRING).description(generateText(CodeEnum.USER_STATUS)),
+                                fieldWithPath("profilePicture").type(STRING).description("프로필 사진")
                         )
                 ));
     }
