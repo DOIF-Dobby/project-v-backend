@@ -1,6 +1,8 @@
 package org.doif.projectv.common.user.service;
 
 import lombok.RequiredArgsConstructor;
+import org.doif.projectv.common.external.s3.S3Service;
+import org.doif.projectv.common.file.FileUploadService;
 import org.doif.projectv.common.response.CommonResponse;
 import org.doif.projectv.common.response.ResponseUtil;
 import org.doif.projectv.common.user.dto.UserDto;
@@ -12,6 +14,7 @@ import org.springframework.security.crypto.encrypt.BytesEncryptor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Optional;
 
@@ -22,7 +25,7 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-    private final BytesEncryptor bytesEncryptor;
+    private final FileUploadService fileUploadService;
 
     @Override
     @Transactional(readOnly = true)
@@ -32,7 +35,7 @@ public class UserServiceImpl implements UserService {
 //                    String decryptSvnId = new String( bytesEncryptor.decrypt(user.getSvnId().getBytes()) );
 //                    String decryptSvnPassword = new String( bytesEncryptor.decrypt(user.getSvnPassword().getBytes()) );
 
-                    return new UserDto.Result(user.getId(), user.getName(), user.getStatus());
+                    return new UserDto.Result(user.getId(), user.getName(), user.getStatus(), user.getProfilePicture());
                 });
     }
 
@@ -65,8 +68,38 @@ public class UserServiceImpl implements UserService {
     public CommonResponse delete(String id) {
         Optional<User> optionalUser = userRepository.findById(id);
         User user = optionalUser.orElseThrow(() -> new IllegalArgumentException("유저를 찾을 수 없음"));
+        fileUploadService.deleteImage(user.getProfilePicture());
         userRepository.delete(user);
 
         return ResponseUtil.ok();
+    }
+
+    @Override
+    public CommonResponse registerProfilePicture(String id, MultipartFile file) {
+        Optional<User> optionalUser = userRepository.findById(id);
+        User user = optionalUser.orElseThrow(() -> new IllegalArgumentException("유저를 찾을 수 없음"));
+        String profilePicture = file != null && !file.isEmpty() ? fileUploadService.uploadImage(file, "profile-picture-" + user.getId()) : "";
+
+        user.registerProfilePicture(profilePicture);
+
+        return ResponseUtil.ok();
+    }
+
+    @Override
+    public CommonResponse deleteProfilePicture(String id) {
+        Optional<User> optionalUser = userRepository.findById(id);
+        User user = optionalUser.orElseThrow(() -> new IllegalArgumentException("유저를 찾을 수 없음"));
+        fileUploadService.deleteImage(user.getProfilePicture());
+
+        user.deleteProfilePicture();
+
+        return ResponseUtil.ok();
+    }
+
+    @Override
+    public UserDto.Result selectUserById(String id) {
+        Optional<User> optionalUser = userRepository.findById(id);
+        User user = optionalUser.orElseThrow(() -> new IllegalArgumentException("유저를 찾을 수 없음"));
+        return new UserDto.Result(user.getId(), user.getName(), user.getStatus(), user.getProfilePicture());
     }
 }

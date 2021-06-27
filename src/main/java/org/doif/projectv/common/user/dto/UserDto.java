@@ -18,12 +18,14 @@ public class UserDto {
         private String name;
         private UserStatus status;
         private String statusName;
+        private String profilePicture;
 
-        public Result(String id, String name, UserStatus status) {
+        public Result(String id, String name, UserStatus status, String profilePicture) {
             this.id = id;
             this.name = name;
             this.status = status;
             this.statusName = status.getMessage();
+            this.profilePicture= profilePicture;
         }
     }
 

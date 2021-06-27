@@ -35,3 +35,4 @@ out/
 
 ### My Add ###
 src/main/resources/encrypt.properties
+src/main/resources/application-aws.yml

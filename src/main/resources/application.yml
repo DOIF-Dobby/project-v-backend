@@ -48,7 +48,10 @@ jasypt:
 ###########################################################################
 ---
 spring:
-  profiles: dev
+  profiles:
+    include:
+      - dev
+      - aws
 
   datasource:
     hikari:
@@ -71,7 +74,17 @@ spring:
 
 logging.level:
   org.hibernate.SQL: info
+  com.amazonaws.util.EC2MetadataUtils: error
 
 jasypt:
   encryptor:
     bean: jasyptStringEncryptor
+
+cloud:
+  aws:
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
+    credentials:
+      instance-profile: true

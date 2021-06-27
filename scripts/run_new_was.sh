@@ -22,7 +22,7 @@ fi
 
 sleep 5
 
-nohup java -jar -Dspring.profiles.active=dev -Dserver.port=${TARGET_PORT} -Dspring.config.location=file:/home/ec2-user/config/projectv/application.yml /home/ec2-user/projectv/build/libs/*.jar > /home/ec2-user/nohup.out 2>&1 &
+nohup java -jar -Dcom.amazonaws.sdk.disableEc2Metadata=true -Dspring.profiles.active=dev -Dserver.port=${TARGET_PORT} -Dspring.config.location=file:/home/ec2-user/config/projectv/application.yml /home/ec2-user/projectv/build/libs/*.jar > /home/ec2-user/nohup.out 2>&1 &
 
 
 

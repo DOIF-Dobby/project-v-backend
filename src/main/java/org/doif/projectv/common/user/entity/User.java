@@ -30,6 +30,9 @@ public class User extends BaseEntity implements Persistable<String> {
     @Enumerated(EnumType.STRING)
     private UserStatus status;
 
+    @Column(name = "profile_picture")
+    private String profilePicture;
+
     @OneToMany(mappedBy = "user")
     private List<UserRole> userRoles = new ArrayList<>();
 
@@ -52,5 +55,13 @@ public class User extends BaseEntity implements Persistable<String> {
     public void changeUser(String name, UserStatus status) {
         this.name = name;
         this.status = status;
+    }
+
+    public void registerProfilePicture(String profilePicture) {
+        this.profilePicture = profilePicture;
+    }
+
+    public void deleteProfilePicture() {
+        this.profilePicture = null;
     }
 }

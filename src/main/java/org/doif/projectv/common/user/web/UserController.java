@@ -2,17 +2,22 @@ package org.doif.projectv.common.user.web;
 
 import lombok.RequiredArgsConstructor;
 import org.doif.projectv.common.response.CommonResponse;
+import org.doif.projectv.common.security.util.SecurityUtil;
 import org.doif.projectv.common.user.dto.UserDto;
 import org.doif.projectv.common.user.dto.UserRoleDto;
+import org.doif.projectv.common.user.entity.User;
 import org.doif.projectv.common.user.service.UserRoleService;
 import org.doif.projectv.common.user.service.UserService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/users")
@@ -52,6 +57,27 @@ public class UserController {
         List<UserRoleDto.ResultRole> result = userRoleService.selectRole(id);
         UserRoleDto.Response response = new UserRoleDto.Response(result);
         return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("/{id}/profile-picture")
+    public ResponseEntity<CommonResponse> registerProfilePicture(@PathVariable String id, @RequestPart MultipartFile file) {
+        CommonResponse response = userService.registerProfilePicture(id, file);
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/{id}/profile-picture")
+    public ResponseEntity<CommonResponse> deleteProfilePicture(@PathVariable String id) {
+        CommonResponse response = userService.deleteProfilePicture(id);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/login-user")
+    public ResponseEntity<UserDto.Result> selectSideMenu() {
+        Optional<User> userByContext = SecurityUtil.getUserByContext();
+        User user = userByContext.orElseThrow(() -> new IllegalArgumentException("유저를 찾을 수 없음"));
+        UserDto.Result result = userService.selectUserById(user.getId());
+
+        return ResponseEntity.ok(result);
     }
 
 }

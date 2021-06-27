@@ -49,7 +49,7 @@ class UserControllerTest extends ApiDocumentTest {
         search.setId("kjpmj");
         search.setStatus(UserStatus.VALID);
 
-        UserDto.Result content = new UserDto.Result("kjpmj", "김씨", UserStatus.VALID);
+        UserDto.Result content = new UserDto.Result("kjpmj", "김씨", UserStatus.VALID, "/imag");
         List<UserDto.Result> results = Arrays.asList(content);
         PageRequest pageRequest = PageRequest.of(0, 100);
         Page<UserDto.Result> pages = new PageImpl<>(results, pageRequest, 100);
