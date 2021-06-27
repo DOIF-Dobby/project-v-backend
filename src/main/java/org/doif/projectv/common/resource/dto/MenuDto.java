@@ -88,4 +88,14 @@ public class MenuDto {
         @NotNull
         private Integer sort;
     }
+
+    @Getter
+    @Setter
+    @ToString
+    public static class AccessibleMenu {
+        private String code;
+        private String name;
+        private String menuPath;
+        private String url;
+    }
 }

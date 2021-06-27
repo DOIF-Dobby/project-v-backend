@@ -13,6 +13,7 @@ import org.doif.projectv.common.response.ResponseUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -113,5 +114,25 @@ public class MenuServiceImpl implements MenuService {
         menuRepository.delete(menu);
 
         return ResponseUtil.ok();
+    }
+
+    @Override
+    public List<MenuDto.AccessibleMenu> selectAccessibleMenu(String id, String search) {
+        List<Menu> accessibleMenus = menuRepository.findAccessibleMenuByUserId(id, search);
+
+        return accessibleMenus.stream()
+                .map(menu -> {
+                    MenuDto.AccessibleMenu accessibleMenu = new MenuDto.AccessibleMenu();
+                    accessibleMenu.setCode(menu.getCode());
+                    accessibleMenu.setName(menu.getName());
+                    accessibleMenu.setUrl(menu.getUrl());
+                    List<String> menuPath = menu.getMenuPath();
+                    Collections.reverse(menuPath);
+
+                    accessibleMenu.setMenuPath(String.join(" > ", menuPath));
+
+                    return accessibleMenu;
+                })
+                .collect(Collectors.toList());
     }
 }

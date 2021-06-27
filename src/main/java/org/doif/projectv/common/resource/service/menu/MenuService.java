@@ -13,4 +13,6 @@ public interface MenuService {
     CommonResponse update(Long id, MenuDto.Update dto);
 
     CommonResponse delete(Long id);
+
+    List<MenuDto.AccessibleMenu> selectAccessibleMenu(String id, String search);
 }

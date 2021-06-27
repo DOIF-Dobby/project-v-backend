@@ -23,6 +23,7 @@ import java.util.Optional;
 public class ResourceWeb {
 
     private final ResourceService resourceService;
+    private final MenuService menuService;
 
     @GetMapping("/api/side-menu")
     public ResponseEntity<MenuDto.Response> selectSideMenu() {
@@ -32,6 +33,15 @@ public class ResourceWeb {
 
         MenuDto.Response response = new MenuDto.Response(result);
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/api/accessible-menu")
+    public ResponseEntity<List<MenuDto.AccessibleMenu>> selectAccessibleMenu(@RequestParam("search") String search) {
+        Optional<User> userByContext = SecurityUtil.getUserByContext();
+        User user = userByContext.orElseThrow(() -> new IllegalArgumentException("유저를 찾을 수 없음"));
+        List<MenuDto.AccessibleMenu> result = menuService.selectAccessibleMenu(user.getId(), search);
+
+        return ResponseEntity.ok(result);
     }
 
     @GetMapping("/api/pages/**")

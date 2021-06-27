@@ -56,6 +56,11 @@ public class AuthorizationChecker {
             return httpMethod.equals(HttpMethod.GET.name());
         }
 
+        // '/api/accessible-menu' 로 시작하면 GET 메서드인지만 체크 한다.
+        if(requestURI.startsWith("/api/accessible-menu")) {
+            return httpMethod.equals(HttpMethod.GET.name());
+        }
+
         // '/api/codes' 로 시작하면 GET 메서드인지만 체크 한다.
         if(requestURI.startsWith("/api/codes")) {
             return httpMethod.equals(HttpMethod.GET.name());
