@@ -60,9 +60,9 @@ public class CustomAuthenticationSuccessHandler extends SavedRequestAwareAuthent
         log.info("[:: Login success user: {} ::]", user.getId());
         log.info("[:: Login success time: {} ::]", LocalDateTime.now());
 
-        String jwtToken = jwtTokenService.generateJwtToken(user.getId());
+        String refreshToken = jwtTokenService.generateJwtToken(user.getId(), SecurityConstant.REFRESH_TOKEN_MAX_AGE);
         Base64.Encoder encoder = Base64.getEncoder();
-        byte[] encodedJwtToken = encoder.encode(jwtToken.getBytes());
+        byte[] encodedJwtToken = encoder.encode(refreshToken.getBytes());
         Cookie cookie = new Cookie(SecurityConstant.REFRESH_TOKEN, new String(encodedJwtToken));
         cookie.setHttpOnly(true);
         cookie.setMaxAge(SecurityConstant.REFRESH_TOKEN_MAX_AGE);

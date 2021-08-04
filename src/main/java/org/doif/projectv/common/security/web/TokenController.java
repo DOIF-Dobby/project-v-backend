@@ -55,12 +55,12 @@ public class TokenController {
 
                 if(isValid) {
                     String username = jwtTokenService.getUsername(jwtToken);
-                    response.setHeader(SecurityConstant.AUTH_KEY, jwtTokenService.generateJwtToken(username));
+                    response.setHeader(SecurityConstant.AUTH_KEY, jwtTokenService.generateJwtToken(username, 10));
                     return ResponseEntity.ok(ResponseUtil.ok());
                 } else {
                     return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ResponseUtil.unAuthorized());
                 }
-            };
+            }
         }
 //        String token = (String) request.getAttribute(jwtTokenService.getAuthKey());
 //        Map<String, String> map = new HashMap<>();

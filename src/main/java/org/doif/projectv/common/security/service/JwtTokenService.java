@@ -30,19 +30,23 @@ public class JwtTokenService {
     private String key;
 
     // 토큰 유효시간 30분
-    private static final long tokenValidTime = 30 * 60 * 1000L;
+    private static final long defaultTokenValidTime = 30 * 60;
 
-    public String generateJwtToken(String username) {
+    public String generateJwtToken(String username, long tokenValidTime) {
         Date now = new Date();
 
         String compact = Jwts.builder()
                 .setHeader(createHeader())
                 .setClaims(createClaims(username))                              // 정보 저장
                 .setIssuedAt(now)                                           // 발행일
-                .setExpiration(new Date(now.getTime() + tokenValidTime))    // 만료일
+                .setExpiration(new Date(now.getTime() + tokenValidTime * 1000L))    // 만료일
                 .signWith(SignatureAlgorithm.HS256, createSigningKey())
                 .compact();
         return "Bearer " + compact;
+    }
+
+    public String generateJwtToken(String username) {
+        return generateJwtToken(username, defaultTokenValidTime);
     }
 
     private Map<String, Object> createClaims(String username) {
